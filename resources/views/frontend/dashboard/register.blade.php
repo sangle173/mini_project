@@ -1,8 +1,5 @@
 @extends('frontend.master')
 @section('home')
-@section('title')
-Register Page | Easy Learning
-@endsection
 
 <!-- ================================
     START BREADCRUMB AREA

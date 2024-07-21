@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Models\Course;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
- 
+
 class AdminController extends Controller
 {
     public function AdminDashboard(){
 
         return view('admin.index');
 
-    } // End Method 
+    } // End Method
 
     public function AdminLogout(Request $request) {
         Auth::guard('web')->logout();
@@ -25,17 +24,12 @@ class AdminController extends Controller
 
         $request->session()->regenerateToken();
 
-        $notification = array(
-            'message' => 'Logout Successfully',
-            'alert-type' => 'info'
-        );
- 
-        return redirect('/admin/login')->with($notification);
-    } // End Method 
+        return redirect('/admin/login');
+    } // End Method
 
     public function AdminLogin(){
         return view('admin.admin_login');
-    } // End Method 
+    } // End Method
 
 
     public function AdminProfile(){
@@ -61,7 +55,7 @@ class AdminController extends Controller
            @unlink(public_path('upload/admin_images/'.$data->photo));
            $filename = date('YmdHi').$file->getClientOriginalName();
            $file->move(public_path('upload/admin_images'),$filename);
-           $data['photo'] = $filename; 
+           $data['photo'] = $filename;
         }
 
         $data->save();
@@ -71,7 +65,7 @@ class AdminController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
-        
+
     }// End Method
 
     public function AdminChangePassword(){
@@ -82,25 +76,25 @@ class AdminController extends Controller
 
     }// End Method
 
- 
+
     public function AdminPasswordUpdate(Request $request){
 
-        /// Validation 
+        /// Validation
         $request->validate([
             'old_password' => 'required',
             'new_password' => 'required|confirmed'
         ]);
 
         if (!Hash::check($request->old_password, auth::user()->password)) {
-            
+
             $notification = array(
                 'message' => 'Old Password Does not Match!',
                 'alert-type' => 'error'
             );
             return back()->with($notification);
-        } 
+        }
 
-        /// Update The new Password 
+        /// Update The new Password
         User::whereId(auth::user()->id)->update([
             'password' => Hash::make($request->new_password)
         ]);
@@ -109,14 +103,14 @@ class AdminController extends Controller
             'message' => 'Password Change Successfully',
             'alert-type' => 'success'
         );
-        return back()->with($notification); 
+        return back()->with($notification);
 
     }// End Method
 
 
     public function BecomeInstructor(){
 
-        return view('frontend.instructor.reg_instructor');
+        return view('frontend.users.reg_instructor');
 
     }// End Method
 
@@ -134,7 +128,7 @@ class AdminController extends Controller
             'phone' => $request->phone,
             'address' => $request->address,
             'password' =>  Hash::make($request->password),
-            'role' => 'instructor',
+            'role' => 'users',
             'status' => '0',
         ]);
 
@@ -142,17 +136,17 @@ class AdminController extends Controller
             'message' => 'Instructor Registed Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('instructor.login')->with($notification); 
+        return redirect()->route('users.login')->with($notification);
 
     }// End Method
 
 
-    public function AllInstructor(){
+    public function AllUser(){
 
-        $allinstructor = User::where('role','instructor')->latest()->get();
-        return view('admin.backend.instructor.all_instructor',compact('allinstructor'));
+        $allusers = User::latest()->get();
+        return view('admin.backend.users.all_user',compact('allusers'));
     }// End Method
- 
+
     public function UpdateUserStatus(Request $request){
 
         $userId = $request->input('user_id');
@@ -169,127 +163,35 @@ class AdminController extends Controller
     }// End Method
 
 
-    public function AdminAllCourse(){
-
-        $course = Course::latest()->get();
-        return view('admin.backend.courses.all_course',compact('course'));
-
+    public function AddUser(){
+        return view('admin.backend.users.add_user');
     }// End Method
 
+    public function SaveUser(Request $request){
+//        dd($request);
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'role' => 'required',
+        ]);
 
-    public function UpdateCourseStatus(Request $request){
-
-        $courseId = $request->input('course_id');
-        $isChecked = $request->input('is_checked',0);
-
-        $course = Course::find($courseId);
-        if ($course) {
-            $course->status = $isChecked;
-            $course->save();
-        }
-
-        return response()->json(['message' => 'Course Status Updated Successfully']);
-
-    }// End Method
-
-    public function AdminCourseDetails($id){
-
-        $course = Course::find($id);
-        return view('admin.backend.courses.course_details',compact('course'));
-
-    }// End Method
-
-    /// Admin User All Method ////////////
-
-    public function AllAdmin(){
-
-        $alladmin = User::where('role','admin')->get();
-        return view('admin.backend.pages.admin.all_admin',compact('alladmin'));
-
-    }// End Method
-
-    public function AddAdmin(){
-
-        $roles = Role::all();
-        return view('admin.backend.pages.admin.add_admin',compact('roles'));
-
-    }// End Method
-
-    public function StoreAdmin(Request $request){
-
-        $user = new User();
-        $user->username = $request->username;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->address = $request->address;
-        $user->password = Hash::make($request->password);
-        $user->role = 'admin';
-        $user->status = '1';
-        $user->save();
-
-        if ($request->roles) {
-            $user->assignRole($request->roles);
-        }
-
+        $user_id = User::insertGetId([
+            'name' => $request -> name,
+            'username' => $request-> email,
+            'email' => $request-> email,
+            'password' => Hash::make($request->password),
+            'role' => $request-> role,
+            'phone' => $request-> phone,
+            'title' => $request-> title,
+            'address' => $request-> address,
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
         $notification = array(
-            'message' => 'New Admin Inserted Successfully',
+            'message' => 'Create New User Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('all.admin')->with($notification); 
+        return redirect()->route('admin.all.users')->with($notification);
 
     }// End Method
-
-
-    public function EditAdmin($id){
-
-        $user = User::find($id);
-        $roles = Role::all();
-        return view('admin.backend.pages.admin.edit_admin',compact('user','roles'));
-
-    }// End Method
-
-    public function UpdateAdmin(Request $request,$id){
-
-        $user = User::find($id);
-        $user->username = $request->username;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->address = $request->address; 
-        $user->role = 'admin';
-        $user->status = '1';
-        $user->save();
-
-        $user->roles()->detach();
-        if ($request->roles) {
-            $user->assignRole($request->roles);
-        }
-
-        $notification = array(
-            'message' => 'Admin Updated Successfully',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('all.admin')->with($notification); 
-
-    }// End Method
-
-    public function DeleteAdmin($id){
-
-        $user = User::find($id);
-        if (!is_null($user)) {
-            $user->delete();
-        }
-
-        $notification = array(
-            'message' => 'Admin Deleted Successfully',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification); 
-
-    }// End Method
-    
-
-
 }
- 

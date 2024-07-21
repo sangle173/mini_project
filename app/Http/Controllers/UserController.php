@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
-{ 
+{
     public function Index(){
         return view('frontend.index');
     } // End Method 
@@ -55,12 +55,7 @@ class UserController extends Controller
 
         $request->session()->regenerateToken();
 
-        $notification = array(
-            'message' => 'Logout Successfully',
-            'alert-type' => 'info'
-        );
-
-        return redirect('/login')->with($notification);
+        return redirect('/login');
     } // End Method 
 
 
@@ -98,12 +93,6 @@ class UserController extends Controller
         return back()->with($notification); 
 
     }// End Method
-
-
-    public function LiveChat(){ 
-        return view('frontend.dashboard.live_chat'); 
-    } // End Method 
-
 
 
 }

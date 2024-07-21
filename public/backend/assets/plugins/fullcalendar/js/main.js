@@ -6823,7 +6823,7 @@ var FullCalendar = (function (exports) {
         var endMarker = framingRange.end;
         var instanceStarts = [];
         while (dayMarker < endMarker) {
-            var instanceStart 
+            var instanceStart
             // if everyday, or this particular day-of-week
             = void 0;
             // if everyday, or this particular day-of-week
@@ -11392,7 +11392,7 @@ var FullCalendar = (function (exports) {
 
     /* An abstract class for the daygrid views, as well as month view. Renders one or more rows of day cells.
     ----------------------------------------------------------------------------------------------------------------------*/
-    // It is a manager for a Table subcomponent, which does most of the heavy lifting.
+    // It is a users for a Table subcomponent, which does most of the heavy lifting.
     // It is responsible for managing width/height.
     var TableView = /** @class */ (function (_super) {
         __extends(TableView, _super);

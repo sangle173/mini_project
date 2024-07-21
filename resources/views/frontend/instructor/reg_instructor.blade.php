@@ -316,7 +316,7 @@
             <div class="col-lg-10 mx-auto">
                 <div class="card card-item">
                     <div class="card-body">
-    <form method="post" action="{{ route('instructor.register') }}" class="row">
+    <form method="post" action="{{ route('users.register') }}" class="row">
         @csrf
 
         <div class="input-box col-lg-6">
@@ -340,7 +340,7 @@
                 @enderror
             </div>
         </div><!-- end input-box -->
-         
+
         <div class="input-box col-lg-6">
             <label class="label-text">Email</label>
             <div class="form-group">
@@ -381,13 +381,13 @@
             <div class="form-group">
                 <input class="form-control form--control" type="password" name="password"  >
                 <span class="la la-user input-icon"></span>
-                
+
             </div>
         </div><!-- end input-box -->
-      
 
 
-    
+
+
         <div class="btn-box col-lg-12">
             <div class="custom-control custom-checkbox mb-4 fs-15">
                 <input type="checkbox" class="custom-control-input" id="agreeCheckbox" required>
