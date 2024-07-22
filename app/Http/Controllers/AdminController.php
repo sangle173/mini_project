@@ -164,14 +164,15 @@ class AdminController extends Controller
 
 
     public function AddUser(){
-        return view('admin.backend.users.add_user');
+        $roles = ['admin', 'manager', 'user'];
+        return view('admin.backend.users.add_user',compact('roles'));
     }// End Method
 
     public function SaveUser(Request $request){
 //        dd($request);
         $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email|unique:users',
             'password' => 'required',
             'role' => 'required',
         ]);
@@ -192,6 +193,56 @@ class AdminController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('admin.all.users')->with($notification);
+
+    }// End Method
+
+    public function EditUser($id){
+        $user = User::find($id);
+        $roles = ['admin', 'manager', 'user'];
+        return view('admin.backend.users.edit_user',compact('user', 'roles'));
+    }// End Method
+
+    public function UpdateUser(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'role' => 'required',
+        ]);
+
+        $id = $request ->id;
+
+        User::find($id)->update([
+            'name' => $request -> name,
+            'email' => $request-> email,
+            'username' => $request-> email,
+            'role' => $request-> role,
+            'phone' => $request-> phone,
+            'title' => $request-> title,
+            'address' => $request-> address,
+            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+
+        $notification = array(
+            'message' => 'Update User Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('admin.all.users')->with($notification);
+
+    }// End Method
+
+
+    public function DeleteUser($id){
+
+        $user = User::find($id);
+        if (!is_null($user)) {
+            $user->delete();
+        }
+
+        $notification = array(
+            'message' => 'Delete User Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
 
     }// End Method
 }

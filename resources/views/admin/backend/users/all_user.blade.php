@@ -22,7 +22,8 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('admin.add.users') }}" type="button" class="btn btn-info px-5"><i class='bx bx-user-plus mr-1'></i>Add User</a>
+                    <a href="{{ route('admin.add.users') }}" type="button" class="btn btn-info px-5"><i
+                            class='bx bx-user-plus mr-1'></i>Add User</a>
                 </div>
             </div>
         </div>
@@ -36,14 +37,13 @@
                         <tr>
                             <th>#</th>
                             <th>Manager Name</th>
-                            <th>Username</th>
                             <th>Email</th>
                             <th>Title</th>
                             <th>Phone</th>
+                            <th>Updated at</th>
                             <th>Role</th>
                             <th>Status</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th colspan="2">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -54,11 +54,17 @@
                                 <td>
                                     {{ $item->name }}
                                 </td>
-                                <td>{{ $item->username }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->title }}</td>
                                 <td>{{ $item->phone }}</td>
+                                <td>
+                                    @if($item->updated_at !=null)
+                                        {{ $item->updated_at }}
+                                    @else
+                                        {{ $item->created_at }}
+                                    @endif
 
+                                </td>
                                 <td> @if ($item->role == 'admin')
                                         <span class="badge bg-primary">Admin</span>
                                     @elseif($item->role == 'manager')
@@ -73,7 +79,6 @@
                                         <span class="badge bg-danger">InActive </span>
                                     @endif
                                 </td>
-
                                 <td>
                                     <div class="form-check-danger form-check form-switch">
                                         <input class="form-check-input status-toggle large-checkbox" type="checkbox"
@@ -85,12 +90,14 @@
                                 <td>
                                     <div class="col">
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <button type="button" class="btn btn-secondary"><i class="bx bx-edit"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-secondary"><i class="bx bx-share"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-secondary"><i class="bx bx-trash"></i>
-                                            </button>
+                                            <a href="{{ route('admin.edit.user',$item->id) }}" type="button"
+                                               class="btn btn-secondary"><i class="bx bx-edit"></i>
+                                            </a>
+                                            {{--                                            <button type="button" class="btn btn-secondary"><i class="bx bx-share"></i>--}}
+                                            {{--                                            </button>--}}
+                                            <a href="{{ route('admin.delete.user',$item->id) }}" id="delete" type="button"
+                                               class="btn btn-secondary"><i class="bx bx-trash"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </td>

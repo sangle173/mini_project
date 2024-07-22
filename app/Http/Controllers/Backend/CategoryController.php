@@ -15,15 +15,15 @@ class CategoryController extends Controller
         $category = Category::latest()->get();
         return view('admin.backend.category.all_category',compact('category'));
 
-    }// End Method 
+    }// End Method
 
     public function AddCategory(){
         return view('admin.backend.category.add_category');
-    }// End Method 
+    }// End Method
 
     public function StoreCategory(Request $request){
 
-        $image = $request->file('image');  
+        $image = $request->file('image');
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
         Image::make($image)->resize(370,246)->save('upload/category/'.$name_gen);
         $save_url = 'upload/category/'.$name_gen;
@@ -31,66 +31,65 @@ class CategoryController extends Controller
         Category::insert([
             'category_name' => $request->category_name,
             'category_slug' => strtolower(str_replace(' ','-',$request->category_name)),
-            'image' => $save_url,        
-
+            'image' => $save_url,
         ]);
 
         $notification = array(
             'message' => 'Category Inserted Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('all.category')->with($notification);  
+        return redirect()->route('all.category')->with($notification);
 
-    }// End Method 
+    }// End Method
 
 
     public function EditCategory($id){
 
         $category = Category::find($id);
         return view('admin.backend.category.edit_category',compact('category'));
-    }// End Method 
+    }// End Method
 
     public function UpdateCategory(Request $request){
-        
+
         $cat_id = $request->id;
 
         if ($request->file('image')) {
 
-            $image = $request->file('image');  
+            $image = $request->file('image');
             $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(370,246)->save('upload/category/'.$name_gen);
             $save_url = 'upload/category/'.$name_gen;
-    
+
             Category::find($cat_id)->update([
                 'category_name' => $request->category_name,
                 'category_slug' => strtolower(str_replace(' ','-',$request->category_name)),
-                'image' => $save_url,        
-    
+                'image' => $save_url,
+
             ]);
-    
+
             $notification = array(
                 'message' => 'Category Updated with image Successfully',
                 'alert-type' => 'success'
             );
-            return redirect()->route('all.category')->with($notification);  
-        
+            return redirect()->route('all.category')->with($notification);
+
         } else {
 
             Category::find($cat_id)->update([
                 'category_name' => $request->category_name,
-                'category_slug' => strtolower(str_replace(' ','-',$request->category_name)),  
-    
+                'category_slug' => strtolower(str_replace(' ','-',$request->category_name)),
+
             ]);
-    
+
             $notification = array(
                 'message' => 'Category Updated without image Successfully',
                 'alert-type' => 'success'
             );
             return redirect()->route('all.category')->with($notification);
 
-        } // end else 
+        } // end else
 
-    }// End Method 
+    }// End Method
 
 
     public function DeleteCategory($id){
@@ -107,7 +106,7 @@ class CategoryController extends Controller
             );
             return redirect()->back()->with($notification);
 
-    }// End Method 
+    }// End Method
 
     ////////// All SubCategory Methods //////////////
 
@@ -116,7 +115,7 @@ class CategoryController extends Controller
         $subcategory = SubCategory::latest()->get();
         return view('admin.backend.subcategory.all_subcategory',compact('subcategory'));
 
-    }// End Method 
+    }// End Method
 
 
     public function AddSubCategory(){
@@ -124,15 +123,15 @@ class CategoryController extends Controller
         $category = Category::latest()->get();
         return view('admin.backend.subcategory.add_subcategory',compact('category'));
 
-    }// End Method 
+    }// End Method
 
 
-    public function StoreSubCategory(Request $request){ 
+    public function StoreSubCategory(Request $request){
 
         SubCategory::insert([
             'category_id' => $request->category_id,
             'subcategory_name' => $request->subcategory_name,
-            'subcategory_slug' => strtolower(str_replace(' ','-',$request->subcategory_name)), 
+            'subcategory_slug' => strtolower(str_replace(' ','-',$request->subcategory_name)),
 
         ]);
 
@@ -140,9 +139,9 @@ class CategoryController extends Controller
             'message' => 'SubCategory Inserted Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('all.subcategory')->with($notification);  
+        return redirect()->route('all.subcategory')->with($notification);
 
-    }// End Method 
+    }// End Method
 
 
     public function EditSubCategory($id){
@@ -154,14 +153,14 @@ class CategoryController extends Controller
     }// End Method
 
 
-    public function UpdateSubCategory(Request $request){ 
+    public function UpdateSubCategory(Request $request){
 
         $subcat_id = $request->id;
 
         SubCategory::find($subcat_id)->update([
             'category_id' => $request->category_id,
             'subcategory_name' => $request->subcategory_name,
-            'subcategory_slug' => strtolower(str_replace(' ','-',$request->subcategory_name)), 
+            'subcategory_slug' => strtolower(str_replace(' ','-',$request->subcategory_name)),
 
         ]);
 
@@ -169,9 +168,9 @@ class CategoryController extends Controller
             'message' => 'SubCategory Updated Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('all.subcategory')->with($notification);  
+        return redirect()->route('all.subcategory')->with($notification);
 
-    }// End Method 
+    }// End Method
 
 
     public function DeleteSubCategory($id){
@@ -184,9 +183,9 @@ class CategoryController extends Controller
         );
         return redirect()->back()->with($notification);
 
-    }// End Method 
+    }// End Method
 
 
 
 
-} 
+}

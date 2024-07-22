@@ -85,9 +85,9 @@ Route::controller(AdminController::class)->group(function(){
     Route::get('/admin/all/users','AllUser')->name('admin.all.users');
     Route::get('/admin/add/users','AddUser')->name('admin.add.users');
     Route::post('/admin/save-user/','SaveUser')->name('admin.save-user');
-//    Route::get('/admin/edit/user/{id}','EditUser')->name('edit.user');
-//    Route::post('/admin/save-user/','SaveUser')->name('save-user');
-//    Route::post('/admin/update/user','UpdateUser')->name('update.user');
+    Route::get('/admin/edit/user/{id}','EditUser')->name('admin.edit.user');
+    Route::post('/admin/update/user','UpdateUser')->name('admin.update-user');
+    Route::get('/admin/delete/user/{id}','DeleteUser')->name('admin.delete.user');
 
     Route::post('/admin/update/user/status','UpdateUserStatus')->name('admin.update.user.status');
 });
