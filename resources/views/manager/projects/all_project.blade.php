@@ -1,5 +1,5 @@
-@extends('admin.admin_dashboard')
-@section('admin')
+@extends('manager.manager_dashboard')
+@section('users')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <style>
@@ -21,10 +21,6 @@
                 </nav>
             </div>
             <div class="ms-auto">
-                <div class="btn-group">
-                    <a href="{{ route('admin.add.projects') }}" type="button" class="btn btn-info px-5"><i
-                            class='bx bx-add-to-queue mr-1'></i>Add Project</a>
-                </div>
             </div>
         </div>
         <!--end breadcrumb-->
@@ -71,23 +67,13 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <div class="form-check-danger form-check form-switch">
-                                        <input class="form-check-input status-toggle large-checkbox" type="checkbox"
-                                               id="flexSwitchCheckCheckedDanger"
-                                               data-user-id="{{ $item->id }}" {{ $item->status ? 'checked' : ''}} >
-                                        <label class="form-check-label" for="flexSwitchCheckCheckedDanger"> </label>
-                                    </div>
-                                </td>
-                                <td>
                                     <div class="col">
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="{{ route('admin.edit.projects',$item->id) }}" type="button"
-                                               class="btn btn-secondary"><i class="bx bx-edit"></i>
+                                            <a href="{{ route('manager.all.boards',$item->id) }}" type="button"
+                                               class="btn btn-secondary"><i class="bx bxs-food-menu"></i>
                                             </a>
-                                            {{--                                            <button type="button" class="btn btn-secondary"><i class="bx bx-share"></i>--}}
-                                            {{--                                            </button>--}}
-                                            <a href="{{ route('admin.delete.projects',$item->id) }}" id="delete" type="button"
-                                               class="btn btn-secondary"><i class="bx bx-trash"></i>
+                                            <a href="{{ route('manager.add.board',$item->id) }}" type="button"
+                                               class="btn btn-secondary"><i class="bx bxs-add-to-queue"></i>
                                             </a>
                                         </div>
                                     </div>

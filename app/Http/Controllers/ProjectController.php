@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Carbon;
 use Intervention\Image\Facades\Image;
+use function Termwind\ValueObjects\pr;
 
 class ProjectController extends Controller
 {
@@ -54,7 +55,7 @@ class ProjectController extends Controller
             'message' => 'Project Created Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('admin.all.project')->with($notification);
+        return redirect()->route('admin.all.projects')->with($notification);
     }
 
     /**
@@ -68,25 +69,49 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Project $project)
+    public function edit($id)
     {
-        //
+        $project = Project::find($id);
+        return view('admin.backend.projects.edit_project',compact('project'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProjectRequest $request, Project $project)
+    public function update(Request $request)
     {
-        //
+        $id = $request ->project_id;
+
+        Project::find($id)->update([
+            'name' => $request -> name,
+            'title' => $request-> title,
+            'start_date' => $request-> start_date,
+            'desc' => $request-> desc,
+            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+
+        $notification = array(
+            'message' => 'Update Project Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('admin.all.projects')->with($notification);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
+    public function destroy($id)
     {
-        //
+        $project = Project::find($id);
+        if (!is_null($project)) {
+            $project->delete();
+        }
+
+        $notification = array(
+            'message' => 'Delete Project Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 
     public function UpdateProjectStatus(Request $request){

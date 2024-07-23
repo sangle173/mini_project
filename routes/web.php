@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\BoardController;
+use App\Http\Controllers\ManagerProjectController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ManagerController;
@@ -56,15 +59,15 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     Route::post('/admin/password/update', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
 
 // Project All Route
-    Route::controller(\App\Http\Controllers\ProjectController::class)->group(function () {
-        Route::get('/admin/all/project', 'index')->name('admin.all.project');
-        Route::get('/admin/add/project', 'create')->name('admin.add.project');
-        Route::post('/admin/save-project/', 'store')->name('admin.save-project');
-        Route::get('/admin/edit/project/{id}', 'edit')->name('admin.edit.project');
-        Route::post('/admin/update/project', 'update')->name('admin.update-project');
-        Route::get('/admin/delete/project/{id}', 'destroy')->name('admin.delete.project');
+    Route::controller(ProjectController::class)->group(function () {
+        Route::get('/admin/all/projects', 'index')->name('admin.all.projects');
+        Route::get('/admin/add/projects', 'create')->name('admin.add.projects');
+        Route::post('/admin/save-projects/', 'store')->name('admin.save-projects');
+        Route::get('/admin/edit/projects/{id}', 'edit')->name('admin.edit.projects');
+        Route::post('/admin/update/projects', 'update')->name('admin.update-projects');
+        Route::get('/admin/delete/projects/{id}', 'destroy')->name('admin.delete.projects');
 
-        Route::post('/admin/update/project/status', 'UpdateProjectStatus')->name('admin.update.project.status');
+        Route::post('/admin/update/projects/status', 'UpdateProjectStatus')->name('admin.update.projects.status');
 
     });
 // Category All Route
@@ -140,7 +143,6 @@ Route::middleware(['auth', 'roles:manager'])->group(function () {
         Route::post('/update/course/goal', 'UpdateCourseGoal')->name('update.course.goal');
         Route::get('/delete/course/{id}', 'DeleteCourse')->name('delete.course');
 
-
     });
 
 
@@ -155,6 +157,24 @@ Route::middleware(['auth', 'roles:manager'])->group(function () {
         Route::post('/update/course/lecture', 'UpdateCourseLecture')->name('update.course.lecture');
         Route::get('/delete/lecture/{id}', 'DeleteLecture')->name('delete.lecture');
         Route::post('/delete/section/{id}', 'DeleteSection')->name('delete.section');
+    });
+
+    // Project All Route
+    Route::controller(ManagerProjectController::class)->group(function () {
+        Route::get('/manager/all/projects', 'index')->name('manager.all.projects');
+    });
+
+    // Board All Route
+    Route::controller(BoardController::class)->group(function () {
+
+        Route::get('/manager/all/board/{id}', 'index')->name('manager.all.boards');
+        Route::get('/manager/add/board/{id}', 'create')->name('manager.add.board');
+        Route::post('/manager/save-board/', 'store')->name('manager.save-board');
+        Route::get('/manager/edit/board/{id}', 'edit')->name('manager.edit.board');
+        Route::post('/manager/update/board', 'update')->name('manager.update-board');
+        Route::get('/manager/delete/board/{id}', 'destroy')->name('manager.delete.board');
+
+        Route::post('/manager/update/board/status', 'UpdateProjectStatus')->name('manager.update.board.status');
     });
 
 

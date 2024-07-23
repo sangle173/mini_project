@@ -20,7 +20,7 @@
 
         <div class="card">
             <div class="card-body">
-                <form id="myForm" action="{{ route('admin.save-project') }}" method="post" class="row g-3"
+                <form id="myForm" action="{{ route('admin.save-projects') }}" method="post" class="row g-3"
                       enctype="multipart/form-data">
                     @csrf
 

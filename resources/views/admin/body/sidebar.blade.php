@@ -45,7 +45,7 @@
                 <div class="menu-title">Manage Project</div>
             </a>
             <ul>
-                <li> <a href="{{ route('admin.all.project') }}"><i class='bx bx-radio-circle'></i>All Project</a>
+                <li> <a href="{{ route('admin.all.projects') }}"><i class='bx bx-radio-circle'></i>All Project</a>
                 </li>
 
 

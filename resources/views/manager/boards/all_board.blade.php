@@ -1,5 +1,5 @@
-@extends('admin.admin_dashboard')
-@section('admin')
+@extends('manager.manager_dashboard')
+@section('users')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <style>
@@ -16,15 +16,11 @@
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">All Users</li>
+                        <li class="breadcrumb-item active" aria-current="page">All Board</li>
                     </ol>
                 </nav>
             </div>
             <div class="ms-auto">
-                <div class="btn-group">
-                    <a href="{{ route('admin.add.projects') }}" type="button" class="btn btn-info px-5"><i
-                            class='bx bx-add-to-queue mr-1'></i>Add Project</a>
-                </div>
             </div>
         </div>
         <!--end breadcrumb-->
@@ -36,9 +32,10 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Project Name</th>
+                            <th>Board Name</th>
                             <th>Title</th>
                             <th>Description</th>
+                            <th>Project</th>
                             <th>Start Date</th>
                             <th>Updated at</th>
                             <th>Status</th>
@@ -47,7 +44,7 @@
                         </thead>
                         <tbody>
 
-                        @foreach ($projects as $key=> $item)
+                        @foreach ($boards as $key=> $item)
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>
@@ -55,6 +52,7 @@
                                 </td>
                                 <td>{{ $item->title }}</td>
                                 <td>{{ $item->desc }}</td>
+                                <td>{{ \App\Models\Board::getProjectById($item -> project_id) ->name }}</td>
                                 <td>{{ $item->start_date }}</td>
                                 <td>
                                     @if($item->updated_at !=null)
@@ -71,24 +69,14 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <div class="form-check-danger form-check form-switch">
-                                        <input class="form-check-input status-toggle large-checkbox" type="checkbox"
-                                               id="flexSwitchCheckCheckedDanger"
-                                               data-user-id="{{ $item->id }}" {{ $item->status ? 'checked' : ''}} >
-                                        <label class="form-check-label" for="flexSwitchCheckCheckedDanger"> </label>
-                                    </div>
-                                </td>
-                                <td>
                                     <div class="col">
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="{{ route('admin.edit.projects',$item->id) }}" type="button"
-                                               class="btn btn-secondary"><i class="bx bx-edit"></i>
-                                            </a>
-                                            {{--                                            <button type="button" class="btn btn-secondary"><i class="bx bx-share"></i>--}}
-                                            {{--                                            </button>--}}
-                                            <a href="{{ route('admin.delete.projects',$item->id) }}" id="delete" type="button"
-                                               class="btn btn-secondary"><i class="bx bx-trash"></i>
-                                            </a>
+{{--                                            <a href="{{ route('manager.all.board') }}" type="button"--}}
+{{--                                               class="btn btn-secondary"><i class="bx bxs-food-menu"></i>--}}
+{{--                                            </a>--}}
+{{--                                            <a href="{{ route('manager.add.board',$item->id) }}" type="button"--}}
+{{--                                               class="btn btn-secondary"><i class="bx bxs-add-to-queue"></i>--}}
+{{--                                            </a>--}}
                                         </div>
                                     </div>
                                 </td>

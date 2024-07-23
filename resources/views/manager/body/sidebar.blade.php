@@ -28,18 +28,15 @@
 
         @if ($status === '1')
 
-        <li class="menu-label">Course Manage </li>
-
+        <li class="menu-label">Manager Project </li>
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class='bx bx-cart'></i>
                 </div>
-                <div class="menu-title">Course Manage</div>
+                <div class="menu-title">Project</div>
             </a>
             <ul>
-                <li> <a href="{{ route('all.course') }}"><i class='bx bx-radio-circle'></i>All Course </a>
-                </li>
-                <li> <a href="ecommerce-products-details.html"><i class='bx bx-radio-circle'></i>Product Details</a>
+                <li> <a href="{{ route('manager.all.projects') }}"><i class='bx bx-radio-circle'></i>All Project </a>
                 </li>
 
             </ul>

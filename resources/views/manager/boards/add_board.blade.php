@@ -10,7 +10,7 @@
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bxs-home-circle"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit Project</li>
+                        <li class="breadcrumb-item active" aria-current="page">Add Board</li>
                     </ol>
                 </nav>
             </div>
@@ -20,18 +20,28 @@
 
         <div class="card">
             <div class="card-body">
-                <form id="myForm" action="{{ route('admin.update-projects') }}" method="post" class="row g-3"
+                <form id="myForm" action="{{ route('manager.save-board') }}" method="post" class="row g-3"
                       enctype="multipart/form-data">
                     @csrf
 
                     <div class="card-body">
-                        <h5 class="mb-4">Edit Project</h5>
-                        <input type="hidden" value="{{$project -> id}}" name="project_id">
+                        <h5 class="mb-4">New Board</h5>
+                        <input type="hidden" name="project_id" value="{{$project -> id}}">
                         <div class="row mb-3">
-                            <label for="name" class="col-sm-3 col-form-label">Project Name</label>
+                            <label for="project_name" class="col-sm-3 col-form-label">Project Name</label>
                             <div class="col-sm-9">
                                 <div class="position-relative input-icon">
-                                    <input type="text" class="form-control" value="{{$project ->name}}" name="name" id="name"
+                                    <input type="text" class="form-control" disabled value="{{$project ->name}}"  id="project_name"
+                                           placeholder="Enter Name">
+                                    <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="name" class="col-sm-3 col-form-label">Board Name</label>
+                            <div class="col-sm-9">
+                                <div class="position-relative input-icon">
+                                    <input type="text" class="form-control" name="name" id="name"
                                            placeholder="Enter Name">
                                     <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
                                 </div>
@@ -41,10 +51,10 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="title" class="col-sm-3 col-form-label">Project Title</label>
+                            <label for="title" class="col-sm-3 col-form-label">Board Title</label>
                             <div class="col-sm-9">
                                 <div class="position-relative input-icon">
-                                    <input type="text" class="form-control" value="{{$project ->title}}" name="title" id="title"
+                                    <input type="text" class="form-control" name="title" id="title"
                                            placeholder="Enter Title">
                                     <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
                                 </div>
@@ -58,7 +68,7 @@
                             <label for="start_date" class="col-sm-3 col-form-label">Start Date</label>
                             <div class="col-sm-9">
                                 <div class="position-relative input-icon">
-                                    <input type="date" class="form-control" value="{{$project ->start_date}}" name="start_date" id="start_date">
+                                    <input type="date" class="form-control" name="start_date" id="start_date">
                                     <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-time'></i></span>
                                 </div>
                                 @error('start_date')
@@ -67,7 +77,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label id="image2" class="col-sm-3 col-form-label">Project Image</label>
+                            <label id="image2" class="col-sm-3 col-form-label">Board Image</label>
                             <div class="col-sm-9">
                                 <div class="position-relative input-icon">
                                     <input class="form-control" name="photo" type="file" id="image">
@@ -83,7 +93,7 @@
                             <label for="photo" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
                                 <div class="position-relative input-icon">
-                                    <img id="showImage" src="{{ asset($project->photo) }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="100">
+                                    <img id="showImage" src="{{ url('upload/no_image.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="100">
                                 </div>
                             </div>
                         </div>
@@ -91,7 +101,7 @@
                             <label for="desc" class="col-sm-3 col-form-label">Description</label>
                             <div class="col-sm-9">
                                 <textarea class="form-control" name="desc" id="desc" rows="3"
-                                          placeholder="Description">{{$project ->desc}}</textarea>
+                                          placeholder="Description"></textarea>
                             </div>
                         </div>
 
@@ -100,7 +110,7 @@
                             <div class="col-sm-9">
                                 <div class="d-md-flex d-grid align-items-center gap-3">
                                     <button type="submit" class="btn btn-primary px-5"><i
-                                            class='bx bx-add-to-queue mr-1'></i>Update
+                                            class='bx bx-add-to-queue mr-1'></i>Create
                                     </button>
                                     <button type="reset" class="btn btn-outline-secondary px-5"><i
                                             class='bx bx-reset mr-1'></i>Reset

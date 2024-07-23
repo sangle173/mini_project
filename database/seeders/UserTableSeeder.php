@@ -30,9 +30,9 @@ class UserTableSeeder extends Seeder
             [
                 'name' => 'Manager',
                 'username' => 'users',
-                'email' => 'users@gmail.com',
+                'email' => 'manager@gmail.com',
                 'password' => Hash::make('111'),
-                'role' => 'users',
+                'role' => 'manager',
                 'status' => '1',
             ],
                 // User Data
