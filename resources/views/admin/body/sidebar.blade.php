@@ -42,6 +42,19 @@
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
                 </div>
+                <div class="menu-title">Manage Project</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('admin.all.project') }}"><i class='bx bx-radio-circle'></i>All Project</a>
+                </li>
+
+
+            </ul>
+        </li>
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
+                </div>
                 <div class="menu-title">Manage User</div>
             </a>
             <ul>

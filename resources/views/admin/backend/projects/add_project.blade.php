@@ -1,0 +1,131 @@
+@extends('admin.admin_dashboard')
+@section('admin')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <div class="page-content">
+        <!--breadcrumb-->
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+            <div class="ps-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bxs-home-circle"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Add Project</li>
+                    </ol>
+                </nav>
+            </div>
+
+        </div>
+        <!--end breadcrumb-->
+
+        <div class="card">
+            <div class="card-body">
+                <form id="myForm" action="{{ route('admin.save-project') }}" method="post" class="row g-3"
+                      enctype="multipart/form-data">
+                    @csrf
+
+                    <div class="card-body">
+                        <h5 class="mb-4">New Project</h5>
+                        <div class="row mb-3">
+                            <label for="name" class="col-sm-3 col-form-label">Project Name</label>
+                            <div class="col-sm-9">
+                                <div class="position-relative input-icon">
+                                    <input type="text" class="form-control" name="name" id="name"
+                                           placeholder="Enter Name">
+                                    <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
+                                </div>
+                                @error('name')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="title" class="col-sm-3 col-form-label">Project Title</label>
+                            <div class="col-sm-9">
+                                <div class="position-relative input-icon">
+                                    <input type="text" class="form-control" name="title" id="title"
+                                           placeholder="Enter Title">
+                                    <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
+                                </div>
+                                @error('title')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="start_date" class="col-sm-3 col-form-label">Start Date</label>
+                            <div class="col-sm-9">
+                                <div class="position-relative input-icon">
+                                    <input type="date" class="form-control" name="start_date" id="start_date">
+                                    <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-time'></i></span>
+                                </div>
+                                @error('start_date')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label id="image2" class="col-sm-3 col-form-label">Project Image</label>
+                            <div class="col-sm-9">
+                                <div class="position-relative input-icon">
+                                    <input class="form-control" name="photo" type="file" id="image">
+                                    <span class="position-absolute top-50 translate-middle-y"><i
+                                            class='bx bx-photo-album'></i></span>
+                                </div>
+                                @error('photo')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="photo" class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9">
+                                <div class="position-relative input-icon">
+                                    <img id="showImage" src="{{ url('upload/no_image.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="desc" class="col-sm-3 col-form-label">Description</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" name="desc" id="desc" rows="3"
+                                          placeholder="Description"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9">
+                                <div class="d-md-flex d-grid align-items-center gap-3">
+                                    <button type="submit" class="btn btn-primary px-5"><i
+                                            class='bx bx-add-to-queue mr-1'></i>Create
+                                    </button>
+                                    <button type="reset" class="btn btn-outline-secondary px-5"><i
+                                            class='bx bx-reset mr-1'></i>Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#image').change(function (e) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#showImage').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(e.target.files['0']);
+            });
+        });
+
+    </script>
+@endsection

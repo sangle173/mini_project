@@ -56,7 +56,6 @@ class CourseController extends Controller
         $save_video = 'upload/course/video/'.$videoName;
 
         $course_id = Course::insertGetId([
-
             'category_id' => $request->category_id,
             'subcategory_id' => $request->subcategory_id,
             'instructor_id' => Auth::user()->id,
@@ -80,7 +79,6 @@ class CourseController extends Controller
             'status' => 1,
             'course_image' => $save_url,
             'created_at' => Carbon::now(),
-
         ]);
 
         /// Course Goals Add Form
