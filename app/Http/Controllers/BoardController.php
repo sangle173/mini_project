@@ -19,7 +19,7 @@ class BoardController extends Controller
     {
         $project = Project::find($id);
         $boards = Board::where('project_id',$project ->id)->latest()->get();
-        return view('manager.boards.all_board',compact('boards'));
+        return view('manager.boards.all_board',compact('boards', 'project'));
     }
 
     /**

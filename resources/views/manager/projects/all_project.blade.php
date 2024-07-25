@@ -16,7 +16,7 @@
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">All Users</li>
+                        <li class="breadcrumb-item active" aria-current="page">All Project</li>
                     </ol>
                 </nav>
             </div>
@@ -67,14 +67,34 @@
                                     @endif
                                 </td>
                                 <td>
+{{--                                    <div class="col">--}}
+{{--                                        <div class="btn-group" role="group" aria-label="Basic example">--}}
+{{--                                            <a href="{{ route('manager.all.boards',$item->id) }}" type="button"--}}
+{{--                                               class="btn btn-secondary"><i class="bx bxs-food-menu"></i>--}}
+{{--                                            </a>--}}
+{{--                                            <a href="{{ route('manager.add.board',$item->id) }}" type="button"--}}
+{{--                                               class="btn btn-secondary"><i class="bx bxs-add-to-queue"></i>--}}
+{{--                                            </a>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                     <div class="col">
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="{{ route('manager.all.boards',$item->id) }}" type="button"
-                                               class="btn btn-secondary"><i class="bx bxs-food-menu"></i>
-                                            </a>
-                                            <a href="{{ route('manager.add.board',$item->id) }}" type="button"
-                                               class="btn btn-secondary"><i class="bx bxs-add-to-queue"></i>
-                                            </a>
+                                        <div class="btn-group">
+                                            <a type="button" href="{{ route('manager.all.boards',$item->id) }}" class="btn btn-outline-secondary">View Board</a>
+                                            <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">	<span class="visually-hidden">Toggle Dropdown</span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="{{ route('manager.add.board',$item->id) }}">Details</a>
+                                                </li>
+                                                <li><a class="dropdown-item" href="#">Another action</a>
+                                                </li>
+                                                <li><a class="dropdown-item" href="#">Something else here</a>
+                                                </li>
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+                                                <li><a class="dropdown-item" href="#">Separated link</a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </td>

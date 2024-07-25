@@ -17,7 +17,6 @@ class ManagerProjectController extends Controller
     public function index()
     {
         $projects = Project::latest()->get();
-
         return view('manager.projects.all_project',compact('projects'));
     }
 
