@@ -63,9 +63,10 @@ class BoardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Board $board)
+    public function show($id)
     {
-        //
+        $board = Board::find($id);
+        return view('manager.boards.view_board',compact('board'));
     }
 
     /**

@@ -29,92 +29,11 @@
         </div>
         <!--end breadcrumb-->
 
-{{--        <div class="card">--}}
-{{--            <div class="card-body">--}}
-{{--                <div class="table-responsive">--}}
-{{--                    <table id="example" class="table table-striped table-bordered" style="width:100%">--}}
-{{--                        <thead>--}}
-{{--                        <tr>--}}
-{{--                            <th>#</th>--}}
-{{--                            <th>Board Name</th>--}}
-{{--                            <th>Title</th>--}}
-{{--                            <th>Description</th>--}}
-{{--                            <th>Project</th>--}}
-{{--                            <th>Start Date</th>--}}
-{{--                            <th>Updated at</th>--}}
-{{--                            <th>Status</th>--}}
-{{--                            <th>Action</th>--}}
-{{--                        </tr>--}}
-{{--                        </thead>--}}
-{{--                        <tbody>--}}
-
-{{--                        @foreach ($boards as $key=> $item)--}}
-{{--                            <tr>--}}
-{{--                                <td>{{ $key+1 }}</td>--}}
-{{--                                <td>--}}
-{{--                                    {{ $item->name }}--}}
-{{--                                </td>--}}
-{{--                                <td>{{ $item->title }}</td>--}}
-{{--                                <td>{{ $item->desc }}</td>--}}
-{{--                                <td>{{ \App\Models\Board::getProjectById($item -> project_id) ->name }}</td>--}}
-{{--                                <td>{{ $item->start_date }}</td>--}}
-{{--                                <td>--}}
-{{--                                    @if($item->updated_at !=null)--}}
-{{--                                        {{ $item->updated_at }}--}}
-{{--                                    @else--}}
-{{--                                        {{ $item->created_at }}--}}
-{{--                                    @endif--}}
-
-{{--                                </td>--}}
-{{--                                <td> @if ($item->status == 1)--}}
-{{--                                        <span class="badge bg-success">Active </span>--}}
-{{--                                    @else--}}
-{{--                                        <span class="badge bg-danger">InActive </span>--}}
-{{--                                    @endif--}}
-{{--                                </td>--}}
-{{--                                <td>--}}
-
-{{--                                    <div class="col">--}}
-{{--                                        <div class="btn-group">--}}
-{{--                                            <a type="button" href="{{ route('manager.all.boards',$item->id) }}"--}}
-{{--                                               class="btn btn-outline-secondary">View Board</a>--}}
-{{--                                            <button type="button"--}}
-{{--                                                    class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"--}}
-{{--                                                    data-bs-toggle="dropdown" aria-expanded="false"><span--}}
-{{--                                                    class="visually-hidden">Toggle Dropdown</span>--}}
-{{--                                            </button>--}}
-{{--                                            <ul class="dropdown-menu">--}}
-{{--                                                <li><a class="dropdown-item"--}}
-{{--                                                       href="{{ route('manager.add.board',$item->id) }}">Add Board</a>--}}
-{{--                                                </li>--}}
-{{--                                                <li><a class="dropdown-item" href="#">Another action</a>--}}
-{{--                                                </li>--}}
-{{--                                                <li><a class="dropdown-item" href="#">Something else here</a>--}}
-{{--                                                </li>--}}
-{{--                                                <li>--}}
-{{--                                                    <hr class="dropdown-divider">--}}
-{{--                                                </li>--}}
-{{--                                                <li><a class="dropdown-item" href="#">Separated link</a>--}}
-{{--                                                </li>--}}
-{{--                                            </ul>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </td>--}}
-{{--                            </tr>--}}
-{{--                        @endforeach--}}
-
-{{--                        </tbody>--}}
-
-{{--                    </table>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
         <div class="row row-cols-1 row-cols-md-1 row-cols-lg-4 row-cols-xl-4    ">
             @foreach ($boards as $key=> $item)
             <div class="col">
                 <div class="card">
-                    <img src="{{ asset($item->photo) }}" class="card-img-top" alt="...">
+                    <a href="{{route('manager.show.board', $item -> id)}}"><img src="{{ asset($item->photo) }}" class="card-img-top" alt="..."></a>
                     <div class="card-body">
                         <h5 class="card-title">{{$item ->name}}</h5>
                         <p class="card-text">{{$item -> title}}</p>
@@ -124,8 +43,30 @@
                         <li class="list-group-item">Bug found</li>
                         <li class="list-group-item">Testing Request </li>
                     </ul>
-                    <div class="card-body">	<a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
+                    <div class="card-body">
+{{--                        <a href="{{ route('manager.all.boardteams', $item -> id) }}" class="card-link">Config</a>--}}
+                        <div class="col">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Board Config</button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('manager.all.boardteams', $item -> id) }}">Manage Team</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('manager.all.boardtypes', $item -> id) }}">Manage Type</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('manager.all.boardworking_statuses', $item -> id) }}">Manage Working Status</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('manager.all.boardticket_statuses', $item -> id) }}">Manage Ticket Status</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('manager.all.tasks', $item -> id) }}">Manage Task</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

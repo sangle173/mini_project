@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
-use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Carbon;
 use Intervention\Image\Facades\Image;
-use function Termwind\ValueObjects\pr;
 
 class ProjectController extends Controller
 {

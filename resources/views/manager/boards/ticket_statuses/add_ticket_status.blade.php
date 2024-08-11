@@ -10,7 +10,7 @@
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bxs-home-circle"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Add Board</li>
+                        <li class="breadcrumb-item active" aria-current="page">Add Ticket Status</li>
                     </ol>
                 </nav>
             </div>
@@ -20,29 +20,28 @@
 
         <div class="card">
             <div class="card-body">
-                <form id="myForm" action="{{ route('manager.save-board') }}" method="post" class="row g-3"
+                <form id="myForm" action="{{ route('manager.board.save-ticket_status') }}" method="post" class="row g-3"
                       enctype="multipart/form-data">
                     @csrf
 
                     <div class="card-body">
-                        <h5 class="mb-4">New Board</h5>
-                        <input type="hidden" name="project_id" value="{{$project -> id}}">
+                        <h5 class="mb-4">New Ticket Sattus</h5>
+                        <input type="hidden" name="board_id" value="{{$board -> id}}">
                         <div class="row mb-3">
-                            <label for="project_name" class="col-sm-3 col-form-label">Project Name</label>
+                            <label for="project_name" class="col-sm-3 col-form-label">Board Name</label>
                             <div class="col-sm-9">
                                 <div class="position-relative input-icon">
-                                    <input type="text" class="form-control" disabled value="{{$project ->name}}"  id="project_name"
-                                           placeholder="Enter Name">
+                                    <input type="text" class="form-control" disabled value="{{$board ->name}}"  id="board_name">
                                     <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="name" class="col-sm-3 col-form-label">Board Name</label>
+                            <label for="name" class="col-sm-3 col-form-label">Ticket Status Name</label>
                             <div class="col-sm-9">
                                 <div class="position-relative input-icon">
                                     <input type="text" class="form-control" name="name" id="name"
-                                           placeholder="Enter Name">
+                                           placeholder="Enter Ticket Status Name">
                                     <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
                                 </div>
                                 @error('name')
@@ -51,57 +50,16 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="title" class="col-sm-3 col-form-label">Board Title</label>
+                            <label for="desc" class="col-sm-3 col-form-label">Description</label>
                             <div class="col-sm-9">
                                 <div class="position-relative input-icon">
-                                    <input type="text" class="form-control" name="title" id="title"
-                                           placeholder="Enter Title">
+                                    <input type="text" class="form-control" name="desc" id="desc"
+                                           placeholder="Enter Description">
                                     <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
                                 </div>
                                 @error('title')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="start_date" class="col-sm-3 col-form-label">Start Date</label>
-                            <div class="col-sm-9">
-                                <div class="position-relative input-icon">
-                                    <input type="date" class="form-control" name="start_date" id="start_date">
-                                    <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-time'></i></span>
-                                </div>
-                                @error('start_date')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label id="image2" class="col-sm-3 col-form-label">Board Image</label>
-                            <div class="col-sm-9">
-                                <div class="position-relative input-icon">
-                                    <input class="form-control" name="photo" type="file" id="image">
-                                    <span class="position-absolute top-50 translate-middle-y"><i
-                                            class='bx bx-photo-album'></i></span>
-                                </div>
-                                @error('photo')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="photo" class="col-sm-3 col-form-label"></label>
-                            <div class="col-sm-9">
-                                <div class="position-relative input-icon">
-                                    <img id="showImage" src="{{ url('upload/no_image.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="100">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="desc" class="col-sm-3 col-form-label">Description</label>
-                            <div class="col-sm-9">
-                                <textarea class="form-control" name="desc" id="desc" rows="3"
-                                          placeholder="Description"></textarea>
                             </div>
                         </div>
 

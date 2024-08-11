@@ -1,5 +1,5 @@
-@extends('frontend.master')
-@section('home')
+@extends('frontend.dashboard.user_dashboard')
+@section('userdashboard')
 
 <!--================================
          START HERO AREA

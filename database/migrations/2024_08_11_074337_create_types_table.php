@@ -11,17 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('boards', function (Blueprint $table) {
+        Schema::create('types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('project_id');
-            $table->unsignedBigInteger('board_config_id')->nullable();
-            $table->string('title');
             $table->string('desc')->nullable();
-            $table->date('start_date');
-            $table->string('photo')->nullable();
-            $table->tinyInteger('status')->default(0)->comment('0=Inactive','1=Active');
-            $table->string('board_slug')->nullable();
+            $table->unsignedBigInteger('board_id');
+            $table->string('type_slug')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('boards');
+        Schema::dropIfExists('types');
     }
 };
