@@ -32,10 +32,10 @@ class TaskController extends Controller
     {
         $board = Board::find($id);
         $board_config = BoardConfig::find($board-> board_config_id);
-        $teams = Team::latest()->get();
-        $types = Type::latest()->get();
-        $working_statuses = WorkingStatus::latest()->get();
-        $ticket_statuses = TicketStatus::latest()->get();
+        $teams = Team::where('board_id',$board ->id)->latest()->get();
+        $types = Type::where('board_id',$board ->id)->latest()->get();
+        $working_statuses = WorkingStatus::where('board_id',$board ->id)->latest()->get();
+        $ticket_statuses = TicketStatus::where('board_id',$board ->id)->latest()->get();
         $users = User::where('role','user') ->latest()->get();;
         return view('manager.boards.tasks.add_task',compact('board','board_config', 'teams','types','working_statuses','ticket_statuses','users'));
     }
