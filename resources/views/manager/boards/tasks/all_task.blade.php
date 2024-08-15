@@ -92,50 +92,68 @@
                         @foreach ($tasks as $key=> $item)
                             <tr>
                                 <td>{{ $key+1 }}</td>
-                                @if($board_config-> team != null)
+                                @if($board_config-> team != 0)
                                     <td>{{\App\Models\Team::find($item-> team) -> name}}</td>
                                 @endif
-                                @if($board_config-> type != null)
+                                @if($board_config-> type != 0)
                                     <td>{{\App\Models\Type::find($item-> type) -> name}}</td>
                                 @endif
-                                @if($board_config-> jira_id != null)
+                                @if($board_config-> jira_id != 0)
                                     <td>{{ $item->jira_id }}</td>
                                 @endif
-                                @if($board_config-> jira_summary != null)
+                                @if($board_config-> jira_summary != 0)
                                     <td>{{ $item->jira_summary }}</td>
                                 @endif
-                                @if($board_config-> working_status != null)
+                                @if($board_config-> working_status != 0)
                                     <td>{{\App\Models\WorkingStatus::find($item-> working_status) -> name}}</td>
                                 @endif
-                                @if($board_config-> ticket_status != null)
+                                @if($board_config-> ticket_status != 0)
                                     <td>{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}</td>
                                 @endif
-                                @if($board_config-> link_to_result != null)
-                                    <td>{{ $item->link_to_result }}</td>
+                                @if($board_config-> link_to_result != 0)
+                                    <td>
+                                        <a href=" {{ $item->link_to_result }}">Link To Result</a>
+                                    </td>
                                 @endif
-                                @if($board_config-> test_plan != null)
-                                    <td>{{ $item->test_plan }}</td>
+                                @if($board_config-> test_plan != 0)
+                                    <td><a href="{{ $item->test_plan }}">Test Plan</a></td>
                                 @endif
-                                @if($board_config-> sprint != null)
+                                @if($board_config-> sprint != 0)
                                     <td>{{ $item->sprint }}</td>
                                 @endif
-                                @if($board_config-> note != null)
+                                @if($board_config-> note != 0)
                                     <td>{{ $item->note }}</td>
                                 @endif
-                                @if($board_config-> tester_1 != null)
+                                @if($board_config-> tester_1 != 0)
                                     <td>{{ \App\Models\User::find($item-> tester_1) -> name }}</td>
                                 @endif
-                                @if($board_config-> tester_2 != null)
-                                    <td>{{ \App\Models\User::find($item-> tester_2) -> name }}</td>
+                                @if($board_config-> tester_2 != 0)
+                                    <td>
+                                    @if($item-> tester_2 !=null)
+                                        {{ \App\Models\User::find($item-> tester_2) -> name }}
+                                    @endif
+                                    </td>
                                 @endif
-                                @if($board_config-> tester_3 != null)
-                                    <td>{{ \App\Models\User::find($item-> tester_3) -> name }}</td>
+                                @if($board_config-> tester_3 != 0)
+                                    <td>
+                                    @if($item-> tester_3 !=null)
+                                        {{ \App\Models\User::find($item-> tester_3) -> name }}
+                                    @endif
+                                    </td>
                                 @endif
-                                @if($board_config-> tester_4 != null)
-                                    <td>{{ \App\Models\User::find($item-> tester_4) -> name }}</td>
+                                @if($board_config-> tester_4 != 0)
+                                    <td>
+                                    @if($item-> tester_4 !=null)
+                                        {{ \App\Models\User::find($item-> tester_4) -> name }}
+                                    @endif
+                                    </td>
                                 @endif
-                                @if($board_config-> tester_5 != null)
-                                    <td>{{ \App\Models\User::find($item-> tester_5) -> name }}</td>
+                                @if($board_config-> tester_5 != 0)
+                                    <td>
+                                    @if($item-> tester_5    !=null)
+                                        {{ \App\Models\User::find($item-> tester_5) -> name }}
+                                    @endif
+                                    </td>
                                 @endif
                                 <td>
                                     @if($item->updated_at !=null)

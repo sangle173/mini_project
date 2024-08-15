@@ -27,6 +27,7 @@
                     <div class="card-body">
                         <h5 class="mb-4">Edit Task</h5>
                         <input type="hidden" name="board_id" value="{{$board -> id}}">
+                        <input type="hidden" name="task_id" value="{{$task -> id}}">
                         <div class="row mb-3">
                             <label for="project_name" class="col-sm-3 col-form-label">Board Name</label>
                             <div class="col-sm-9">
@@ -94,7 +95,7 @@
                                 <div class="col-sm-9">
                                     <div class="position-relative input-icon">
                                         <input type="text" class="form-control" name="jira_summary" id="jira_summary"
-                                               placeholder="Enter Jira Summary">
+                                               placeholder="Enter Jira Summary" value="{{$task ->jira_summary }}">
                                         <span class="position-absolute top-50 translate-middle-y"><i
                                                 class='bx bx-user'></i></span>
                                     </div>
@@ -145,7 +146,7 @@
                                 <div class="col-sm-9">
                                     <div class="position-relative input-icon">
                                         <input type="text" class="form-control" name="link_to_result" id="link_to_result"
-                                               placeholder="Enter Link To Result">
+                                               placeholder="Enter Link To Result" value="{{$task ->link_to_result }}">
                                         <span class="position-absolute top-50 translate-middle-y"><i
                                                 class='bx bx-user'></i></span>
                                     </div>
@@ -162,7 +163,7 @@
                                 <div class="col-sm-9">
                                     <div class="position-relative input-icon">
                                         <input type="text" class="form-control" name="test_plan" id="test_plan"
-                                               placeholder="Enter Test Plan">
+                                               placeholder="Enter Test Plan" value="{{$task ->test_plan }}">
                                         <span class="position-absolute top-50 translate-middle-y"><i
                                                 class='bx bx-user'></i></span>
                                     </div>
@@ -179,7 +180,7 @@
                                 <div class="col-sm-9">
                                     <div class="position-relative input-icon">
                                         <input type="text" class="form-control" name="sprint" id="sprint"
-                                               placeholder="Enter Sprint">
+                                               placeholder="Enter Sprint" value="{{$task ->sprint }}">
                                         <span class="position-absolute top-50 translate-middle-y"><i
                                                 class='bx bx-user'></i></span>
                                     </div>
@@ -212,9 +213,9 @@
                                 <label for="tester_2" class="col-sm-3 col-form-label">Tester 2</label>
                                 <div class="col-sm-9">
                                     <select class="form-select" name="tester_2" id="tester_2">
-                                        <option selected="" disabled>Select Tester</option>
+                                        <option value="null" >Select Tester</option>
                                         @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            <option value="{{ $user->id }}" {{ $user->id == $task->tester_2 ? 'selected' : '' }}>{{ $user->name }} {{ $user->id == $currentUser->id ? '(You)' : '' }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -229,9 +230,9 @@
                                 <label for="tester_3" class="col-sm-3 col-form-label">Tester 3</label>
                                 <div class="col-sm-9">
                                     <select class="form-select" name="tester_3" id="tester_3">
-                                        <option selected="" disabled>Select Tester</option>
+                                        <option value="null" >Select Tester</option>
                                         @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            <option value="{{ $user->id }}" {{ $user->id == $task->tester_3 ? 'selected' : '' }}>{{ $user->name }} {{ $user->id == $currentUser->id ? '(You)' : '' }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -245,9 +246,9 @@
                                 <label for="tester_4" class="col-sm-3 col-form-label">Tester 4</label>
                                 <div class="col-sm-9">
                                     <select class="form-select" name="tester_4" id="tester_4">
-                                        <option selected="" disabled>Select Tester</option>
+                                        <option value="null" >Select Tester</option>
                                         @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            <option value="{{ $user->id }}" {{ $user->id == $task->tester_4 ? 'selected' : '' }}>{{ $user->name }} {{ $user->id == $currentUser->id ? '(You)' : '' }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -261,9 +262,9 @@
                                 <label for="tester_5" class="col-sm-3 col-form-label">Tester 5</label>
                                 <div class="col-sm-9">
                                     <select class="form-select" name="tester_5" id="tester_5">
-                                        <option selected="" disabled>Select Tester</option>
+                                        <option value="null" >Select Tester</option>
                                         @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            <option value="{{ $user->id }}" {{ $user->id == $task->tester_5 ? 'selected' : '' }}>{{ $user->name }} {{ $user->id == $currentUser->id ? '(You)' : '' }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -277,7 +278,7 @@
                             <label for="note" class="col-sm-3 col-form-label">Note</label>
                             <div class="col-sm-9">
                                 <textarea class="form-control" name="note" id="note" rows="3"
-                                          placeholder="Enter the note ..."></textarea>
+                                          placeholder="Enter the note ...">{{$task ->note }}</textarea>
                                 @error('note')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -290,7 +291,7 @@
                             <div class="col-sm-9">
                                 <div class="d-md-flex d-grid align-items-center gap-3">
                                     <button type="submit" class="btn btn-primary px-5"><i
-                                            class='bx bx-add-to-queue mr-1'></i>Create
+                                            class='bx bxs-save mr-1'></i>Update
                                     </button>
                                     <button type="reset" class="btn btn-outline-secondary px-5"><i
                                             class='bx bx-reset mr-1'></i>Reset

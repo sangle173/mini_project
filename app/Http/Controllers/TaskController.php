@@ -40,7 +40,7 @@ class TaskController extends Controller
         $types = Type::where('board_id',$board ->id)->latest()->get();
         $working_statuses = WorkingStatus::where('board_id',$board ->id)->latest()->get();
         $ticket_statuses = TicketStatus::where('board_id',$board ->id)->latest()->get();
-        $users = User::where('role','user') ->latest()->get();;
+        $users = User::whereNotIn('role',['admin']) ->latest()->get();;
         return view('manager.boards.tasks.add_task',compact('board','board_config', 'teams','types','working_statuses','ticket_statuses','users'));
     }
 
@@ -98,16 +98,42 @@ class TaskController extends Controller
         $types = Type::where('board_id',$board ->id)->latest()->get();
         $working_statuses = WorkingStatus::where('board_id',$board ->id)->latest()->get();
         $ticket_statuses = TicketStatus::where('board_id',$board ->id)->latest()->get();
-        $users = User::where('role','user') ->latest()->get();
+        $users = User::whereNotIn('role',['admin']) ->latest()->get();;
         return view('manager.boards.tasks.edit_task',compact('task', 'board', 'board_config','teams', 'types','working_statuses','ticket_statuses','users','currentUser'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTaskRequest $request, Task $task)
+    public function update(Request $request)
     {
-        //
+        $id = $request ->task_id;
+
+        Task::find($id)->update([
+            'team' => $request->team,
+            'type' => $request->type,
+            'jira_id' => $request->jira_id,
+            'jira_summary' => $request->jira_summary,
+            'working_status' => $request->working_status,
+            'ticket_status' => $request->ticket_status,
+            'link_to_result' => $request->link_to_result,
+            'test_plan' => $request->test_plan,
+            'sprint' => $request->sprint,
+            'note' => $request->note,
+            'tester_1' => $request->tester_1,
+            'tester_2' => $request->tester_2,
+            'tester_3' => $request->tester_3,
+            'tester_4' => $request->tester_4,
+            'tester_5' => $request->tester_5,
+            'task_slug' => strtolower(str_replace(' ', '-', $request->jira_id)),
+            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+
+        $notification = array(
+            'message' => 'Update Ticket Status Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('manager.all.tasks',$request->board_id)->with($notification);
     }
 
     /**
