@@ -246,19 +246,19 @@ Route::middleware(['auth', 'roles:manager'])->group(function () {
 
     // Task All Route
     Route::controller(TaskController::class)->group(function () {
-
         Route::get('/manager/all/board/tasks/{id}', 'index')->name('manager.all.tasks');
         Route::get('/manager/add/board/tasks/{id}', 'create')->name('manager.add.task');
         Route::post('/manager/board/save-task', 'store')->name('manager.tasks.save');
-//        Route::get('/manager/edit/board/ticket_status/{id}', 'edit')->name('manager.edit.boardticket_status');
-//        Route::post('/manager/update/board/ticket_status', 'update')->name('manager.update-boardticket_status');
-//        Route::get('/manager/delete/board/ticket_status/{id}', 'destroy')->name('manager.delete.boardticket_status');
+        Route::get('/manager/edit/board/task/{id}', 'edit')->name('manager.edit.task');
+        Route::post('/manager/update/board/task', 'update')->name('manager.update-task');
+        Route::get('/manager/delete/board/task/{id}', 'destroy')->name('manager.delete.task');
 
 //        Route::post('/manager/update/board/ticket_status/status', 'UpdateTeamStatus')->name('manager.update.boardticket_status.status');
     });
 
 
-}); // End Manager Group Middleware
+});
 
+// End Manager Group Middleware
 Route::get('/manager/login', [ManagerController::class, 'ManagerLogin'])->name('manager.login');
 

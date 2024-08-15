@@ -17,6 +17,7 @@
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">{{$board -> name}} Board</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{$board -> name}} Board</li>
                         <li class="breadcrumb-item active" aria-current="page">Tasks</li>
                     </ol>
                 </nav>
@@ -37,10 +38,51 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Task Name</th>
-                            <th>Desc</th>
-                            <th>Board</th>
-                            <th>Project</th>
+                            @if($board_config-> team != null)
+                                <th>Team</th>
+                            @endif
+                            @if($board_config-> type != null)
+                                <th>Type</th>
+                            @endif
+                            @if($board_config-> jira_id != null)
+                                <th>ID</th>
+                            @endif
+                            @if($board_config-> jira_summary != null)
+                                <th>Jira Summary</th>
+                            @endif
+                            @if($board_config-> working_status != null)
+                                <th>Working Status</th>
+                            @endif
+                            @if($board_config-> ticket_status != null)
+                                <th>Ticket Status</th>
+                            @endif
+                            @if($board_config-> link_to_result != null)
+                                <th>Link To Result</th>
+                            @endif
+                            @if($board_config-> test_plan != null)
+                                <th>Test Plan</th>
+                            @endif
+                            @if($board_config-> sprint != null)
+                                <th>Sprint</th>
+                            @endif
+                            @if($board_config-> note != null)
+                                <th>Note</th>
+                            @endif
+                            @if($board_config-> tester_1 != null)
+                                <th>Tester 1</th>
+                            @endif
+                            @if($board_config-> tester_2 != null)
+                                <th>Tester 2</th>
+                            @endif
+                            @if($board_config-> tester_3 != null)
+                                <th>Tester 3</th>
+                            @endif
+                            @if($board_config-> tester_4 != null)
+                                <th>Tester 4</th>
+                            @endif
+                            @if($board_config-> tester_5 != null)
+                                <th>Tester 5</th>
+                            @endif
                             <th>Updated at</th>
                             <th>Action</th>
                         </tr>
@@ -50,12 +92,51 @@
                         @foreach ($tasks as $key=> $item)
                             <tr>
                                 <td>{{ $key+1 }}</td>
-                                <td>
-
-                                </td>
-                                <td></td>
-                                <td>{{ $board->name }}</td>
-                                <td>{{ \App\Models\Board::getProjectById($board-> project_id) ->name }}</td>
+                                @if($board_config-> team != null)
+                                    <td>{{\App\Models\Team::find($item-> team) -> name}}</td>
+                                @endif
+                                @if($board_config-> type != null)
+                                    <td>{{\App\Models\Type::find($item-> type) -> name}}</td>
+                                @endif
+                                @if($board_config-> jira_id != null)
+                                    <td>{{ $item->jira_id }}</td>
+                                @endif
+                                @if($board_config-> jira_summary != null)
+                                    <td>{{ $item->jira_summary }}</td>
+                                @endif
+                                @if($board_config-> working_status != null)
+                                    <td>{{\App\Models\WorkingStatus::find($item-> working_status) -> name}}</td>
+                                @endif
+                                @if($board_config-> ticket_status != null)
+                                    <td>{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}</td>
+                                @endif
+                                @if($board_config-> link_to_result != null)
+                                    <td>{{ $item->link_to_result }}</td>
+                                @endif
+                                @if($board_config-> test_plan != null)
+                                    <td>{{ $item->test_plan }}</td>
+                                @endif
+                                @if($board_config-> sprint != null)
+                                    <td>{{ $item->sprint }}</td>
+                                @endif
+                                @if($board_config-> note != null)
+                                    <td>{{ $item->note }}</td>
+                                @endif
+                                @if($board_config-> tester_1 != null)
+                                    <td>{{ \App\Models\User::find($item-> tester_1) -> name }}</td>
+                                @endif
+                                @if($board_config-> tester_2 != null)
+                                    <td>{{ \App\Models\User::find($item-> tester_2) -> name }}</td>
+                                @endif
+                                @if($board_config-> tester_3 != null)
+                                    <td>{{ \App\Models\User::find($item-> tester_3) -> name }}</td>
+                                @endif
+                                @if($board_config-> tester_4 != null)
+                                    <td>{{ \App\Models\User::find($item-> tester_4) -> name }}</td>
+                                @endif
+                                @if($board_config-> tester_5 != null)
+                                    <td>{{ \App\Models\User::find($item-> tester_5) -> name }}</td>
+                                @endif
                                 <td>
                                     @if($item->updated_at !=null)
                                         {{ $item->updated_at }}
@@ -64,16 +145,17 @@
                                     @endif
                                 </td>
                                 <td>
-{{--                                    <a href="{{ route('course.all.lecture',$item->id) }}" class="btn btn-warning"--}}
-{{--                                       title="Tất cả bài học"><i class="lni lni-list"></i> </a>--}}
+                                    {{--                                    <a href="{{ route('course.all.lecture',$item->id) }}" class="btn btn-warning"--}}
+                                    {{--                                       title="Tất cả bài học"><i class="lni lni-list"></i> </a>--}}
 
-                                    <a href="{{ route('manager.edit.boardteam',$item->id) }}" class="btn btn-info"
+                                    <a href="{{ route('manager.edit.task',$item->id) }}" class="btn btn-info"
                                        title="Edit"><i
                                             class="lni lni-eraser"></i> </a>
-{{--                                    <a href="{{ route('instructor.course.details',$item->id) }}" class="btn btn-success"><i--}}
-{{--                                            class="lni lni-eye"></i></a>--}}
+                                    {{--                                    <a href="{{ route('instructor.course.details',$item->id) }}" class="btn btn-success"><i--}}
+                                    {{--                                            class="lni lni-eye"></i></a>--}}
 
-                                    <a href="{{ route('manager.delete.boardteam',$item->id) }}" class="btn btn-danger"
+                                    <a href="{{ route('manager.delete.task',$item->id) }}"
+                                       class="btn btn-danger"
                                        id="delete"
                                        title="Delete"><i class="lni lni-trash"></i> </a>
 

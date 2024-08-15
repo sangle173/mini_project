@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Board;
 use App\Models\TicketStatus;
-use App\Http\Requests\StoreTicketStatusRequest;
-use App\Http\Requests\UpdateTicketStatusRequest;
 use App\Models\Type;
-use App\Models\WorkingStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 

@@ -10,65 +10,287 @@
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bxs-home-circle"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit Team</li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Task</li>
                     </ol>
                 </nav>
             </div>
+
         </div>
         <!--end breadcrumb-->
 
         <div class="card">
             <div class="card-body">
-                <form id="myForm" action="{{ route('manager.update-boardteam') }}" method="post" class="row g-3"
+                <form id="myForm" action="{{ route('manager.update-task') }}" method="post" class="row g-3"
                       enctype="multipart/form-data">
                     @csrf
 
                     <div class="card-body">
-                        <h5 class="mb-4">Edit Team</h5>
+                        <h5 class="mb-4">Edit Task</h5>
                         <input type="hidden" name="board_id" value="{{$board -> id}}">
-                        <input type="hidden" name="team_id" value="{{$team-> id}}">
                         <div class="row mb-3">
                             <label for="project_name" class="col-sm-3 col-form-label">Board Name</label>
                             <div class="col-sm-9">
                                 <div class="position-relative input-icon">
-                                    <input type="text" class="form-control" disabled value="{{$board ->name}}"  id="board_name">
+                                    <input type="text" class="form-control" disabled value="{{$board ->name}}"
+                                           id="board_name">
                                     <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <label for="name" class="col-sm-3 col-form-label">Team Name</label>
-                            <div class="col-sm-9">
-                                <div class="position-relative input-icon">
-                                    <input type="text" class="form-control" name="name" id="name"
-                                           placeholder="Enter Team Name" value="{{$team -> name}}">
-                                    <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
+                        @if($board_config -> team == 1)
+                            <div class="row mb-3">
+                                <label for="name" class="col-sm-3 col-form-label">Team</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select" name="team" id="name">
+                                        <option selected="" disabled>Select Team</option>
+                                        @foreach ($teams as $team)
+                                            <option value="{{ $team->id }}" {{ $team->id == $task->team ? 'selected' : '' }}>{{ $team->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                                @error('name')
+                                @error('team')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        @endif
+
+                        @if($board_config -> type == 1)
+                            <div class="row mb-3">
+                                <label for="type" class="col-sm-3 col-form-label">Type</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select" name="type" id="type">
+                                        <option selected="" disabled>Select Type</option>
+                                        @foreach ($types as $type)
+                                            <option value="{{ $type->id }}" {{ $type->id == $task->type ? 'selected' : '' }}>{{ $type->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('type')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        @endif
+
+                        @if($board_config -> jira_id == 1)
+                            <div class="row mb-3">
+                                <label for="jira_id" class="col-sm-3 col-form-label">Jira Id</label>
+                                <div class="col-sm-9">
+                                    <div class="position-relative input-icon">
+                                        <input type="text" class="form-control" name="jira_id" id="jira_id"
+                                               placeholder="Enter Jira Id" value="{{$task ->jira_id }}">
+                                        <span class="position-absolute top-50 translate-middle-y"><i
+                                                class='bx bx-user'></i></span>
+                                    </div>
+                                    @error('jira_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endif
+
+                        @if($board_config -> jira_summary == 1)
+                            <div class="row mb-3">
+                                <label for="jira_summary" class="col-sm-3 col-form-label">Jira Summary</label>
+                                <div class="col-sm-9">
+                                    <div class="position-relative input-icon">
+                                        <input type="text" class="form-control" name="jira_summary" id="jira_summary"
+                                               placeholder="Enter Jira Summary">
+                                        <span class="position-absolute top-50 translate-middle-y"><i
+                                                class='bx bx-user'></i></span>
+                                    </div>
+                                    @error('jira_summary')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endif
+
+                        @if($board_config -> working_status == 1)
+                            <div class="row mb-3">
+                                <label for="working_status" class="col-sm-3 col-form-label">Working Status</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select" name="working_status" id="working_status">
+                                        <option selected="" disabled>Select Working Status</option>
+                                        @foreach ($working_statuses as $working_status)
+                                            <option value="{{ $working_status->id }}" {{ $working_status->id == $task->working_status ? 'selected' : '' }}>{{ $working_status->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('working_status')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        @endif
+
+                        @if($board_config -> ticket_status == 1)
+                            <div class="row mb-3">
+                                <label for="ticket_status" class="col-sm-3 col-form-label">Ticket Status</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select" name="ticket_status" id="ticket_status">
+                                        <option selected="" disabled>Select Ticket Status</option>
+                                        @foreach ($ticket_statuses as $ticket_status)
+                                            <option value="{{ $ticket_status->id }}" {{ $ticket_status->id == $task->ticket_status ? 'selected' : '' }}>{{ $ticket_status->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('ticket_status')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        @endif
+
+                        @if($board_config -> link_to_result == 1)
+                            <div class="row mb-3">
+                                <label for="link_to_result" class="col-sm-3 col-form-label">Link To Result</label>
+                                <div class="col-sm-9">
+                                    <div class="position-relative input-icon">
+                                        <input type="text" class="form-control" name="link_to_result" id="link_to_result"
+                                               placeholder="Enter Link To Result">
+                                        <span class="position-absolute top-50 translate-middle-y"><i
+                                                class='bx bx-user'></i></span>
+                                    </div>
+                                    @error('link_to_result')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endif
+
+                        @if($board_config -> test_plan == 1)
+                            <div class="row mb-3">
+                                <label for="test_plan" class="col-sm-3 col-form-label">Test Plan</label>
+                                <div class="col-sm-9">
+                                    <div class="position-relative input-icon">
+                                        <input type="text" class="form-control" name="test_plan" id="test_plan"
+                                               placeholder="Enter Test Plan">
+                                        <span class="position-absolute top-50 translate-middle-y"><i
+                                                class='bx bx-user'></i></span>
+                                    </div>
+                                    @error('test_plan')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endif
+
+                        @if($board_config -> sprint == 1)
+                            <div class="row mb-3">
+                                <label for="test_plan" class="col-sm-3 col-form-label">Sprint</label>
+                                <div class="col-sm-9">
+                                    <div class="position-relative input-icon">
+                                        <input type="text" class="form-control" name="sprint" id="sprint"
+                                               placeholder="Enter Sprint">
+                                        <span class="position-absolute top-50 translate-middle-y"><i
+                                                class='bx bx-user'></i></span>
+                                    </div>
+                                    @error('sprint')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endif
+
+                        @if($board_config -> tester_1 == 1)
+                            <div class="row mb-3">
+                                <label for="tester_1" class="col-sm-3 col-form-label">Tester 1</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select" name="tester_1" id="tester_1">
+                                        <option selected="" disabled>Select Tester</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}" {{ $user->id == $task->tester_1 ? 'selected' : '' }}>{{ $user->name }} {{ $user->id == $currentUser->id ? '(You)' : '' }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('tester_1')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        @endif
+
+                        @if($board_config -> tester_2 == 1)
+                            <div class="row mb-3">
+                                <label for="tester_2" class="col-sm-3 col-form-label">Tester 2</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select" name="tester_2" id="tester_2">
+                                        <option selected="" disabled>Select Tester</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('tester_2')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        @endif
+
+                        @if($board_config -> tester_3 == 1)
+                            <div class="row mb-3">
+                                <label for="tester_3" class="col-sm-3 col-form-label">Tester 3</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select" name="tester_3" id="tester_3">
+                                        <option selected="" disabled>Select Tester</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('tester_3')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        @endif
+                        @if($board_config -> tester_4 == 1)
+                            <div class="row mb-3">
+                                <label for="tester_4" class="col-sm-3 col-form-label">Tester 4</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select" name="tester_4" id="tester_4">
+                                        <option selected="" disabled>Select Tester</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('tester_4')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        @endif
+                        @if($board_config -> tester_5 == 1)
+                            <div class="row mb-3">
+                                <label for="tester_5" class="col-sm-3 col-form-label">Tester 5</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select" name="tester_5" id="tester_5">
+                                        <option selected="" disabled>Select Tester</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('tester_5')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        @endif
+                        @if($board_config -> note == 1)
+                        <div class="row mb-3">
+                            <label for="note" class="col-sm-3 col-form-label">Note</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" name="note" id="note" rows="3"
+                                          placeholder="Enter the note ..."></textarea>
+                                @error('note')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <label for="desc" class="col-sm-3 col-form-label">Description</label>
-                            <div class="col-sm-9">
-                                <div class="position-relative input-icon">
-                                    <input type="text" class="form-control" name="desc" value="{{$team -> desc}}" id="desc"
-                                           placeholder="Enter Description">
-                                    <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
-                                </div>
-                                @error('title')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
+                        @endif
 
                         <div class="row">
                             <label class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
                                 <div class="d-md-flex d-grid align-items-center gap-3">
                                     <button type="submit" class="btn btn-primary px-5"><i
-                                            class='bx bx-add-to-queue mr-1'></i>Update
+                                            class='bx bx-add-to-queue mr-1'></i>Create
                                     </button>
                                     <button type="reset" class="btn btn-outline-secondary px-5"><i
                                             class='bx bx-reset mr-1'></i>Reset

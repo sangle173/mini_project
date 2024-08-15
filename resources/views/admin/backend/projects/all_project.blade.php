@@ -79,18 +79,19 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="col">
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="{{ route('admin.edit.projects',$item->id) }}" type="button"
-                                               class="btn btn-secondary"><i class="bx bx-edit"></i>
-                                            </a>
-                                            {{--                                            <button type="button" class="btn btn-secondary"><i class="bx bx-share"></i>--}}
-                                            {{--                                            </button>--}}
-                                            <a href="{{ route('admin.delete.projects',$item->id) }}" id="delete" type="button"
-                                               class="btn btn-secondary"><i class="bx bx-trash"></i>
-                                            </a>
-                                        </div>
-                                    </div>
+{{--                                    <a href="{{ route('course.all.lecture',$item->id) }}" class="btn btn-warning"--}}
+{{--                                       title="Tất cả bài học"><i class="lni lni-list"></i> </a>--}}
+
+                                    <a href="{{ route('admin.edit.projects',$item->id) }}" class="btn btn-info"
+                                       title="Edit"><i
+                                            class="lni lni-eraser"></i> </a>
+{{--                                    <a href="{{ route('instructor.course.details',$item->id) }}"--}}
+{{--                                       class="btn btn-success"><i--}}
+{{--                                            class="lni lni-eye"></i></a>--}}
+
+                                    <a href="{{ route('admin.delete.projects',$item->id) }}" class="btn btn-danger"
+                                       id="delete"
+                                       title="Delete"><i class="lni lni-trash"></i> </a>
                                 </td>
                             </tr>
                         @endforeach
