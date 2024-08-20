@@ -1,5 +1,5 @@
-@extends('frontend.dashboard.user_dashboard')
-@section('userdashboard')
+@extends('frontend.master')
+@section('home')
 
 <!-- ================================
        START CONTACT AREA

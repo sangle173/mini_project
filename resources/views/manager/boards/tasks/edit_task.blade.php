@@ -8,8 +8,8 @@
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
-                        <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bxs-home-circle"></i></a>
-                        </li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('manager.all.boards',$board-> project_id) }}">{{\App\Models\Board::getProjectById($board-> project_id)-> name}} Project</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="{{route('manager.show.board', $board -> id)}}">{{$board -> name}} Board</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Edit Task</li>
                     </ol>
                 </nav>
@@ -135,6 +135,23 @@
                                     </select>
                                 </div>
                                 @error('ticket_status')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        @endif
+
+                        @if($board_config -> priority == 1)
+                            <div class="row mb-3">
+                                <label for="priority" class="col-sm-3 col-form-label">Priority</label>
+                                <div class="col-sm-9">
+                                    <select class="form-select" name="priority" id="priority">
+                                        <option selected="" disabled>Select Priority</option>
+                                        @foreach ($priorities as $priority)
+                                            <option value="{{ $priority->id }}" {{ $priority->id == $task->priority ? 'selected' : '' }}>{{ $priority->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('$priority')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>

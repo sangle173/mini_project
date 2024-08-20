@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('test_plan')->nullable();
             $table->string('sprint')->nullable();
             $table->string('note')->nullable();
+            $table->unsignedBigInteger('priority')->nullable();
             $table->unsignedBigInteger('tester_1')->nullable();
             $table->unsignedBigInteger('tester_2')->nullable();
             $table->unsignedBigInteger('tester_3')->nullable();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Board;
 use App\Models\BoardConfig;
+use App\Models\Priority;
 use App\Models\Task;
 use App\Models\Team;
 use App\Models\TicketStatus;
@@ -40,8 +41,9 @@ class TaskController extends Controller
         $types = Type::where('board_id',$board ->id)->latest()->get();
         $working_statuses = WorkingStatus::where('board_id',$board ->id)->latest()->get();
         $ticket_statuses = TicketStatus::where('board_id',$board ->id)->latest()->get();
+        $priorities = Priority::where('board_id',$board ->id)->latest()->get();
         $users = User::whereNotIn('role',['admin']) ->latest()->get();;
-        return view('manager.boards.tasks.add_task',compact('board','board_config', 'teams','types','working_statuses','ticket_statuses','users'));
+        return view('manager.boards.tasks.add_task',compact('board','board_config', 'teams','types','working_statuses','ticket_statuses','priorities','users'));
     }
 
     /**
@@ -61,6 +63,7 @@ class TaskController extends Controller
             'test_plan' => $request->test_plan,
             'sprint' => $request->sprint,
             'note' => $request->note,
+            'priority' => $request->priority,
             'tester_1' => $request->tester_1,
             'tester_2' => $request->tester_2,
             'tester_3' => $request->tester_3,
@@ -98,8 +101,9 @@ class TaskController extends Controller
         $types = Type::where('board_id',$board ->id)->latest()->get();
         $working_statuses = WorkingStatus::where('board_id',$board ->id)->latest()->get();
         $ticket_statuses = TicketStatus::where('board_id',$board ->id)->latest()->get();
-        $users = User::whereNotIn('role',['admin']) ->latest()->get();;
-        return view('manager.boards.tasks.edit_task',compact('task', 'board', 'board_config','teams', 'types','working_statuses','ticket_statuses','users','currentUser'));
+        $users = User::whereNotIn('role',['admin']) ->latest()->get();
+        $priorities = Priority::where('board_id',$board ->id)->latest()->get();
+        return view('manager.boards.tasks.edit_task',compact('task', 'board', 'board_config','teams', 'types','working_statuses','ticket_statuses','priorities','users','currentUser'));
     }
 
     /**
@@ -120,6 +124,7 @@ class TaskController extends Controller
             'test_plan' => $request->test_plan,
             'sprint' => $request->sprint,
             'note' => $request->note,
+            'priority' => $request->priority,
             'tester_1' => $request->tester_1,
             'tester_2' => $request->tester_2,
             'tester_3' => $request->tester_3,

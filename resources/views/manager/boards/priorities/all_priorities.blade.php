@@ -17,14 +17,14 @@
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">{{$board -> name}} Board</li>
-                        <li class="breadcrumb-item active" aria-current="page">Teams</li>
+                        <li class="breadcrumb-item active" aria-current="page">Priorities</li>
                     </ol>
                 </nav>
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('manager.add.boardteam',$board->id) }}" type="button" class="btn btn-info px-5"><i
-                            class='bx bx-add-to-queue mr-1'></i>Add Teams</a>
+                    <a href="{{ route('manager.add.boardpriority',$board->id) }}" type="button" class="btn btn-info px-5"><i
+                            class='bx bx-add-to-queue mr-1'></i>Add Priority</a>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Team Name</th>
+                            <th>Priority Name</th>
                             <th>Desc</th>
                             <th>Board</th>
                             <th>Project</th>
@@ -47,7 +47,7 @@
                         </thead>
                         <tbody>
 
-                        @foreach ($teams as $key=> $item)
+                        @foreach ($priorities as $key=> $item)
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>
@@ -67,9 +67,9 @@
                                     <div class="d-flex order-actions">
                                         {{--                                        <a href="{{ route('manager.all.boards',$item->id) }}" title="Edit" class=""><i class='lni lni-eye text-success'></i></a>--}}
                                         {{--                                        <a href="{{ route('manager.add.board',$item->id) }}" title="Add Board" class=""><i class='bx bxs-plus-square text-info'></i></a>--}}
-                                        <a href="{{ route('manager.edit.boardteam',$item->id) }}" title="Edit" class=""><i
+                                        <a href="{{ route('manager.edit.boardpriority',$item->id) }}" title="Edit" class=""><i
                                                 class='bx bxs-edit text-primary'></i></a>
-                                        <a href="{{ route('manager.delete.boardteam',$item->id) }}" id="delete"
+                                        <a href="{{ route('manager.delete.boardpriority',$item->id) }}" id="delete"
                                            title="Delete" class=""><i class='bx bxs-trash text-danger'></i></a>
                                     </div>
                                 </td>

@@ -67,35 +67,9 @@
                                     @endif
                                 </td>
                                 <td>
-{{--                                    <div class="col">--}}
-{{--                                        <div class="btn-group" role="group" aria-label="Basic example">--}}
-{{--                                            <a href="{{ route('manager.all.boards',$item->id) }}" type="button"--}}
-{{--                                               class="btn btn-secondary"><i class="bx bxs-food-menu"></i>--}}
-{{--                                            </a>--}}
-{{--                                            <a href="{{ route('manager.add.board',$item->id) }}" type="button"--}}
-{{--                                               class="btn btn-secondary"><i class="bx bxs-add-to-queue"></i>--}}
-{{--                                            </a>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-                                    <div class="col">
-                                        <div class="btn-group">
-                                            <a type="button" href="{{ route('manager.all.boards',$item->id) }}" class="btn btn-outline-secondary">View Board</a>
-                                            <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">	<span class="visually-hidden">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="{{ route('manager.add.board',$item->id) }}">Details</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="#">Another action</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="#">Something else here</a>
-                                                </li>
-                                                <li>
-                                                    <hr class="dropdown-divider">
-                                                </li>
-                                                <li><a class="dropdown-item" href="#">Separated link</a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                    <div class="d-flex order-actions">
+                                        <a href="{{ route('manager.all.boards',$item->id) }}" title="Edit" class=""><i class='lni lni-eye text-success'></i></a>
+                                        <a href="{{ route('manager.add.board',$item->id) }}" title="Add Board" class=""><i class='bx bxs-plus-square text-info'></i></a>
                                     </div>
                                 </td>
                             </tr>

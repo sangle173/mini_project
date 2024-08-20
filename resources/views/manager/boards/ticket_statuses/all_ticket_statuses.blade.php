@@ -64,19 +64,14 @@
                                     @endif
                                 </td>
                                 <td>
-{{--                                    <a href="{{ route('course.all.lecture',$item->id) }}" class="btn btn-warning"--}}
-{{--                                       title="Tất cả bài học"><i class="lni lni-list"></i> </a>--}}
-
-                                    <a href="{{ route('manager.edit.boardticket_status',$item->id) }}" class="btn btn-info"
-                                       title="Edit"><i
-                                            class="lni lni-eraser"></i> </a>
-{{--                                    <a href="{{ route('instructor.course.details',$item->id) }}" class="btn btn-success"><i--}}
-{{--                                            class="lni lni-eye"></i></a>--}}
-
-                                    <a href="{{ route('manager.delete.boardticket_status',$item->id) }}" class="btn btn-danger"
-                                       id="delete"
-                                       title="Delete"><i class="lni lni-trash"></i> </a>
-
+                                    <div class="d-flex order-actions">
+                                        {{--                                        <a href="{{ route('manager.all.boards',$item->id) }}" title="Edit" class=""><i class='lni lni-eye text-success'></i></a>--}}
+                                        {{--                                        <a href="{{ route('manager.add.board',$item->id) }}" title="Add Board" class=""><i class='bx bxs-plus-square text-info'></i></a>--}}
+                                        <a href="{{ route('manager.edit.boardticket_status',$item->id) }}" title="Edit" class=""><i
+                                                class='bx bxs-edit text-primary'></i></a>
+                                        <a href="{{ route('manager.delete.boardticket_status',$item->id) }}" id="delete"
+                                           title="Delete" class=""><i class='bx bxs-trash text-danger'></i></a>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

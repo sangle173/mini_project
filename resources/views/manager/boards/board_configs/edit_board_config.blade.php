@@ -136,7 +136,22 @@
                                 @enderror
                             </div>
                         </div>
-
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label">Priority</label>
+                            <div class="col-sm-9">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" {{$board_config -> priority == 1 ? 'checked': ''}} checked type="radio" name="priority" id="priority" value="1">
+                                    <label class="form-check-label" for="ticket_status1">Enable</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input"  {{$board_config -> priority == 0 ? 'checked': ''}} type="radio" name="priority" id="priority" value="0">
+                                    <label class="form-check-label" for="ticket_status0">Disable</label>
+                                </div>
+                                @error('priority')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="row mb-3">
                             <label class="col-sm-3 col-form-label">Link To Result</label>
                             <div class="col-sm-9">

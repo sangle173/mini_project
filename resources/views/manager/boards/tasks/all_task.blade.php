@@ -16,9 +16,9 @@
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">{{$board -> name}} Board</li>
-                        <li class="breadcrumb-item active" aria-current="page">{{$board -> name}} Board</li>
-                        <li class="breadcrumb-item active" aria-current="page">Tasks</li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('manager.all.boards',$board-> project_id) }}">{{\App\Models\Board::getProjectById($board-> project_id)-> name}} Project</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="{{route('manager.show.board', $board -> id)}}">{{$board -> name}} Board</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">All Tasks</li>
                     </ol>
                 </nav>
             </div>
@@ -55,6 +55,9 @@
                             @endif
                             @if($board_config-> ticket_status != null)
                                 <th>Ticket Status</th>
+                            @endif
+                            @if($board_config-> priority != null)
+                                <th>Priority</th>
                             @endif
                             @if($board_config-> link_to_result != null)
                                 <th>Link To Result</th>
@@ -110,6 +113,13 @@
                                 @if($board_config-> ticket_status != 0)
                                     <td>{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}</td>
                                 @endif
+                                @if($board_config-> priority != 0)
+                                    <td>
+                                        @if($item-> priority !=null)
+                                            {{\App\Models\Priority::find($item-> priority) -> name}}
+                                        @endif
+                                    </td>
+                                @endif
                                 @if($board_config-> link_to_result != 0)
                                     <td>
                                         <a href=" {{ $item->link_to_result }}">Link To Result</a>
@@ -163,20 +173,11 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{--                                    <a href="{{ route('course.all.lecture',$item->id) }}" class="btn btn-warning"--}}
-                                    {{--                                       title="Tất cả bài học"><i class="lni lni-list"></i> </a>--}}
-
-                                    <a href="{{ route('manager.edit.task',$item->id) }}" class="btn btn-info"
-                                       title="Edit"><i
-                                            class="lni lni-eraser"></i> </a>
-                                    {{--                                    <a href="{{ route('instructor.course.details',$item->id) }}" class="btn btn-success"><i--}}
-                                    {{--                                            class="lni lni-eye"></i></a>--}}
-
-                                    <a href="{{ route('manager.delete.task',$item->id) }}"
-                                       class="btn btn-danger"
-                                       id="delete"
-                                       title="Delete"><i class="lni lni-trash"></i> </a>
-
+                                    <div class="d-flex order-actions">
+                                        <a href="{{ route('manager.edit.task',$item->id) }}" title="Edit" class=""><i class='lni lni-eye text-success'></i></a>
+                                        <a href="{{ route('manager.edit.task',$item->id) }}" title="Edit" class=""><i class='bx bxs-edit text-primary'></i></a>
+                                        <a href="{{ route('manager.delete.task',$item->id) }}" id="Delete"  title="delete" class=""><i class='bx bxs-trash text-danger'></i></a>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -188,6 +189,5 @@
             </div>
         </div>
         <!--end row-->
-
     </div>
 @endsection

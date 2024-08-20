@@ -16,6 +16,7 @@
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
+{{--                        <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('manager.all.boards',$board-> project_id) }}">{{\App\Models\Board::getProjectById($board-> project_id)-> name}} Project</a></li>--}}
                         <li class="breadcrumb-item active" aria-current="page">All Board</li>
                     </ol>
                 </nav>
@@ -60,6 +61,9 @@
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="{{ route('manager.all.boardticket_statuses', $item -> id) }}">Manage Ticket Status</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('manager.all.boardpriorities', $item -> id) }}">Manage Priority</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="{{ route('manager.all.tasks', $item -> id) }}">Manage Task</a>

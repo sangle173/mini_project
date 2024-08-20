@@ -3,6 +3,7 @@
 use App\Http\Controllers\BoardConfigController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\ManagerProjectController;
+use App\Http\Controllers\PriorityController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
@@ -242,6 +243,19 @@ Route::middleware(['auth', 'roles:manager'])->group(function () {
         Route::get('/manager/delete/board/ticket_status/{id}', 'destroy')->name('manager.delete.boardticket_status');
 
         Route::post('/manager/update/board/ticket_status/status', 'UpdateTeamStatus')->name('manager.update.boardticket_status.status');
+    });
+
+    // Priority All Route
+    Route::controller(PriorityController::class)->group(function () {
+
+        Route::get('/manager/all/board/priority/{id}', 'index')->name('manager.all.boardpriorities');
+        Route::get('/manager/add/board/priority/{id}', 'create')->name('manager.add.boardpriority');
+        Route::post('/manager/board/save-priority/', 'store')->name('manager.board.save-priority');
+        Route::get('/manager/edit/board/priority/{id}', 'edit')->name('manager.edit.boardpriority');
+        Route::post('/manager/update/board/priority', 'update')->name('manager.update-boardpriority');
+        Route::get('/manager/delete/board/priority/{id}', 'destroy')->name('manager.delete.boardpriority');
+
+        Route::post('/manager/update/board/priority/status', 'UpdateTeamStatus')->name('manager.update.boardpriority.status');
     });
 
     // Task All Route
