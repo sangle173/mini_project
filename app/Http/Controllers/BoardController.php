@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Board;
 use App\Http\Requests\StoreBoardRequest;
 use App\Http\Requests\UpdateBoardRequest;
+use App\Models\BoardConfig;
 use App\Models\Project;
+use App\Models\Task;
+use App\Models\Team;
 use Illuminate\Support\Carbon;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
@@ -66,7 +69,11 @@ class BoardController extends Controller
     public function show($id)
     {
         $board = Board::find($id);
-        return view('manager.boards.view_board',compact('board'));
+        $tasks = Task::where('board_id',$board ->id)->latest()->get();
+        $board_config = BoardConfig::find(Board::find($id) -> board_config_id);
+        $teams = Team::where('board_id',$board ->id)->latest()->get();
+
+        return view('manager.boards.view_board',compact('board', 'tasks', 'board_config','teams'));
     }
 
     /**

@@ -16,8 +16,11 @@
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('manager.all.boards',$board-> project_id) }}">{{\App\Models\Board::getProjectById($board-> project_id)-> name}} Project</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><a href="{{route('manager.show.board', $board -> id)}}">{{$board -> name}} Board</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a
+                                href="{{ route('manager.all.boards',$board-> project_id) }}">{{\App\Models\Board::getProjectById($board-> project_id)-> name}}
+                                Project</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a
+                                href="{{route('manager.show.board', $board -> id)}}">{{$board -> name}} Board</a></li>
                         <li class="breadcrumb-item active" aria-current="page">All Tasks</li>
                     </ol>
                 </nav>
@@ -96,22 +99,46 @@
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 @if($board_config-> team != 0)
-                                    <td>{{\App\Models\Team::find($item-> team) -> name}}</td>
+                                    <td>
+                                        @if($item-> team !=null)
+                                            {{\App\Models\Team::find($item-> team) -> name}}
+                                        @endif
+                                    </td>
                                 @endif
                                 @if($board_config-> type != 0)
-                                    <td>{{\App\Models\Type::find($item-> type) -> name}}</td>
+                                    <td>
+                                        @if($item-> type !=null)
+                                            {{\App\Models\Type::find($item-> type) -> name}}
+                                        @endif
+                                    </td>
                                 @endif
                                 @if($board_config-> jira_id != 0)
-                                    <td>{{ $item->jira_id }}</td>
+                                    <td>
+                                        @if($item-> jira_id !=null)
+                                            {{ $item->jira_id }}
+                                        @endif
+                                    </td>
                                 @endif
                                 @if($board_config-> jira_summary != 0)
-                                    <td>{{ $item->jira_summary }}</td>
+                                    <td>
+                                        @if($item-> jira_summary !=null)
+                                            {{ $item->jira_summary }}
+                                        @endif
+                                    </td>
                                 @endif
                                 @if($board_config-> working_status != 0)
-                                    <td>{{\App\Models\WorkingStatus::find($item-> working_status) -> name}}</td>
+                                    <td>
+                                        @if($item-> working_status !=null)
+                                            {{\App\Models\WorkingStatus::find($item-> working_status) -> name}}
+                                        @endif
+                                    </td>
                                 @endif
                                 @if($board_config-> ticket_status != 0)
-                                    <td>{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}</td>
+                                    <td>
+                                        @if($item-> ticket_status !=null)
+                                            {{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}
+                                        @endif
+                                    </td>
                                 @endif
                                 @if($board_config-> priority != 0)
                                     <td>
@@ -122,47 +149,62 @@
                                 @endif
                                 @if($board_config-> link_to_result != 0)
                                     <td>
-                                        <a href=" {{ $item->link_to_result }}">Link To Result</a>
+                                        @if($item-> link_to_result !=null)
+                                            <a target="_blank" href=" {{ $item->link_to_result }}">Link To Result</a>
+
+                                        @endif
                                     </td>
                                 @endif
                                 @if($board_config-> test_plan != 0)
-                                    <td><a href="{{ $item->test_plan }}">Test Plan</a></td>
+                                    <td>
+                                        @if($item-> test_plan !=null)
+                                            <a target="_blank" href="{{ $item->test_plan }}">Test Plan</a>
+                                        @endif
+                                    </td>
                                 @endif
                                 @if($board_config-> sprint != 0)
-                                    <td>{{ $item->sprint }}</td>
+                                    <td>
+                                        @if($item-> test_plan !=null)
+                                            {{ $item->sprint }}
+                                        @endif
+                                    </td>
                                 @endif
                                 @if($board_config-> note != 0)
-                                    <td>{{ $item->note }}</td>
+                                    <td>
+                                        @if($item-> test_plan !=null)
+                                            {{ $item->note }}
+                                        @endif
+                                    </td>
                                 @endif
                                 @if($board_config-> tester_1 != 0)
                                     <td>{{ \App\Models\User::find($item-> tester_1) -> name }}</td>
                                 @endif
                                 @if($board_config-> tester_2 != 0)
                                     <td>
-                                    @if($item-> tester_2 !=null)
-                                        {{ \App\Models\User::find($item-> tester_2) -> name }}
-                                    @endif
+                                        @if($item-> tester_2 !=null)
+                                            {{ \App\Models\User::find($item-> tester_2) -> name }}
+                                        @endif
                                     </td>
                                 @endif
                                 @if($board_config-> tester_3 != 0)
                                     <td>
-                                    @if($item-> tester_3 !=null)
-                                        {{ \App\Models\User::find($item-> tester_3) -> name }}
-                                    @endif
+                                        @if($item-> tester_3 !=null)
+                                            {{ \App\Models\User::find($item-> tester_3) -> name }}
+                                        @endif
                                     </td>
                                 @endif
                                 @if($board_config-> tester_4 != 0)
                                     <td>
-                                    @if($item-> tester_4 !=null)
-                                        {{ \App\Models\User::find($item-> tester_4) -> name }}
-                                    @endif
+                                        @if($item-> tester_4 !=null)
+                                            {{ \App\Models\User::find($item-> tester_4) -> name }}
+                                        @endif
                                     </td>
                                 @endif
                                 @if($board_config-> tester_5 != 0)
                                     <td>
-                                    @if($item-> tester_5    !=null)
-                                        {{ \App\Models\User::find($item-> tester_5) -> name }}
-                                    @endif
+                                        @if($item-> tester_5    !=null)
+                                            {{ \App\Models\User::find($item-> tester_5) -> name }}
+                                        @endif
                                     </td>
                                 @endif
                                 <td>
@@ -174,9 +216,12 @@
                                 </td>
                                 <td>
                                     <div class="d-flex order-actions">
-                                        <a href="{{ route('manager.edit.task',$item->id) }}" title="Edit" class=""><i class='lni lni-eye text-success'></i></a>
-                                        <a href="{{ route('manager.edit.task',$item->id) }}" title="Edit" class=""><i class='bx bxs-edit text-primary'></i></a>
-                                        <a href="{{ route('manager.delete.task',$item->id) }}" id="Delete"  title="delete" class=""><i class='bx bxs-trash text-danger'></i></a>
+                                        <a href="{{ route('manager.edit.task',$item->id) }}" title="Edit" class=""><i
+                                                class='lni lni-eye text-success'></i></a>
+                                        <a href="{{ route('manager.edit.task',$item->id) }}" title="Edit" class=""><i
+                                                class='bx bxs-edit text-primary'></i></a>
+                                        <a href="{{ route('manager.delete.task',$item->id) }}" id="Delete"
+                                           title="delete" class=""><i class='bx bxs-trash text-danger'></i></a>
                                     </div>
                                 </td>
                             </tr>

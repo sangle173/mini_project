@@ -113,7 +113,7 @@ class BoardConfigController extends Controller
         ]);
 
         $notification = array(
-            'message' => 'Update Team Successfully',
+            'message' => 'Update Board Config Successfully',
             'alert-type' => 'success'
         );
         return redirect()->route('manager.show.board', BoardConfig::find($id)->board_id)->with($notification);
