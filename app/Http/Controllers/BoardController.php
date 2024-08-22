@@ -18,20 +18,18 @@ class BoardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($id)
+    public function index()
     {
-        $project = Project::find($id);
-        $boards = Board::where('project_id',$project ->id)->latest()->get();
-        return view('manager.boards.all_board',compact('boards', 'project'));
+        $boards = Board::latest()->get();
+        return view('manager.boards.all_board',compact('boards'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create($id)
+    public function create()
     {
-        $project = Project::find($id);
-        return view('manager.boards.add_board',compact('project'));
+        return view('manager.boards.add_board');
     }
 
     /**
@@ -46,7 +44,6 @@ class BoardController extends Controller
 
         $board_id = Board::insertGetId([
             'name' => $request->name,
-            'project_id' => $request->project_id,
             'title' => $request->title,
             'start_date' => $request->start_date,
             'board_slug' => strtolower(str_replace(' ', '-', $request->name)),
@@ -60,7 +57,7 @@ class BoardController extends Controller
             'message' => 'Board Created Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.all.boards',$request->project_id)->with($notification);
+        return redirect()->route('manager.all.boards')->with($notification);
     }
 
     /**

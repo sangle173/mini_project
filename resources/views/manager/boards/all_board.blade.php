@@ -23,7 +23,7 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('manager.add.board',$project->id) }}" type="button" class="btn btn-info px-5"><i
+                    <a href="{{ route('manager.add.board') }}" type="button" class="btn btn-info px-5"><i
                             class='bx bx-add-to-queue mr-1'></i>Add Board</a>
                 </div>
             </div>
@@ -68,6 +68,9 @@
                                     <li>
                                         <a class="dropdown-item" href="{{ route('manager.all.tasks', $item -> id) }}">Manage Task</a>
                                     </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('manager.config.board', $item -> id) }}">Board Config</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -79,38 +82,5 @@
         <!--end row-->
 
     </div>
-
-    <script>
-        $(document).ready(function () {
-            $('.status-toggle').on('change', function () {
-                var projectId = $(this).data('projects-id');
-                var isChecked = $(this).is(':checked');
-
-                // send an ajax request to update status
-
-                $.ajax({
-                    url: "{{ route('admin.update.projects.status') }}",
-                    method: "POST",
-                    data: {
-                        project_id: projectId,
-                        is_checked: isChecked ? 1 : 0,
-                        _token: "{{ csrf_token() }}"
-                    },
-                    success: function (response) {
-                        toastr.success(response.message);
-                        window.setTimeout(function () {
-                            location.reload();
-                        }, 2000);
-
-                    },
-                    error: function () {
-
-                    }
-                });
-
-            });
-        });
-    </script>
-
 
 @endsection

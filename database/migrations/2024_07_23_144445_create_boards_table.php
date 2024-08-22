@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('boards', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('project_id');
             $table->unsignedBigInteger('board_config_id')->nullable();
             $table->string('title');
             $table->string('desc')->nullable();

@@ -9,13 +9,4 @@ class Board extends Model
 {
     use HasFactory;
     protected $guarded = [];
-
-    public function project(){
-        return $this->belongsTo(Project::class, 'project_id' ,'id');
-    }
-
-    public static function getProjectById($projectId){
-        return Project::find($projectId);
-    } // End Method
-
 }

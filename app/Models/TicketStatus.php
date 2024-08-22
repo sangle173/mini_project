@@ -11,8 +11,4 @@ class TicketStatus extends Model
     use HasFactory;
 
     protected $guarded = [];
-
-    public static function getBoardById($boardId){
-        return Board::find($boardId);
-    } // End Method
 }

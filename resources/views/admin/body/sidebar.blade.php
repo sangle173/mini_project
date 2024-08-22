@@ -25,17 +25,17 @@
         <li class="menu-label">Projects</li>
 
         <li>
-            <a class="has-arrow" href="javascript:;">
-                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
-                </div>
-                <div class="menu-title">Manage Project</div>
-            </a>
-            <ul>
-                <li> <a href="{{ route('admin.all.projects') }}"><i class='bx bx-radio-circle'></i>All Project</a>
-                </li>
+{{--            <a class="has-arrow" href="javascript:;">--}}
+{{--                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>--}}
+{{--                </div>--}}
+{{--                <div class="menu-title">Manage Project</div>--}}
+{{--            </a>--}}
+{{--            <ul>--}}
+{{--                <li> <a href="{{ route('admin.all.projects') }}"><i class='bx bx-radio-circle'></i>All Project</a>--}}
+{{--                </li>--}}
 
 
-            </ul>
+{{--            </ul>--}}
         </li>
         <li>
             <a class="has-arrow" href="javascript:;">

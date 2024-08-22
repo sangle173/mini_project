@@ -40,7 +40,6 @@
                             <th>Working Status Name</th>
                             <th>Desc</th>
                             <th>Board</th>
-                            <th>Project</th>
                             <th>Updated at</th>
                             <th>Action</th>
                         </tr>
@@ -55,7 +54,6 @@
                                 </td>
                                 <td>{{ $item->desc }}</td>
                                 <td>{{ $board->name }}</td>
-                                <td>{{ \App\Models\Board::getProjectById($board-> project_id) ->name }}</td>
                                 <td>
                                     @if($item->updated_at !=null)
                                         {{ $item->updated_at }}

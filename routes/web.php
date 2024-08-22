@@ -166,16 +166,11 @@ Route::middleware(['auth', 'roles:manager'])->group(function () {
         Route::post('/delete/section/{id}', 'DeleteSection')->name('delete.section');
     });
 
-    // Project All Route
-    Route::controller(ManagerProjectController::class)->group(function () {
-        Route::get('/manager/all/projects', 'index')->name('manager.all.projects');
-    });
-
     // Board All Route
     Route::controller(BoardController::class)->group(function () {
 
-        Route::get('/manager/all/board/{id}', 'index')->name('manager.all.boards');
-        Route::get('/manager/add/board/{id}', 'create')->name('manager.add.board');
+        Route::get('/manager/all/board/', 'index')->name('manager.all.boards');
+        Route::get('/manager/add/board/', 'create')->name('manager.add.board');
         Route::get('/manager/show/board/{id}', 'show')->name('manager.show.board');
         Route::post('/manager/save-board/', 'store')->name('manager.save-board');
         Route::get('/manager/edit/board/{id}', 'edit')->name('manager.edit.board');
