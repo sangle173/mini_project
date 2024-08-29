@@ -36,6 +36,7 @@ class BoardConfigController extends Controller
     {
         $board_config_id = BoardConfig::insertGetId([
             'board_id' => $request->board_id,
+            'jira_url' => $request->jira_url,
             'team' => $request->team,
             'type' => $request->type,
             'jira_id' => $request->jira_id,
@@ -93,6 +94,7 @@ class BoardConfigController extends Controller
         $id = $request->board_config_id;
 
         BoardConfig::find($id)->update([
+            'jira_url' => $request->jira_url,
             'team' => $request->team,
             'type' => $request->type,
             'jira_id' => $request->jira_id,

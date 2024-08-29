@@ -259,7 +259,9 @@ Route::middleware(['auth', 'roles:manager'])->group(function () {
         Route::get('/manager/add/board/tasks/{id}', 'create')->name('manager.add.task');
         Route::post('/manager/board/save-task', 'store')->name('manager.tasks.save');
         Route::get('/manager/edit/board/task/{id}', 'edit')->name('manager.edit.task');
+        Route::get('/manager/clone/board/task/{id}', 'cloneTask')->name('manager.clone.task');
         Route::post('/manager/update/board/task', 'update')->name('manager.update-task');
+        Route::post('/manager/clone/board/task', 'cloneTaskAction')->name('manager.clone-task');
         Route::get('/manager/delete/board/task/{id}', 'destroy')->name('manager.delete.task');
 
 //        Route::post('/manager/update/board/ticket_status/status', 'UpdateTeamStatus')->name('manager.update.boardticket_status.status');

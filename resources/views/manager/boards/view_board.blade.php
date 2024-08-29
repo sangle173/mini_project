@@ -227,7 +227,7 @@
                                                 @if($board_config-> jira_id != 0)
                                                     <td>
                                                         @if($item-> jira_id !=null)
-                                                            {{ $item->jira_id }}
+                                                            <a href="{{$board_config -> jira_url}}{{$item-> jira_id }}" target="_blank">{{ $item->jira_id }}</a>
                                                         @endif
                                                     </td>
                                                 @endif
@@ -328,8 +328,10 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex order-actions">
-                                                        <a href="{{ route('manager.edit.task',$item->id) }}" title="Edit" class=""><i
+                                                        <a href="{{ route('manager.edit.task',$item->id) }}" title="View" class=""><i
                                                                 class='lni lni-eye text-success'></i></a>
+                                                        <a href="{{ route('manager.clone.task',$item->id) }}" title="Clone" class=""><i
+                                                                class='bx bxs-copy text-success'></i></a>
                                                         <a href="{{ route('manager.edit.task',$item->id) }}" title="Edit" class=""><i
                                                                 class='bx bxs-edit text-primary'></i></a>
                                                         <a href="{{ route('manager.delete.task',$item->id) }}" id="Delete"
@@ -349,405 +351,6 @@
                     </div>
                     <div class="tab-pane fade" id="primaryprofile" role="tabpanel">
                         <div>
-                            <div lang="EN-US" link="#0563C1" vlink="#954F72">
-                                <div class="x_WordSection1">
-                                    <p class="x_MsoNormal" style="background:white"><a name="x__Hlk155304048" target="_blank" rel="noopener noreferrer"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;">Hi Roger,</span></a><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;">Below is our status report for today. Please review and let us know if you have any comments or questions.</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><b><span style="font-size: 14pt; color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><b><span style="font-size: 14pt; color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;">Summary:</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><b><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <table class="x_MsoNormalTable" border="0" cellspacing="0" cellpadding="0" style="background:white; border-collapse:collapse; caption-side:bottom; orphans:2; text-align:start; widows:2; word-spacing:0px">
-                                        <tbody>
-                                        <tr style="height:15.0pt">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#DCE6F1; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Initial Configuration</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#DCE6F1; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Testing request</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#DCE6F1; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Done</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#DCE6F1; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">2</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt; border-color:inherit">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#DCE6F1; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#DCE6F1; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#DCE6F1; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">In-progress</span><span style="font-size: 12pt; font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#DCE6F1; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">0</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt; border-color:inherit">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#DCE6F1; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#DCE6F1; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Bug found</span><span style="font-size: 12pt; font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#DCE6F1; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Open</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#DCE6F1; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">1</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#F2DCDB; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">App Core</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#F2DCDB; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Testing request</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#F2DCDB; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Done</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#F2DCDB; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">1</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt; border-color:inherit">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#F2DCDB; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#F2DCDB; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#F2DCDB; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">In-progress</span><span style="font-size: 12pt; font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#F2DCDB; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">2</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt; border-color:inherit">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#F2DCDB; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#F2DCDB; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Bug found</span><span style="font-size: 12pt; font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#F2DCDB; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Open</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#F2DCDB; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">0</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#E4DFEC; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Content Experience</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#E4DFEC; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Testing request</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#E4DFEC; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Done</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#E4DFEC; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">2</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt; border-color:inherit">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#E4DFEC; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#E4DFEC; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#E4DFEC; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">In-progress</span><span style="font-size: 12pt; font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#E4DFEC; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">1</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt; border-color:inherit">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#E4DFEC; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#E4DFEC; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Bug found</span><span style="font-size: 12pt; font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#E4DFEC; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Open</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#E4DFEC; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">1</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Continuous Configuration</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Testing request</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Done</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">4</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt; border-color:inherit">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">In-progress</span><span style="font-size: 12pt; font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">0</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt; border-color:inherit">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Bug found</span><span style="font-size: 12pt; font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Open</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">0</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#FDE9D9; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Playback Control</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#FDE9D9; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Testing request</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#FDE9D9; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Done</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#FDE9D9; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">1</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt; border-color:inherit">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#FDE9D9; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#FDE9D9; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#FDE9D9; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">In-progress</span><span style="font-size: 12pt; font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#FDE9D9; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">1</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt; border-color:inherit">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#FDE9D9; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#FDE9D9; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Bug found</span><span style="font-size: 12pt; font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#FDE9D9; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Open</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#FDE9D9; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">0</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#EBF1DE; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Pro-Infrastructure</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#EBF1DE; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Testing request</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#EBF1DE; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Done</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#EBF1DE; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">0</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt; border-color:inherit">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#EBF1DE; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#EBF1DE; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#EBF1DE; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">In-progress</span><span style="font-size: 12pt; font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#EBF1DE; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">1</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt; border-color:inherit">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#EBF1DE; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#EBF1DE; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Bug found</span><span style="font-size: 12pt; font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#EBF1DE; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Open</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#EBF1DE; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">3</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#F4B083; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Pinewood</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#F4B083; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Testing request</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#F4B083; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Done</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#F4B083; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">1</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt; border-color:inherit">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#F4B083; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#F4B083; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#F4B083; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">In-progress</span><span style="font-size: 12pt; font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#F4B083; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">0</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt; border-color:inherit">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#F4B083; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#F4B083; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Bug found</span><span style="font-size: 12pt; font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#F4B083; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Open</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#F4B083; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">4</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Home Audio Embedded</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Testing request</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Done</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">0</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt; border-color:inherit">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">In-progress</span><span style="font-size: 12pt; font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">1</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        <tr style="height:15.0pt; border-color:inherit">
-                                            <td width="189" nowrap="" valign="bottom" style="width:141.75pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                            </td>
-                                            <td width="134" nowrap="" valign="bottom" style="width:100.25pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Bug found</span><span style="font-size: 12pt; font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="107" nowrap="" valign="bottom" style="width:80.0pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Open</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                            <td width="64" nowrap="" style="width:48.0pt; background:#DAEEF3; padding:0in 5.4pt 0in 5.4pt; height:15.0pt; border-color:inherit">
-                                                <p class="x_MsoNormal" align="center" style="text-align:center"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">0</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <p class="x_MsoNormal" style="background:white"><b><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><b><span style="font-size: 14pt; color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><b><span style="font-size: 14pt; color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;">Details of the assignment:</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><b><span style="font-size: 14pt; color: rgb(0, 112, 192); font-family: Calibri, sans-serif, serif, EmojiFont;">Initial Configuration</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:14.0pt; background:white"><b><span style="font-size: 14pt; color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Testing request</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:22.0pt; background:white"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Done</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PMA-14797" target="_blank" rel="noopener noreferrer">PMA-14797</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- [iOS] Failed to add player running 78.1-52020 firmware to HH</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PMA-14735" target="_blank" rel="noopener noreferrer">PMA-14735</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- [iOS] Add product wizard does not remove discovered product if it is just added to HH</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:14.0pt; background:white"><b><span style="font-size: 14pt; color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Bug found</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:22.0pt; background:white"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Open</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PMA-16156" target="_blank" rel="noopener noreferrer">PMA-16156</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- [Android] Sub (Vertigo) force to AP connect</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><b><span style="font-size: 14pt; color: rgb(0, 112, 192); font-family: Calibri, sans-serif, serif, EmojiFont;">App Core</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:14.0pt; background:white"><b><span style="font-size: 14pt; color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Testing request</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:22.0pt; background:white"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Done</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PMA-12610" target="_blank" rel="noopener noreferrer">PMA-12610</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- [Android] Google Backup causes "unexpected" behavior on uninstall/reinstall</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:22.0pt; background:white"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">In-progress</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PMA-15668" target="_blank" rel="noopener noreferrer">PMA-15668</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- [Agest] S1 Regression test pass on iOS 18 Public Beta</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PMA-15669" target="_blank" rel="noopener noreferrer">PMA-15669</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- [Agest] S1 regression test pass on Android 15 Beta</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><b><span style="font-size: 14pt; color: rgb(0, 112, 192); font-family: Calibri, sans-serif, serif, EmojiFont;">Content Experience</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:14.0pt; background:white"><b><span style="font-size: 14pt; color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Testing request</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:22.0pt; background:white"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Done</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PMA-15783" target="_blank" rel="noopener noreferrer">PMA-15783</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- [iOS][Recently Played] In the new HH, the "Use Personalization Services" toggle switch will automatically turn off after rebooting the app</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PMA-15909" target="_blank" rel="noopener noreferrer">PMA-15909</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- [Test Cases][iOS] Sonos Radio Swimlanes Are Not Pre-Populated</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:22.0pt; background:white"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">In-progress</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PMA-16158" target="_blank" rel="noopener noreferrer">PMA-16158</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- 2024 Sprint 15 - Content Everywhere MSP Scenarios Run</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:14.0pt; background:white"><b><span style="font-size: 14pt; color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Bug found</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:22.0pt; background:white"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Open</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PMA-16140" target="_blank" rel="noopener noreferrer">PMA-16140</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- [Android] Unable to start playback on Passport - Bom 0.69.4 and higher</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><b><span style="font-size: 14pt; color: rgb(0, 112, 192); font-family: Calibri, sans-serif, serif, EmojiFont;">Continuous Configuration</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:14.0pt; background:white"><b><span style="font-size: 14pt; color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Testing request</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:22.0pt; background:white"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Done</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PMA-15813" target="_blank" rel="noopener noreferrer">PMA-15813</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- [Android] [Group] Save button still enabled without selected room in Groups</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PMA-13429" target="_blank" rel="noopener noreferrer">PMA-13429</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- [iOS][Passport/Lasso] - Wi-Fi connection stats are inconsistent</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PMA-10671" target="_blank" rel="noopener noreferrer">PMA-10671</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- [Android] [System Settings] Left alignment doesn't match with design</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PMA-16131" target="_blank" rel="noopener noreferrer">PMA-16131</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- [iOS] [Alarm] Sonos Chime plays when setting the music service for alarm</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><b><span style="font-size: 14pt; color: rgb(0, 112, 192); font-family: Calibri, sans-serif, serif, EmojiFont;">Playback Control</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:14.0pt; background:white"><b><span style="font-size: 14pt; color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Testing request</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:22.0pt; background:white"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Done</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PMA-14061" target="_blank" rel="noopener noreferrer">PMA-14061</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- Android: Upgrade MenuTextFieldView to M3</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:22.0pt; background:white"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">In-progress</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PMA-14060" target="_blank" rel="noopener noreferrer">PMA-14060</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- Android: Refactor and replace M1 BottomSheet with M3 Bottom Sheet - full regression test</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><b><span style="font-size: 14pt; color: rgb(0, 112, 192); font-family: Calibri, sans-serif, serif, EmojiFont;">Pro-Infrastructure</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:14.0pt; background:white"><b><span style="font-size: 14pt; color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Testing request</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:22.0pt; background:white"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">In-progress</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/SWPBL-215583" target="_blank" rel="noopener noreferrer">SWPBL-215583</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- [Android] Room Settings support for multiple line-in devices</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:14.0pt; background:white"><b><span style="font-size: 14pt; color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Bug found</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:22.0pt; background:white"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Open</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/SWPBL-233735" target="_blank" rel="noopener noreferrer">SWPBL-233735</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- [iOS] Chime icon in Area Zone set wrong position</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/SWPBL-233736" target="_blank" rel="noopener noreferrer">SWPBL-233736</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- [iOS][Android] Missing Connected/Not Connected text at Sources page</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/SWPBL-233738" target="_blank" rel="noopener noreferrer">SWPBL-233738</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- [Android] [Android] Missing "Sources" button for Stereo pair</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><b><span style="font-size: 14pt; color: rgb(0, 112, 192); font-family: Calibri, sans-serif, serif, EmojiFont;">Pinewood</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:14.0pt; background:white"><b><span style="font-size: 14pt; color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Testing request</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:22.0pt; background:white"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Done</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PINE-3529" target="_blank" rel="noopener noreferrer">PINE-3529</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- Pinewood BVT build NSUD 359</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:14.0pt; background:white"><b><span style="font-size: 14pt; color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Bug found</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:22.0pt; background:white"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Open</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PINE-3530" target="_blank" rel="noopener noreferrer">PINE-3530</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- Missing Movie Details option when opening Up Next Content</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PINE-3531" target="_blank" rel="noopener noreferrer">PINE-3531</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- Pluto Live TV is added to Up Next after watching live TV channel</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PINE-3532" target="_blank" rel="noopener noreferrer">PINE-3532</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- The text " OTA Update" is cut off when moving from Up Next to Source Row</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PINE-3534" target="_blank" rel="noopener noreferrer">PINE-3534</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- The sound is dropped when switching the 'Up Next' content from app 1 to app 2</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><b><span style="font-size: 14pt; color: rgb(0, 112, 192); font-family: Calibri, sans-serif, serif, EmojiFont;">Home Audio Embedded</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:14.0pt; background:white"><b><span style="font-size: 14pt; color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">Testing request</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:22.0pt; background:white"><b><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">In-progress</span></b><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="text-indent:33.0pt; background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;"><a href="https://jira.sonos.com/browse/PMA-15068" target="_blank" rel="noopener noreferrer">PMA-15068</a></span><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;- Passport/Player Performance Testing - App</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><span style="color: black; font-family: Calibri, sans-serif, serif, EmojiFont;">&nbsp;</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                    <p class="x_MsoNormal" style="background:white"><span style="color: rgb(33, 37, 41); font-family: Calibri, sans-serif, serif, EmojiFont;">Thank you and best regards,</span><span style="font-family: &quot;Segoe UI&quot;, sans-serif, serif, EmojiFont; color: rgb(33, 37, 41);"></span></p>
-                                </div>
-                            </div>
 
                         </div>
                     </div>
@@ -767,6 +370,21 @@
                                                     <input type="text" class="form-control" disabled value="{{$board ->name}}"  id="board_name">
                                                     <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="jira_url" class="col-sm-3 col-form-label">Jira URL</label>
+                                            <div class="col-sm-9">
+                                                <div class="col-sm-9">
+                                                    <div class="position-relative input-icon">
+                                                        <input type="text" class="form-control" value="{{$board_config ->jira_url}}"
+                                                               name="jira_url" id="jira_url">
+                                                        <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
+                                                    </div>
+                                                </div>
+                                                @error('jira_url')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="row mb-3">

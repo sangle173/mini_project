@@ -36,6 +36,21 @@
                             </div>
                         </div>
                         <div class="row mb-3">
+                            <label for="jira_url" class="col-sm-3 col-form-label">Jira URL</label>
+                            <div class="col-sm-9">
+                                <div class="col-sm-9">
+                                    <div class="position-relative input-icon">
+                                        <input type="text" class="form-control" value="{{$board_config ->jira_url}}"
+                                               name="jira_url" id="jira_url">
+                                        <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
+                                    </div>
+                                </div>
+                                @error('jira_url')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
                             <label class="col-sm-3 col-form-label">Team</label>
                             <div class="col-sm-9">
                                 <div class="form-check form-check-inline">

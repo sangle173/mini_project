@@ -28,15 +28,15 @@
 
         @if ($status === '1')
 
-        <li class="menu-label">Manager Project </li>
+        <li class="menu-label">Manage Project </li>
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class='bx bx-cart'></i>
+                <div class="parent-icon"><i class='bx bxs-bolt-circle'></i>
                 </div>
                 <div class="menu-title">Board</div>
             </a>
             <ul>
-                <li> <a href="{{ route('manager.all.boards') }}"><i class='bx bx-radio-circle'></i>All Board </a>
+                <li> <a href="{{ route('manager.all.boards') }}"><i class='bx bxs-book-bookmark'></i>All Board </a>
                 </li>
 
             </ul>

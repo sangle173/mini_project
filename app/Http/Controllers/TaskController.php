@@ -106,6 +106,21 @@ class TaskController extends Controller
         return view('manager.boards.tasks.edit_task',compact('task', 'board', 'board_config','teams', 'types','working_statuses','ticket_statuses','priorities','users','currentUser'));
     }
 
+    public function cloneTask($id)
+    {
+        $currentUser = Auth::user();
+        $task = Task::find($id);
+        $board = Board::find($task -> board_id);
+        $board_config = BoardConfig::find($board-> board_config_id);
+        $teams = Team::where('board_id',$board ->id)->latest()->get();
+        $types = Type::where('board_id',$board ->id)->latest()->get();
+        $working_statuses = WorkingStatus::where('board_id',$board ->id)->latest()->get();
+        $ticket_statuses = TicketStatus::where('board_id',$board ->id)->latest()->get();
+        $users = User::whereNotIn('role',['admin']) ->latest()->get();
+        $priorities = Priority::where('board_id',$board ->id)->latest()->get();
+        return view('manager.boards.tasks.clone_task',compact('task', 'board', 'board_config','teams', 'types','working_statuses','ticket_statuses','priorities','users','currentUser'));
+    }
+
     /**
      * Update the specified resource in storage.
      */
@@ -138,7 +153,43 @@ class TaskController extends Controller
             'message' => 'Update Ticket Status Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.all.tasks',$request->board_id)->with($notification);
+        return redirect()->route('manager.show.board',$request->board_id)->with($notification);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function cloneTaskAction(Request $request)
+    {
+        $id = $request ->task_id;
+
+        $task_id = Task::insertGetId([
+            'board_id' => $request->board_id,
+            'team' => $request->team,
+            'type' => $request->type,
+            'jira_id' => $request->jira_id,
+            'jira_summary' => $request->jira_summary,
+            'working_status' => $request->working_status,
+            'ticket_status' => $request->ticket_status,
+            'link_to_result' => $request->link_to_result,
+            'test_plan' => $request->test_plan,
+            'sprint' => $request->sprint,
+            'note' => $request->note,
+            'priority' => $request->priority,
+            'tester_1' => $request->tester_1,
+            'tester_2' => $request->tester_2,
+            'tester_3' => $request->tester_3,
+            'tester_4' => $request->tester_4,
+            'tester_5' => $request->tester_5,
+            'task_slug' => strtolower(str_replace(' ', '-', $request->jira_id)),
+            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+
+        $notification = array(
+            'message' => 'Update Ticket Status Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('manager.show.board',$request->board_id)->with($notification);
     }
 
     /**

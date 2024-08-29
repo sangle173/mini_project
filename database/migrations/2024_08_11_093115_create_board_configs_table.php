@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('board_configs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('board_id');
+            $table->string('jira_url');
             $table->tinyInteger('team')->default(0)->comment('0=Inactive','1=Active');
             $table->tinyInteger('type')->default(0)->comment('0=Inactive','1=Active');
             $table->tinyInteger('jira_id')->default(0)->comment('0=Inactive','1=Active');

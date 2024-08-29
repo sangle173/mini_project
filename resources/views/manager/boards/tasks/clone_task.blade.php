@@ -9,7 +9,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item active" aria-current="page"><a href="{{route('manager.show.board', $board -> id)}}">{{$board -> name}} Board</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit Task</li>
+                        <li class="breadcrumb-item active" aria-current="page">Clone Task</li>
                     </ol>
                 </nav>
             </div>
@@ -19,12 +19,12 @@
 
         <div class="card">
             <div class="card-body">
-                <form id="myForm" action="{{ route('manager.update-task') }}" method="post" class="row g-3"
+                <form id="myForm" action="{{ route('manager.clone-task') }}" method="post" class="row g-3"
                       enctype="multipart/form-data">
                     @csrf
 
                     <div class="card-body">
-                        <h5 class="mb-4">Edit Task</h5>
+                        <h5 class="mb-4">Clone task, edit the details and click Clone button</h5>
                         <input type="hidden" name="board_id" value="{{$board -> id}}">
                         <input type="hidden" name="task_id" value="{{$task -> id}}">
                         <div class="row mb-3">
@@ -307,7 +307,7 @@
                             <div class="col-sm-9">
                                 <div class="d-md-flex d-grid align-items-center gap-3">
                                     <button type="submit" class="btn btn-primary px-5"><i
-                                            class='bx bxs-save mr-1'></i>Update
+                                            class='bx bxs-save mr-1'></i>Clone
                                     </button>
                                     <button type="reset" class="btn btn-outline-secondary px-5"><i
                                             class='bx bx-reset mr-1'></i>Reset
