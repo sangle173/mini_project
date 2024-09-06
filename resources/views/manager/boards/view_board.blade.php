@@ -133,16 +133,18 @@
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" data-bs-toggle="tab" href="#primarycontact" role="tab"
-                           aria-selected="false">
-                            <div class="d-flex align-items-center">
-                                <div class="tab-icon"><i class='bx bx-cog font-18 me-1'></i>
+                    @if(Auth::user()->role ==='manager')
+                        <li  class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" href="#primarycontact" role="tab"
+                               aria-selected="false">
+                                <div class="d-flex align-items-center">
+                                    <div class="tab-icon"><i class='bx bx-cog font-18 me-1'></i>
+                                    </div>
+                                    <div class="tab-title">Config</div>
                                 </div>
-                                <div class="tab-title">Config</div>
-                            </div>
-                        </a>
-                    </li>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
                 <div class="tab-content pt-3">
                     <div class="tab-pane fade show active" id="tag-config" role="tabpanel">
@@ -332,10 +334,14 @@
                                                                 class='lni lni-eye text-success'></i></a>
                                                         <a href="{{ route('manager.clone.task',$item->id) }}" title="Clone" class=""><i
                                                                 class='bx bxs-copy text-success'></i></a>
+                                                        @if(Auth::user()->role ==='manager' || Auth::user() -> id == $item -> tester_1 )
                                                         <a href="{{ route('manager.edit.task',$item->id) }}" title="Edit" class=""><i
                                                                 class='bx bxs-edit text-primary'></i></a>
+                                                        @endif
+                                                         @if(Auth::user()->role ==='manager' || Auth::user() -> id == $item -> tester_1 )
                                                         <a href="{{ route('manager.delete.task',$item->id) }}" id="Delete"
                                                            title="delete" class=""><i class='bx bxs-trash text-danger'></i></a>
+                                                        @endif
                                                     </div>
                                                 </td>
                                             </tr>

@@ -17,7 +17,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('frontend.dashboard.login');
+        return view('login');
     }
 
     /**
@@ -30,13 +30,13 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         $url = '';
-        if ($request->user()->role === 'admin') {
-            $url = 'admin/dashboard';
-        } elseif ($request->user()->role === 'users') {
-            $url = 'users/dashboard';
-        } elseif ($request->user()->role === 'user') {
-            $url = '/dashboard';
-        }
+//        if ($request->user()->role === 'admin') {
+//            $url = 'admin/dashboard';
+//        } elseif ($request->user()->role === 'manager') {
+//            $url = 'manager/dashboard';
+//        } elseif ($request->user()->role === 'user') {
+//            $url = 'manager/dashboard';
+//        }
 
         return redirect()->intended($url);
     }

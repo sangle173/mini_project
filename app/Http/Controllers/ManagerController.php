@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -21,7 +22,7 @@ class ManagerController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/manager/login');
+        return redirect('/login');
     } // End Method
 
 
@@ -105,7 +106,108 @@ class ManagerController extends Controller
 
     }// End Method
 
+    public function AllUser(){
+
+        $allusers = User::latest()->get();
+        return view('manager.users.all_user',compact('allusers'));
+    }// End Method
+
+    public function UpdateUserStatus(Request $request){
+
+        $userId = $request->input('user_id');
+        $isChecked = $request->input('is_checked',0);
+
+        $user = User::find($userId);
+        if ($user) {
+            $user->status = $isChecked;
+            $user->save();
+        }
+
+        return response()->json(['message' => 'User Status Updated Successfully']);
+
+    }// End Method
 
 
+    public function AddUser(){
+        $roles = ['admin', 'manager', 'user'];
+        return view('manager.users.add_user',compact('roles'));
+    }// End Method
 
+    public function SaveUser(Request $request){
+//        dd($request);
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+            'role' => 'required',
+        ]);
+
+        $user_id = User::insertGetId([
+            'name' => $request -> name,
+            'username' => $request-> email,
+            'email' => $request-> email,
+            'password' => Hash::make($request->password),
+            'role' => $request-> role,
+            'phone' => $request-> phone,
+            'title' => $request-> title,
+            'address' => $request-> address,
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+        $notification = array(
+            'message' => 'Create New User Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('manager.all.users')->with($notification);
+
+    }// End Method
+
+    public function EditUser($id){
+        $user = User::find($id);
+        $roles = ['admin', 'manager', 'user'];
+        return view('manager.users.edit_user',compact('user', 'roles'));
+    }// End Method
+
+    public function UpdateUser(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'role' => 'required',
+        ]);
+
+        $id = $request ->id;
+
+        User::find($id)->update([
+            'name' => $request -> name,
+            'email' => $request-> email,
+            'username' => $request-> email,
+            'role' => $request-> role,
+            'phone' => $request-> phone,
+            'title' => $request-> title,
+            'address' => $request-> address,
+            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+
+        $notification = array(
+            'message' => 'Update User Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('manager.all.users')->with($notification);
+
+    }// End Method
+
+
+    public function DeleteUser($id){
+
+        $user = User::find($id);
+        if (!is_null($user)) {
+            $user->delete();
+        }
+
+        $notification = array(
+            'message' => 'Delete User Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    }// End Method
 }

@@ -49,82 +49,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/change/password', [UserController::class, 'UserChangePassword'])->name('user.change.password');
     Route::post('/user/password/update', [UserController::class, 'UserPasswordUpdate'])->name('user.password.update');
 
-});
-
-require __DIR__ . '/auth.php';
-
-///// Admin Group Middleware
-Route::middleware(['auth', 'roles:admin'])->group(function () {
-
-    Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
-
-    Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
-    Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
-    Route::post('/admin/profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
-
-    Route::get('/admin/change/password', [AdminController::class, 'AdminChangePassword'])->name('admin.change.password');
-    Route::post('/admin/password/update', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
-
-// Project All Route
-    Route::controller(ProjectController::class)->group(function () {
-        Route::get('/admin/all/projects', 'index')->name('admin.all.projects');
-        Route::get('/admin/add/projects', 'create')->name('admin.add.projects');
-        Route::post('/admin/save-projects/', 'store')->name('admin.save-projects');
-        Route::get('/admin/edit/projects/{id}', 'edit')->name('admin.edit.projects');
-        Route::post('/admin/update/projects', 'update')->name('admin.update-projects');
-        Route::get('/admin/delete/projects/{id}', 'destroy')->name('admin.delete.projects');
-
-        Route::post('/admin/update/projects/status', 'UpdateProjectStatus')->name('admin.update.projects.status');
-
-    });
-// Category All Route
-    Route::controller(CategoryController::class)->group(function () {
-        Route::get('/admin/all/category', 'AllCategory')->name('all.category');
-        Route::get('/admin/add/category', 'AddCategory')->name('add.category');
-        Route::post('/admin/store/category', 'StoreCategory')->name('store.category');
-        Route::get('/admin/edit/category/{id}', 'EditCategory')->name('edit.category');
-        Route::post('/admin/update/category', 'UpdateCategory')->name('update.category');
-        Route::get('/admin/delete/category/{id}', 'DeleteCategory')->name('delete.category');
-
-    });
-
-
-// SubCategory All Route
-    Route::controller(CategoryController::class)->group(function () {
-        Route::get('/admin/all/subcategory', 'AllSubCategory')->name('all.subcategory');
-        Route::get('/admin/add/subcategory', 'AddSubCategory')->name('add.subcategory');
-        Route::post('/admin/store/subcategory', 'StoreSubCategory')->name('store.subcategory');
-        Route::get('/admin/edit/subcategory/{id}', 'EditSubCategory')->name('edit.subcategory');
-        Route::post('/admin/update/subcategory', 'UpdateSubCategory')->name('update.subcategory');
-        Route::get('/admin/delete/subcategory/{id}', 'DeleteSubCategory')->name('delete.subcategory');
-    });
-
-
-// Manager All Route
-    Route::controller(AdminController::class)->group(function () {
-        Route::get('/admin/all/users', 'AllUser')->name('admin.all.users');
-        Route::get('/admin/add/users', 'AddUser')->name('admin.add.users');
-        Route::post('/admin/save-user/', 'SaveUser')->name('admin.save-user');
-        Route::get('/admin/edit/user/{id}', 'EditUser')->name('admin.edit.user');
-        Route::post('/admin/update/user', 'UpdateUser')->name('admin.update-user');
-        Route::get('/admin/delete/user/{id}', 'DeleteUser')->name('admin.delete.user');
-
-        Route::post('/admin/update/user/status', 'UpdateUserStatus')->name('admin.update.user.status');
-    });
-
-
-}); // End Admin Group Middleware
-
-
-Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
-
-Route::get('/become/users', [AdminController::class, 'BecomeManager'])->name('become.users');
-Route::post('/users/register', [AdminController::class, 'ManagerRegister'])->name('users.register');
-
-
-///// Manager Group Middleware
-Route::middleware(['auth', 'roles:manager'])->group(function () {
-
     Route::get('/manager/dashboard', [ManagerController::class, 'ManagerDashboard'])->name('manager.dashboard');
     Route::get('/manager/logout', [ManagerController::class, 'ManagerLogout'])->name('manager.logout');
 
@@ -267,9 +191,73 @@ Route::middleware(['auth', 'roles:manager'])->group(function () {
 //        Route::post('/manager/update/board/ticket_status/status', 'UpdateTeamStatus')->name('manager.update.boardticket_status.status');
     });
 
+    // Manager All User Route
+    Route::controller(ManagerController::class)->group(function () {
+        Route::get('/manager/all/users', 'AllUser')->name('manager.all.users');
+        Route::get('/manager/add/users', 'AddUser')->name('manager.add.users');
+        Route::post('/manager/save-user/', 'SaveUser')->name('manager.save-user');
+        Route::get('/manager/edit/user/{id}', 'EditUser')->name('manager.edit.user');
+        Route::post('/manager/update/user', 'UpdateUser')->name('manager.update-user');
+        Route::get('/manager/delete/user/{id}', 'DeleteUser')->name('manager.delete.user');
 
+        Route::post('/manager/update/user/status', 'UpdateUserStatus')->name('manager.update.user.status');
+    });
 });
 
+require __DIR__ . '/auth.php';
+
+///// Admin Group Middleware
+Route::middleware(['auth', 'roles:admin'])->group(function () {
+
+    Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
+
+    Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
+    Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
+    Route::post('/admin/profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
+
+    Route::get('/admin/change/password', [AdminController::class, 'AdminChangePassword'])->name('admin.change.password');
+    Route::post('/admin/password/update', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
+
+// Category All Route
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get('/admin/all/category', 'AllCategory')->name('all.category');
+        Route::get('/admin/add/category', 'AddCategory')->name('add.category');
+        Route::post('/admin/store/category', 'StoreCategory')->name('store.category');
+        Route::get('/admin/edit/category/{id}', 'EditCategory')->name('edit.category');
+        Route::post('/admin/update/category', 'UpdateCategory')->name('update.category');
+        Route::get('/admin/delete/category/{id}', 'DeleteCategory')->name('delete.category');
+
+    });
+
+
+// SubCategory All Route
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get('/admin/all/subcategory', 'AllSubCategory')->name('all.subcategory');
+        Route::get('/admin/add/subcategory', 'AddSubCategory')->name('add.subcategory');
+        Route::post('/admin/store/subcategory', 'StoreSubCategory')->name('store.subcategory');
+        Route::get('/admin/edit/subcategory/{id}', 'EditSubCategory')->name('edit.subcategory');
+        Route::post('/admin/update/subcategory', 'UpdateSubCategory')->name('update.subcategory');
+        Route::get('/admin/delete/subcategory/{id}', 'DeleteSubCategory')->name('delete.subcategory');
+    });
+
+
+// Manager All User Route
+    Route::controller(AdminController::class)->group(function () {
+        Route::get('/admin/all/users', 'AllUser')->name('admin.all.users');
+        Route::get('/admin/add/users', 'AddUser')->name('admin.add.users');
+        Route::post('/admin/save-user/', 'SaveUser')->name('admin.save-user');
+        Route::get('/admin/edit/user/{id}', 'EditUser')->name('admin.edit.user');
+        Route::post('/admin/update/user', 'UpdateUser')->name('admin.update-user');
+        Route::get('/admin/delete/user/{id}', 'DeleteUser')->name('admin.delete.user');
+
+        Route::post('/admin/update/user/status', 'UpdateUserStatus')->name('admin.update.user.status');
+    });
+
+
+}); // End Admin Group Middleware
+
+
+Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
 // End Manager Group Middleware
 Route::get('/manager/login', [ManagerController::class, 'ManagerLogin'])->name('manager.login');
 
