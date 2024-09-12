@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 29, 2024 at 05:59 PM
+-- Generation Time: Sep 12, 2024 at 06:23 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,7 +46,10 @@ CREATE TABLE `boards` (
 --
 
 INSERT INTO `boards` (`id`, `name`, `board_config_id`, `title`, `desc`, `start_date`, `photo`, `status`, `board_slug`, `created_at`, `updated_at`) VALUES
-(1, 'ConsumerX', 1, 'Demo', '123123', '2024-08-22', 'upload/board/1808102382421412.jpg', 1, 'consumerx', '2024-08-22 15:33:23', '2024-08-22 15:57:58');
+(1, 'ConsumerX', 1, 'Demo', '123123', '2024-08-22', 'upload/board/1808102382421412.jpg', 1, 'consumerx', '2024-08-22 15:33:23', '2024-08-22 15:57:58'),
+(2, 'Sri Team', 1, 'Regression Team', '12312312', '2024-09-10', 'upload/board/1809818630115455.png', 1, 'sri-team', '2024-09-10 14:12:25', NULL),
+(3, 'ConsumerX2', 1, '12312', '1231312', '2024-09-12', 'upload/board/1810002856150120.png', 1, 'consumerx2', '2024-09-12 15:00:36', NULL),
+(4, 'Thuế', 3, '12312', '12312312', '2024-09-12', 'upload/board/1810003045662736.jpeg', 1, 'thuế', '2024-09-12 15:03:37', '2024-09-12 15:03:37');
 
 -- --------------------------------------------------------
 
@@ -83,7 +86,9 @@ CREATE TABLE `board_configs` (
 --
 
 INSERT INTO `board_configs` (`id`, `board_id`, `team`, `type`, `jira_id`, `jira_summary`, `working_status`, `ticket_status`, `link_to_result`, `test_plan`, `sprint`, `note`, `priority`, `tester_1`, `tester_2`, `tester_3`, `tester_4`, `tester_5`, `created_at`, `updated_at`, `jira_url`) VALUES
-(1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, '2024-08-22 15:57:58', '2024-08-29 15:57:36', 'https://jira.sonos.com/browse/');
+(1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, '2024-08-22 15:57:58', '2024-09-12 16:18:51', 'https://jira.sonos.com/browse/'),
+(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-09-12 15:00:36', NULL, 'jira.com'),
+(3, 4, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-09-12 15:03:37', '2024-09-12 15:03:47', 'jira.com');
 
 -- --------------------------------------------------------
 
@@ -197,6 +202,37 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `files`
+--
+
+CREATE TABLE `files` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `size` bigint(20) NOT NULL,
+  `extension` varchar(255) NOT NULL,
+  `share` int(11) NOT NULL,
+  `file_slug` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `files`
+--
+
+INSERT INTO `files` (`id`, `name`, `user_id`, `size`, `extension`, `share`, `file_slug`, `created_at`, `updated_at`) VALUES
+(1, '1726151762.mini_project (1).sql', 2, 24143, 'sql', 0, '1726151762.mini_project-(1).sql', '2024-09-12 14:36:03', NULL),
+(2, '1726151871.o5c9yc4b.png', 2, 29130, 'png', 0, '1726151871.o5c9yc4b.png', '2024-09-12 14:37:51', NULL),
+(3, '1726152044.Rocker - Bootstrap 5 Admin Dashboard Template.xlsx', 2, 36472, 'xlsx', 0, '1726152044.rocker---bootstrap-5-admin-dashboard-template.xlsx', '2024-09-12 14:40:44', NULL),
+(4, '1726152061.mini_project.sql', 3, 25051, 'sql', 0, '1726152061.mini_project.sql', '2024-09-12 14:41:01', NULL),
+(5, '1726152558.Rocker - Bootstrap 5 Admin Dashboard Template.xlsx', 1, 36472, 'xlsx', 0, '1726152558.rocker---bootstrap-5-admin-dashboard-template.xlsx', '2024-09-12 14:49:18', NULL),
+(6, '1726152558.mini_project.sql', 1, 25051, 'sql', 0, '1726152558.mini_project.sql', '2024-09-12 14:49:18', NULL),
+(7, '1726153706.vien-bo-sung-dha-healthy-care-cho-tre-tu-4-thang-tuoi-cua-uc-62f72612b3fbd-13082022111826 (1).png', 1, 33428, 'png', 0, '1726153706.vien-bo-sung-dha-healthy-care-cho-tre-tu-4-thang-tuoi-cua-uc-62f72612b3fbd-13082022111826-(1).png', '2024-09-12 15:08:26', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -228,7 +264,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (15, '2024_08_11_084338_create_ticket_statuses_table', 1),
 (16, '2024_08_11_093115_create_board_configs_table', 1),
 (17, '2024_08_11_141227_create_tasks_table', 1),
-(18, '2024_08_20_091358_create_priorities_table', 1);
+(18, '2024_08_20_091358_create_priorities_table', 1),
+(19, '2024_09_10_143858_create_files_table', 2);
 
 -- --------------------------------------------------------
 
@@ -349,7 +386,11 @@ INSERT INTO `tasks` (`id`, `board_id`, `team`, `type`, `jira_id`, `jira_summary`
 (9, 1, 9, 1, 'PMA-11345', 'demo 2', 2, 2, '12312312', NULL, NULL, NULL, 1, 2, NULL, NULL, NULL, NULL, 'pma-11345', NULL, '2024-08-29 15:54:34'),
 (10, 1, 9, 1, 'PMA-11345', 'demo 2', 2, 2, '12312312', NULL, NULL, NULL, 1, 2, NULL, NULL, NULL, NULL, 'pma-11345', NULL, '2024-08-29 15:54:37'),
 (11, 1, 9, 1, 'PMA-11345', 'demo 2', 2, 2, '12312312', NULL, NULL, NULL, 1, 3, NULL, NULL, NULL, NULL, 'pma-11345', NULL, '2024-08-29 15:55:00'),
-(12, 1, 9, 1, 'PMA-11345', 'demo 2', 2, 2, '12312312', NULL, NULL, NULL, 1, 3, NULL, NULL, NULL, NULL, 'pma-11345', NULL, '2024-08-29 15:55:38');
+(12, 1, 9, 1, 'PMA-11345', 'demo 2', 2, 2, '12312312', NULL, NULL, NULL, 1, 3, NULL, NULL, NULL, NULL, 'pma-11345', NULL, '2024-08-29 15:55:38'),
+(13, 1, 10, 2, 'PMA-1134512313', '12312312', 1, NULL, NULL, NULL, NULL, NULL, 1, 2, NULL, NULL, NULL, NULL, 'pma-1134512313', NULL, '2024-09-10 14:10:37'),
+(14, 1, 9, 2, 'PMA-11345', 'demo', 1, 1, NULL, NULL, NULL, NULL, 1, 2, NULL, NULL, NULL, NULL, 'pma-11345', '2024-09-12 16:02:48', NULL),
+(15, 1, 9, 1, '12312', '123123', 1, 1, '12313', NULL, NULL, NULL, 1, 2, NULL, NULL, NULL, NULL, '12312', '2024-09-12 16:03:56', NULL),
+(16, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 2, 2, NULL, NULL, '', '2024-09-12 16:21:52', NULL);
 
 -- --------------------------------------------------------
 
@@ -551,6 +592,12 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `files`
+--
+ALTER TABLE `files`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -627,13 +674,13 @@ ALTER TABLE `working_statuses`
 -- AUTO_INCREMENT for table `boards`
 --
 ALTER TABLE `boards`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `board_configs`
 --
 ALTER TABLE `board_configs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -672,10 +719,16 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `files`
+--
+ALTER TABLE `files`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -699,7 +752,7 @@ ALTER TABLE `sub_categories`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `teams`
