@@ -20,7 +20,10 @@
 	<link href="{{ asset('backend/assets/css/pace.min.css') }}" rel="stylesheet"/>
 	<script src="{{ asset('backend/assets/js/pace.min.js') }}"></script>
 	<!-- Bootstrap CSS -->
-	<link href="{{ asset('backend/assets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('backend/assets/plugins/fancy-file-uploader/fancy_fileupload.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('backend/assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css') }}" rel="stylesheet"/>
+
+    <link href="{{ asset('backend/assets/css/bootstrap.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('backend/assets/css/bootstrap-extended.css') }}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 	<link href="{{ asset('backend/assets/css/app.css') }}" rel="stylesheet">
@@ -128,7 +131,10 @@
 	<!--End Datatable-->
 
 	<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-	<script>
+    <script src="{{ asset('backend/assets/plugins/fancy-file-uploader/jquery.iframe-transport.js"') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/fancy-file-uploader/jquery.fancy-fileupload.js') }}"></script>
+
+    <script>
 	   tinymce.init({
 		 selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
 		 plugins: 'powerpaste advcode table lists checklist',

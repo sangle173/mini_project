@@ -382,6 +382,13 @@
                         </li>
                     </ul>
                 </div>
+            @else
+                <div class="user-box dropdown px-3">
+                    <div class="col">
+                        <a href="{{ route('admin.login') }}" type="button" class="btn btn-outline-danger px-5"><i class='bx bx-log-in mr-1'></i>Login
+                        </a>
+                    </div>
+                </div>
             @endauth
         </nav>
     </div>

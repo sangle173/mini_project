@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BoardConfigController;
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\ManagerProjectController;
 use App\Http\Controllers\PriorityController;
 use App\Http\Controllers\ProfileController;
@@ -202,6 +203,17 @@ Route::middleware('auth')->group(function () {
 
         Route::post('/manager/update/user/status', 'UpdateUserStatus')->name('manager.update.user.status');
     });
+
+    Route::controller(FileController::class)->group(function(){
+        Route::get('/all/file','index')->name('all.file');
+        Route::get('/share/file','ShareFile')->name('share.file');
+        Route::get('/add/file','create')->name('add.file');
+
+        Route::post('/store/file','StoreFile')->name('store.file');
+        Route::get('/delete/file/{id}','DeleteFile')->name('delete.file');
+        Route::post('/update/file/status','UpdateFileStatus')->name('update.file.status');
+    });
+
 });
 
 require __DIR__ . '/auth.php';
@@ -260,4 +272,20 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
 // End Manager Group Middleware
 Route::get('/manager/login', [ManagerController::class, 'ManagerLogin'])->name('manager.login');
+Route::get('/manager/all/board/', [BoardController::class, 'index'])->name('manager.all.boards');
+Route::get('/manager/show/board/{id}', [BoardController::class, 'show'])->name('manager.show.board');
+
+Route::controller(FileController::class)->group(function(){
+    Route::get('/all/file','index')->name('all.file');
+    Route::get('/share/file','ShareFile')->name('share.file');
+    Route::get('/add/file','create')->name('add.file');
+
+    Route::post('/store/file','StoreFile')->name('store.file');
+    Route::get('/delete/file/{id}','DeleteFile')->name('delete.file');
+    Route::post('/update/file/status','UpdateFileStatus')->name('update.file.status');
+    Route::get('/upload/files/', 'show')->name('upload.files');
+    Route::get('/upload/file/user', 'UploadFileByUserId')->name('upload.files.user');
+    Route::post('upload/file/post', 'UserStoreFile')->name('user.uploadfile.post');
+});
+
 

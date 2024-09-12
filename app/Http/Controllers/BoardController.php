@@ -6,9 +6,14 @@ use App\Models\Board;
 use App\Http\Requests\StoreBoardRequest;
 use App\Http\Requests\UpdateBoardRequest;
 use App\Models\BoardConfig;
+use App\Models\Priority;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\Team;
+use App\Models\TicketStatus;
+use App\Models\Type;
+use App\Models\User;
+use App\Models\WorkingStatus;
 use Illuminate\Support\Carbon;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
@@ -53,11 +58,38 @@ class BoardController extends Controller
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
+        $board_config_id = BoardConfig::insertGetId([
+            'board_id' => $board_id,
+            'jira_url' => "jira.com",
+            'team' => 1,
+            'type' => 1,
+            'jira_id' => 1,
+            'jira_summary' => 1,
+            'working_status' => 1,
+            'ticket_status' => 1,
+            'link_to_result' => 1,
+            'test_plan' => 1,
+            'sprint' => 1,
+            'note' => 1,
+            'priority' => 1,
+            'tester_1' => 1,
+            'tester_2' => 1,
+            'tester_3' => 1,
+            'tester_4' => 1,
+            'tester_5' => 1,
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+
+        Board::find($board_id)->update([
+            'board_config_id' => $board_config_id,
+            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+
         $notification = array(
             'message' => 'Board Created Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.all.boards')->with($notification);
+        return redirect()->back()->with($notification);
     }
 
     /**
@@ -66,11 +98,16 @@ class BoardController extends Controller
     public function show($id)
     {
         $board = Board::find($id);
-        $tasks = Task::where('board_id',$board ->id)->latest()->get();
+//        $tasks = Task::where('board_id',$board ->id)->latest()->get();
+        $tasks = Task::where('board_id',$board ->id) -> whereDate('created_at', Carbon::today())->latest()->get();
         $board_config = BoardConfig::find(Board::find($id) -> board_config_id);
         $teams = Team::where('board_id',$board ->id)->latest()->get();
-
-        return view('manager.boards.view_board',compact('board', 'tasks', 'board_config','teams'));
+        $types = Type::where('board_id',$board ->id)->latest()->get();
+        $working_statuses = WorkingStatus::where('board_id',$board ->id)->latest()->get();
+        $ticket_statuses = TicketStatus::where('board_id',$board ->id)->latest()->get();
+        $priorities = Priority::where('board_id',$board ->id)->latest()->get();
+        $users = User::whereNotIn('role',['admin']) ->latest()->get();;
+        return view('manager.boards.view_board',compact('board','tasks','board_config', 'teams','types','working_statuses','ticket_statuses','priorities','users'));
     }
 
     /**
