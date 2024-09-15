@@ -42,7 +42,7 @@
                                 <div class="d-flex align-items-center">
                                     <div class="me-auto">
                                         <p class="mb-0 text-white">Total Task</p>
-                                        <h4 class="my-1 text-white">{{count($tasks)}}</h4>
+                                        <h4 class="my-1 text-white">{{count($today_tasks)}}</h4>
                                         <p class="mb-0 font-13 text-white">+2.5% from yesterday</p>
                                     </div>
                                     <div id="chart1"></div>
@@ -56,7 +56,7 @@
                                 <div class="d-flex align-items-center">
                                     <div class="me-auto">
                                         <p class="mb-0 text-white">Completed</p>
-                                        <h4 class="my-1 text-white">{{count($tasks)}}</h4>
+                                        <h4 class="my-1 text-white">{{count(\App\Models\Task::where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</h4>
                                         <p class="mb-0 font-13 text-white">-4.5% from yesterday</p>
                                     </div>
                                     <div id="chart3"></div>
@@ -70,7 +70,7 @@
                                 <div class="d-flex align-items-center">
                                     <div class="me-auto">
                                         <p class="mb-0 text-dark">In Progress</p>
-                                        <h4 class="my-1 text-dark">2</h4>
+                                        <h4 class="my-1 text-dark">{{count(\App\Models\Task::where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</h4>
                                         <p class="mb-0 font-13 text-dark">+8.4% from yesterday</p>
                                     </div>
                                     <div id="chart4"></div>
@@ -84,7 +84,7 @@
                                 <div class="d-flex align-items-center">
                                     <div class="me-auto">
                                         <p class="mb-0 text-white">Bug Found</p>
-                                        <h4 class="my-1 text-white">10</h4>
+                                        <h4 class="my-1 text-white">{{count(\App\Models\Task::where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</h4>
                                         <p class="mb-0 font-13 text-white">+5.4% from yesterday</p>
                                     </div>
                                     <div id="chart2"></div>

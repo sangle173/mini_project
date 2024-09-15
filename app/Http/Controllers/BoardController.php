@@ -152,7 +152,6 @@ class BoardController extends Controller
         $dateFrom = new Carbon($request->from_date, 'Asia/Ho_Chi_Minh');
         $dateTo = new Carbon($request->to_date,'Asia/Ho_Chi_Minh');
         $dateTo -> addDays(1);
-//        dd($dateFrom);
         if (!isset($request->type) || $request->type == null) {
             $allTypeId = [];
             $types = DB::table('types')->select('id')->get();
@@ -220,10 +219,10 @@ class BoardController extends Controller
             ->whereIn('ticket_status', $request->ticket_status)
             ->whereIn('priority', $request->priority)
             ->whereIn('tester_1', $request->user)
-            ->orWhereIn('tester_2', $request->user)
-            ->orWhereIn('tester_3', $request->user)
-            ->orWhereIn('tester_4', $request->user)
-            ->orWhereIn('tester_5', $request->user)
+//            ->orWhereIn('tester_2', $request->user)
+//            ->orWhereIn('tester_3', $request->user)
+//            ->orWhereIn('tester_4', $request->user)
+//            ->orWhereIn('tester_5', $request->user)
             ->get();
         $board = Board::find($request->board_id);
         $today_tasks = Task::where('board_id', $board->id)->whereDate('created_at', Carbon::today())->latest()->get();
@@ -234,6 +233,6 @@ class BoardController extends Controller
         $ticket_statuses = TicketStatus::where('board_id', $board->id)->latest()->get();
         $priorities = Priority::where('board_id', $board->id)->latest()->get();
         $users = User::whereNotIn('role', ['admin'])->latest()->get();
-        return view('manager.boards.view_board', compact('board', 'tasks', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'request', 'dateS', 'dateT', 'today_tasks'));
+        return view('manager.boards.view_board', compact('board', 'tasks', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'request','dateS', 'dateT', 'today_tasks'));
     }
 }

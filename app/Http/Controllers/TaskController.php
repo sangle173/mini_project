@@ -51,6 +51,9 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'tester_1' => 'required',
+        ]);
         $task_id = Task::insertGetId([
             'board_id' => $request->board_id,
             'team' => $request->team,
@@ -77,7 +80,7 @@ class TaskController extends Controller
             'message' => 'Ticket Created Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.all.tasks',$request->board_id)->with($notification);
+        return redirect()->route('manager.show.board',$request->board_id)->with($notification);
     }
 
     /**
@@ -182,7 +185,7 @@ class TaskController extends Controller
             'tester_4' => $request->tester_4,
             'tester_5' => $request->tester_5,
             'task_slug' => strtolower(str_replace(' ', '-', $request->jira_id)),
-            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
         $notification = array(
