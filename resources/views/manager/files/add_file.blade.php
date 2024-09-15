@@ -9,6 +9,7 @@
 <div class="page-content">
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Files</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
@@ -86,6 +87,7 @@
                         <th width="5%">Download</th>
                         <th>Uploaded by</th>
                         <th>Uploaded at</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -260,6 +262,18 @@
 
                             </td>
                             <td>{{$item -> created_at -> format('H:i d/m/Y')}}</td>
+                            <td>
+                                <div class="d-flex order-actions">
+                                    @auth()
+                                        @if(Auth::user()->role ==='manager' || Auth::user() -> id == $item -> user_id )
+                                            <a href="{{ route('delete.file',$item->id) }}"
+                                               id="Delete"
+                                               title="delete" class=""><i
+                                                    class='bx bxs-trash text-danger'></i></a>
+                                        @endif
+                                    @endauth
+                                </div>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

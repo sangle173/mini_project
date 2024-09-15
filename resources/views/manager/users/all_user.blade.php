@@ -11,6 +11,7 @@
     <div class="page-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+            <div class="breadcrumb-title pe-3">User</div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
@@ -43,7 +44,7 @@
                             <th>Updated at</th>
                             <th>Role</th>
                             <th>Status</th>
-                            <th colspan="2">Action</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -79,27 +80,24 @@
                                         <span class="badge bg-danger">InActive </span>
                                     @endif
                                 </td>
+{{--                                <td>--}}
+{{--                                    <div class="form-check-danger form-check form-switch">--}}
+{{--                                        <input class="form-check-input status-toggle large-checkbox" type="checkbox"--}}
+{{--                                               id="flexSwitchCheckCheckedDanger"--}}
+{{--                                               data-user-id="{{ $item->id }}" {{ $item->status ? 'checked' : ''}} >--}}
+{{--                                        <label class="form-check-label" for="flexSwitchCheckCheckedDanger"> </label>--}}
+{{--                                    </div>--}}
+{{--                                </td>--}}
                                 <td>
-                                    <div class="form-check-danger form-check form-switch">
-                                        <input class="form-check-input status-toggle large-checkbox" type="checkbox"
-                                               id="flexSwitchCheckCheckedDanger"
-                                               data-user-id="{{ $item->id }}" {{ $item->status ? 'checked' : ''}} >
-                                        <label class="form-check-label" for="flexSwitchCheckCheckedDanger"> </label>
+                                    <div class="d-flex order-actions">
+                                        <a href="{{ route('manager.edit.user',$item->id) }}"
+                                           title="Edit" class=""><i
+                                                class='lni lni-pencil text-secondary'></i></a>
+                                        <a href="{{ route('manager.delete.user',$item->id) }}"
+                                           title="Delete" id="delete" class=""><i
+                                                class='lni lni-trash text-danger'></i></a>
                                     </div>
-                                </td>
-                                <td>
-                                    <div class="col">
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="{{ route('manager.edit.user',$item->id) }}" type="button"
-                                               class="btn btn-secondary"><i class="bx bx-edit"></i>
-                                            </a>
-                                            {{--                                            <button type="button" class="btn btn-secondary"><i class="bx bx-share"></i>--}}
-                                            {{--                                            </button>--}}
-                                            <a href="{{ route('manager.delete.user',$item->id) }}" id="delete" type="button"
-                                               class="btn btn-secondary"><i class="bx bx-trash"></i>
-                                            </a>
-                                        </div>
-                                    </div>
+
                                 </td>
                             </tr>
                         @endforeach

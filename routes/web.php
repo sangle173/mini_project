@@ -274,6 +274,7 @@ Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.
 Route::get('/manager/login', [ManagerController::class, 'ManagerLogin'])->name('manager.login');
 Route::get('/manager/all/board/', [BoardController::class, 'index'])->name('manager.all.boards');
 Route::get('/manager/show/board/{id}', [BoardController::class, 'show'])->name('manager.show.board');
+Route::get('/manager/all/board/filter', [BoardController::class, 'filter'])->name('task.filter');
 
 Route::controller(FileController::class)->group(function(){
     Route::get('/all/file','index')->name('all.file');
@@ -281,7 +282,7 @@ Route::controller(FileController::class)->group(function(){
     Route::get('/add/file','create')->name('add.file');
 
     Route::post('/store/file','StoreFile')->name('store.file');
-    Route::get('/delete/file/{id}','DeleteFile')->name('delete.file');
+    Route::get('/delete/file/{id}','destroy')->name('delete.file');
     Route::post('/update/file/status','UpdateFileStatus')->name('update.file.status');
     Route::get('/upload/files/', 'show')->name('upload.files');
     Route::get('/upload/file/user', 'UploadFileByUserId')->name('upload.files.user');

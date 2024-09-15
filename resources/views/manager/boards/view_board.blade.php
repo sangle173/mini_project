@@ -16,9 +16,10 @@
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
-                        <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                        <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page"><a href="{{route('manager.all.boards')}}">All Board</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a
+                                href="{{route('manager.all.boards')}}">All Board</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{$board -> name}} Today Tasks</li>
                     </ol>
                 </nav>
@@ -103,80 +104,186 @@
                                 <span class="font-weight-bold">Search and Filter</span>
                             </button>
                         </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                              data-bs-parent="#accordionExample">
                             <div class="accordion-body" style="background: #EEEEEE">
                                 <div class="bs-stepper-content">
-                                    <form onSubmit="return false">
+                                    <form id="myForm" action="{{ route('task.filter') }}" method="get">
                                         <div id="test-l-1" role="tabpanel" class="bs-stepper-pane"
                                              aria-labelledby="stepper1trigger1">
+                                            <input type="hidden" name="board_id" value="{{$board-> id}}">
+                                            <div class="row g-3">
+                                                <div class="col-12 col-lg-2">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">From:</label>
+                                                        <input type="date" value="{{$dateS}}" name="from_date"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-lg-2">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">To:</label>
+                                                        <input type="date" value="{{$dateT}}" name="to_date"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="row g-3">
                                                 <div class="col-12 col-lg-2">
                                                     <label for="type" class="form-label">Type</label>
-                                                    <select class="form-select" name="type" id="type">
-                                                        <option selected="">-------</option>
+                                                    <div class="form-check">
                                                         @foreach ($types as $type)
-                                                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                                            @if(isset($request))
+                                                                <input class="form-check-input" name="type[]"
+                                                                       type="checkbox"
+                                                                       {{in_array($type->id, $request -> type) && count($request -> type) != count($types)? 'checked':''}}  value="{{ $type->id }}"
+                                                                       id="type{{ $type->id }}">
+                                                                <label class="form-check-label">
+                                                                    {{ $type->name }}
+                                                                </label> <br>
+                                                            @else
+                                                                <input class="form-check-input" name="type[]"
+                                                                       type="checkbox"
+                                                                       value="{{ $type->id }}"
+                                                                       id="type{{ $type->id }}">
+                                                                <label class="form-check-label">
+                                                                    {{ $type->name }}
+                                                                </label> <br>
+                                                            @endif
                                                         @endforeach
-                                                    </select>
+                                                    </div>
                                                 </div>
                                                 <div class="col-12 col-lg-2">
                                                     <label for="team" class="form-label">Team</label>
-                                                    <select class="form-select" name="team" id="team">
-                                                        <option selected="">-------</option>
+                                                    <div class="form-check">
                                                         @foreach ($teams as $team)
-                                                            <option value="{{ $team->id }}">{{ $team->name }}</option>
+                                                            @if(isset($request))
+                                                                <input class="form-check-input" name="team[]"
+                                                                       type="checkbox"
+                                                                       {{in_array($team->id, $request -> team ) && count($request -> team) != count($teams)? 'checked':''}}  value="{{ $team->id }}"
+                                                                       id="type{{ $team->id }}">
+                                                                <label class="form-check-label">
+                                                                    {{ $team->name }}
+                                                                </label> <br>
+                                                            @else
+                                                                <input class="form-check-input" name="team[]"
+                                                                       type="checkbox"
+                                                                       value="{{ $team->id }}"
+                                                                       id="type{{ $team->id }}">
+                                                                <label class="form-check-label">
+                                                                    {{ $team->name }}
+                                                                </label> <br>
+                                                            @endif
                                                         @endforeach
-                                                    </select>
+                                                    </div>
                                                 </div>
                                                 <div class="col-12 col-lg-2">
                                                     <label for="working_status" class="form-label">Working
                                                         Status</label>
-                                                    <select class="form-select" name="working_status"
-                                                            id="working_status">
-                                                        <option selected="">-------</option>
+                                                    <div class="form-check">
+
                                                         @foreach ($working_statuses as $working_status)
-                                                            <option
-                                                                value="{{ $working_status->id }}">{{ $working_status->name }}</option>
+                                                            @if(isset($request))
+                                                                <input class="form-check-input" name="working_status[]"
+                                                                       type="checkbox"
+                                                                       {{in_array($working_status->id, $request -> working_status ) && count($request -> working_status) != count($working_statuses)? 'checked':''}}  value="{{ $working_status->id }}"
+                                                                       id="type{{ $working_status->id }}">
+                                                                <label class="form-check-label">
+                                                                    {{ $working_status->name }}
+                                                                </label> <br>
+                                                            @else
+                                                                <input class="form-check-input" name="working_status[]"
+                                                                       type="checkbox"
+                                                                       value="{{ $working_status->id }}"
+                                                                       id="type{{ $working_status->id }}">
+                                                                <label class="form-check-label">
+                                                                    {{ $working_status->name }}
+                                                                </label> <br>
+                                                            @endif
                                                         @endforeach
-                                                    </select>
+                                                    </div>
                                                 </div>
                                                 <div class="col-12 col-lg-2">
                                                     <label for="ticket_status" class="form-label">Ticket Status</label>
-                                                    <select class="form-select" name="ticket_status" id="ticket_status">
-                                                        <option selected="">-------</option>
+                                                    <div class="form-check">
                                                         @foreach ($ticket_statuses as $ticket_status)
-                                                            <option
-                                                                value="{{ $ticket_status->id }}">{{ $ticket_status->name }}</option>
+                                                            @if(isset($request))
+                                                                <input class="form-check-input" name="ticket_status[]"
+                                                                       type="checkbox"
+                                                                       {{in_array($ticket_status->id, $request -> ticket_status ) && count($request -> ticket_status) != count($ticket_statuses)? 'checked':''}}  value="{{ $ticket_status->id }}"
+                                                                       id="type{{ $ticket_status->id }}">
+                                                                <label class="form-check-label">
+                                                                    {{ $ticket_status->name }}
+                                                                </label> <br>
+                                                            @else
+                                                                <input class="form-check-input" name="ticket_status[]"
+                                                                       type="checkbox"
+                                                                       value="{{ $ticket_status->id }}"
+                                                                       id="type{{ $ticket_status->id }}">
+                                                                <label class="form-check-label">
+                                                                    {{ $ticket_status->name }}
+                                                                </label> <br>
+                                                            @endif
                                                         @endforeach
-                                                    </select>
+                                                    </div>
                                                 </div>
                                                 <div class="col-12 col-lg-2">
                                                     <label for="priority" class="form-label">Priority</label>
-                                                    <select class="form-select" name="priority" id="priority">
-                                                        <option selected="">-------</option>
+                                                    <div class="form-check">
+
                                                         @foreach ($priorities as $priority)
-                                                            <option
-                                                                value="{{ $priority->id }}">{{ $priority->name }}</option>
+                                                            @if(isset($request))
+                                                                <input class="form-check-input" name="priority[]"
+                                                                       type="checkbox"
+                                                                       {{in_array($priority->id, $request -> priority ) && count($request -> priority) != count($priorities)? 'checked':''}}  value="{{ $priority->id }}"
+                                                                       id="type{{ $priority->id }}">
+                                                                <label class="form-check-label">
+                                                                    {{ $priority->name }}
+                                                                </label> <br>
+                                                            @else
+                                                                <input class="form-check-input" name="priority[]"
+                                                                       type="checkbox"
+                                                                       value="{{ $priority->id }}"
+                                                                       id="type{{ $priority->id }}">
+                                                                <label class="form-check-label">
+                                                                    {{ $priority->name }}
+                                                                </label> <br>
+                                                            @endif
                                                         @endforeach
-                                                    </select>
+                                                    </div>
                                                 </div>
                                                 <div class="col-12 col-lg-2">
                                                     <label for="tester" class="form-label">Tester</label>
-                                                    <select class="form-select" name="tester" id="tester_1">
-                                                        <option selected="">-------</option>
+                                                    <div class="form-check">
                                                         @foreach ($users as $user)
-                                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                            @if(isset($request))
+                                                                <input class="form-check-input" name="user[]"
+                                                                       type="checkbox"
+                                                                       {{in_array($user->id, $request -> user ) && count($request -> user) != count($users)? 'checked':''}}  value="{{ $user->id }}"
+                                                                       id="type{{ $user->id }}">
+                                                                <label class="form-check-label">
+                                                                    {{ $user->name }}
+                                                                </label> <br>
+                                                            @else
+                                                                <input class="form-check-input" name="user[]"
+                                                                       type="checkbox"
+                                                                       value="{{ $user->id }}"
+                                                                       id="type{{ $user->id }}">
+                                                                <label class="form-check-label">
+                                                                    {{ $user->name }}
+                                                                </label> <br>
+                                                            @endif
                                                         @endforeach
-                                                    </select>
+                                                    </div>
                                                 </div>
                                             </div><!---end row-->
                                             <div class="row mt-1 g-3">
                                                 <div class="col-12 col-lg-6">
-                                                    <button class="btn btn-secondary px-4" type="reset">
+                                                    <a href="{{route('manager.show.board', $board-> id)}}"
+                                                       class="btn btn-secondary px-4" type="reset">
                                                         Reset
-                                                    </button>
-                                                    <button class="btn btn-primary px-4" onclick="stepper1.next()">
+                                                    </a>
+                                                    <button class="btn btn-primary px-4" type="submit">
                                                         Apply
                                                     </button>
                                                 </div>
@@ -448,7 +555,245 @@
                     </div>
                     <div class="tab-pane fade" id="primaryprofile" role="tabpanel">
                         <div>
+                            <div class="container mt-5">
+                                <div class="card">
+                                    {{--                                    <div class="card-header">--}}
+                                    {{--                                        <h4>--}}
+                                    {{--                                            {{subject}}--}}
+                                    {{--                                            <a [href]="'mailto:?subject=' + subject+ '&cc='+ cc"--}}
+                                    {{--                                               class="btn btn-primary float-end"><i class="bi bi-cloud-arrow-up"></i>--}}
+                                    {{--                                                Open Outlook</a>--}}
+                                    {{--                                        </h4>--}}
+                                    {{--                                    </div>--}}
+                                    <div class="card-body">
+                                        <div id="divExp" class="divExp">
+                                            <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
+                                                        style="font-size:11pt;"><a
+                                                            name="_Hlk155304048">Hi Manager,</a></span></font></div>
+                                            <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
+                                                        style="font-size:11pt;">Below is our status report for today. Please review and let us know if you have any comments or questions.</span></font>
+                                            </div>
+                                            <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
+                                                        style="font-size:11pt;"><font
+                                                            size="4"><span
+                                                                style="font-size:14pt;"><b>&nbsp;</b></span></font></span></font>
+                                            </div>
+                                            <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
+                                                        style="font-size:11pt;"><font
+                                                            size="4"><span
+                                                                style="font-size:14pt;"><b>Summary:</b></span></font></span></font>
+                                            </div>
+                                            <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
+                                                        style="font-size:11pt;"><b>&nbsp;</b></span></font></div>
 
+                                            <!--        Table Summary-->
+                                            <table border="0" cellspacing="0" cellpadding="0"
+                                                   style="border-collapse:collapse;">
+                                                <tbody>
+                                                @foreach ($teams as $key => $team)
+                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0 || count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0 || count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                        <tr height="25"
+                                                            style="{{$key % 2 == 1 ? 'background:#DCE6F1':'background:#F2DCDB'}};height:15pt;border: none;">
+                                                            <td width="236" valign="bottom" nowrap=""
+                                                                style="width:141.75pt;height:15pt;padding:0 5.4pt;">
+                <span>
+                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
+                                color="black"><b>{{$team -> name}}</b></font></span></font></div>
+                </span>
+                                                            </td>
+                                                            <td width="167" valign="bottom" nowrap=""
+                                                                style="width:100.25pt;height:15pt;padding:0 5.4pt;">
+                <span>
+                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
+                                color="black">Testing Request</font></span></font></div>
+                </span></td>
+                                                            <td width="133" valign="bottom" nowrap=""
+                                                                style="width:80pt;height:15pt;padding:0 5.4pt;">
+                <span>
+                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
+                                color="black">Done</font></span></font></div>
+              </span></td>
+                                                            <td width="80" nowrap=""
+                                                                style="width:48pt;height:15pt;padding:0 5.4pt;">
+                <span>
+                <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
+                            style="font-size:11pt;"><font
+                                color="black">{{count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</font></span></font></div>
+                </span></td>
+                                                        </tr>
+                                                        <tr height="25"
+                                                            style="{{$key % 2 == 1 ? 'background:#DCE6F1':'background:#F2DCDB'}};height:15pt;border: none;">
+                                                            <td width="236" valign="bottom" nowrap=""
+                                                                style="width:141.75pt;height:15pt;padding:0 5.4pt;">
+                <span>
+                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
+                                color="black"></font></span></font></div>
+                </span>
+                                                            </td>
+                                                            <td width="167" valign="bottom" nowrap=""
+                                                                style="width:100.25pt;height:15pt;padding:0 5.4pt;">
+                <span>
+                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
+                                color="black"></font></span></font></div>
+                </span></td>
+                                                            <td width="133" valign="bottom" nowrap=""
+                                                                style="width:80pt;height:15pt;padding:0 5.4pt;">
+                <span>
+                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
+                                color="black">In-progress</font></span></font></div>
+              </span></td>
+                                                            <td width="80" nowrap=""
+                                                                style="width:48pt;height:15pt;padding:0 5.4pt;">
+                <span>
+                <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
+                            style="font-size:11pt;"><font
+                                color="black">{{count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</font></span></font></div>
+                </span></td>
+                                                        </tr>
+                                                        <tr height="25"
+                                                            style="{{$key % 2 == 1 ? 'background:#DCE6F1':'background:#F2DCDB'}};height:15pt;border: none;">
+                                                            <td width="236" valign="bottom" nowrap=""
+                                                                style="width:141.75pt;height:15pt;padding:0 5.4pt;">
+                <span>
+                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
+                                color="black"><b></b></font></span></font></div>
+                </span>
+                                                            </td>
+                                                            <td width="167" valign="bottom" nowrap=""
+                                                                style="width:100.25pt;height:15pt;padding:0 5.4pt;">
+                <span>
+                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
+                                color="black">Bug found</font></span></font></div>
+                </span></td>
+                                                            <td width="133" valign="bottom" nowrap=""
+                                                                style="width:80pt;height:15pt;padding:0 5.4pt;">
+                <span>
+                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
+                                color="black">Open</font></span></font></div>
+              </span></td>
+                                                            <td width="80" nowrap=""
+                                                                style="width:48pt;height:15pt;padding:0 5.4pt;">
+                <span>
+                <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
+                            style="font-size:11pt;"><font
+                                color="black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</font></span></font></div>
+                </span></td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                            <!--       End Table Summary-->
+
+                                            <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
+                                                        style="font-size:11pt;"><b>&nbsp;</b></span></font></div>
+                                            <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
+                                                        style="font-size:11pt;"><font
+                                                            size="4"><span style="font-size:14pt;"><b>&nbsp;</b></span></font></span></font>
+                                            </div>
+                                            <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
+                                                        style="font-size:11pt;"><font
+                                                            size="4"><span style="font-size:14pt;"><b>Details of the assignment:</b></span></font></span></font>
+                                            </div>
+                                            <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
+                                                        style="font-size:11pt;"><font
+                                                            color="black">&nbsp;</font></span></font></div>
+                                            @foreach ($teams as $team)
+                                                @if(count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0 || count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0 || count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+
+                                                    <div
+                                                        style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
+                                                                style="font-size:11pt;"><font size="4"
+                                                                                              color="#0070C0"><span
+                                                                        style="font-size:14pt;"><b>{{$team -> name}}</b></span></font></span></font>
+                                                    </div>
+                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0 || count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                        <div>
+                                                            <div style="text-indent:14pt;margin:0;"><font
+                                                                    face="Calibri,sans-serif" size="2"><span
+                                                                        style="font-size:11pt;"><font size="4"
+                                                                                                      color="black"><span
+                                                                                style="font-size:14pt;"><b>Testing Request</b></span></font></span></font>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                        <div>
+                                                            <div style="text-indent:22pt;margin:0;"><font
+                                                                    face="Calibri,sans-serif" size="2"><span
+                                                                        style="font-size:11pt;"><font
+                                                                            color="black"><b>Done</b></font></span></font>
+                                                            </div>
+                                                            @foreach(\App\Models\Task::where('team', $team -> id) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $done)
+                                                                <div
+                                                                    style="text-indent:33pt;margin:0;"><font
+                                                                        face="Calibri,sans-serif" size="2"><span
+                                                                            style="font-size:11pt;"><a
+                                                                                href="{{$board_config -> jira_url}}{{$done -> jira_id}}"
+                                                                                target="_blank"
+                                                                                rel="noopener noreferrer">{{$done -> jira_id}}</a><font
+                                                                                color="black"> - {{$done -> jira_summary}}</font></span></font>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
+                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                        <div
+                                                            style="text-indent:22pt;margin:0;"><font
+                                                                face="Calibri,sans-serif" size="2"><span
+                                                                    style="font-size:11pt;"><font
+                                                                        color="black"><b>In-progress</b></font></span></font>
+                                                        </div>
+                                                        @foreach(\App\Models\Task::where('team', $team -> id) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $inprogres)
+                                                            <div
+                                                                style="text-indent:33pt;margin:0;"><font
+                                                                    face="Calibri,sans-serif"
+                                                                    size="2"><span
+                                                                        style="font-size:11pt;"><a
+                                                                            href="{{$board_config -> jira_url}}{{$inprogres -> jira_id}}"
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer">{{$inprogres -> jira_id}}</a><font
+                                                                            color="black">
+                 - {{$inprogres -> jira_summary}}</font></span></font>
+                                                            </div>
+                                                        @endforeach
+                                                    @endif
+                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                        <div>
+                                                            <div style="text-indent:14pt;margin:0;"><font
+                                                                    face="Calibri,sans-serif" size="2"><span
+                                                                        style="font-size:11pt;"><font size="4"
+                                                                                                      color="black"><span
+                                                                                style="font-size:14pt;"><b>Bug found</b></span></font></span></font>
+                                                            </div>
+                                                            @foreach(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $bug_found)
+                                                                <div
+                                                                    style="text-indent:33pt;margin:0;"><font
+                                                                        face="Calibri,sans-serif" size="2"><span
+                                                                            style="font-size:11pt;"><a
+                                                                                href="{{$board_config -> jira_url}}{{$bug_found -> jira_id}}"
+                                                                                target="_blank"
+                                                                                rel="noopener noreferrer">{{$bug_found -> jira_id}}</a><font
+                                                                                color="black">
+       - {{$bug_found -> jira_summary}}</font></span></font></div>
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
+                                                    <div
+                                                        style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
+                                                                style="font-size:11pt;"><font
+                                                                    color="black">&nbsp;</font></span></font></div>
+                                                @endif
+
+                                            @endforeach
+                                            <div style="margin:0;"><font face="Calibri,sans-serif"
+                                                                         size="2"><span
+                                                        style="font-size:11pt;">Thank you and best regards,</span></font>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="primarycontact" role="tabpanel">

@@ -10,12 +10,15 @@ use Illuminate\Support\Facades\Hash;
 
 class ManagerController extends Controller
 {
-    public function ManagerDashboard(){
+    public function ManagerDashboard()
+    {
         return view('manager.index');
     }
+
     // End Method
 
-    public function ManagerLogout(Request $request) {
+    public function ManagerLogout(Request $request)
+    {
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
@@ -26,19 +29,22 @@ class ManagerController extends Controller
     } // End Method
 
 
-    public function ManagerLogin(){
+    public function ManagerLogin()
+    {
         return view('manager.manager_login');
     } // End Method
 
-    public function ManagerProfile(){
+    public function ManagerProfile()
+    {
 
         $id = Auth::user()->id;
         $profileData = User::find($id);
-        return view('manager.manager_profile_view',compact('profileData'));
+        return view('manager.manager_profile_view', compact('profileData'));
     }// End Method
 
 
-    public function ManagerProfileStore(Request $request){
+    public function ManagerProfileStore(Request $request)
+    {
 
         $id = Auth::user()->id;
         $data = User::find($id);
@@ -49,11 +55,11 @@ class ManagerController extends Controller
         $data->address = $request->address;
 
         if ($request->file('photo')) {
-           $file = $request->file('photo');
-           @unlink(public_path('upload/manager_images/'.$data->photo));
-           $filename = date('YmdHi').$file->getClientOriginalName();
-           $file->move(public_path('upload/manager_images'),$filename);
-           $data['photo'] = $filename;
+            $file = $request->file('photo');
+            @unlink(public_path('upload/manager_images/' . $data->photo));
+            $filename = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('upload/manager_images'), $filename);
+            $data['photo'] = $filename;
         }
 
         $data->save();
@@ -67,16 +73,18 @@ class ManagerController extends Controller
     }// End Method
 
 
-    public function ManagerChangePassword(){
+    public function ManagerChangePassword()
+    {
 
         $id = Auth::user()->id;
         $profileData = User::find($id);
-        return view('manager.manager_change_password',compact('profileData'));
+        return view('manager.manager_change_password', compact('profileData'));
 
     }// End Method
 
 
-    public function ManagerPasswordUpdate(Request $request){
+    public function ManagerPasswordUpdate(Request $request)
+    {
 
         /// Validation
         $request->validate([
@@ -106,16 +114,18 @@ class ManagerController extends Controller
 
     }// End Method
 
-    public function AllUser(){
+    public function AllUser()
+    {
 
         $allusers = User::latest()->get();
-        return view('manager.users.all_user',compact('allusers'));
+        return view('manager.users.all_user', compact('allusers'));
     }// End Method
 
-    public function UpdateUserStatus(Request $request){
+    public function UpdateUserStatus(Request $request)
+    {
 
         $userId = $request->input('user_id');
-        $isChecked = $request->input('is_checked',0);
+        $isChecked = $request->input('is_checked', 0);
 
         $user = User::find($userId);
         if ($user) {
@@ -128,12 +138,14 @@ class ManagerController extends Controller
     }// End Method
 
 
-    public function AddUser(){
-        $roles = ['admin', 'manager', 'user'];
-        return view('manager.users.add_user',compact('roles'));
+    public function AddUser()
+    {
+        $roles = ['manager', 'user'];
+        return view('manager.users.add_user', compact('roles'));
     }// End Method
 
-    public function SaveUser(Request $request){
+    public function SaveUser(Request $request)
+    {
 //        dd($request);
         $request->validate([
             'name' => 'required',
@@ -143,14 +155,14 @@ class ManagerController extends Controller
         ]);
 
         $user_id = User::insertGetId([
-            'name' => $request -> name,
-            'username' => $request-> email,
-            'email' => $request-> email,
+            'name' => $request->name,
+            'username' => $request->email,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request-> role,
-            'phone' => $request-> phone,
-            'title' => $request-> title,
-            'address' => $request-> address,
+            'role' => $request->role,
+            'phone' => $request->phone,
+            'title' => $request->title,
+            'address' => $request->address,
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
         $notification = array(
@@ -161,29 +173,31 @@ class ManagerController extends Controller
 
     }// End Method
 
-    public function EditUser($id){
+    public function EditUser($id)
+    {
         $user = User::find($id);
-        $roles = ['admin', 'manager', 'user'];
-        return view('manager.users.edit_user',compact('user', 'roles'));
+        $roles = ['manager', 'user'];
+        return view('manager.users.edit_user', compact('user', 'roles'));
     }// End Method
 
-    public function UpdateUser(Request $request){
+    public function UpdateUser(Request $request)
+    {
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'role' => 'required',
         ]);
 
-        $id = $request ->id;
+        $id = $request->id;
 
         User::find($id)->update([
-            'name' => $request -> name,
-            'email' => $request-> email,
-            'username' => $request-> email,
-            'role' => $request-> role,
-            'phone' => $request-> phone,
-            'title' => $request-> title,
-            'address' => $request-> address,
+            'name' => $request->name,
+            'email' => $request->email,
+            'username' => $request->email,
+            'role' => $request->role,
+            'phone' => $request->phone,
+            'title' => $request->title,
+            'address' => $request->address,
             'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
@@ -196,7 +210,8 @@ class ManagerController extends Controller
     }// End Method
 
 
-    public function DeleteUser($id){
+    public function DeleteUser($id)
+    {
 
         $user = User::find($id);
         if (!is_null($user)) {

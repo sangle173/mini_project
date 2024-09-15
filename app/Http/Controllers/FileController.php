@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course_goal;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\File;
@@ -66,9 +67,27 @@ class FileController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(File $file)
+    public function destroy($id)
     {
-        //
+        File::find($id)->delete();
+        $notification = array(
+            'message' => 'File Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function destroyAll($userId)
+    {
+        $files = File::where('user_id',$userId)->latest()->get();
+        for ($i = 0; $i < $files; $i++) {
+            File::find($files[i] -> id)->delete();
+        }  // end for
+        $notification = array(
+            'message' => 'Deleted All Files Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 
     public function UploadFileByUserId(Request $request)

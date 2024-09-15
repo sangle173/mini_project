@@ -15,8 +15,10 @@ use App\Models\Type;
 use App\Models\User;
 use App\Models\WorkingStatus;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
+use function Monolog\toArray;
 
 class BoardController extends Controller
 {
@@ -25,8 +27,10 @@ class BoardController extends Controller
      */
     public function index()
     {
+        $dateS = Carbon::today('Asia/Ho_Chi_Minh')->format('Y-m-d');
+        $dateT = Carbon::today('Asia/Ho_Chi_Minh')->format('Y-m-d');
         $boards = Board::latest()->get();
-        return view('manager.boards.all_board',compact('boards'));
+        return view('manager.boards.all_board', compact('boards', 'dateS', 'dateT'));
     }
 
     /**
@@ -43,9 +47,9 @@ class BoardController extends Controller
     public function store(Request $request)
     {
         $photo = $request->file('photo');
-        $name_gen = hexdec(uniqid()).'.'.$photo->getClientOriginalExtension();
-        Image::make($photo)->resize(370,246)->save('upload/board/'.$name_gen);
-        $save_url = 'upload/board/'.$name_gen;
+        $name_gen = hexdec(uniqid()) . '.' . $photo->getClientOriginalExtension();
+        Image::make($photo)->resize(370, 246)->save('upload/board/' . $name_gen);
+        $save_url = 'upload/board/' . $name_gen;
 
         $board_id = Board::insertGetId([
             'name' => $request->name,
@@ -97,17 +101,20 @@ class BoardController extends Controller
      */
     public function show($id)
     {
+        $dateS = Carbon::today('Asia/Ho_Chi_Minh')->format('Y-m-d');
+        $dateT = Carbon::today('Asia/Ho_Chi_Minh')->format('Y-m-d');
         $board = Board::find($id);
-//        $tasks = Task::where('board_id',$board ->id)->latest()->get();
-        $tasks = Task::where('board_id',$board ->id) -> whereDate('created_at', Carbon::today())->latest()->get();
-        $board_config = BoardConfig::find(Board::find($id) -> board_config_id);
-        $teams = Team::where('board_id',$board ->id)->latest()->get();
-        $types = Type::where('board_id',$board ->id)->latest()->get();
-        $working_statuses = WorkingStatus::where('board_id',$board ->id)->latest()->get();
-        $ticket_statuses = TicketStatus::where('board_id',$board ->id)->latest()->get();
-        $priorities = Priority::where('board_id',$board ->id)->latest()->get();
-        $users = User::whereNotIn('role',['admin']) ->latest()->get();;
-        return view('manager.boards.view_board',compact('board','tasks','board_config', 'teams','types','working_statuses','ticket_statuses','priorities','users'));
+        $tasks = Task::where('board_id', $board->id)->whereDate('created_at', Carbon::today())->latest()->get();
+        $today_tasks = Task::where('board_id', $board->id)->whereDate('created_at', Carbon::today())->latest()->get();
+        $board_config = BoardConfig::find(Board::find($id)->board_config_id);
+        $teams = Team::where('board_id', $board->id)->latest()->get();
+        $types = Type::where('board_id', $board->id)->latest()->get();
+        $working_statuses = WorkingStatus::where('board_id', $board->id)->latest()->get();
+        $ticket_statuses = TicketStatus::where('board_id', $board->id)->latest()->get();
+        $priorities = Priority::where('board_id', $board->id)->latest()->get();
+        $users = User::whereNotIn('role', ['admin'])->latest()->get();;
+
+        return view('manager.boards.view_board', compact('board', 'tasks', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'dateT', 'dateS', 'today_tasks'));
     }
 
     /**
@@ -132,5 +139,101 @@ class BoardController extends Controller
     public function destroy(Board $board)
     {
         //
+    }
+
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function filter(Request $request)
+    {
+        $dateS = $request->from_date;
+        $dateT = $request->to_date;
+        $dateFrom = new Carbon($request->from_date, 'Asia/Ho_Chi_Minh');
+        $dateTo = new Carbon($request->to_date,'Asia/Ho_Chi_Minh');
+        $dateTo -> addDays(1);
+//        dd($dateFrom);
+        if (!isset($request->type) || $request->type == null) {
+            $allTypeId = [];
+            $types = DB::table('types')->select('id')->get();
+            for ($i = 0; $i < $types->count(); $i++) {
+                array_push($allTypeId, $types[$i]->id);
+            }  // end for
+
+            $request['type'] = $allTypeId;
+        }
+
+        if (!isset($request->team)) {
+            $allTeamId = [];
+            $teams = DB::table('teams')->select('id')->get();
+            for ($i = 0; $i < $teams->count(); $i++) {
+                array_push($allTeamId, $teams[$i]->id);
+            }  // end for
+
+            $request['team'] = $allTeamId;
+        }
+
+        if (!isset($request->working_status)) {
+            $allWkId = [];
+            $working_statuses = DB::table('working_statuses')->select('id')->get();
+            for ($i = 0; $i < $working_statuses->count(); $i++) {
+                array_push($allWkId, $working_statuses[$i]->id);
+            }  // end for
+
+            $request['working_status'] = $allWkId;
+        }
+        if (!isset($request->ticket_status)) {
+            $allTkId = [];
+            $ticket_statuses = DB::table('ticket_statuses')->select('id')->get();
+            for ($i = 0; $i < $ticket_statuses->count(); $i++) {
+                array_push($allTkId, $ticket_statuses[$i]->id);
+            }  // end for
+
+            $request['ticket_status'] = $allTkId;
+        }
+
+        if (!isset($request->priority)) {
+            $allPriorityId = [];
+            $priorities = DB::table('priorities')->select('id')->get();
+            for ($i = 0; $i < $priorities->count(); $i++) {
+                array_push($allPriorityId, $priorities[$i]->id);
+            }  // end for
+
+            $request['priority'] = $allPriorityId;
+        }
+
+        if (!isset($request->user)) {
+            $allUserId = [];
+            $users = DB::table('users')->select('id')->get();
+            for ($i = 0; $i < $users->count(); $i++) {
+                array_push($allUserId, $users[$i]->id);
+            }  // end for
+
+            $request['user'] = $allUserId;
+        }
+        $tasks = DB::table('tasks')
+            ->where('board_id', $request->board_id)
+            ->whereBetween('created_at', [$dateFrom->format('Y-m-d'), $dateTo->format('Y-m-d')])
+            ->whereIn('type', $request->type)
+            ->whereIn('team', $request->team)
+            ->whereIn('working_status', $request->working_status)
+            ->whereIn('ticket_status', $request->ticket_status)
+            ->whereIn('priority', $request->priority)
+            ->whereIn('tester_1', $request->user)
+            ->orWhereIn('tester_2', $request->user)
+            ->orWhereIn('tester_3', $request->user)
+            ->orWhereIn('tester_4', $request->user)
+            ->orWhereIn('tester_5', $request->user)
+            ->get();
+        $board = Board::find($request->board_id);
+        $today_tasks = Task::where('board_id', $board->id)->whereDate('created_at', Carbon::today())->latest()->get();
+        $board_config = BoardConfig::find(Board::find($request->board_id)->board_config_id);
+        $teams = Team::where('board_id', $board->id)->latest()->get();
+        $types = Type::where('board_id', $board->id)->latest()->get();
+        $working_statuses = WorkingStatus::where('board_id', $board->id)->latest()->get();
+        $ticket_statuses = TicketStatus::where('board_id', $board->id)->latest()->get();
+        $priorities = Priority::where('board_id', $board->id)->latest()->get();
+        $users = User::whereNotIn('role', ['admin'])->latest()->get();
+        return view('manager.boards.view_board', compact('board', 'tasks', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'request', 'dateS', 'dateT', 'today_tasks'));
     }
 }
