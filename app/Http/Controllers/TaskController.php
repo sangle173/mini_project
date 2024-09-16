@@ -153,7 +153,7 @@ class TaskController extends Controller
         ]);
 
         $notification = array(
-            'message' => 'Update Ticket Status Successfully',
+            'message' => 'Update Task Successfully',
             'alert-type' => 'success'
         );
         return redirect()->route('manager.show.board',$request->board_id)->with($notification);

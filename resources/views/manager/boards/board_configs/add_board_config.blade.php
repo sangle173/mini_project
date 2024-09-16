@@ -40,7 +40,7 @@
                             <div class="col-sm-9">
                                 <div class="col-sm-9">
                                     <div class="position-relative input-icon">
-                                        <input type="text" class="form-control" value="{{$board_config ->jira_url}}"
+                                        <input type="text" class="form-control"
                                                name="jira_url" id="jira_url">
                                         <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
                                     </div>

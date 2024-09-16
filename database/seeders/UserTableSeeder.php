@@ -19,11 +19,11 @@ class UserTableSeeder extends Seeder
             // Admin
 
             [
-                'name' => 'Admin',
-                'username' => 'admin',
-                'email' => 'admin@gmail.com',
+                'name' => 'Sang Le',
+                'username' => 'sang.le',
+                'email' => 'sang.le@gmail.com',
                 'password' => Hash::make('111'),
-                'role' => 'admin',
+                'role' => 'manager',
                 'status' => '1',
             ],
                 // Instructor
@@ -37,9 +37,25 @@ class UserTableSeeder extends Seeder
             ],
                 // User Data
             [
-                'name' => 'User',
-                'username' => 'user',
-                'email' => 'user@gmail.com',
+                'name' => 'Tai Ngo',
+                'username' => 'tai.ngo',
+                'email' => 'tai.ngo@gmail.com',
+                'password' => Hash::make('111'),
+                'role' => 'user',
+                'status' => '1',
+            ],
+            [
+                'name' => 'Hieu Tran',
+                'username' => 'hieu.tran',
+                'email' => 'hieu.tran@gmail.com',
+                'password' => Hash::make('111'),
+                'role' => 'user',
+                'status' => '1',
+            ],
+            [
+                'name' => 'An Duong',
+                'username' => 'an.duong',
+                'email' => 'an.duong@gmail.com',
                 'password' => Hash::make('111'),
                 'role' => 'user',
                 'status' => '1',

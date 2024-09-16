@@ -105,7 +105,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/manager/update/board/status', 'UpdateProjectStatus')->name('manager.update.board.status');
     });
 
-    // Board All Route
+    // BoardConfigController All Route
     Route::controller(BoardConfigController::class)->group(function () {
         Route::get('/manager/board/config/{id}', 'create')->name('manager.config.board');
         Route::get('/manager/board/config/edit/{id}', 'edit')->name('manager.edit.config.board');

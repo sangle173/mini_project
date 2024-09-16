@@ -115,14 +115,14 @@
                                             <div class="row g-3">
                                                 <div class="col-12 col-lg-2">
                                                     <div class="mb-3">
-                                                        <label class="form-label">From:</label>
+                                                        <label class="form-label"><b>From:</b></label>
                                                         <input type="date" value="{{$dateS}}" name="from_date"
                                                                class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-lg-2">
                                                     <div class="mb-3">
-                                                        <label class="form-label">To:</label>
+                                                        <label class="form-label"><b>To:</b></label>
                                                         <input type="date" value="{{$dateT}}" name="to_date"
                                                                class="form-control">
                                                     </div>
@@ -130,7 +130,7 @@
                                             </div>
                                             <div class="row g-3">
                                                 <div class="col-12 col-lg-2">
-                                                    <label for="type" class="form-label">Type</label>
+                                                    <label for="type" class="form-label"><b>Type</b></label>
                                                     <div class="form-check">
                                                         @foreach ($types as $type)
                                                             @if(isset($request))
@@ -154,7 +154,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-lg-2">
-                                                    <label for="team" class="form-label">Team</label>
+                                                    <label for="team" class="form-label"><b>Team</b></label>
                                                     <div class="form-check">
                                                         @foreach ($teams as $team)
                                                             @if(isset($request))
@@ -178,8 +178,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-lg-2">
-                                                    <label for="working_status" class="form-label">Working
-                                                        Status</label>
+                                                    <label for="working_status" class="form-label"><b>Working
+                                                            Status</b></label>
                                                     <div class="form-check">
 
                                                         @foreach ($working_statuses as $working_status)
@@ -204,7 +204,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-lg-2">
-                                                    <label for="ticket_status" class="form-label">Ticket Status</label>
+                                                    <label for="ticket_status" class="form-label"><b>Ticket Status</b></label>
                                                     <div class="form-check">
                                                         @foreach ($ticket_statuses as $ticket_status)
                                                             @if(isset($request))
@@ -228,7 +228,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-lg-2">
-                                                    <label for="priority" class="form-label">Priority</label>
+                                                    <label for="priority" class="form-label"><b>Priority</b></label>
                                                     <div class="form-check">
 
                                                         @foreach ($priorities as $priority)
@@ -253,7 +253,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-lg-2">
-                                                    <label for="tester" class="form-label">Tester</label>
+                                                    <label for="tester" class="form-label"><b>Tester</b></label>
                                                     <div class="form-check">
                                                         @foreach ($users as $user)
                                                             @if(isset($request))
@@ -526,7 +526,7 @@
                                                                 class='lni lni-eye text-success'></i></a>
                                                         <a href="{{ route('manager.clone.task',$item->id) }}"
                                                            title="Clone" class=""><i
-                                                                class='bx bxs-copy text-success'></i></a>
+                                                                class='bx bxs-copy text-info'></i></a>
                                                         @auth()
                                                             @if(Auth::user()->role ==='manager' || Auth::user() -> id == $item -> tester_1 )
                                                                 <a href="{{ route('manager.edit.task',$item->id) }}"

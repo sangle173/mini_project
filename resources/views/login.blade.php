@@ -23,7 +23,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 
 
-    <title>Instructor Login </title>
+    <title>Login Page</title>
 </head>
 
 <body class="">
@@ -50,7 +50,7 @@
                         <div class="card-body p-sm-5">
                             <div class="">
                                 <div class="mb-3 text-center">
-                                    <img src="{{ asset('backend/assets/images/logo-icon.png') }}" width="60" alt="">
+                                    <img src="{{ asset('backend/assets/images/logo_agest.png') }}" width="60" alt="Avatar">
                                 </div>
                                 <div class="text-center mb-4">
                                     <p class="mb-0">Please log in to your account</p>
@@ -59,13 +59,11 @@
 
                                     <form class="row g-3" method="POST" action="{{ route('login') }}">
                                         @csrf
-
-
                                         <div class="col-12">
                                             <label for="inputEmailAddress" class="form-label">Email</label>
                                             <input type="email" id="email" name="email"
                                                    class="form-control @error('email') is-invalid @enderror"
-                                                   id="inputEmailAddress" placeholder="jhon@example.com">
+                                                   id="inputEmailAddress" placeholder="example@gmail.com">
                                             @error('email')
                                             <span class="text-danger">{{ $message }}</span>
                                             @enderror

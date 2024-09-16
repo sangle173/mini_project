@@ -92,7 +92,7 @@
                                     <div class="d-flex order-actions">
                                         <a href="{{ route('manager.edit.user',$item->id) }}"
                                            title="Edit" class=""><i
-                                                class='lni lni-pencil text-secondary'></i></a>
+                                                class='bx bxs-edit text-primary'></i></a>
                                         <a href="{{ route('manager.delete.user',$item->id) }}"
                                            title="Delete" id="delete" class=""><i
                                                 class='lni lni-trash text-danger'></i></a>

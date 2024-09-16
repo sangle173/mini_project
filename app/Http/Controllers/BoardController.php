@@ -6,6 +6,7 @@ use App\Models\Board;
 use App\Http\Requests\StoreBoardRequest;
 use App\Http\Requests\UpdateBoardRequest;
 use App\Models\BoardConfig;
+use App\Models\File;
 use App\Models\Priority;
 use App\Models\Project;
 use App\Models\Task;
@@ -93,7 +94,7 @@ class BoardController extends Controller
             'message' => 'Board Created Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->back()->with($notification);
+        return redirect()->route('manager.show.board',$request->board_id)->with($notification);
     }
 
     /**
@@ -120,25 +121,50 @@ class BoardController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Board $board)
+    public function edit($id)
     {
-        //
+        $board = Board::find($id);
+        return view('manager.boards.edit_board', compact('board'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBoardRequest $request, Board $board)
+    public function update(Request $request)
     {
-        //
+        $photo = $request->file('photo');
+        $name_gen = hexdec(uniqid()) . '.' . $photo->getClientOriginalExtension();
+        Image::make($photo)->resize(370, 246)->save('upload/board/' . $name_gen);
+        $save_url = 'upload/board/' . $name_gen;
+        Board::find($request -> board_id)->update([
+            'name' => $request->name,
+            'title' => $request->title,
+            'start_date' => $request->start_date,
+            'board_slug' => strtolower(str_replace(' ', '-', $request->name)),
+            'desc' => $request->desc,
+            'status' => 1,
+            'photo' => $save_url,
+            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+
+        $notification = array(
+            'message' => 'Update Board Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('manager.show.board',$request->board_id)->with($notification);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Board $board)
+    public function destroy($id)
     {
-        //
+        Board::find($id)->delete();
+        $notification = array(
+            'message' => 'Board Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 
 

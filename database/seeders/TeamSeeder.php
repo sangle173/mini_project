@@ -17,42 +17,37 @@ class TeamSeeder extends Seeder
         DB::table('teams')->insert([
             [
                 'board_id'=> 1,
-                'name' => 'Content Experience',
+                'name' => 'Team A',
                 'desc' => 'demo'
             ],
             [
                 'board_id'=> 1,
-                'name' => 'Initial Configuration',
+                'name' => 'Team B',
                 'desc' => 'demo'
             ],
             [
                 'board_id'=> 1,
-                'name' => 'App Core',
+                'name' => 'Team C',
                 'desc' => 'demo'
             ],
             [
                 'board_id'=> 1,
-                'name' => 'Playback Control',
+                'name' => 'Team D',
                 'desc' => 'demo'
             ],
             [
                 'board_id'=> 1,
-                'name' => 'Pinewood',
+                'name' => 'Team E',
                 'desc' => 'demo'
             ],
             [
                 'board_id'=> 1,
-                'name' => 'Home Audio Embedded',
+                'name' => 'Team F',
                 'desc' => 'demo'
             ],
             [
                 'board_id'=> 1,
-                'name' => 'Networking',
-                'desc' => 'demo'
-            ],
-            [
-                'board_id'=> 1,
-                'name' => 'Playback Control',
+                'name' => 'Team K',
                 'desc' => 'demo'
             ]
         ]);
