@@ -82,7 +82,19 @@
                 </li>
             </ul>
         </li>
-
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='text-bg-warning bx bxs-widget'></i>
+                </div>
+                <div class="menu-title">Post</div>
+            </a>
+            <ul>
+                <li><a href="{{ route('blog.post') }}"><i class='bx bxs-book-bookmark'></i>All Post </a>
+                </li>
+                <li><a href="{{ route('blog.category') }}"><i class='bx bxs-book-bookmark'></i>All Post Category </a>
+                </li>
+            </ul>
+        </li>
     </ul>
     <!--end navigation-->
 </div>

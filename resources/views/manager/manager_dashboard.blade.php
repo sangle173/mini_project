@@ -10,7 +10,9 @@
 
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-
+    <!--tagsinput-->
+    <link href="{{ asset('backend/assets/plugins/input-tags/css/tagsinput.css') }}" rel="stylesheet" />
+    <!--tagsinput-->
 	<!--plugins-->
 	<link href="{{ asset('backend/assets/plugins/vectormap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet"/>
 	<link href="{{ asset('backend/assets/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
@@ -130,17 +132,18 @@
 	</script>
 	<!--End Datatable-->
 
-	<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="{{ asset('backend/assets/plugins/fancy-file-uploader/jquery.iframe-transport.js"') }}"></script>
     <script src="{{ asset('backend/assets/plugins/fancy-file-uploader/jquery.fancy-fileupload.js') }}"></script>
 
+    <script src="https://cdn.tiny.cloud/1/4dp0686fem1pftn51021xaj9vtqfph05mmbv61u6gqg97wsv/tinymce/6/tinymce.min.js"
+            referrerpolicy="origin"></script>
     <script>
-	   tinymce.init({
-		 selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
-		 plugins: 'powerpaste advcode table lists checklist',
-		 toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table'
-	   });
-	</script>
+        tinymce.init({
+            selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
+            plugins: 'powerpaste advcode table lists checklist',
+            toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table'
+        });
+    </script>
 
 
 </body>

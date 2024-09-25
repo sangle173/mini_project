@@ -1,23 +1,22 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\CourseController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BoardConfigController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\FileController;
-use App\Http\Controllers\ManagerProjectController;
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\PriorityController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TicketStatusController;
 use App\Http\Controllers\TypeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkingStatusController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ManagerController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\Backend\CategoryController;
-use App\Http\Controllers\Backend\CourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -214,6 +213,25 @@ Route::middleware('auth')->group(function () {
         Route::post('/update/file/status','UpdateFileStatus')->name('update.file.status');
     });
 
+    // Blog Post All Route
+    Route::controller(BlogController::class)->group(function(){
+        Route::get('/blog/post','BlogPost')->name('blog.post');
+        Route::get('/add/blog/post','AddBlogPost')->name('add.blog.post');
+        Route::post('/store/blog/post','StoreBlogPost')->name('store.blog.post');
+        Route::get('/edit/post/{id}','EditBlogPost')->name('edit.post');
+        Route::post('/update/blog/post','UpdateBlogPost')->name('update.blog.post');
+        Route::get('/delete/post/{id}','DeleteBlogPost')->name('delete.post');
+        Route::get('/view/post/{id}','BlogDetails')->name('view.post');
+    });
+
+// Blog Category All Route
+    Route::controller(BlogController::class)->group(function(){
+        Route::get('/blog/category','AllBlogCategory')->name('blog.category');
+        Route::post('/blog/category/store','StoreBlogCategory')->name('blog.category.store');
+        Route::get('/edit/blog/category/{id}','EditBlogCategory');
+        Route::post('/blog/category/update','UpdateBlogCategory')->name('blog.category.update');
+        Route::get('/delete/blog/category/{id}','DeleteBlogCategory')->name('delete.blog.category');
+    });
 });
 
 require __DIR__ . '/auth.php';
