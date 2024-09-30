@@ -113,7 +113,7 @@ class BoardController extends Controller
         $working_statuses = WorkingStatus::where('board_id', $board->id)->latest()->get();
         $ticket_statuses = TicketStatus::where('board_id', $board->id)->latest()->get();
         $priorities = Priority::where('board_id', $board->id)->latest()->get();
-        $users = User::whereNotIn('role', ['admin'])->latest()->get();;
+        $users = User::whereNotIn('role', ['admin'])->latest()->get();
 
         return view('manager.boards.view_board', compact('board', 'tasks', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'dateT', 'dateS', 'today_tasks'));
     }

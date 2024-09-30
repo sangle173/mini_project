@@ -180,6 +180,7 @@ Route::middleware('auth')->group(function () {
     // Task All Route
     Route::controller(TaskController::class)->group(function () {
         Route::get('/manager/all/board/tasks/{id}', 'index')->name('manager.all.tasks');
+        Route::get('/manager/all/tasks/', 'all_task')->name('manager.tasks');
         Route::get('/manager/add/board/tasks/{id}', 'create')->name('manager.add.task');
         Route::post('/manager/board/save-task', 'store')->name('manager.tasks.save');
         Route::get('/manager/edit/board/task/{id}', 'edit')->name('manager.edit.task');
@@ -187,6 +188,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/manager/update/board/task', 'update')->name('manager.update-task');
         Route::post('/manager/clone/board/task', 'cloneTaskAction')->name('manager.clone-task');
         Route::get('/manager/delete/board/task/{id}', 'destroy')->name('manager.delete.task');
+        Route::get('/manager/all/tasks/filter', 'filter')->name('manager.task.filter');
+        Route::get('/manager/all/tasks/filter', 'filter')->name('manager.task.filter');
+        Route::get('/manager/task/export/',  'export')->name('manager.task.export');
+        Route::get('/manager/task/export-html/',  'exportToHtml')->name('manager.task.export.html');
+        Route::get('/manager/task/export-pdf/',  'exportToPdf')->name('manager.task.export.pdf');
 
 //        Route::post('/manager/update/board/ticket_status/status', 'UpdateTeamStatus')->name('manager.update.boardticket_status.status');
     });
@@ -203,34 +209,34 @@ Route::middleware('auth')->group(function () {
         Route::post('/manager/update/user/status', 'UpdateUserStatus')->name('manager.update.user.status');
     });
 
-    Route::controller(FileController::class)->group(function(){
-        Route::get('/all/file','index')->name('all.file');
-        Route::get('/share/file','ShareFile')->name('share.file');
-        Route::get('/add/file','create')->name('add.file');
+    Route::controller(FileController::class)->group(function () {
+        Route::get('/all/file', 'index')->name('all.file');
+        Route::get('/share/file', 'ShareFile')->name('share.file');
+        Route::get('/add/file', 'create')->name('add.file');
 
-        Route::post('/store/file','StoreFile')->name('store.file');
-        Route::get('/delete/file/{id}','DeleteFile')->name('delete.file');
-        Route::post('/update/file/status','UpdateFileStatus')->name('update.file.status');
+        Route::post('/store/file', 'StoreFile')->name('store.file');
+        Route::get('/delete/file/{id}', 'DeleteFile')->name('delete.file');
+        Route::post('/update/file/status', 'UpdateFileStatus')->name('update.file.status');
     });
 
     // Blog Post All Route
-    Route::controller(BlogController::class)->group(function(){
-        Route::get('/blog/post','BlogPost')->name('blog.post');
-        Route::get('/add/blog/post','AddBlogPost')->name('add.blog.post');
-        Route::post('/store/blog/post','StoreBlogPost')->name('store.blog.post');
-        Route::get('/edit/post/{id}','EditBlogPost')->name('edit.post');
-        Route::post('/update/blog/post','UpdateBlogPost')->name('update.blog.post');
-        Route::get('/delete/post/{id}','DeleteBlogPost')->name('delete.post');
-        Route::get('/view/post/{id}','BlogDetails')->name('view.post');
+    Route::controller(BlogController::class)->group(function () {
+        Route::get('/blog/post', 'BlogPost')->name('blog.post');
+        Route::get('/add/blog/post', 'AddBlogPost')->name('add.blog.post');
+        Route::post('/store/blog/post', 'StoreBlogPost')->name('store.blog.post');
+        Route::get('/edit/post/{id}', 'EditBlogPost')->name('edit.post');
+        Route::post('/update/blog/post', 'UpdateBlogPost')->name('update.blog.post');
+        Route::get('/delete/post/{id}', 'DeleteBlogPost')->name('delete.post');
+        Route::get('/view/post/{id}', 'BlogDetails')->name('view.post');
     });
 
 // Blog Category All Route
-    Route::controller(BlogController::class)->group(function(){
-        Route::get('/blog/category','AllBlogCategory')->name('blog.category');
-        Route::post('/blog/category/store','StoreBlogCategory')->name('blog.category.store');
-        Route::get('/edit/blog/category/{id}','EditBlogCategory');
-        Route::post('/blog/category/update','UpdateBlogCategory')->name('blog.category.update');
-        Route::get('/delete/blog/category/{id}','DeleteBlogCategory')->name('delete.blog.category');
+    Route::controller(BlogController::class)->group(function () {
+        Route::get('/blog/category', 'AllBlogCategory')->name('blog.category');
+        Route::post('/blog/category/store', 'StoreBlogCategory')->name('blog.category.store');
+        Route::get('/edit/blog/category/{id}', 'EditBlogCategory');
+        Route::post('/blog/category/update', 'UpdateBlogCategory')->name('blog.category.update');
+        Route::get('/delete/blog/category/{id}', 'DeleteBlogCategory')->name('delete.blog.category');
     });
 });
 
@@ -294,14 +300,14 @@ Route::get('/manager/all/board/', [BoardController::class, 'index'])->name('mana
 Route::get('/manager/show/board/{id}', [BoardController::class, 'show'])->name('manager.show.board');
 Route::get('/manager/all/board/filter', [BoardController::class, 'filter'])->name('task.filter');
 
-Route::controller(FileController::class)->group(function(){
-    Route::get('/all/file','index')->name('all.file');
-    Route::get('/share/file','ShareFile')->name('share.file');
-    Route::get('/add/file','create')->name('add.file');
+Route::controller(FileController::class)->group(function () {
+    Route::get('/all/file', 'index')->name('all.file');
+    Route::get('/share/file', 'ShareFile')->name('share.file');
+    Route::get('/add/file', 'create')->name('add.file');
 
-    Route::post('/store/file','StoreFile')->name('store.file');
-    Route::get('/delete/file/{id}','destroy')->name('delete.file');
-    Route::post('/update/file/status','UpdateFileStatus')->name('update.file.status');
+    Route::post('/store/file', 'StoreFile')->name('store.file');
+    Route::get('/delete/file/{id}', 'destroy')->name('delete.file');
+    Route::post('/update/file/status', 'UpdateFileStatus')->name('update.file.status');
     Route::get('/upload/files/', 'show')->name('upload.files');
     Route::get('/upload/file/user', 'UploadFileByUserId')->name('upload.files.user');
     Route::post('upload/file/post', 'UserStoreFile')->name('user.uploadfile.post');
