@@ -30,6 +30,8 @@ return new class extends Migration
             $table->unsignedBigInteger('tester_3')->nullable();
             $table->unsignedBigInteger('tester_4')->nullable();
             $table->unsignedBigInteger('tester_5')->nullable();
+            $table->enum('status',['1','0'])->default('0');
+            $table->string('review')->nullable();
             $table->string('task_slug')->nullable();
             $table->timestamps();
         });

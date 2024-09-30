@@ -232,6 +232,7 @@
                         <thead>
                         <tr>
                             <th>#</th>
+                            <th>Review?</th>
                             <th>Board</th>
                             <th>Team</th>
                             <th>Type</th>
@@ -257,6 +258,13 @@
                         @foreach ($tasks as $key=> $item)
                             <tr>
                                 <td>{{ $key+1 }}</td>
+                                <td>
+                                    @if ($item->status == 1)
+                                        <span class="badge bg-success">Reviewed </span>
+                                    @else
+                                        <span class="badge bg-danger">Waiting </span>
+                                    @endif
+                                </td>
                                 <td>{{\App\Models\Board::find($item-> board_id) -> name}}</td>
                                 <td>
                                     @if($item-> team !=null)

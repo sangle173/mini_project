@@ -43,7 +43,7 @@
                         <a href="{{route('manager.show.board', $item -> id)}}"><img src="{{ asset($item->photo) }}"
                                                                                     class="card-img-top" alt="..."></a>
                         <div class="card-body">
-                            <h5 class="card-title text-primary">{{$item -> name}}</h5>
+                            <a href="{{route('manager.show.board', $item -> id)}}"><h5 class="card-title text-primary">{{$item -> name}}</h5></a>
                             <p class="card-text">{{$item -> title}}</p>
                             <hr>
                             <ul class="list-group">

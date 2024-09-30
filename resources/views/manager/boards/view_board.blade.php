@@ -204,7 +204,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-lg-2">
-                                                    <label for="ticket_status" class="form-label"><b>Ticket Status</b></label>
+                                                    <label for="ticket_status" class="form-label"><b>Ticket
+                                                            Status</b></label>
                                                     <div class="form-check">
                                                         @foreach ($ticket_statuses as $ticket_status)
                                                             @if(isset($request))
@@ -343,6 +344,7 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>Review?</th>
                                             @if($board_config-> team != null)
                                                 <th>Team</th>
                                             @endif
@@ -400,6 +402,13 @@
                                         @foreach ($tasks as $key=> $item)
                                             <tr>
                                                 <td>{{ $key+1 }}</td>
+                                                <td>
+                                                    @if ($item->status == 1)
+                                                        <span class="badge bg-success">Reviewed </span>
+                                                    @else
+                                                        <span class="badge bg-danger">Waiting </span>
+                                                    @endif
+                                                </td>
                                                 @if($board_config-> team != 0)
                                                     <td>
                                                         @if($item-> team !=null)
