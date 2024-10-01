@@ -6,6 +6,7 @@ use App\Exports\TasksExport;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Board;
 use App\Models\BoardConfig;
+use App\Models\Comment;
 use App\Models\Priority;
 use App\Models\Task;
 use App\Models\Team;
@@ -105,9 +106,31 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Task $task)
+    public function show($id)
     {
-        //
+        $task = Task::find($id);
+        $board_config = BoardConfig::find(Board::find($task -> board_id)->board_config_id);
+        $comments =  Comment::where('task_id', $id)->latest()->get();
+        return view('manager.boards.tasks.task-details', compact('task', 'comments', 'board_config'));
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function save_comment(Request $request)
+    {
+        $currentUser = Auth::user();
+        $comment_id = Comment::insertGetId([
+            'content' => $request-> contents,
+            'user_id' => $currentUser -> id,
+            'task_id' => $request->task_id,
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+        $notification = array(
+            'message' => 'Comment Added Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('task.details', $request->task_id)->with($notification);
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BoardConfigController;
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\PriorityController;
@@ -184,6 +185,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/manager/add/board/tasks/{id}', 'create')->name('manager.add.task');
         Route::post('/manager/board/save-task', 'store')->name('manager.tasks.save');
         Route::get('/manager/edit/board/task/{id}', 'edit')->name('manager.edit.task');
+        Route::get('/manager/details/task/{id}', 'show')->name('task.details');
+        Route::post('/manager/comment/save', 'save_comment')->name('comment.save');
         Route::get('/manager/clone/board/task/{id}', 'cloneTask')->name('manager.clone.task');
         Route::post('/manager/update/board/task', 'update')->name('manager.update-task');
         Route::post('/manager/clone/board/task', 'cloneTaskAction')->name('manager.clone-task');
@@ -193,8 +196,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/manager/task/export/',  'export')->name('manager.task.export');
         Route::get('/manager/task/export-html/',  'exportToHtml')->name('manager.task.export.html');
         Route::get('/manager/task/export-pdf/',  'exportToPdf')->name('manager.task.export.pdf');
-
 //        Route::post('/manager/update/board/ticket_status/status', 'UpdateTeamStatus')->name('manager.update.boardticket_status.status');
+    });
+
+    // Manager Comment
+    Route::controller(CommentController::class)->group(function () {
+        Route::get('/add/comment/{id}', 'create')->name('comment.add');
     });
 
     // Manager All User Route

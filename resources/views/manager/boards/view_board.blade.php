@@ -530,7 +530,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex order-actions">
-                                                        <a href="{{ route('manager.edit.task',$item->id) }}"
+                                                        <a href="{{ route('task.details',$item->id) }}"
                                                            title="View" class=""><i
                                                                 class='lni lni-eye text-success'></i></a>
                                                         <a href="{{ route('manager.clone.task',$item->id) }}"
