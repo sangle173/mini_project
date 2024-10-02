@@ -19,23 +19,14 @@
 
         <div class="card">
             <div class="card-body">
-                <form id="myForm" action="{{ route('manager.update-boardticket_status') }}" method="post" class="row g-3"
+                <form id="myForm" action="{{ route('manager.update-boardticket_status') }}" method="post"
+                      class="row g-3"
                       enctype="multipart/form-data">
                     @csrf
 
                     <div class="card-body">
                         <h5 class="mb-4">Edit Ticket Status</h5>
-                        <input type="hidden" name="board_id" value="{{$board -> id}}">
                         <input type="hidden" name="team_id" value="{{$ticket_status-> id}}">
-                        <div class="row mb-3">
-                            <label for="project_name" class="col-sm-3 col-form-label">Board Name</label>
-                            <div class="col-sm-9">
-                                <div class="position-relative input-icon">
-                                    <input type="text" class="form-control" disabled value="{{$board ->name}}"  id="board_name">
-                                    <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row mb-3">
                             <label for="name" class="col-sm-3 col-form-label">Ticket Status Name</label>
                             <div class="col-sm-9">
@@ -53,7 +44,8 @@
                             <label for="desc" class="col-sm-3 col-form-label">Description</label>
                             <div class="col-sm-9">
                                 <div class="position-relative input-icon">
-                                    <input type="text" class="form-control" name="desc" value="{{$ticket_status -> desc}}" id="desc"
+                                    <input type="text" class="form-control" name="desc"
+                                           value="{{$ticket_status -> desc}}" id="desc"
                                            placeholder="Enter Description">
                                     <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
                                 </div>

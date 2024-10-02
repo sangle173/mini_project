@@ -57,11 +57,11 @@ class TaskController extends Controller
     {
         $board = Board::find($id);
         $board_config = BoardConfig::find($board->board_config_id);
-        $teams = Team::where('board_id', $board->id)->latest()->get();
-        $types = Type::where('board_id', $board->id)->latest()->get();
-        $working_statuses = WorkingStatus::where('board_id', $board->id)->latest()->get();
-        $ticket_statuses = TicketStatus::where('board_id', $board->id)->latest()->get();
-        $priorities = Priority::where('board_id', $board->id)->latest()->get();
+        $teams = Team::latest()->get();
+        $types = Type::latest()->get();
+        $working_statuses = WorkingStatus::latest()->get();
+        $ticket_statuses = TicketStatus::latest()->get();
+        $priorities = Priority::latest()->get();
         $users = User::whereNotIn('role', ['admin'])->latest()->get();;
         return view('manager.boards.tasks.add_task', compact('board', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users'));
     }
@@ -142,13 +142,13 @@ class TaskController extends Controller
         $task = Task::find($id);
         $board = Board::find($task->board_id);
         $board_config = BoardConfig::find($board->board_config_id);
-        $teams = Team::where('board_id', $board->id)->latest()->get();
-        $types = Type::where('board_id', $board->id)->latest()->get();
-        $working_statuses = WorkingStatus::where('board_id', $board->id)->latest()->get();
-        $ticket_statuses = TicketStatus::where('board_id', $board->id)->latest()->get();
+        $teams = Team::latest()->get();
+        $types = Type::latest()->get();
+        $working_statuses = WorkingStatus::latest()->get();
+        $ticket_statuses = TicketStatus::latest()->get();
+        $priorities = Priority::latest()->get();
         $users = User::whereNotIn('role', ['admin'])->latest()->get();
-        $priorities = Priority::where('board_id', $board->id)->latest()->get();
-        return view('manager.boards.tasks.edit_task', compact('task', 'board', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'currentUser'));
+        return view('manager.boards.tasks.edit_task', compact('task', 'board', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'currentUser', 'priorities'));
     }
 
     public function cloneTask($id)
@@ -157,13 +157,13 @@ class TaskController extends Controller
         $task = Task::find($id);
         $board = Board::find($task->board_id);
         $board_config = BoardConfig::find($board->board_config_id);
-        $teams = Team::where('board_id', $board->id)->latest()->get();
-        $types = Type::where('board_id', $board->id)->latest()->get();
-        $working_statuses = WorkingStatus::where('board_id', $board->id)->latest()->get();
-        $ticket_statuses = TicketStatus::where('board_id', $board->id)->latest()->get();
+        $teams = Team::latest()->get();
+        $types = Type::latest()->get();
+        $working_statuses = WorkingStatus::latest()->get();
+        $ticket_statuses = TicketStatus::latest()->get();
+        $priorities = Priority::latest()->get();
         $users = User::whereNotIn('role', ['admin'])->latest()->get();
-        $priorities = Priority::where('board_id', $board->id)->latest()->get();
-        return view('manager.boards.tasks.clone_task', compact('task', 'board', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'currentUser'));
+        return view('manager.boards.tasks.clone_task', compact('task', 'board', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'currentUser', 'priorities'));
     }
 
     /**

@@ -116,12 +116,12 @@ Route::middleware('auth')->group(function () {
     // Teams All Route
     Route::controller(TeamController::class)->group(function () {
 
-        Route::get('/manager/all/board/team/{id}', 'index')->name('manager.all.boardteams');
-        Route::get('/manager/add/board/team/{id}', 'create')->name('manager.add.boardteam');
-        Route::post('/manager/board/save-team/', 'store')->name('manager.board.save-team');
-        Route::get('/manager/edit/board/team/{id}', 'edit')->name('manager.edit.boardteam');
-        Route::post('/manager/update/board/team', 'update')->name('manager.update-boardteam');
-        Route::get('/manager/delete/board/team/{id}', 'destroy')->name('manager.delete.boardteam');
+        Route::get('/manager/all/team/', 'index')->name('manager.all.teams');
+        Route::get('/manager/add/team/', 'create')->name('manager.add.boardteam');
+        Route::post('/manager/save-team/', 'store')->name('manager.board.save-team');
+        Route::get('/manager/edit/team/{id}', 'edit')->name('manager.edit.boardteam');
+        Route::post('/manager/update/team', 'update')->name('manager.update-boardteam');
+        Route::get('/manager/delete/team/{id}', 'destroy')->name('manager.delete.boardteam');
 
         Route::post('/manager/update/board/team/status', 'UpdateTeamStatus')->name('manager.update.boardteam.status');
     });
@@ -129,12 +129,12 @@ Route::middleware('auth')->group(function () {
     // Type All Route
     Route::controller(TypeController::class)->group(function () {
 
-        Route::get('/manager/all/board/type/{id}', 'index')->name('manager.all.boardtypes');
-        Route::get('/manager/add/board/type/{id}', 'create')->name('manager.add.boardtype');
-        Route::post('/manager/board/save-type/', 'store')->name('manager.board.save-type');
-        Route::get('/manager/edit/board/type/{id}', 'edit')->name('manager.edit.boardtype');
-        Route::post('/manager/update/board/type', 'update')->name('manager.update-boardtype');
-        Route::get('/manager/delete/board/type/{id}', 'destroy')->name('manager.delete.boardtype');
+        Route::get('/manager/all/type/', 'index')->name('manager.all.types');
+        Route::get('/manager/add/type/', 'create')->name('manager.add.boardtype');
+        Route::post('/manager/save-type/', 'store')->name('manager.board.save-type');
+        Route::get('/manager/edit/type/{id}', 'edit')->name('manager.edit.boardtype');
+        Route::post('/manager/update/type', 'update')->name('manager.update-boardtype');
+        Route::get('/manager/delete/type/{id}', 'destroy')->name('manager.delete.boardtype');
 
         Route::post('/manager/update/board/type/status', 'UpdateTeamStatus')->name('manager.update.boardtype.status');
     });
@@ -142,12 +142,12 @@ Route::middleware('auth')->group(function () {
     // Working Status All Route
     Route::controller(WorkingStatusController::class)->group(function () {
 
-        Route::get('/manager/all/board/working_status/{id}', 'index')->name('manager.all.boardworking_statuses');
-        Route::get('/manager/add/board/working_status/{id}', 'create')->name('manager.add.boardworking_status');
-        Route::post('/manager/board/save-working_status/', 'store')->name('manager.board.save-working_status');
-        Route::get('/manager/edit/board/working_status/{id}', 'edit')->name('manager.edit.boardworking_status');
-        Route::post('/manager/update/board/working_status', 'update')->name('manager.update-boardworking_status');
-        Route::get('/manager/delete/board/working_status/{id}', 'destroy')->name('manager.delete.boardworking_status');
+        Route::get('/manager/all/working_status/', 'index')->name('manager.all.working_statuses');
+        Route::get('/manager/add/working_status/', 'create')->name('manager.add.boardworking_status');
+        Route::post('/manager/save-working_status/', 'store')->name('manager.board.save-working_status');
+        Route::get('/manager/edit/working_status/{id}', 'edit')->name('manager.edit.boardworking_status');
+        Route::post('/manager/update/working_status', 'update')->name('manager.update-boardworking_status');
+        Route::get('/manager/delete/working_status/{id}', 'destroy')->name('manager.delete.boardworking_status');
 
         Route::post('/manager/update/board/working_status/status', 'UpdateTeamStatus')->name('manager.update.boardworking_status.status');
     });
@@ -155,12 +155,12 @@ Route::middleware('auth')->group(function () {
     // Ticket Status All Route
     Route::controller(TicketStatusController::class)->group(function () {
 
-        Route::get('/manager/all/board/ticket_status/{id}', 'index')->name('manager.all.boardticket_statuses');
-        Route::get('/manager/add/board/ticket_status/{id}', 'create')->name('manager.add.boardticket_status');
-        Route::post('/manager/board/save-ticket_status/', 'store')->name('manager.board.save-ticket_status');
-        Route::get('/manager/edit/board/ticket_status/{id}', 'edit')->name('manager.edit.boardticket_status');
-        Route::post('/manager/update/board/ticket_status', 'update')->name('manager.update-boardticket_status');
-        Route::get('/manager/delete/board/ticket_status/{id}', 'destroy')->name('manager.delete.boardticket_status');
+        Route::get('/manager/all/ticket_status/', 'index')->name('manager.all.ticket_statuses');
+        Route::get('/manager/add/ticket_status/', 'create')->name('manager.add.boardticket_status');
+        Route::post('/manager/save-ticket_status/', 'store')->name('manager.board.save-ticket_status');
+        Route::get('/manager/edit/ticket_status/{id}', 'edit')->name('manager.edit.boardticket_status');
+        Route::post('/manager/update/ticket_status', 'update')->name('manager.update-boardticket_status');
+        Route::get('/manager/delete/ticket_status/{id}', 'destroy')->name('manager.delete.boardticket_status');
 
         Route::post('/manager/update/board/ticket_status/status', 'UpdateTeamStatus')->name('manager.update.boardticket_status.status');
     });
@@ -168,12 +168,12 @@ Route::middleware('auth')->group(function () {
     // Priority All Route
     Route::controller(PriorityController::class)->group(function () {
 
-        Route::get('/manager/all/board/priority/{id}', 'index')->name('manager.all.boardpriorities');
-        Route::get('/manager/add/board/priority/{id}', 'create')->name('manager.add.boardpriority');
-        Route::post('/manager/board/save-priority/', 'store')->name('manager.board.save-priority');
-        Route::get('/manager/edit/board/priority/{id}', 'edit')->name('manager.edit.boardpriority');
-        Route::post('/manager/update/board/priority', 'update')->name('manager.update-boardpriority');
-        Route::get('/manager/delete/board/priority/{id}', 'destroy')->name('manager.delete.boardpriority');
+        Route::get('/manager/all/priority/', 'index')->name('manager.all.priorities');
+        Route::get('/manager/add/priority/', 'create')->name('manager.add.boardpriority');
+        Route::post('/manager/save-priority/', 'store')->name('manager.board.save-priority');
+        Route::get('/manager/edit/priority/{id}', 'edit')->name('manager.edit.boardpriority');
+        Route::post('/manager/update/priority', 'update')->name('manager.update-boardpriority');
+        Route::get('/manager/delete/priority/{id}', 'destroy')->name('manager.delete.boardpriority');
 
         Route::post('/manager/update/board/priority/status', 'UpdateTeamStatus')->name('manager.update.boardpriority.status');
     });

@@ -26,16 +26,6 @@
 
                     <div class="card-body">
                         <h5 class="mb-4">New Priority</h5>
-                        <input type="hidden" name="board_id" value="{{$board -> id}}">
-                        <div class="row mb-3">
-                            <label for="project_name" class="col-sm-3 col-form-label">Board Name</label>
-                            <div class="col-sm-9">
-                                <div class="position-relative input-icon">
-                                    <input type="text" class="form-control" disabled value="{{$board ->name}}"  id="board_name">
-                                    <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row mb-3">
                             <label for="name" class="col-sm-3 col-form-label">Priority Name</label>
                             <div class="col-sm-9">

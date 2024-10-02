@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('desc')->nullable();
-            $table->unsignedBigInteger('board_id');
             $table->string('type_slug')->nullable();
             $table->timestamps();
         });

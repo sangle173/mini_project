@@ -13,20 +13,18 @@ class PriorityController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($id)
+    public function index()
     {
-        $board = Board::find($id);
-        $priorities = Priority::where('board_id',$board ->id)->latest()->get();
-        return view('manager.boards.priorities.all_priorities',compact( 'board','priorities'));
+        $priorities = Priority::latest()->get();
+        return view('manager.boards.priorities.all_priorities',compact( 'priorities'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create($id)
+    public function create()
     {
-        $board = Board::find($id);
-        return view('manager.boards.priorities.add_priority',compact('board'));
+        return view('manager.boards.priorities.add_priority');
     }
 
     /**
@@ -36,7 +34,6 @@ class PriorityController extends Controller
     {
         $priority_id = Priority::insertGetId([
             'name' => $request->name,
-            'board_id' => $request->board_id,
             'desc' => $request->desc,
             'priority_slug' => strtolower(str_replace(' ', '-', $request->name)),
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
@@ -46,7 +43,7 @@ class PriorityController extends Controller
             'message' => 'Create Priority Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.all.boardpriorities',$request->board_id)->with($notification);
+        return redirect()->route('manager.all.priorities')->with($notification);
     }
 
     /**
@@ -63,8 +60,7 @@ class PriorityController extends Controller
     public function edit($id)
     {
         $priority = Priority::find($id);
-        $board = Board::find($priority-> board_id);
-        return view('manager.boards.priorities.edit_priority',compact('priority', 'board'));
+        return view('manager.boards.priorities.edit_priority',compact('priority'));
     }
 
     /**
@@ -76,7 +72,6 @@ class PriorityController extends Controller
 
         Priority::find($id)->update([
             'name' => $request->name,
-            'board_id' => $request->board_id,
             'desc' => $request->desc,
             'priority_slug' => strtolower(str_replace(' ', '-', $request->name)),
             'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
@@ -86,7 +81,7 @@ class PriorityController extends Controller
             'message' => 'Update Priority Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.all.boardpriorities',$request->board_id)->with($notification);
+        return redirect()->route('manager.all.priorities')->with($notification);
     }
 
     /**

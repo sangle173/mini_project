@@ -108,11 +108,11 @@ class BoardController extends Controller
         $tasks = Task::where('board_id', $board->id)->whereDate('created_at', Carbon::today())->latest()->get();
         $today_tasks = Task::where('board_id', $board->id)->whereDate('created_at', Carbon::today())->latest()->get();
         $board_config = BoardConfig::find(Board::find($id)->board_config_id);
-        $teams = Team::where('board_id', $board->id)->latest()->get();
-        $types = Type::where('board_id', $board->id)->latest()->get();
-        $working_statuses = WorkingStatus::where('board_id', $board->id)->latest()->get();
-        $ticket_statuses = TicketStatus::where('board_id', $board->id)->latest()->get();
-        $priorities = Priority::where('board_id', $board->id)->latest()->get();
+        $teams = Team::latest()->get();
+        $types = Type::latest()->get();
+        $working_statuses = WorkingStatus::latest()->get();
+        $ticket_statuses = TicketStatus::latest()->get();
+        $priorities = Priority::latest()->get();
         $users = User::whereNotIn('role', ['admin'])->latest()->get();
 
         return view('manager.boards.view_board', compact('board', 'tasks', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'dateT', 'dateS', 'today_tasks'));
@@ -253,11 +253,11 @@ class BoardController extends Controller
         $board = Board::find($request->board_id);
         $today_tasks = Task::where('board_id', $board->id)->whereDate('created_at', Carbon::today())->latest()->get();
         $board_config = BoardConfig::find(Board::find($request->board_id)->board_config_id);
-        $teams = Team::where('board_id', $board->id)->latest()->get();
-        $types = Type::where('board_id', $board->id)->latest()->get();
-        $working_statuses = WorkingStatus::where('board_id', $board->id)->latest()->get();
-        $ticket_statuses = TicketStatus::where('board_id', $board->id)->latest()->get();
-        $priorities = Priority::where('board_id', $board->id)->latest()->get();
+        $teams = Team::latest()->get();
+        $types = Type::latest()->get();
+        $working_statuses = WorkingStatus::latest()->get();
+        $ticket_statuses = TicketStatus::latest()->get();
+        $priorities = Priority::latest()->get();
         $users = User::whereNotIn('role', ['admin'])->latest()->get();
         return view('manager.boards.view_board', compact('board', 'tasks', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'request','dateS', 'dateT', 'today_tasks'));
     }

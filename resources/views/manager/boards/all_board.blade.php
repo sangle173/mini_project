@@ -17,7 +17,7 @@
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bxs-home-circle"></i></a>
                         </li>
-                        {{--                        <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('manager.all.boards',$board-> project_id) }}">{{\App\Models\Board::getProjectById($board-> project_id)-> name}} Project</a></li>--}}
+                        {{--                        <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('manager.all.s',$board-> project_id) }}">{{\App\Models\Board::getProjectById($board-> project_id)-> name}} Project</a></li>--}}
                         <li class="breadcrumb-item active" aria-current="page">All Boards</li>
                     </ol>
                 </nav>
@@ -82,27 +82,27 @@
                                             <ul class="dropdown-menu">
                                                 <li>
                                                     <a class="dropdown-item"
-                                                       href="{{ route('manager.all.boardteams', $item -> id) }}">Manage
+                                                       href="{{ route('manager.all.teams', $item -> id) }}">Manage
                                                         Team</a>
                                                 </li>
                                                 <li>
                                                     <a class="dropdown-item"
-                                                       href="{{ route('manager.all.boardtypes', $item -> id) }}">Manage
+                                                       href="{{ route('manager.all.types', $item -> id) }}">Manage
                                                         Type</a>
                                                 </li>
                                                 <li>
                                                     <a class="dropdown-item"
-                                                       href="{{ route('manager.all.boardworking_statuses', $item -> id) }}">Manage
+                                                       href="{{ route('manager.all.working_statuses', $item -> id) }}">Manage
                                                         Working Status</a>
                                                 </li>
                                                 <li>
                                                     <a class="dropdown-item"
-                                                       href="{{ route('manager.all.boardticket_statuses', $item -> id) }}">Manage
+                                                       href="{{ route('manager.all.ticket_statuses', $item -> id) }}">Manage
                                                         Ticket Status</a>
                                                 </li>
                                                 <li>
                                                     <a class="dropdown-item"
-                                                       href="{{ route('manager.all.boardpriorities', $item -> id) }}">Manage
+                                                       href="{{ route('manager.all.priorities', $item -> id) }}">Manage
                                                         Priority</a>
                                                 </li>
                                                 <li>

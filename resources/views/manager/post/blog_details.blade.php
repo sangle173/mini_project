@@ -24,7 +24,7 @@
     <section class="blog-area pt-100px pb-100px">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-8 mb-5">
+                <div class="col-lg-12 mb-5">
                     <div class="card card-item">
                         <div class="card-body">
                             <h2 class="text-center text-primary">{{$blog ->post_title}}</h2>
@@ -84,42 +84,45 @@
                         </form>
                     </div><!-- end add-comment-wrap -->
                 </div><!-- end col-lg-8 -->
-                <div class="col-lg-4">
-                    <div class="sidebar">
-                        <div class="card card-item">
-                            <div class="card-body">
-                                <h3 class="card-title fs-18 pb-2">Category</h3>
-                                <div class="divider"><span></span></div>
-                                <ul class="generic-list-item">
-                                    @foreach ($bcategory as $cat)
-                                        <li><a href="{{ url('blog/cat/list/'.$cat->id) }}">{{ $cat->category_name }}</a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div><!-- end card -->
-
-                        <div class="card card-item">
-                            <div class="card-body">
-                                <h3 class="card-title fs-18 pb-2">Recent</h3>
-                                <div class="divider"><span></span></div>
-                                <ul class="generic-list-item">
-                                    @foreach ($post as $dpost)
-                                        <li><a
-                                                href="{{ route('view.post', $dpost->id) }}">{{ $dpost->post_title }}</a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div><!-- end card -->
-                    </div><!-- end col-lg-4 -->
-                </div><!-- end row -->
             </div><!-- end container -->
         </div>
     </section><!-- end blog-area -->
     <!-- ================================
            START BLOG AREA
     ================================= -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="sidebar">
+                <div class="card card-item">
+                    <div class="card-body">
+                        <h3 class="card-title fs-18 pb-2">Category</h3>
+                        <div class="divider"><span></span></div>
+                        <ul class="generic-list-item">
+                            @foreach ($bcategory as $cat)
+                                <li><a href="{{ url('blog/cat/list/'.$cat->id) }}">{{ $cat->category_name }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div><!-- end card -->
+
+                <div class="card card-item">
+                    <div class="card-body">
+                        <h3 class="card-title fs-18 pb-2">Recent</h3>
+                        <div class="divider"><span></span></div>
+                        <ul class="generic-list-item">
+                            @foreach ($post as $dpost)
+                                <li><a
+                                        href="{{ route('view.post', $dpost->id) }}">{{ $dpost->post_title }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div><!-- end card -->
+            </div><!-- end col-lg-4 -->
+        </div><!-- end row -->
+
+    </div>
 </div>
 
 @endsection

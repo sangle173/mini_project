@@ -88,7 +88,32 @@
 
             @endif
         @endauth
+        @auth
 
+            @if(Auth::user()->role ==='manager')
+                <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon"><i class='text-bg-secondary bx bxs-news'></i>
+                        </div>
+                        <div class="menu-title">Components</div>
+                    </a>
+                    <ul>
+                        <li><a href="{{ route('manager.all.priorities') }}"><i class='bx bxs-book-bookmark'></i>All Teams</a>
+                        </li>
+                        <li><a href="{{ route('manager.all.types') }}"><i class='bx bxs-book-bookmark'></i>All Types</a>
+                        </li>
+                        <li><a href="{{ route('manager.all.priorities') }}"><i class='bx bxs-book-bookmark'></i>All Priorities</a>
+                        </li>
+                        <li><a href="{{ route('manager.all.working_statuses') }}"><i class='bx bxs-book-bookmark'></i>All Working Status</a>
+                        </li>
+                        <li><a href="{{ route('manager.all.ticket_statuses') }}"><i class='bx bxs-book-bookmark'></i>All Ticket Status</a>
+                        </li>
+                    </ul>
+                </li>
+            @else
+
+            @endif
+        @endauth
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class='text-bg-danger bx bxs-file'></i>

@@ -13,20 +13,18 @@ class TicketStatusController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($id)
+    public function index()
     {
-        $board = Board::find($id);
-        $ticket_statuses = TicketStatus::where('board_id',$board ->id)->latest()->get();
-        return view('manager.boards.ticket_statuses.all_ticket_statuses',compact( 'board','ticket_statuses'));
+        $ticket_statuses = TicketStatus::latest()->get();
+        return view('manager.boards.ticket_statuses.all_ticket_statuses',compact( 'ticket_statuses'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create($id)
+    public function create()
     {
-        $board = Board::find($id);
-        return view('manager.boards.ticket_statuses.add_ticket_status',compact('board'));
+        return view('manager.boards.ticket_statuses.add_ticket_status');
     }
 
     /**
@@ -36,7 +34,6 @@ class TicketStatusController extends Controller
     {
         $ticket_status_id = TicketStatus::insertGetId([
             'name' => $request->name,
-            'board_id' => $request->board_id,
             'desc' => $request->desc,
             'ticket_status_slug' => strtolower(str_replace(' ', '-', $request->name)),
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
@@ -46,7 +43,7 @@ class TicketStatusController extends Controller
             'message' => 'Type Ticket Status Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.all.boardticket_statuses',$request->board_id)->with($notification);
+        return redirect()->route('manager.all.ticket_statuses')->with($notification);
     }
 
     /**
@@ -63,8 +60,7 @@ class TicketStatusController extends Controller
     public function edit($id)
     {
         $ticket_status = TicketStatus::find($id);
-        $board = Board::find($ticket_status -> board_id);
-        return view('manager.boards.ticket_statuses.edit_ticket_status',compact('ticket_status', 'board'));
+        return view('manager.boards.ticket_statuses.edit_ticket_status',compact('ticket_status'));
     }
 
     /**
@@ -76,7 +72,6 @@ class TicketStatusController extends Controller
 
         TicketStatus::find($id)->update([
             'name' => $request->name,
-            'board_id' => $request->board_id,
             'desc' => $request->desc,
             'ticket_status_slug' => strtolower(str_replace(' ', '-', $request->name)),
             'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
@@ -86,7 +81,7 @@ class TicketStatusController extends Controller
             'message' => 'Update Ticket Status Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.all.boardticket_statuses',$request->board_id)->with($notification);
+        return redirect()->route('manager.all.ticket_statuses')->with($notification);
     }
 
     /**

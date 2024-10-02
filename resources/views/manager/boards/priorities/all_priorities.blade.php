@@ -16,14 +16,13 @@
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">{{$board -> name}} Board</li>
                         <li class="breadcrumb-item active" aria-current="page">Priorities</li>
                     </ol>
                 </nav>
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('manager.add.boardpriority',$board->id) }}" type="button" class="btn btn-info px-5"><i
+                    <a href="{{ route('manager.add.boardpriority') }}" type="button" class="btn btn-info px-5"><i
                             class='bx bx-add-to-queue mr-1'></i>Add Priority</a>
                 </div>
             </div>
@@ -39,7 +38,6 @@
                             <th>#</th>
                             <th>Priority Name</th>
                             <th>Desc</th>
-                            <th>Board</th>
                             <th>Updated at</th>
                             <th>Action</th>
                         </tr>
@@ -53,7 +51,6 @@
                                     {{ $item->name }}
                                 </td>
                                 <td>{{ $item->desc }}</td>
-                                <td>{{ $board->name }}</td>
                                 <td>
                                     @if($item->updated_at !=null)
                                         {{ $item->updated_at }}

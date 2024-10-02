@@ -15,20 +15,18 @@ class TypeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($id)
+    public function index()
     {
-        $board = Board::find($id);
-        $types = Type::where('board_id',$board ->id)->latest()->get();
-        return view('manager.boards.types.all_type',compact( 'board','types'));
+        $types = Type::latest()->get();
+        return view('manager.boards.types.all_type',compact( 'types'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create($id)
+    public function create()
     {
-        $board = Board::find($id);
-        return view('manager.boards.types.add_type',compact('board'));
+        return view('manager.boards.types.add_type');
     }
 
     /**
@@ -38,7 +36,6 @@ class TypeController extends Controller
     {
         $type_id = Type::insertGetId([
             'name' => $request->name,
-            'board_id' => $request->board_id,
             'desc' => $request->desc,
             'type_slug' => strtolower(str_replace(' ', '-', $request->name)),
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
@@ -48,7 +45,7 @@ class TypeController extends Controller
             'message' => 'Type Created Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.all.boardtypes',$request->board_id)->with($notification);
+        return redirect()->route('manager.all.types')->with($notification);
     }
 
     /**
@@ -65,8 +62,7 @@ class TypeController extends Controller
     public function edit($id)
     {
         $type = Type::find($id);
-        $board = Board::find($type -> board_id);
-        return view('manager.boards.types.edit_type',compact('type', 'board'));
+        return view('manager.boards.types.edit_type',compact('type'));
     }
 
     /**
@@ -78,7 +74,6 @@ class TypeController extends Controller
 
         Type::find($id)->update([
             'name' => $request->name,
-            'board_id' => $request->board_id,
             'desc' => $request->desc,
             'type_slug' => strtolower(str_replace(' ', '-', $request->name)),
             'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
@@ -88,7 +83,7 @@ class TypeController extends Controller
             'message' => 'Update Type Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.all.boardtypes',$request->board_id)->with($notification);
+        return redirect()->route('manager.all.types')->with($notification);
     }
 
     /**

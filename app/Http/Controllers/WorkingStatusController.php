@@ -17,9 +17,8 @@ class WorkingStatusController extends Controller
      */
     public function index($id)
     {
-        $board = Board::find($id);
-        $working_statuses = WorkingStatus::where('board_id',$board ->id)->latest()->get();
-        return view('manager.boards.working_statuses.all_working_statuses',compact( 'board','working_statuses'));
+        $working_statuses = WorkingStatus::latest()->get();
+        return view('manager.boards.working_statuses.all_working_statuses',compact( 'working_statuses'));
     }
 
     /**
@@ -27,8 +26,7 @@ class WorkingStatusController extends Controller
      */
     public function create($id)
     {
-        $board = Board::find($id);
-        return view('manager.boards.working_statuses.add_working_status',compact('board'));
+        return view('manager.boards.working_statuses.add_working_status');
     }
 
     /**
@@ -38,7 +36,6 @@ class WorkingStatusController extends Controller
     {
         $working_status_id = WorkingStatus::insertGetId([
             'name' => $request->name,
-            'board_id' => $request->board_id,
             'desc' => $request->desc,
             'working_status_slug' => strtolower(str_replace(' ', '-', $request->name)),
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
@@ -48,7 +45,7 @@ class WorkingStatusController extends Controller
             'message' => 'Type Working Status Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.all.boardworking_statuses',$request->board_id)->with($notification);
+        return redirect()->route('manager.all.working_statuses')->with($notification);
     }
 
     /**
@@ -65,8 +62,7 @@ class WorkingStatusController extends Controller
     public function edit($id)
     {
         $working_status = WorkingStatus::find($id);
-        $board = Board::find($working_status -> board_id);
-        return view('manager.boards.working_statuses.edit_working_status',compact('working_status', 'board'));
+        return view('manager.boards.working_statuses.edit_working_status',compact('working_status'));
     }
 
     /**
@@ -78,7 +74,6 @@ class WorkingStatusController extends Controller
 
         WorkingStatus::find($id)->update([
             'name' => $request->name,
-            'board_id' => $request->board_id,
             'desc' => $request->desc,
             'working_status_slug' => strtolower(str_replace(' ', '-', $request->name)),
             'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
@@ -88,7 +83,7 @@ class WorkingStatusController extends Controller
             'message' => 'Update Working Status Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.all.boardworking_statuses',$request->board_id)->with($notification);
+        return redirect()->route('manager.all.working_statuses',$request->board_id)->with($notification);
     }
 
     /**

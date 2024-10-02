@@ -13,20 +13,18 @@ class TeamController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($id)
+    public function index()
     {
-        $board = Board::find($id);
-        $teams = Team::where('board_id',$board ->id)->latest()->get();
-        return view('manager.boards.teams.all_team',compact( 'board','teams'));
+        $teams = Team::latest()->get();
+        return view('manager.boards.teams.all_team',compact( 'teams'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create($id)
+    public function create()
     {
-        $board = Board::find($id);
-        return view('manager.boards.teams.add_team',compact('board'));
+        return view('manager.boards.teams.add_team');
     }
 
     /**
@@ -36,7 +34,6 @@ class TeamController extends Controller
     {
         $team_id = Team::insertGetId([
             'name' => $request->name,
-            'board_id' => $request->board_id,
             'desc' => $request->desc,
             'team_slug' => strtolower(str_replace(' ', '-', $request->name)),
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
@@ -46,7 +43,7 @@ class TeamController extends Controller
             'message' => 'Team Created Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.all.boardteams',$request->board_id)->with($notification);
+        return redirect()->route('manager.all.teams')->with($notification);
     }
 
     /**
@@ -63,8 +60,7 @@ class TeamController extends Controller
     public function edit($id)
     {
         $team = Team::find($id);
-        $board = Board::find($team -> board_id);
-        return view('manager.boards.teams.edit_team',compact('team', 'board'));
+        return view('manager.boards.teams.edit_team',compact('team'));
     }
 
     /**
@@ -76,7 +72,6 @@ class TeamController extends Controller
 
         Team::find($id)->update([
             'name' => $request->name,
-            'board_id' => $request->board_id,
             'desc' => $request->desc,
             'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
@@ -85,7 +80,7 @@ class TeamController extends Controller
             'message' => 'Update Team Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.all.boardteams',$request->board_id)->with($notification);
+        return redirect()->route('manager.all.teams',$request->board_id)->with($notification);
     }
 
     /**
