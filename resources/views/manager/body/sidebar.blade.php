@@ -93,7 +93,7 @@
             @if(Auth::user()->role ==='manager')
                 <li>
                     <a href="javascript:;" class="has-arrow">
-                        <div class="parent-icon"><i class='text-bg-secondary bx bxs-news'></i>
+                        <div class="parent-icon"><i class='text-bg-info bx bxs-component'></i>
                         </div>
                         <div class="menu-title">Components</div>
                     </a>
@@ -138,6 +138,22 @@
                 </li>
             </ul>
         </li>
+        @auth
+
+            <li class="menu-label">CHART</li>
+            <li>
+                <a href="javascript:;" class="has-arrow">
+                    <div class="parent-icon"><i class='text-bg-success bx bxs-chart'></i>
+                    </div>
+                    <div class="menu-title">Chart</div>
+                </a>
+                <ul>
+                    <li><a href="{{ route('chart.show') }}"><i class='bx bxs-book-bookmark'></i>View Chart </a>
+                    </li>
+
+                </ul>
+            </li>
+        @endauth
     </ul>
     <!--end navigation-->
 </div>

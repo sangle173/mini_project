@@ -45,7 +45,6 @@
                                         <h4 class="my-1 text-white">{{count($today_tasks)}}</h4>
                                         <p class="mb-0 font-13 text-white">+2.5% from yesterday</p>
                                     </div>
-                                    <div id="chart1"></div>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +58,6 @@
                                         <h4 class="my-1 text-white">{{count(\App\Models\Task::where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</h4>
                                         <p class="mb-0 font-13 text-white">-4.5% from yesterday</p>
                                     </div>
-                                    <div id="chart3"></div>
                                 </div>
                             </div>
                         </div>
@@ -73,7 +71,6 @@
                                         <h4 class="my-1 text-dark">{{count(\App\Models\Task::where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</h4>
                                         <p class="mb-0 font-13 text-dark">+8.4% from yesterday</p>
                                     </div>
-                                    <div id="chart4"></div>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +84,6 @@
                                         <h4 class="my-1 text-white">{{count(\App\Models\Task::where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</h4>
                                         <p class="mb-0 font-13 text-white">+5.4% from yesterday</p>
                                     </div>
-                                    <div id="chart2"></div>
                                 </div>
                             </div>
                         </div>
@@ -418,9 +414,22 @@
                                                 @endif
                                                 @if($board_config-> type != 0)
                                                     <td>
-                                                        @if($item-> type !=null)
-                                                            {{\App\Models\Type::find($item-> type) -> name}}
-                                                        @endif
+                                                        @switch($item-> type)
+                                                            @case('1')
+                                                            <i class="bx bxs-bug-alt text-danger"
+                                                               style="font-size: 1.5rem"></i>
+                                                            @break
+                                                            @case('2')
+                                                            <i class="bx bxs-check-square text-primary"
+                                                               style="font-size: 1.5rem"></i>
+                                                            @break
+                                                            @case('3')
+                                                            <i class="bx bxs-news text-success"
+                                                               style="font-size: 1.5rem"></i>
+                                                            @break
+                                                            <span
+                                                                class="badge bg-warning">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}} </span>
+                                                        @endswitch
                                                     </td>
                                                 @endif
                                                 @if($board_config-> jira_id != 0)
@@ -441,15 +450,59 @@
                                                 @if($board_config-> working_status != 0)
                                                     <td>
                                                         @if($item-> working_status !=null)
-                                                            {{\App\Models\WorkingStatus::find($item-> working_status) -> name}}
+                                                            @switch($item-> working_status)
+                                                                @case('1')
+                                                                <span
+                                                                    class="badge bg-primary">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
+                                                                @break
+                                                                @case('2')
+                                                                <span
+                                                                    class="badge bg-success">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
+                                                                @break
+                                                                @case('3')
+                                                                <span
+                                                                    class="badge bg-info">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
+                                                                @break
+                                                                @case('4')
+                                                                <span
+                                                                    class="badge bg-secondary">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
+                                                                @break
+                                                                @default
+                                                                <span
+                                                                    class="badge bg-warning">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
+                                                            @endswitch
                                                         @endif
                                                     </td>
                                                 @endif
                                                 @if($board_config-> ticket_status != 0)
                                                     <td>
-                                                        @if($item-> ticket_status !=null)
-                                                            {{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}
-                                                        @endif
+
+                                                        @switch($item-> ticket_status)
+                                                            @case('1')
+                                                            <span
+                                                                class="badge bg-primary">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}</span>
+                                                            @break
+                                                            @case('2')
+                                                            <span
+                                                                class="badge bg-success">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}} </span>
+                                                            @break
+                                                            @case('3')
+                                                            <span
+                                                                class="badge bg-success">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}} </span>
+                                                            @break
+                                                            @case('4')
+                                                            <span
+                                                                class="badge bg-primary">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}</span>
+                                                            @break
+                                                            @case('5')
+                                                            <span
+                                                                class="badge bg-primary">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}</span>
+                                                            @break
+
+                                                            @default
+                                                            <span
+                                                                class="badge bg-warning">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}} </span>
+                                                        @endswitch
                                                     </td>
                                                 @endif
                                                 @if($board_config-> priority != 0)
@@ -566,14 +619,6 @@
                         <div>
                             <div class="container mt-5">
                                 <div class="card">
-                                    {{--                                    <div class="card-header">--}}
-                                    {{--                                        <h4>--}}
-                                    {{--                                            {{subject}}--}}
-                                    {{--                                            <a [href]="'mailto:?subject=' + subject+ '&cc='+ cc"--}}
-                                    {{--                                               class="btn btn-primary float-end"><i class="bi bi-cloud-arrow-up"></i>--}}
-                                    {{--                                                Open Outlook</a>--}}
-                                    {{--                                        </h4>--}}
-                                    {{--                                    </div>--}}
                                     <div class="card-body">
                                         <div id="divExp" class="divExp">
                                             <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span

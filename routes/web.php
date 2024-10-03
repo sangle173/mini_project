@@ -186,7 +186,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/manager/board/save-task', 'store')->name('manager.tasks.save');
         Route::get('/manager/edit/board/task/{id}', 'edit')->name('manager.edit.task');
         Route::get('/manager/details/task/{id}', 'show')->name('task.details');
+        Route::post('/manager/review/task', 'update_status')->name('task.review');
         Route::post('/manager/comment/save', 'save_comment')->name('comment.save');
+        Route::get('/manager/chart/show', 'chart_show')->name('chart.show');
         Route::get('/manager/clone/board/task/{id}', 'cloneTask')->name('manager.clone.task');
         Route::post('/manager/update/board/task', 'update')->name('manager.update-task');
         Route::post('/manager/clone/board/task', 'cloneTaskAction')->name('manager.clone-task');

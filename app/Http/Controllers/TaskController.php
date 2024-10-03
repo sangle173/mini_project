@@ -67,6 +67,15 @@ class TaskController extends Controller
     }
 
     /**
+     * Show chart the form for creating a new resource.
+     */
+    public function chart_show()
+    {
+        $tasks = Task::latest()->get();
+        return view('manager.boards.chart', compact('tasks'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -103,14 +112,33 @@ class TaskController extends Controller
         return redirect()->route('manager.show.board', $request->board_id)->with($notification);
     }
 
+    public function update_status(Request $request)
+    {
+        $request->validate([
+            'review' => 'required',
+        ]);
+
+        Task::find($request->task_id)->update([
+            'review' => $request->review,
+            'status' => $request->status != null ? '1' : '0',
+            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+
+        $notification = array(
+            'message' => 'Update Review Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('task.details', $request->task_id)->with($notification);
+    }
+
     /**
      * Display the specified resource.
      */
     public function show($id)
     {
         $task = Task::find($id);
-        $board_config = BoardConfig::find(Board::find($task -> board_id)->board_config_id);
-        $comments =  Comment::where('task_id', $id)->latest()->get();
+        $board_config = BoardConfig::find(Board::find($task->board_id)->board_config_id);
+        $comments = Comment::where('task_id', $id)->latest()->get();
         return view('manager.boards.tasks.task-details', compact('task', 'comments', 'board_config'));
     }
 
@@ -121,8 +149,8 @@ class TaskController extends Controller
     {
         $currentUser = Auth::user();
         $comment_id = Comment::insertGetId([
-            'content' => $request-> contents,
-            'user_id' => $currentUser -> id,
+            'content' => $request->contents,
+            'user_id' => $currentUser->id,
             'task_id' => $request->task_id,
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
