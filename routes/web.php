@@ -77,6 +77,28 @@ Route::middleware('auth')->group(function () {
 
     });
 
+    // SubCategory All Route
+    Route::controller(CategoryController::class)->group(function(){
+//    Route::get('/all/subcategory','AllSubCategory')->name('all.subcategory')->middleware('permission:subcategory.all');
+        Route::get('/all/subcategory','AllSubCategory')->name('all.subcategory');
+        Route::get('/add/subcategory','AddSubCategory')->name('add.subcategory');
+        Route::post('/store/subcategory','StoreSubCategory')->name('store.subcategory');
+        Route::get('/edit/subcategory/{id}','EditSubCategory')->name('edit.subcategory');
+        Route::post('/update/subcategory','UpdateSubCategory')->name('update.subcategory');
+        Route::get('/delete/subcategory/{id}','DeleteSubCategory')->name('delete.subcategory');
+
+    });
+
+    Route::controller(CategoryController::class)->group(function(){
+        Route::get('/all/category','AllCategory')->name('all.category');
+        Route::get('/add/category','AddCategory')->name('add.category');
+        Route::post('/store/category','StoreCategory')->name('store.category');
+        Route::get('/edit/category/{id}','EditCategory')->name('edit.category');
+        Route::post('/update/category','UpdateCategory')->name('update.category');
+        Route::get('/delete/category/{id}','DeleteCategory')->name('delete.category');
+    });
+
+
 
 // Course Section and Lecture All Route
     Route::controller(CourseController::class)->group(function () {
@@ -265,24 +287,24 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 
 // Category All Route
     Route::controller(CategoryController::class)->group(function () {
-        Route::get('/admin/all/category', 'AllCategory')->name('all.category');
-        Route::get('/admin/add/category', 'AddCategory')->name('add.category');
-        Route::post('/admin/store/category', 'StoreCategory')->name('store.category');
-        Route::get('/admin/edit/category/{id}', 'EditCategory')->name('edit.category');
-        Route::post('/admin/update/category', 'UpdateCategory')->name('update.category');
-        Route::get('/admin/delete/category/{id}', 'DeleteCategory')->name('delete.category');
+        Route::get('/admin/all/category', 'AllCategory')->name('admin.all.category');
+        Route::get('/admin/add/category', 'AddCategory')->name('admin.add.category');
+        Route::post('/admin/store/category', 'StoreCategory')->name('admin.store.category');
+        Route::get('/admin/edit/category/{id}', 'EditCategory')->name('admin.edit.category');
+        Route::post('/admin/update/category', 'UpdateCategory')->name('admin.update.category');
+        Route::get('/admin/delete/category/{id}', 'DeleteCategory')->name('admin.delete.category');
 
     });
 
 
 // SubCategory All Route
     Route::controller(CategoryController::class)->group(function () {
-        Route::get('/admin/all/subcategory', 'AllSubCategory')->name('all.subcategory');
-        Route::get('/admin/add/subcategory', 'AddSubCategory')->name('add.subcategory');
-        Route::post('/admin/store/subcategory', 'StoreSubCategory')->name('store.subcategory');
-        Route::get('/admin/edit/subcategory/{id}', 'EditSubCategory')->name('edit.subcategory');
-        Route::post('/admin/update/subcategory', 'UpdateSubCategory')->name('update.subcategory');
-        Route::get('/admin/delete/subcategory/{id}', 'DeleteSubCategory')->name('delete.subcategory');
+        Route::get('/admin/all/subcategory', 'AllSubCategory')->name('admin.all.subcategory');
+        Route::get('/admin/add/subcategory', 'AddSubCategory')->name('admin.add.subcategory');
+        Route::post('/admin/store/subcategory', 'StoreSubCategory')->name('admin.store.subcategory');
+        Route::get('/admin/edit/subcategory/{id}', 'EditSubCategory')->name('admin.edit.subcategory');
+        Route::post('/admin/update/subcategory', 'UpdateSubCategory')->name('admin.update.subcategory');
+        Route::get('/admin/delete/subcategory/{id}', 'DeleteSubCategory')->name('admin.delete.subcategory');
     });
 
 

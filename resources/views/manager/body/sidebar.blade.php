@@ -154,6 +154,25 @@
                 </ul>
             </li>
         @endauth
+        @auth
+
+            <li class="menu-label">TRAINING COURSE</li>
+            <li>
+                <a href="javascript:;" class="has-arrow">
+                    <div class="parent-icon"><i class='text-bg-primary bx bxs-school'></i>
+                    </div>
+                    <div class="menu-title">Course</div>
+                </a>
+                <ul>
+                    <li><a href="{{ route('all.course') }}"><i class='bx bxs-book-bookmark'></i>All Courses </a>
+                    </li>
+                    <li><a href="{{ route('all.category') }}"><i class='bx bxs-book-bookmark'></i>Category </a>
+                    </li>
+                    <li><a href="{{ route('all.subcategory') }}"><i class='bx bxs-book-bookmark'></i>Sub Category </a>
+                    </li>
+                </ul>
+            </li>
+        @endauth
     </ul>
     <!--end navigation-->
 </div>

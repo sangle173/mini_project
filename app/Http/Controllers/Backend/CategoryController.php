@@ -13,12 +13,12 @@ class CategoryController extends Controller
     public function AllCategory(){
 
         $category = Category::latest()->get();
-        return view('admin.backend.category.all_category',compact('category'));
+        return view('manager.category.all_category',compact('category'));
 
     }// End Method
 
     public function AddCategory(){
-        return view('admin.backend.category.add_category');
+        return view('manager.category.add_category');
     }// End Method
 
     public function StoreCategory(Request $request){
@@ -46,7 +46,7 @@ class CategoryController extends Controller
     public function EditCategory($id){
 
         $category = Category::find($id);
-        return view('admin.backend.category.edit_category',compact('category'));
+        return view('manager.category.edit_category',compact('category'));
     }// End Method
 
     public function UpdateCategory(Request $request){
@@ -113,7 +113,7 @@ class CategoryController extends Controller
     public function AllSubCategory(){
 
         $subcategory = SubCategory::latest()->get();
-        return view('admin.backend.subcategory.all_subcategory',compact('subcategory'));
+        return view('manager.subcategory.all_subcategory',compact('subcategory'));
 
     }// End Method
 
@@ -121,7 +121,7 @@ class CategoryController extends Controller
     public function AddSubCategory(){
 
         $category = Category::latest()->get();
-        return view('admin.backend.subcategory.add_subcategory',compact('category'));
+        return view('manager.subcategory.add_subcategory',compact('category'));
 
     }// End Method
 
@@ -148,7 +148,7 @@ class CategoryController extends Controller
 
         $category = Category::latest()->get();
         $subcategory = SubCategory::find($id);
-        return view('admin.backend.subcategory.edit_subcategory',compact('category','subcategory'));
+        return view('manager.subcategory.edit_subcategory',compact('category','subcategory'));
 
     }// End Method
 

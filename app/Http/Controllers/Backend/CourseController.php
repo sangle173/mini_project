@@ -20,14 +20,14 @@ class CourseController extends Controller
 
       $id = Auth::user()->id;
       $courses = Course::where('instructor_id',$id)->orderBy('id','desc')->get();
-        return view('users.courses.all_course',compact('courses'));
+        return view('manager.courses.all_course',compact('courses'));
 
     }// End Method
 
     public function AddCourse(){
 
         $categories = Category::latest()->get();
-        return view('users.courses.add_course',compact('categories'));
+        return view('manager.courses.add_course',compact('categories'));
 
     }// End Method
 
@@ -109,7 +109,7 @@ class CourseController extends Controller
         $goals = Course_goal::where('course_id',$id)->get();
         $categories = Category::latest()->get();
         $subcategories = SubCategory::latest()->get();
-        return view('users.courses.edit_course',compact('course','categories','subcategories','goals'));
+        return view('manager.courses.edit_course',compact('course','categories','subcategories','goals'));
 
     }// End Method
 
@@ -263,7 +263,7 @@ class CourseController extends Controller
 
         $section = CourseSection::where('course_id',$id)->latest()->get();
 
-        return view('users.courses.section.add_course_lecture',compact('course','section'));
+        return view('manager.courses.section.add_course_lecture',compact('course','section'));
 
     }// End Method
 
@@ -302,7 +302,7 @@ class CourseController extends Controller
     public function EditLecture($id){
 
         $clecture = CourseLecture::find($id);
-        return view('users.courses.lecture.edit_course_lecture',compact('clecture'));
+        return view('manager.courses.lecture.edit_course_lecture',compact('clecture'));
 
     }// End Method
 
@@ -354,7 +354,4 @@ class CourseController extends Controller
         return redirect()->back()->with($notification);
 
     }// End Method
-
-
-
 }
