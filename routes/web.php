@@ -11,6 +11,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\PriorityController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\QRcodeGenerateController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TicketStatusController;
@@ -344,4 +345,8 @@ Route::controller(FileController::class)->group(function () {
     Route::post('upload/file/post', 'UserStoreFile')->name('user.uploadfile.post');
 });
 
+Route::controller(QRcodeGenerateController::class)->group(function () {
+    Route::get('/qrcode', 'index')->name('qrcode');
+    Route::get('/qrcode/result', 'generate')->name('qrcode.result');
+});
 

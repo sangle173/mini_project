@@ -173,6 +173,18 @@
                 </ul>
             </li>
         @endauth
+
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='text-bg-danger bx bxs-file'></i>
+                </div>
+                <div class="menu-title">QR Code</div>
+            </a>
+            <ul>
+                <li><a href="{{ route('qrcode') }}"><i class='bx bxs-book-bookmark'></i>Dev Mode </a>
+                </li>
+            </ul>
+        </li>
     </ul>
     <!--end navigation-->
 </div>
