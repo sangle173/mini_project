@@ -15,7 +15,7 @@ class WorkingStatusController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($id)
+    public function index()
     {
         $working_statuses = WorkingStatus::latest()->get();
         return view('manager.boards.working_statuses.all_working_statuses',compact( 'working_statuses'));

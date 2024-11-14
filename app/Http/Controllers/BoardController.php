@@ -9,6 +9,7 @@ use App\Models\BoardConfig;
 use App\Models\File;
 use App\Models\Priority;
 use App\Models\Project;
+use App\Models\ReportConfig;
 use App\Models\Task;
 use App\Models\Team;
 use App\Models\TicketStatus;
@@ -108,14 +109,16 @@ class BoardController extends Controller
         $tasks = Task::where('board_id', $board->id)->whereDate('created_at', Carbon::today())->latest()->get();
         $today_tasks = Task::where('board_id', $board->id)->whereDate('created_at', Carbon::today())->latest()->get();
         $board_config = BoardConfig::find(Board::find($id)->board_config_id);
-        $teams = Team::latest()->get();
+        $teams = Team::all()-> sortBy('id');
         $types = Type::latest()->get();
         $working_statuses = WorkingStatus::latest()->get();
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
         $users = User::whereNotIn('role', ['admin'])->latest()->get();
-
-        return view('manager.boards.view_board', compact('board', 'tasks', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'dateT', 'dateS', 'today_tasks'));
+        $report_config = ReportConfig::where('board_id', $board->id) -> first();
+        $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        $final_subject = $report_config -> subject . ' ' . $days[Carbon::today('Asia/Ho_Chi_Minh') -> dayOfWeek] . ', '. Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config ->date_format);
+        return view('manager.boards.view_board', compact('board', 'tasks', 'final_subject', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'dateT', 'dateS', 'today_tasks', 'report_config'));
     }
 
     /**
@@ -259,6 +262,9 @@ class BoardController extends Controller
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
         $users = User::whereNotIn('role', ['admin'])->latest()->get();
-        return view('manager.boards.view_board', compact('board', 'tasks', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'request','dateS', 'dateT', 'today_tasks'));
+        $report_config = ReportConfig::where('board_id', $board->id) -> first();
+        $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        $final_subject = $report_config -> subject . ' ' . $days[Carbon::today('Asia/Ho_Chi_Minh') -> dayOfWeek] . ', '. Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config ->date_format);
+        return view('manager.boards.view_board', compact('board', 'report_config', 'final_subject', 'tasks', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'request','dateS', 'dateT', 'today_tasks'));
     }
 }

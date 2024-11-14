@@ -98,7 +98,7 @@
                         <div class="menu-title">Components</div>
                     </a>
                     <ul>
-                        <li><a href="{{ route('manager.all.priorities') }}"><i class='bx bxs-book-bookmark'></i>All Teams</a>
+                        <li><a href="{{ route('manager.all.teams') }}"><i class='bx bxs-book-bookmark'></i>All Teams</a>
                         </li>
                         <li><a href="{{ route('manager.all.types') }}"><i class='bx bxs-book-bookmark'></i>All Types</a>
                         </li>

@@ -48,10 +48,11 @@
                                             <option value="{{ $team->id }}">{{ $team->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('team')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                @error('team')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+
                             </div>
                         @endif
 
@@ -65,10 +66,11 @@
                                             <option value="{{ $type->id }}">{{ $type->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('type')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                @error('type')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+
                             </div>
                         @endif
 
@@ -76,15 +78,14 @@
                             <div class="row mb-3">
                                 <label for="jira_id" class="col-sm-3 col-form-label">Jira Id</label>
                                 <div class="col-sm-9">
-                                    <div class="position-relative input-icon">
+                                    <div class="position-relative">
                                         <input type="text" class="form-control" name="jira_id" id="jira_id"
                                                placeholder="Enter Jira Id">
-                                        <span class="position-absolute top-50 translate-middle-y"><i
-                                                class='bx bx-user'></i></span>
+                                        @error('jira_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    @error('jira_id')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+
                                 </div>
                             </div>
                         @endif
@@ -93,15 +94,14 @@
                             <div class="row mb-3">
                                 <label for="jira_summary" class="col-sm-3 col-form-label">Jira Summary</label>
                                 <div class="col-sm-9">
-                                    <div class="position-relative input-icon">
+                                    <div class="position-relative">
                                         <input type="text" class="form-control" name="jira_summary" id="jira_summary"
                                                placeholder="Enter Jira Summary">
-                                        <span class="position-absolute top-50 translate-middle-y"><i
-                                                class='bx bx-user'></i></span>
+                                        @error('jira_summary')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    @error('jira_summary')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+
                                 </div>
                             </div>
                         @endif
@@ -116,10 +116,11 @@
                                             <option value="{{ $working_status->id }}">{{ $working_status->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('working_status')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                @error('working_status')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+
                             </div>
                         @endif
 
@@ -133,10 +134,11 @@
                                             <option value="{{ $ticket_status->id }}">{{ $ticket_status->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('ticket_status')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                @error('ticket_status')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+
                             </div>
                         @endif
 
@@ -150,10 +152,11 @@
                                             <option value="{{ $priority->id }}">{{ $priority->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('$priority')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                @error('$priority')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+
                             </div>
                         @endif
 
@@ -161,15 +164,14 @@
                             <div class="row mb-3">
                                 <label for="link_to_result" class="col-sm-3 col-form-label">Link To Result</label>
                                 <div class="col-sm-9">
-                                    <div class="position-relative input-icon">
+                                    <div class="position-relative">
                                         <input type="text" class="form-control" name="link_to_result" id="link_to_result"
                                                placeholder="Enter Link To Result">
-                                        <span class="position-absolute top-50 translate-middle-y"><i
-                                                class='bx bx-user'></i></span>
+                                        @error('link_to_result')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    @error('link_to_result')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+
                                 </div>
                             </div>
                         @endif
@@ -183,10 +185,11 @@
                                                placeholder="Enter Test Plan">
                                         <span class="position-absolute top-50 translate-middle-y"><i
                                                 class='bx bx-user'></i></span>
+                                        @error('test_plan')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    @error('test_plan')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+
                                 </div>
                             </div>
                         @endif
@@ -200,10 +203,11 @@
                                                placeholder="Enter Sprint">
                                         <span class="position-absolute top-50 translate-middle-y"><i
                                                 class='bx bx-user'></i></span>
+                                        @error('sprint')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    @error('sprint')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+
                                 </div>
                             </div>
                         @endif
@@ -213,15 +217,16 @@
                                 <label for="tester_1" class="col-sm-3 col-form-label">Tester 1</label>
                                 <div class="col-sm-9">
                                     <select class="form-select" name="tester_1" id="tester_1">
-                                        <option selected="" disabled>Select Tester</option>
+                                        <option value="0">Select Tester</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('tester_1')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                @error('tester_1')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+
                             </div>
                         @endif
 
@@ -230,15 +235,16 @@
                                 <label for="tester_2" class="col-sm-3 col-form-label">Tester 2</label>
                                 <div class="col-sm-9">
                                     <select class="form-select" name="tester_2" id="tester_2">
-                                        <option selected="" disabled>Select Tester</option>
+                                        <option value="0">Select Tester</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('tester_2')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                @error('tester_2')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+
                             </div>
                         @endif
 
@@ -247,15 +253,16 @@
                                 <label for="tester_3" class="col-sm-3 col-form-label">Tester 3</label>
                                 <div class="col-sm-9">
                                     <select class="form-select" name="tester_3" id="tester_3">
-                                        <option selected="" disabled>Select Tester</option>
+                                        <option value="0">Select Tester</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('tester_3')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                @error('tester_3')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+
                             </div>
                         @endif
                         @if($board_config -> tester_4 == 1)
@@ -263,15 +270,16 @@
                                 <label for="tester_4" class="col-sm-3 col-form-label">Tester 4</label>
                                 <div class="col-sm-9">
                                     <select class="form-select" name="tester_4" id="tester_4">
-                                        <option selected="" disabled>Select Tester</option>
+                                        <option value="0">Select Tester</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('tester_4')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                @error('tester_4')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+
                             </div>
                         @endif
                         @if($board_config -> tester_5 == 1)
@@ -279,15 +287,16 @@
                                 <label for="tester_5" class="col-sm-3 col-form-label">Tester 5</label>
                                 <div class="col-sm-9">
                                     <select class="form-select" name="tester_5" id="tester_5">
-                                        <option selected="" disabled>Select Tester</option>
+                                        <option value="0">Select Tester</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('tester_5')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                @error('tester_5')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+
                             </div>
                         @endif
                         @if($board_config -> note == 1)
@@ -337,4 +346,19 @@
         });
 
     </script>
+{{--    <script>--}}
+{{--        $('#type').change(function(e){--}}
+{{--            if($(this).val() == "1"){--}}
+{{--                $("#working_status").prop('disabled',true);--}}
+{{--                $("#link_to_result").prop('disabled',true);--}}
+{{--                $("#tester_2").prop('disabled',true);--}}
+{{--                $("#tester_3").prop('disabled',true);--}}
+{{--                $("#tester_4").prop('disabled',true);--}}
+{{--                $("#tester_5").prop('disabled',true);--}}
+{{--            }--}}
+{{--            // else {--}}
+{{--            //     $("#size option[value='Medium']").prop('disabled',false);--}}
+{{--            // }--}}
+{{--        });--}}
+{{--    </script>--}}
 @endsection

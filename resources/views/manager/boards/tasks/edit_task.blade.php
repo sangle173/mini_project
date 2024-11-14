@@ -212,7 +212,7 @@
                                 <label for="tester_1" class="col-sm-3 col-form-label">Tester 1</label>
                                 <div class="col-sm-9">
                                     <select class="form-select" name="tester_1" id="tester_1">
-                                        <option selected="" disabled>Select Tester</option>
+                                        <option value="0">Select Tester</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}" {{ $user->id == $task->tester_1 ? 'selected' : '' }}>{{ $user->name }} {{ $user->id == $currentUser->id ? '(You)' : '' }}</option>
                                         @endforeach
@@ -229,7 +229,7 @@
                                 <label for="tester_2" class="col-sm-3 col-form-label">Tester 2</label>
                                 <div class="col-sm-9">
                                     <select class="form-select" name="tester_2" id="tester_2">
-                                        <option value="null" >Select Tester</option>
+                                        <option value="0">Select Tester</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}" {{ $user->id == $task->tester_2 ? 'selected' : '' }}>{{ $user->name }} {{ $user->id == $currentUser->id ? '(You)' : '' }}</option>
                                         @endforeach
@@ -246,7 +246,7 @@
                                 <label for="tester_3" class="col-sm-3 col-form-label">Tester 3</label>
                                 <div class="col-sm-9">
                                     <select class="form-select" name="tester_3" id="tester_3">
-                                        <option value="null" >Select Tester</option>
+                                        <option value="0">Select Tester</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}" {{ $user->id == $task->tester_3 ? 'selected' : '' }}>{{ $user->name }} {{ $user->id == $currentUser->id ? '(You)' : '' }}</option>
                                         @endforeach
@@ -262,7 +262,7 @@
                                 <label for="tester_4" class="col-sm-3 col-form-label">Tester 4</label>
                                 <div class="col-sm-9">
                                     <select class="form-select" name="tester_4" id="tester_4">
-                                        <option value="null" >Select Tester</option>
+                                        <option value="0" >Select Tester</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}" {{ $user->id == $task->tester_4 ? 'selected' : '' }}>{{ $user->name }} {{ $user->id == $currentUser->id ? '(You)' : '' }}</option>
                                         @endforeach
@@ -278,7 +278,7 @@
                                 <label for="tester_5" class="col-sm-3 col-form-label">Tester 5</label>
                                 <div class="col-sm-9">
                                     <select class="form-select" name="tester_5" id="tester_5">
-                                        <option value="null" >Select Tester</option>
+                                        <option value="0" >Select Tester</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}" {{ $user->id == $task->tester_5 ? 'selected' : '' }}>{{ $user->name }} {{ $user->id == $currentUser->id ? '(You)' : '' }}</option>
                                         @endforeach

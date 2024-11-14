@@ -80,7 +80,10 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
+            'team' => 'required',
+            'type' => 'required',
+            'jira_summary' => 'required',
             'tester_1' => 'required',
         ]);
         $task_id = Task::insertGetId([
@@ -200,7 +203,12 @@ class TaskController extends Controller
     public function update(Request $request)
     {
         $id = $request->task_id;
-
+        $validated = $request->validate([
+            'team' => 'required',
+            'type' => 'required',
+            'jira_summary' => 'required',
+            'tester_1' => 'required',
+        ]);
         Task::find($id)->update([
             'team' => $request->team,
             'type' => $request->type,
@@ -235,7 +243,13 @@ class TaskController extends Controller
     public function cloneTaskAction(Request $request)
     {
         $id = $request->task_id;
-
+        $validated = $request->validate([
+            'team' => 'required',
+            'type' => 'required',
+            'jira_summary' => 'required',
+            'tester_1' => 'required',
+        ]);
+//        dd($request);
         $task_id = Task::insertGetId([
             'board_id' => $request->board_id,
             'team' => $request->team,

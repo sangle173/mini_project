@@ -100,7 +100,7 @@
                                 <span class="font-weight-bold">Search and Filter</span>
                             </button>
                         </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                              data-bs-parent="#accordionExample">
                             <div class="accordion-body" style="background: #EEEEEE">
                                 <div class="bs-stepper-content">
@@ -319,12 +319,26 @@
                     @auth()
                         @if(Auth::user()->role ==='manager')
                             <li class="nav-item" role="presentation">
+                                <a class="nav-link" data-bs-toggle="tab" href="#reportconfig" role="tab"
+                                   aria-selected="false">
+                                    <div class="d-flex align-items-center">
+                                        <div class="tab-icon"><i class='bx bx-cog font-18 me-1'></i>
+                                        </div>
+                                        <div class="tab-title">Report Config</div>
+                                    </div>
+                                </a>
+                            </li>
+                        @endif
+                    @endauth
+                    @auth()
+                        @if(Auth::user()->role ==='manager')
+                            <li class="nav-item" role="presentation">
                                 <a class="nav-link" data-bs-toggle="tab" href="#primarycontact" role="tab"
                                    aria-selected="false">
                                     <div class="d-flex align-items-center">
                                         <div class="tab-icon"><i class='bx bx-cog font-18 me-1'></i>
                                         </div>
-                                        <div class="tab-title">Config</div>
+                                        <div class="tab-title">Board Config</div>
                                     </div>
                                 </a>
                             </li>
@@ -449,29 +463,33 @@
                                                 @endif
                                                 @if($board_config-> working_status != 0)
                                                     <td>
-                                                        @if($item-> working_status !=null)
-                                                            @switch($item-> working_status)
-                                                                @case('1')
-                                                                <span
-                                                                    class="badge bg-primary">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
-                                                                @break
-                                                                @case('2')
-                                                                <span
-                                                                    class="badge bg-success">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
-                                                                @break
-                                                                @case('3')
-                                                                <span
-                                                                    class="badge bg-info">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
-                                                                @break
-                                                                @case('4')
-                                                                <span
-                                                                    class="badge bg-secondary">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
-                                                                @break
-                                                                @default
-                                                                <span
-                                                                    class="badge bg-warning">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
-                                                            @endswitch
-                                                        @endif
+                                                        @switch($item-> working_status)
+                                                            @case('1')
+                                                            <span
+                                                                class="badge bg-primary">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
+                                                            @break
+                                                            @case('2')
+                                                            <span
+                                                                class="badge bg-success">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
+                                                            @break
+                                                            @case('3')
+                                                            <span
+                                                                class="badge bg-info">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
+                                                            @break
+                                                            @case('4')
+                                                            <span
+                                                                class="badge bg-secondary">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
+                                                            @break
+                                                            @case(null)
+                                                            <span>------------</span>
+                                                            @break
+                                                            @case('')
+                                                            <span>------------</span>
+                                                            @break
+                                                            @default
+                                                            <span
+                                                                class="badge bg-warning">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
+                                                        @endswitch
                                                     </td>
                                                 @endif
                                                 @if($board_config-> ticket_status != 0)
@@ -498,7 +516,9 @@
                                                             <span
                                                                 class="badge bg-primary">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}</span>
                                                             @break
-
+                                                            @case(null)
+                                                            <span>------------</span>
+                                                            @break
                                                             @default
                                                             <span
                                                                 class="badge bg-warning">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}} </span>
@@ -606,7 +626,6 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-
                                         </tbody>
 
                                     </table>
@@ -617,13 +636,29 @@
                     </div>
                     <div class="tab-pane fade" id="primaryprofile" role="tabpanel">
                         <div>
-                            <div class="container mt-5">
+                            <div class="container-fluid mt-5">
                                 <div class="card">
+                                    <div class="card-header bg-light">
+                                        <div class="row">
+                                            <h4>
+                                                {{$final_subject }}
+                                                <a href="{{url('mailto:?subject='.$final_subject.'&cc='.$report_config -> cc)}}"
+                                                   class="ml-3 btn btn-primary float-end"><i
+                                                        class="bi bi-cloud-arrow-up"></i> Open Outlook</a>
+                                                <button class="ml-3 btn btn-info float-end" onclick="copyFunction()"><i
+                                                        class="bi bi-copy"></i> Copy
+                                                </button>
+                                            </h4>
+                                        </div>
+                                        <div class="row">
+                                            <b>CC List:</b> <br>{{$report_config -> cc}}
+                                        </div>
+                                    </div>
                                     <div class="card-body">
                                         <div id="divExp" class="divExp">
                                             <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
                                                         style="font-size:11pt;"><a
-                                                            name="_Hlk155304048">Hi Manager,</a></span></font></div>
+                                                            name="_Hlk155304048">Hi Roger,</a></span></font></div>
                                             <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
                                                         style="font-size:11pt;">Below is our status report for today. Please review and let us know if you have any comments or questions.</span></font>
                                             </div>
@@ -639,104 +674,125 @@
                                             </div>
                                             <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
                                                         style="font-size:11pt;"><b>&nbsp;</b></span></font></div>
-
-                                            <!--        Table Summary-->
-                                            <table border="0" cellspacing="0" cellpadding="0"
-                                                   style="border-collapse:collapse;">
+                                            <table border="0" cellspacing="0" cellpadding="0" width="600"
+                                                   style="width:449.75pt;border-collapse:collapse">
                                                 <tbody>
+                                                <tr style="height:28.75pt">
+                                                    <td width="199" nowrap="" rowspan="2"
+                                                        style="width:149pt;border:1pt solid windowtext;background:rgb(189,215,238);padding:0in 5.4pt;height:28.75pt">
+                                                        <p class="MsoNormal" align="center"
+                                                           style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
+                                                            <b><span style="color:black">Team</span></b></p>
+                                                    </td>
+                                                    <td width="161" colspan="2"
+                                                        style="width:121pt;border-top:1pt solid windowtext;border-right:1pt solid windowtext;border-bottom:1pt solid windowtext;border-left:none;background:rgb(189,215,238);padding:0in 5.4pt;height:28.75pt">
+                                                        <p class="MsoNormal" align="center"
+                                                           style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
+                                                            <b><span style="color:black">Testing
+       requests</span></b></p>
+                                                    </td>
+                                                    <td width="148" colspan="2"
+                                                        style="width:111pt;border-top:1pt solid windowtext;border-right:1pt solid windowtext;border-bottom:1pt solid windowtext;border-left:none;background:rgb(189,215,238);padding:0in 5.4pt;height:28.75pt">
+                                                        <p class="MsoNormal" align="center"
+                                                           style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
+                                                            <b><span style="color:black">Tickets
+       verification</span></b></p>
+                                                    </td>
+                                                    <td width="92" nowrap="" rowspan="2"
+                                                        style="width:68.75pt;border-top:1pt solid windowtext;border-right:1pt solid windowtext;border-bottom:1pt solid windowtext;border-left:none;background:rgb(189,215,238);padding:0in 5.4pt;height:28.75pt">
+                                                        <p class="MsoNormal" align="center"
+                                                           style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
+                                                            <b><span style="color:black">Bugs
+       reported</span></b></p>
+                                                    </td>
+                                                </tr>
+                                                <tr style="height:15pt">
+                                                    <td width="84" nowrap=""
+                                                        style="width:63.25pt;border-top:none;border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;background:rgb(189,215,238);padding:0in 5.4pt;height:15pt">
+                                                        <p class="MsoNormal"
+                                                           style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
+                                                            <span style="color:black">Done</span></p>
+                                                    </td>
+                                                    <td width="84" nowrap=""
+                                                        style="width:63.25pt;border-top:none;border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;background:rgb(189,215,238);padding:0in 5.4pt;height:15pt">
+                                                        <p class="MsoNormal"
+                                                           style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
+                                                            <span style="color:black">In-progress</span></p>
+                                                    </td>
+                                                    <td width="82" nowrap=""
+                                                        style="width:61.75pt;border-top:none;border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;background:rgb(189,215,238);padding:0in 5.4pt;height:15pt">
+                                                        <p class="MsoNormal"
+                                                           style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
+                                                            <span style="color:black">Done</span></p>
+                                                    </td>
+                                                    <td width="82" nowrap=""
+                                                        style="width:61.75pt;border-top:none;border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;background:rgb(189,215,238);padding:0in 5.4pt;height:15pt">
+                                                        <p class="MsoNormal"
+                                                           style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
+                                                            <span style="color:black">In-progress</span></p>
+                                                    </td>
+                                                </tr>
                                                 @foreach ($teams as $key => $team)
-                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0 || count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0 || count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
-                                                        <tr height="25"
-                                                            style="{{$key % 2 == 1 ? 'background:#DCE6F1':'background:#F2DCDB'}};height:15pt;border: none;">
-                                                            <td width="236" valign="bottom" nowrap=""
-                                                                style="width:141.75pt;height:15pt;padding:0 5.4pt;">
-                <span>
-                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                                color="black"><b>{{$team -> name}}</b></font></span></font></div>
-                </span>
+                                                    @if(
+    count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0
+    || count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+    || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+    || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+    || count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0  )
+                                                        <tr style="height:15pt">
+                                                            <td width="199" valign="bottom"
+                                                                style="background-color: {{$team -> desc}};width:149pt;border-right:1pt solid windowtext;border-bottom:1pt solid windowtext;border-left:1pt solid windowtext;border-top:none;padding:0in 5.4pt;height:15pt">
+                                                                <p class="MsoNormal"
+                                                                   style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
+                                                                    <span style="color:black">{{$team -> name}}</span>
+                                                                </p>
                                                             </td>
-                                                            <td width="167" valign="bottom" nowrap=""
-                                                                style="width:100.25pt;height:15pt;padding:0 5.4pt;">
-                <span>
-                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                                color="black">Testing Request</font></span></font></div>
-                </span></td>
-                                                            <td width="133" valign="bottom" nowrap=""
-                                                                style="width:80pt;height:15pt;padding:0 5.4pt;">
-                <span>
-                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                                color="black">Done</font></span></font></div>
-              </span></td>
-                                                            <td width="80" nowrap=""
-                                                                style="width:48pt;height:15pt;padding:0 5.4pt;">
-                <span>
-                <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                            style="font-size:11pt;"><font
-                                color="black">{{count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</font></span></font></div>
-                </span></td>
-                                                        </tr>
-                                                        <tr height="25"
-                                                            style="{{$key % 2 == 1 ? 'background:#DCE6F1':'background:#F2DCDB'}};height:15pt;border: none;">
-                                                            <td width="236" valign="bottom" nowrap=""
-                                                                style="width:141.75pt;height:15pt;padding:0 5.4pt;">
-                <span>
-                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                                color="black"></font></span></font></div>
-                </span>
+                                                            <td width="84" nowrap=""
+                                                                style="background-color: {{$team -> desc}};width:63.25pt;border-top:none;border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;padding:0in 5.4pt;height:15pt">
+                                                                <p class="MsoNormal" align="center"
+                                                                   style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
+                                                                    <span
+                                                                        style="color:black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
+                                                                </p>
                                                             </td>
-                                                            <td width="167" valign="bottom" nowrap=""
-                                                                style="width:100.25pt;height:15pt;padding:0 5.4pt;">
-                <span>
-                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                                color="black"></font></span></font></div>
-                </span></td>
-                                                            <td width="133" valign="bottom" nowrap=""
-                                                                style="width:80pt;height:15pt;padding:0 5.4pt;">
-                <span>
-                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                                color="black">In-progress</font></span></font></div>
-              </span></td>
-                                                            <td width="80" nowrap=""
-                                                                style="width:48pt;height:15pt;padding:0 5.4pt;">
-                <span>
-                <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                            style="font-size:11pt;"><font
-                                color="black">{{count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</font></span></font></div>
-                </span></td>
-                                                        </tr>
-                                                        <tr height="25"
-                                                            style="{{$key % 2 == 1 ? 'background:#DCE6F1':'background:#F2DCDB'}};height:15pt;border: none;">
-                                                            <td width="236" valign="bottom" nowrap=""
-                                                                style="width:141.75pt;height:15pt;padding:0 5.4pt;">
-                <span>
-                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                                color="black"><b></b></font></span></font></div>
-                </span>
+                                                            <td width="84" nowrap=""
+                                                                style="background-color: {{$team -> desc}};width:63.25pt;border-top:none;border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;padding:0in 5.4pt;height:15pt">
+                                                                <p class="MsoNormal" align="center"
+                                                                   style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
+                                                                    <span
+                                                                        style="color:black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
+                                                                </p>
                                                             </td>
-                                                            <td width="167" valign="bottom" nowrap=""
-                                                                style="width:100.25pt;height:15pt;padding:0 5.4pt;">
-                <span>
-                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                                color="black">Bug found</font></span></font></div>
-                </span></td>
-                                                            <td width="133" valign="bottom" nowrap=""
-                                                                style="width:80pt;height:15pt;padding:0 5.4pt;">
-                <span>
-                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                                color="black">Open</font></span></font></div>
-              </span></td>
-                                                            <td width="80" nowrap=""
-                                                                style="width:48pt;height:15pt;padding:0 5.4pt;">
-                <span>
-                <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                            style="font-size:11pt;"><font
-                                color="black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</font></span></font></div>
-                </span></td>
+                                                            <td width="82" nowrap=""
+                                                                style="background-color: {{$team -> desc}};width:61.75pt;border-top:none;border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;padding:0in 5.4pt;height:15pt">
+                                                                <p class="MsoNormal" align="center"
+                                                                   style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
+                                                                    <span
+                                                                        style="color:black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
+                                                                </p>
+                                                            </td>
+                                                            <td width="82" nowrap=""
+                                                                style="background-color: {{$team -> desc}};width:61.75pt;border-top:none;border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;padding:0in 5.4pt;height:15pt">
+                                                                <p class="MsoNormal" align="center"
+                                                                   style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
+                                                                    <span
+                                                                        style="color:black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
+                                                                </p>
+                                                            </td>
+                                                            <td width="92" nowrap=""
+                                                                style="background-color: {{$team -> desc}};width:68.75pt;border-top:none;border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;padding:0in 5.4pt;height:15pt">
+                                                                <p class="MsoNormal" align="center"
+                                                                   style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
+                                                                    <span
+                                                                        style="color:black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
+                                                                </p>
+                                                            </td>
                                                         </tr>
                                                     @endif
                                                 @endforeach
                                                 </tbody>
                                             </table>
+
                                             <!--       End Table Summary-->
 
                                             <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
@@ -753,7 +809,12 @@
                                                         style="font-size:11pt;"><font
                                                             color="black">&nbsp;</font></span></font></div>
                                             @foreach ($teams as $team)
-                                                @if(count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0 || count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0 || count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                @if(
+    count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0
+    || count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+    || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+    || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+    || count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0  )
 
                                                     <div
                                                         style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
@@ -761,24 +822,24 @@
                                                                                               color="#0070C0"><span
                                                                         style="font-size:14pt;"><b>{{$team -> name}}</b></span></font></span></font>
                                                     </div>
-                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0 || count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                    @if(count(\App\Models\Task::where('team', $team -> id)  -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0 || count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
                                                         <div>
                                                             <div style="text-indent:14pt;margin:0;"><font
                                                                     face="Calibri,sans-serif" size="2"><span
                                                                         style="font-size:11pt;"><font size="4"
                                                                                                       color="black"><span
-                                                                                style="font-size:14pt;"><b>Testing Request</b></span></font></span></font>
+                                                                                style="font-size:14pt;"><b>Testing requests</b></span></font></span></font>
                                                             </div>
                                                         </div>
                                                     @endif
-                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
                                                         <div>
                                                             <div style="text-indent:22pt;margin:0;"><font
                                                                     face="Calibri,sans-serif" size="2"><span
                                                                         style="font-size:11pt;"><font
                                                                             color="black"><b>Done</b></font></span></font>
                                                             </div>
-                                                            @foreach(\App\Models\Task::where('team', $team -> id) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $done)
+                                                            @foreach(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $done)
                                                                 <div
                                                                     style="text-indent:33pt;margin:0;"><font
                                                                         face="Calibri,sans-serif" size="2"><span
@@ -786,19 +847,91 @@
                                                                                 href="{{$board_config -> jira_url}}{{$done -> jira_id}}"
                                                                                 target="_blank"
                                                                                 rel="noopener noreferrer">{{$done -> jira_id}}</a><font
-                                                                                color="black"> - {{$done -> jira_summary}}</font></span></font>
+                                                                                color="black"> - {{$done -> jira_summary}} - <b>{{strtoupper(\App\Models\TicketStatus::find($done -> ticket_status) -> name)}} @if($done -> link_to_result)
+                                                                                        - @endif</b> @if($done -> link_to_result)
+                                                                                    <b><a
+                                                                                            href="{{url($done -> link_to_result)}}"
+                                                                                            target="_blank"
+                                                                                            rel="noopener noreferrer">Link to result</a></b> @endif</font></span></font>
                                                                 </div>
                                                             @endforeach
                                                         </div>
                                                     @endif
-                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
                                                         <div
                                                             style="text-indent:22pt;margin:0;"><font
                                                                 face="Calibri,sans-serif" size="2"><span
                                                                     style="font-size:11pt;"><font
                                                                         color="black"><b>In-progress</b></font></span></font>
                                                         </div>
-                                                        @foreach(\App\Models\Task::where('team', $team -> id) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $inprogres)
+                                                        @foreach(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $inprogres)
+                                                            <div
+                                                                style="text-indent:33pt;margin:0;"><font
+                                                                    face="Calibri,sans-serif"
+                                                                    size="2"><span
+                                                                        style="font-size:11pt;"><a
+                                                                            href="{{$board_config -> jira_url}}{{$inprogres -> jira_id}}"
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer">{{$inprogres -> jira_id}} </a><font
+                                                                            color="black">
+                 - {{$inprogres -> jira_summary}} - <b>{{strtoupper(\App\Models\TicketStatus::find($inprogres -> ticket_status) -> name)}}</b> @if($inprogres -> link_to_result)
+                                                                                - @endif</b> @if($inprogres -> link_to_result)
+                                                                                    <b><a
+                                                                                            href="{{url($inprogres -> link_to_result)}}"
+                                                                                            target="_blank"
+                                                                                            rel="noopener noreferrer">Link to result</a></b> @endif</font></span></font>
+                                                            </div>
+                                                        @endforeach
+                                                    @endif
+
+                                                    <div
+                                                        style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
+                                                                style="font-size:11pt;"><font size="4"
+                                                                                              color="#0070C0"></font></span></font>
+                                                    </div>
+                                                    @if(count(\App\Models\Task::where('team', $team -> id)  -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0 || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                        <div>
+                                                            <div style="text-indent:14pt;margin:0;"><font
+                                                                    face="Calibri,sans-serif" size="2"><span
+                                                                        style="font-size:11pt;"><font size="4"
+                                                                                                      color="black"><span
+                                                                                style="font-size:14pt;"><b>Tickets verification</b></span></font></span></font>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                        <div>
+                                                            <div style="text-indent:22pt;margin:0;"><font
+                                                                    face="Calibri,sans-serif" size="2"><span
+                                                                        style="font-size:11pt;"><font
+                                                                            color="black"><b>Done</b></font></span></font>
+                                                            </div>
+                                                            @foreach(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $done)
+                                                                <div
+                                                                    style="text-indent:33pt;margin:0;"><font
+                                                                        face="Calibri,sans-serif" size="2"><span
+                                                                            style="font-size:11pt;"><a
+                                                                                href="{{$board_config -> jira_url}}{{$done -> jira_id}}"
+                                                                                target="_blank"
+                                                                                rel="noopener noreferrer">{{$done -> jira_id}}</a><font
+                                                                                color="black"> - {{$done -> jira_summary}} - <b>{{strtoupper(\App\Models\TicketStatus::find($done -> ticket_status) -> name)}}</b> @if($done -> link_to_result)
+                                                                                    - @endif</b> @if($done -> link_to_result)
+                                                                                        <b><a
+                                                                                                href="{{url($done -> link_to_result)}}"
+                                                                                                target="_blank"
+                                                                                                rel="noopener noreferrer">Link to result</a></b> @endif</font></span></font>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
+                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                        <div
+                                                            style="text-indent:22pt;margin:0;"><font
+                                                                face="Calibri,sans-serif" size="2"><span
+                                                                    style="font-size:11pt;"><font
+                                                                        color="black"><b>In-progress</b></font></span></font>
+                                                        </div>
+                                                        @foreach(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $inprogres)
                                                             <div
                                                                 style="text-indent:33pt;margin:0;"><font
                                                                     face="Calibri,sans-serif"
@@ -808,17 +941,24 @@
                                                                             target="_blank"
                                                                             rel="noopener noreferrer">{{$inprogres -> jira_id}}</a><font
                                                                             color="black">
-                 - {{$inprogres -> jira_summary}}</font></span></font>
+                 - {{$inprogres -> jira_summary}} - <b>{{strtoupper(\App\Models\TicketStatus::find($inprogres -> ticket_status) -> name)}}</b> @if($inprogres -> link_to_result)
+                                                                                - @endif</b> @if($inprogres -> link_to_result)
+                                                                                    <b><a
+                                                                                            href="{{url($inprogres -> link_to_result)}}"
+                                                                                            target="_blank"
+                                                                                            rel="noopener noreferrer">Link to result</a></b> @endif</font></span></font>
                                                             </div>
                                                         @endforeach
                                                     @endif
+
+
                                                     @if(count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
                                                         <div>
                                                             <div style="text-indent:14pt;margin:0;"><font
                                                                     face="Calibri,sans-serif" size="2"><span
                                                                         style="font-size:11pt;"><font size="4"
                                                                                                       color="black"><span
-                                                                                style="font-size:14pt;"><b>Bug found</b></span></font></span></font>
+                                                                                style="font-size:14pt;"><b>Bugs reported</b></span></font></span></font>
                                                             </div>
                                                             @foreach(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $bug_found)
                                                                 <div
@@ -847,6 +987,92 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="reportconfig" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="myForm" action="{{ route('manager.save-report-config') }}" method="post"
+                                      class="row g-3"
+                                      enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="card-body">
+                                        <h5 class="mb-4">Report Config</h5>
+                                        <input type="hidden" name="board_id" value="{{$board -> id}}">
+                                        <div class="row mb-3">
+                                            <label for="project_name" class="col-sm-3 col-form-label">Board Name</label>
+                                            <div class="col-sm-9">
+                                                <div class="position-relative input-icon">
+                                                    <input type="text" class="form-control" disabled
+                                                           value="{{$board ->name}}" id="board_name">
+                                                    <span class="position-absolute top-50 translate-middle-y"><i
+                                                            class='bx bx-user'></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="subject" class="col-sm-3 col-form-label">Subject</label>
+                                            <div class="col-sm-9">
+                                                <div class="col-sm-9">
+                                                    <div class="position-relative input-icon">
+                                                        <input type="text" class="form-control"
+                                                               name="subject" id="subject"
+                                                               value="{{$report_config -> subject}}">
+                                                        <span class="position-absolute top-50 translate-middle-y"><i
+                                                                class='bx bx-user'></i></span>
+                                                    </div>
+                                                </div>
+                                                @error('subject')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="cc" class="col-sm-3 col-form-label">CC List</label>
+                                            <div class="col-sm-9">
+                                <textarea class="form-control" name="cc" id="cc" rows="5"
+                                          placeholder="Enter the cc list ...">{{$report_config -> cc}}</textarea>
+                                                @error('cc')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="date_format" class="col-sm-3 col-form-label">Date Format</label>
+                                            <div class="col-sm-9">
+
+                                                <div class="col-sm-9">
+                                                    <div class="position-relative input-icon">
+                                                        <input type="text" class="form-control"
+                                                               name="date_format" id="date_format"
+                                                               value="{{$report_config -> date_format}}">
+                                                        <span class="position-absolute top-50 translate-middle-y"><i
+                                                                class='bx bx-user'></i></span>
+                                                    </div>
+                                                </div>
+                                                @error('cc')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <label class="col-sm-3 col-form-label"></label>
+                                            <div class="col-sm-9">
+                                                <div class="d-md-flex d-grid align-items-center gap-3">
+                                                    <button type="submit" class="btn btn-primary px-5"><i
+                                                            class='bx bx-add-to-queue mr-1'></i>Save Report Config
+                                                    </button>
+                                                    <button type="reset" class="btn btn-outline-secondary px-5"><i
+                                                            class='bx bx-reset mr-1'></i>Reset
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -1248,5 +1474,28 @@
         </div>
     </div>
 
+    <script>
+        function copyFunction() {
+            const elm = document.getElementById("divExp");
+            // for Internet Explorer
 
+            if (document.body.createTextRange) {
+                const range = document.body.createTextRange();
+                range.moveToElementText(elm);
+                range.select();
+                document.execCommand("copy");
+                alert("Copied div content to clipboard");
+            } else if (window.getSelection) {
+                // other browsers
+
+                const selection = window.getSelection();
+                const range = document.createRange();
+                range.selectNodeContents(elm);
+                selection.removeAllRanges();
+                selection.addRange(range);
+                document.execCommand("copy");
+                alert("Copied div content to clipboard");
+            }
+        }
+    </script>
 @endsection

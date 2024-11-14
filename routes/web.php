@@ -12,6 +12,7 @@ use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\PriorityController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QRcodeGenerateController;
+use App\Http\Controllers\ReportConfigController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TicketStatusController;
@@ -134,6 +135,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/manager/board/config/edit/{id}', 'edit')->name('manager.edit.config.board');
         Route::post('/manager/save-board-config', 'store')->name('manager.save-board-config');
         Route::post('/manager/update-board-config', 'update')->name('manager.update-board-config');
+    });
+
+    // ReportConfigController All Route
+    Route::controller(ReportConfigController::class)->group(function () {
+        Route::get('/manager/board/report-config/{id}', 'create')->name('manager.report-config.board');
+        Route::get('/manager/board/report-config/edit/{id}', 'edit')->name('manager.edit.report-config.board');
+        Route::post('/manager/save-board-report-config', 'store')->name('manager.save-report-config');
+        Route::post('/manager/update-board-report-config', 'update')->name('manager.update-report-config');
     });
 
     // Teams All Route
