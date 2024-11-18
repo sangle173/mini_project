@@ -25,12 +25,16 @@ return new class extends Migration
             $table->tinyInteger('test_plan')->default(0)->comment('0=Inactive','1=Active');
             $table->tinyInteger('sprint')->default(0)->comment('0=Inactive','1=Active');
             $table->tinyInteger('note')->default(0)->comment('0=Inactive','1=Active');
+            $table->tinyInteger('environment')->default(0)->comment('0=Inactive','1=Active');
+            $table->tinyInteger('isSubBug')->default(0)->comment('0=Inactive','1=Active');
             $table->tinyInteger('priority')->default(0)->comment('0=Inactive','1=Active');
             $table->tinyInteger('tester_1')->default(0)->comment('0=Inactive','1=Active');
             $table->tinyInteger('tester_2')->default(0)->comment('0=Inactive','1=Active');
             $table->tinyInteger('tester_3')->default(0)->comment('0=Inactive','1=Active');
             $table->tinyInteger('tester_4')->default(0)->comment('0=Inactive','1=Active');
             $table->tinyInteger('tester_5')->default(0)->comment('0=Inactive','1=Active');
+            $table->tinyInteger('pass')->default(0)->comment('0=Inactive','1=Active');
+            $table->tinyInteger('fail')->default(0)->comment('0=Inactive','1=Active');
             $table->timestamps();
         });
     }

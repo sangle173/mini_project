@@ -24,134 +24,378 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-body">
-
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                Status:
-                                @if ($task->status == 1)
-                                    <span class="badge bg-success">Reviewed </span>
-                                @else
-                                    <span class="badge bg-danger">Waiting </span>
-                                @endif
-                            </li>
-                            @if($board_config-> team != 0)
-                                <li class="list-group-item">
-                                    Team:
-                                    @if($task-> team !=null)
-                                        {{\App\Models\Team::find($task-> team) -> name}}
+                        <table class="table table-bordered">
+                            <thead style="background-color: #EEEEEE">
+                            <tr>
+                                <th colspan="2">Overview</th>
+                                <th style="width: 10%" scope="col">
+                                    @if(Auth::user()->role ==='manager' || Auth::user() -> id == $task -> tester_1 )
+                                        <a href="{{ route('manager.edit.task',$task->id) }}"
+                                           title="Edit" class=""><i
+                                                class='bx bxs-edit text-primary'></i></a>
                                     @endif
-                                </li>
+                                    @if(Auth::user()->role ==='manager' || Auth::user() -> id == $task -> tester_1 )
+                                        <a href="{{ route('manager.delete.task',$task->id) }}"
+                                           id="delete"
+                                           title="delete" class=""><i
+                                                class='bx bxs-trash text-danger'></i></a>
+                                    @endif
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td width="20%">Review Status</td>
+                                <td colspan="2">
+                                    @if ($task->status == 1)
+                                        <span class="badge bg-success">Reviewed </span>
+                                    @else
+                                        <span class="badge bg-danger">Waiting </span>
+                                    @endif
+                                </td>
+                            </tr>
+                            @if($board_config-> team != 0)
+                                <tr>
+                                    <td width="20%">Team</td>
+                                    @if($task-> team !=null)
+
+                                        <td colspan="2">
+                                            @if($task-> team !=null)
+                                                {{\App\Models\Team::find($task-> team) -> name}}
+                                            @endif
+                                        </td>
+                                    @endif
+                                </tr>
                             @endif
                             @if($board_config-> type != 0)
-                                <li class="list-group-item">
-                                    Type:
+                                <tr>
+                                    <td width="20%">Type</td>
                                     @if($task-> type !=null)
-                                        {{\App\Models\Type::find($task-> type) -> name}}
+                                        <td colspan="2">
+                                            @if($task-> type !=null)
+                                                {{\App\Models\Type::find($task-> type) -> name}}
+                                            @endif
+                                        </td>
                                     @endif
-                                </li>
+                                </tr>
                             @endif
                             @if($board_config-> jira_id != 0)
-                                <li class="list-group-item">
-                                    Jira ID:
+                                <tr>
+                                    <td width="20%">Jira Summary</td>
                                     @if($task-> jira_id !=null)
-                                        <a href="{{$board_config -> jira_url}}{{$task-> jira_id }}"
-                                           target="_blank">{{ $task->jira_id }}</a>
+                                        <td colspan="2">
+                                            <a href="{{url($board_config -> jira_url . $task-> jira_id) }}"
+                                               target="_blank">{{ $task->jira_id }}</a>
+                                            - {{ $task->jira_summary }}
+                                        </td>
                                     @endif
-                                </li>
-                            @endif
-                            @if($board_config-> jira_summary != 0)
-                                <li class="list-group-item">Jira Summary:
-                                    @if($task-> jira_summary !=null)
-                                        {{ $task->jira_summary }}
-                                    @endif
-                                </li>
+                                </tr>
                             @endif
                             @if($board_config-> working_status != 0)
-                                <li class="list-group-item">Working Status:
+                                <tr>
+                                    <td width="20%">Working Status</td>
                                     @if($task-> working_status !=null)
-                                        {{\App\Models\WorkingStatus::find($task-> working_status) -> name}}
+                                        <td colspan="2">
+                                            <span
+                                                class="badge"
+                                                style="background-color: {{\App\Models\WorkingStatus::find($task-> working_status) -> desc}}">{{\App\Models\WorkingStatus::find($task-> working_status) -> name}} </span>
+                                        </td>
                                     @endif
-                                </li>
+                                </tr>
                             @endif
                             @if($board_config-> ticket_status != 0)
-                                <li class="list-group-item">Ticket Status:
+                                <tr>
+                                    <td width="20%">Ticket Status</td>
                                     @if($task-> ticket_status !=null)
-                                        {{\App\Models\TicketStatus::find($task-> ticket_status) -> name}}
+                                        <td colspan="2">
+                                            <span
+                                                class="badge"
+                                                style="background-color: {{\App\Models\TicketStatus::find($task-> ticket_status) -> desc}}">{{\App\Models\TicketStatus::find($task-> ticket_status) -> name}} </span>
+                                        </td>
                                     @endif
-                                </li>
+                                </tr>
                             @endif
                             @if($board_config-> priority != 0)
-                                <li class="list-group-item">Priority:
+                                <tr>
+                                    <td width="20%">Priority</td>
                                     @if($task-> priority !=null)
-                                        {{\App\Models\Priority::find($task-> priority) -> name}}
+                                        <td colspan="2">
+                                            {{\App\Models\Priority::find($task-> priority) -> name}}
+                                        </td>
                                     @endif
-                                </li>
+                                </tr>
                             @endif
                             @if($board_config-> link_to_result != 0)
-                                <li class="list-group-item">Link to result:
+                                <tr>
+                                    <td width="20%">Link To Result</td>
                                     @if($task-> link_to_result !=null)
-                                        <a target="_blank" href="{{ $task->link_to_result }}">Link</a>
+                                        <td colspan="2">
+                                            <a target="_blank" href="{{ $task->link_to_result }}">Link</a>
+                                        </td>
+                                    @endif
+                                </tr>
+                            @endif
 
-                                    @endif
-                                </li class="list-group-item">
-                            @endif
-                            @if($board_config-> test_plan != 0)
-                                <li class="list-group-item">Test Plan:
-                                    @if($task-> test_plan !=null)
-                                        <a target="_blank" href="{{ $task->test_plan }}">Test
-                                            Plan</a>
-                                    @endif
-                                </li>
-                            @endif
                             @if($board_config-> sprint != 0)
-                                <li class="list-group-item">Sprint:
-                                    @if($task-> test_plan !=null)
-                                        {{ $task->sprint }}
+                                <tr>
+                                    <td width="20%">Sprint</td>
+                                    @if($task-> sprint !=null)
+                                        <td colspan="2">
+                                            {{ $task->sprint }}
+                                        </td>
                                     @endif
-                                </li>
+                                </tr>
                             @endif
 
                             @if($board_config-> tester_1 != 0)
-                                <li class="list-group-item">Tester
-                                    1:{{ \App\Models\User::find($task-> tester_1) -> name }}</li>
+                                <tr>
+                                    <td>Testers</td>
+                                    <td colspan="2">
+                                        @if($task-> tester_1 !=null || $task-> tester_1 !=0 )
+                                            <div style="" class="chip chip-sm bg-light text-dark">
+                                                <img
+                                                    src="{{ (!empty(\App\Models\User::find($task -> tester_1)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($task -> tester_1)->photo) : url('upload/no_image.jpg')}}"
+                                                    alt="Tester">{{\App\Models\User::find($task -> tester_1) -> name}}
+                                            </div>
+                                        @endif
+                                        @if($task-> tester_2 !=null || $task-> tester_2 !=0 )
+                                            <div class="chip chip-sm bg-light text-dark">
+                                                <img
+                                                    src="{{ (!empty(\App\Models\User::find($task -> tester_2)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($task -> tester_2)->photo) : url('upload/no_image.jpg')}}"
+                                                    alt="Tester">{{\App\Models\User::find($task -> tester_2) -> name}}
+                                            </div>
+                                        @endif
+                                        @if($task-> tester_3 !=null || $task-> tester_3 !=0 )
+                                            <div class="chip chip-sm bg-light text-dark">
+                                                <img
+                                                    src="{{ (!empty(\App\Models\User::find($task -> tester_3)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($task -> tester_3)->photo) : url('upload/no_image.jpg')}}"
+                                                    alt="Tester">{{\App\Models\User::find($task -> tester_3) -> name}}
+                                            </div>
+                                        @endif
+                                        @if($task-> tester_4 !=null || $task-> tester_4 !=0 )
+                                            <div class="chip chip-sm bg-light text-dark">
+                                                <img
+                                                    src="{{ (!empty(\App\Models\User::find($task -> tester_4)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($task -> tester_4)->photo) : url('upload/no_image.jpg')}}"
+                                                    alt="Tester">{{\App\Models\User::find($task -> tester_4) -> name}}
+                                            </div>
+                                        @endif
+                                        @if($task-> tester_5 !=null || $task-> tester_5 !=0 )
+                                            <div class="chip chip-sm bg-light text-dark">
+                                                <img
+                                                    src="{{ (!empty(\App\Models\User::find($task -> tester_5)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($task -> tester_5)->photo) : url('upload/no_image.jpg')}}"
+                                                    alt="Tester">{{\App\Models\User::find($task -> tester_5) -> name}}
+                                            </div>
+                                        @endif
+                                    </td>
+                                </tr>
                             @endif
-                            @if($board_config-> tester_2 != 0)
-                                <li class="list-group-item">Tester 2:
-                                    @if($task-> tester_2 !=null)
-                                        {{ \App\Models\User::find($task-> tester_2) -> name }}
-                                    @endif
-                                </li>
-                            @endif
-                            @if($board_config-> tester_3 != 0)
-                                <li class="list-group-item">Tester 3:
-                                    @if($task-> tester_3 !=null)
-                                        {{ \App\Models\User::find($task-> tester_3) -> name }}
-                                    @endif
-                                </li>
-                            @endif
-                            @if($board_config-> tester_4 != 0)
-                                <li class="list-group-item">Tester 4:
-                                    @if($task-> tester_4 !=null)
-                                        {{ \App\Models\User::find($task-> tester_4) -> name }}
-                                    @endif
-                                </li>
-                            @endif
-                            @if($board_config-> tester_5 != 0)
-                                <li class="list-group-item">Tester 5:
-                                    @if($task-> tester_5    !=null)
-                                        {{ \App\Models\User::find($task-> tester_5) -> name }}
-                                    @endif
-                                </li>
-                            @endif
-
                             @if($board_config-> note != 0)
-                                <li class="list-group-item">Note:
-                                    @if($task-> test_plan !=null)
-                                        <i>{{ $task->note }}</i>
+                                <tr>
+                                    <td width="20%">Note</td>
+                                    @if($task-> note !=null)
+                                        <td colspan="2">
+                                            {{ $task->note }}
+                                        </td>
                                     @endif
-                                </li>
+                                </tr>
                             @endif
-                        </ul>
+                            @if($board_config-> pass != 0)
+                                <tr>
+                                    <td width="20%">Test Case Pass</td>
+                                    @if($task-> pass !=null)
+                                        <td colspan="2">
+                                            <span class="badge bg-success rounded-pill">{{ $task->pass }}</span>
+
+                                        </td>
+                                    @endif
+                                </tr>
+                            @endif
+                            @if($board_config-> fail != 0)
+                                <tr>
+                                    <td width="20%">Test Case Fail</td>
+                                    @if($task-> fail !=null)
+                                        <td colspan="2">
+                                            <span class="badge bg-danger rounded-pill">{{ $task->fail }}</span>
+                                        </td>
+                                    @endif
+                                </tr>
+                            @endif
+                            @if($board_config-> fail != 0 && $board_config-> fail != 0)
+                                <tr>
+                                    <td width="20%">Total Executed</td>
+                                        <td colspan="2">
+                                            <span class="badge bg-primary rounded-pill">{{ $task->fail + $task->pass }}</span>
+                                        </td>
+                                </tr>
+                            @endif
+                            </tbody>
+                        </table>
+                        @if($board_config-> isSubBug != 0)
+                            @if(count(\App\Models\Task::where('parent_task_id', $task -> id) ->latest()->get()) !=0)
+                                <table class="mt-2 table table-bordered">
+                                    <thead style="background-color: #EEEEEE">
+                                    <tr>
+                                        <th colspan="2">Sub Bugs</th>
+                                        <th style="width: 20px">
+                                            <div class="d-flex mr-auto order-actions">
+                                                <a href="{{ route('manager.add.sub-task',$task->id) }}"
+                                                   title="Add sub bug" class=""><i
+                                                        class='bx bxs-plus-circle text-primary'></i></a>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach(\App\Models\Task::where('parent_task_id', $task -> id) ->latest()->get()  as $key => $row)
+                                        <tr>
+                                            <td>{{ $key+1 }}</td>
+                                            <td><a href="{{url($board_config -> jira_url . $row-> jira_id) }}"
+                                                   target="_blank">{{ $row->jira_id }}</a>
+                                                - {{ $row->jira_summary }} </td>
+                                            <td>
+                                                <a
+                                                    href="{{ route('manager.edit.sub-task',$row -> id) }}"
+                                                    title="Edit sub bug" class=""><i
+                                                        class='bx bxs-edit text-info'></i></a>
+                                                @if(Auth::user()->role ==='manager' || Auth::user() -> id == $row -> tester_1 )
+                                                    <a href="{{ route('manager.delete.task',$row->id) }}"
+                                                       id="Delete"
+                                                       title="delete" class=""><i
+                                                            class='bx bxs-trash text-danger'></i></a>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+
+                                </table>
+                            @else
+                                <table class="mt-2 table table-bordered">
+                                    <thead style="background-color: #EEEEEE">
+                                    <tr>
+                                        <th colspan="2">Sub Bugs</th>
+                                        <th style="width: 20px">
+                                            <div class="d-flex mr-auto order-actions">
+                                                <a href="{{ route('manager.add.sub-task',$task->id) }}"
+                                                   title="Add sub bug" class=""><i
+                                                        class='bx bxs-plus-circle text-primary'></i></a>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="3">No Sub Bugs added</td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            @endif
+                        @endif
+                        @if($board_config-> environment != 0)
+                            @if($task-> environment !=null)
+                                <table class="mt-2 table table-bordered">
+                                    <thead style="background-color: #EEEEEE">
+                                    <tr>
+                                        <th colspan="2">Environments</th>
+                                        <th style="width: 20px">
+                                            <div class="d-flex mr-auto order-actions">
+                                                <a href="{{ route('manager.edit.env',\App\Models\Environment::find($task-> environment) -> id) }}"
+                                                   title="Edit env" class=""><i
+                                                        class='bx bxs-edit text-info'></i></a>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @if(\App\Models\Environment::find($task-> environment) -> email !=null)
+                                        <tr>
+                                            <td width="20%">Emails</td>
+                                            <td colspan="2">
+                                                @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> email) as $row)
+                                                    - <i>{{ $row }}</i> <br>
+                                                @endforeach
+                                            </td>
+                                        </tr>
+
+                                    @endif
+                                    @if(\App\Models\Environment::find($task-> environment) -> browser !=null)
+                                        <tr>
+                                            <td width="20%">Browser</td>
+                                            <td colspan="2">
+                                                @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> browser) as $row)
+                                                    - <i>{{ $row }}</i> <br>
+                                                @endforeach
+                                            </td>
+                                        </tr>
+                                    @endif
+                                    @if(\App\Models\Environment::find($task-> environment) -> player !=null)
+                                        <tr>
+                                            <td width="20%">Players</td>
+                                            <td colspan="2">
+                                                @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> player) as $row)
+                                                    - <i>{{ $row }}</i> <br>
+                                                @endforeach
+                                            </td>
+                                        </tr>
+
+                                    @endif
+                                    @if(\App\Models\Environment::find($task-> environment) -> drop_date !=null)
+                                        <tr>
+                                            <td width="20%">Drop Date</td>
+                                            <td colspan="2">
+                                                @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> drop_date) as $row)
+                                                    - <i>{{ $row }}</i> <br>
+                                                @endforeach
+                                            </td>
+                                        </tr>
+                                    @endif
+                                    @if(\App\Models\Environment::find($task-> environment) -> build !=null)
+                                        <tr>
+                                            <td width="20%">Builds</td>
+                                            <td colspan="2">
+                                                @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> build) as $row)
+                                                    - <i>{{ $row }}</i> <br>
+                                                @endforeach
+                                            </td>
+                                        </tr>
+
+                                    @endif
+                                    @if(\App\Models\Environment::find($task-> environment) -> device !=null)
+                                        <tr>
+                                            <td width="20%">Devices</td>
+                                            <td colspan="2">
+                                                @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> device) as $row)
+                                                    - <i>{{ $row }}</i> <br>
+                                                @endforeach
+                                            </td>
+                                        </tr>
+                                    @endif
+                                    </tbody>
+
+                                </table>
+                            @else
+                                <table class="mt-2 table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="2">Environments</th>
+                                        <th style="width: 20px">
+                                            <div class="d-flex mr-auto order-actions">
+                                                <a href="{{ route('manager.add.env',$task->id) }}"
+                                                   title="Add env" class=""><i
+                                                        class='bx bxs-plus-circle text-primary'></i></a>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="3">No Environment added</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            @endif
+                        @endif
                     </div>
                 </div>
             </div>
@@ -165,7 +409,8 @@
                                 @csrf
                                 <input type="hidden" value="{{$task -> id}}" name="task_id">
                                 <div class="input-group mb-3">
-                                    <input type="text" name="contents" class="form-control" placeholder="Type message"
+                                    <input type="text" name="contents" class="form-control"
+                                           placeholder="Type message"
                                            aria-label="Recipient's username" aria-describedby="button-addon2">
                                     <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i
                                             class="bx bxs-send text-primary"></i>
@@ -194,41 +439,40 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-6">
-                <div class="card">
-                    <div class="card bg-transparent shadow-none">
-                        <div class="card-body">
-                            <form id="myForm" action="{{route('task.review')}}" method="post" class="row g-3"
-                                  enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" name="task_id" value="{{$task-> id}}">
-                                <div class="col-md-12">
-                                    <label for="input11" class="form-label"><b>Review: </b></label>
-                                    <textarea class="form-control" id="input11" name="review"
-                                              placeholder="Enter review ..."
-                                              rows="3">{{$task -> review != null ? $task -> review : ''}}</textarea>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-check-success form-check form-switch">
-                                        <input class="form-check-input" name="status" type="checkbox"
-                                               id="flexSwitchCheckCheckedDanger" {{$task -> status == 1 ? 'checked': ''}}>
-                                        <label class="form-check-label" for="flexSwitchCheckCheckedDanger">Review
-                                            Status?</label>
+            <div class="row">
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card bg-transparent shadow-none">
+                            <div class="card-body">
+                                <form id="myForm" action="{{route('task.review')}}" method="post" class="row g-3"
+                                      enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="task_id" value="{{$task-> id}}">
+                                    <div class="col-md-12">
+                                        <label for="input11" class="form-label"><b>Review: </b></label>
+                                        <textarea class="form-control" id="input11" name="review"
+                                                  placeholder="Enter review ..."
+                                                  rows="3">{{$task -> review != null ? $task -> review : ''}}</textarea>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="d-md-flex d-grid align-items-center gap-3">
-                                        <button type="submit" class="btn btn-primary px-4">Submit</button>
-                                        <button type="reset" class="btn btn-secondary px-4">Reset</button>
+                                    <div class="col-md-12">
+                                        <div class="form-check-success form-check form-switch">
+                                            <input class="form-check-input" name="status" type="checkbox"
+                                                   id="flexSwitchCheckCheckedDanger" {{$task -> status == 1 ? 'checked': ''}}>
+                                            <label class="form-check-label" for="flexSwitchCheckCheckedDanger">Review
+                                                Status?</label>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                    <div class="col-md-12">
+                                        <div class="d-md-flex d-grid align-items-center gap-3">
+                                            <button type="submit" class="btn btn-primary px-4">Submit</button>
+                                            <button type="reset" class="btn btn-secondary px-4">Reset</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 @endsection

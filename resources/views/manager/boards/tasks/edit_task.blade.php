@@ -30,10 +30,9 @@
                         <div class="row mb-3">
                             <label for="project_name" class="col-sm-3 col-form-label">Board Name</label>
                             <div class="col-sm-9">
-                                <div class="position-relative input-icon">
+                                <div class="position-relative">
                                     <input type="text" class="form-control" disabled value="{{$board ->name}}"
                                            id="board_name">
-                                    <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
                                 </div>
                             </div>
                         </div>
@@ -75,11 +74,9 @@
                             <div class="row mb-3">
                                 <label for="jira_id" class="col-sm-3 col-form-label">Jira Id</label>
                                 <div class="col-sm-9">
-                                    <div class="position-relative input-icon">
+                                    <div class="position-relative">
                                         <input type="text" class="form-control" name="jira_id" id="jira_id"
                                                placeholder="Enter Jira Id" value="{{$task ->jira_id }}">
-                                        <span class="position-absolute top-50 translate-middle-y"><i
-                                                class='bx bx-user'></i></span>
                                     </div>
                                     @error('jira_id')
                                     <span class="text-danger">{{ $message }}</span>
@@ -92,11 +89,9 @@
                             <div class="row mb-3">
                                 <label for="jira_summary" class="col-sm-3 col-form-label">Jira Summary</label>
                                 <div class="col-sm-9">
-                                    <div class="position-relative input-icon">
+                                    <div class="position-relative">
                                         <input type="text" class="form-control" name="jira_summary" id="jira_summary"
                                                placeholder="Enter Jira Summary" value="{{$task ->jira_summary }}">
-                                        <span class="position-absolute top-50 translate-middle-y"><i
-                                                class='bx bx-user'></i></span>
                                     </div>
                                     @error('jira_summary')
                                     <span class="text-danger">{{ $message }}</span>
@@ -160,11 +155,9 @@
                             <div class="row mb-3">
                                 <label for="link_to_result" class="col-sm-3 col-form-label">Link To Result</label>
                                 <div class="col-sm-9">
-                                    <div class="position-relative input-icon">
+                                    <div class="position-relative">
                                         <input type="text" class="form-control" name="link_to_result" id="link_to_result"
                                                placeholder="Enter Link To Result" value="{{$task ->link_to_result }}">
-                                        <span class="position-absolute top-50 translate-middle-y"><i
-                                                class='bx bx-user'></i></span>
                                     </div>
                                     @error('link_to_result')
                                     <span class="text-danger">{{ $message }}</span>
@@ -177,11 +170,9 @@
                             <div class="row mb-3">
                                 <label for="test_plan" class="col-sm-3 col-form-label">Test Plan</label>
                                 <div class="col-sm-9">
-                                    <div class="position-relative input-icon">
+                                    <div class="position-relative">
                                         <input type="text" class="form-control" name="test_plan" id="test_plan"
                                                placeholder="Enter Test Plan" value="{{$task ->test_plan }}">
-                                        <span class="position-absolute top-50 translate-middle-y"><i
-                                                class='bx bx-user'></i></span>
                                     </div>
                                     @error('test_plan')
                                     <span class="text-danger">{{ $message }}</span>
@@ -194,11 +185,9 @@
                             <div class="row mb-3">
                                 <label for="test_plan" class="col-sm-3 col-form-label">Sprint</label>
                                 <div class="col-sm-9">
-                                    <div class="position-relative input-icon">
+                                    <div class="position-relative">
                                         <input type="text" class="form-control" name="sprint" id="sprint"
                                                placeholder="Enter Sprint" value="{{$task ->sprint }}">
-                                        <span class="position-absolute top-50 translate-middle-y"><i
-                                                class='bx bx-user'></i></span>
                                     </div>
                                     @error('sprint')
                                     <span class="text-danger">{{ $message }}</span>

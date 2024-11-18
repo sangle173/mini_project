@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Board;
 use App\Models\BoardConfig;
-use App\Http\Requests\StoreBoardConfigRequest;
-use App\Http\Requests\UpdateBoardConfigRequest;
-use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -48,11 +45,15 @@ class BoardConfigController extends Controller
             'sprint' => $request->sprint,
             'note' => $request->note,
             'priority' => $request->priority,
+            'environment' => $request->environment,
+            'isSubBug' => $request->isSubBug,
             'tester_1' => $request->tester_1,
             'tester_2' => $request->tester_2,
             'tester_3' => $request->tester_3,
             'tester_4' => $request->tester_4,
             'tester_5' => $request->tester_5,
+            'pass' => $request->pass,
+            'fail' => $request->fail,
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
@@ -106,11 +107,15 @@ class BoardConfigController extends Controller
             'sprint' => $request->sprint,
             'note' => $request->note,
             'priority' => $request->priority,
+            'environment' => $request->environment,
+            'isSubBug' => $request->isSubBug,
             'tester_1' => $request->tester_1,
             'tester_2' => $request->tester_2,
             'tester_3' => $request->tester_3,
             'tester_4' => $request->tester_4,
             'tester_5' => $request->tester_5,
+            'pass' => $request->pass,
+            'fail' => $request->fail,
             'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 

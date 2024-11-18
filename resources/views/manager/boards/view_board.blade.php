@@ -34,265 +34,337 @@
         <!--end breadcrumb-->
 
         <div class="card">
-            <div class="page-content">
-                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-2 row-cols-xxl-4">
-                    <div class="col">
-                        <div class="card radius-10 bg-gradient-cosmic">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="me-auto">
-                                        <p class="mb-0 text-white">Total Task</p>
-                                        <h4 class="my-1 text-white">{{count($today_tasks)}}</h4>
-                                        <p class="mb-0 font-13 text-white">+2.5% from yesterday</p>
-                                    </div>
-                                </div>
-                            </div>
+            {{--            <div class="page-content">--}}
+            {{--                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-2 row-cols-xxl-4">--}}
+            {{--                    <div class="col">--}}
+            {{--                        <div class="card radius-10 bg-gradient-cosmic">--}}
+            {{--                            <div class="card-body">--}}
+            {{--                                <div class="d-flex align-items-center">--}}
+            {{--                                    <div class="me-auto">--}}
+            {{--                                        <p class="mb-0 text-white">Total Task</p>--}}
+            {{--                                        <h4 class="my-1 text-white">{{count($today_tasks)}}</h4>--}}
+            {{--                                        <p class="mb-0 font-13 text-white">+2.5% from yesterday</p>--}}
+            {{--                                    </div>--}}
+            {{--                                </div>--}}
+            {{--                            </div>--}}
+            {{--                        </div>--}}
+            {{--                    </div>--}}
+            {{--                    <div class="col">--}}
+            {{--                        <div class="card radius-10 bg-gradient-ohhappiness">--}}
+            {{--                            <div class="card-body">--}}
+            {{--                                <div class="d-flex align-items-center">--}}
+            {{--                                    <div class="me-auto">--}}
+            {{--                                        <p class="mb-0 text-white">Completed</p>--}}
+            {{--                                        <h4 class="my-1 text-white">{{count(\App\Models\Task::where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</h4>--}}
+            {{--                                        <p class="mb-0 font-13 text-white">-4.5% from yesterday</p>--}}
+            {{--                                    </div>--}}
+            {{--                                </div>--}}
+            {{--                            </div>--}}
+            {{--                        </div>--}}
+            {{--                    </div>--}}
+            {{--                    <div class="col">--}}
+            {{--                        <div class="card radius-10 bg-gradient-kyoto">--}}
+            {{--                            <div class="card-body">--}}
+            {{--                                <div class="d-flex align-items-center">--}}
+            {{--                                    <div class="me-auto">--}}
+            {{--                                        <p class="mb-0 text-dark">In Progress</p>--}}
+            {{--                                        <h4 class="my-1 text-dark">{{count(\App\Models\Task::where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</h4>--}}
+            {{--                                        <p class="mb-0 font-13 text-dark">+8.4% from yesterday</p>--}}
+            {{--                                    </div>--}}
+            {{--                                </div>--}}
+            {{--                            </div>--}}
+            {{--                        </div>--}}
+            {{--                    </div>--}}
+            {{--                    <div class="col">--}}
+            {{--                        <div class="card radius-10 bg-gradient-ibiza">--}}
+            {{--                            <div class="card-body">--}}
+            {{--                                <div class="d-flex align-items-center">--}}
+            {{--                                    <div class="me-auto">--}}
+            {{--                                        <p class="mb-0 text-white">Bug Found</p>--}}
+            {{--                                        <h4 class="my-1 text-white">{{count(\App\Models\Task::where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</h4>--}}
+            {{--                                        <p class="mb-0 font-13 text-white">+5.4% from yesterday</p>--}}
+            {{--                                    </div>--}}
+            {{--                                </div>--}}
+            {{--                            </div>--}}
+            {{--                        </div>--}}
+            {{--                    </div>--}}
+
+            {{--                </div><!--end row-->--}}
+            {{--            </div>--}}
+            {{--            <div class="card-body">--}}
+            {{--                <div class="accordion" id="accordionExample">--}}
+            {{--                    <div class="accordion-item">--}}
+            {{--                        <h2 class="accordion-header" id="headingOne">--}}
+            {{--                            <button class="accordion-button font-weight-bold" type="button" data-bs-toggle="collapse"--}}
+            {{--                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">--}}
+            {{--                                <span class="font-weight-bold">Search and Filter</span>--}}
+            {{--                            </button>--}}
+            {{--                        </h2>--}}
+            {{--                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"--}}
+            {{--                             data-bs-parent="#accordionExample">--}}
+            {{--                            <div class="accordion-body" style="background: #EEEEEE">--}}
+            {{--                                <div class="bs-stepper-content">--}}
+            {{--                                    <form id="myForm" action="{{ route('task.filter') }}" method="get">--}}
+            {{--                                        <div id="test-l-1" role="tabpanel" class="bs-stepper-pane"--}}
+            {{--                                             aria-labelledby="stepper1trigger1">--}}
+            {{--                                            <input type="hidden" name="board_id" value="{{$board-> id}}">--}}
+            {{--                                            <div class="row g-3">--}}
+            {{--                                                <div class="col-12 col-lg-2">--}}
+            {{--                                                    <div class="mb-3">--}}
+            {{--                                                        <label class="form-label"><b>From:</b></label>--}}
+            {{--                                                        <input type="date" value="{{$dateS}}" name="from_date"--}}
+            {{--                                                               class="form-control">--}}
+            {{--                                                    </div>--}}
+            {{--                                                </div>--}}
+            {{--                                                <div class="col-12 col-lg-2">--}}
+            {{--                                                    <div class="mb-3">--}}
+            {{--                                                        <label class="form-label"><b>To:</b></label>--}}
+            {{--                                                        <input type="date" value="{{$dateT}}" name="to_date"--}}
+            {{--                                                               class="form-control">--}}
+            {{--                                                    </div>--}}
+            {{--                                                </div>--}}
+            {{--                                            </div>--}}
+            {{--                                            <div class="row g-3">--}}
+            {{--                                                <div class="col-12 col-lg-2">--}}
+            {{--                                                    <label for="type" class="form-label"><b>Type</b></label>--}}
+            {{--                                                    <div class="form-check">--}}
+            {{--                                                        @foreach ($types as $type)--}}
+            {{--                                                            @if(isset($request))--}}
+            {{--                                                                <input class="form-check-input" name="type[]"--}}
+            {{--                                                                       type="checkbox"--}}
+            {{--                                                                       {{in_array($type->id, $request -> type) && count($request -> type) != count($types)? 'checked':''}}  value="{{ $type->id }}"--}}
+            {{--                                                                       id="type{{ $type->id }}">--}}
+            {{--                                                                <label class="form-check-label">--}}
+            {{--                                                                    {{ $type->name }}--}}
+            {{--                                                                </label> <br>--}}
+            {{--                                                            @else--}}
+            {{--                                                                <input class="form-check-input" name="type[]"--}}
+            {{--                                                                       type="checkbox"--}}
+            {{--                                                                       value="{{ $type->id }}"--}}
+            {{--                                                                       id="type{{ $type->id }}">--}}
+            {{--                                                                <label class="form-check-label">--}}
+            {{--                                                                    {{ $type->name }}--}}
+            {{--                                                                </label> <br>--}}
+            {{--                                                            @endif--}}
+            {{--                                                        @endforeach--}}
+            {{--                                                    </div>--}}
+            {{--                                                </div>--}}
+            {{--                                                <div class="col-12 col-lg-2">--}}
+            {{--                                                    <label for="team" class="form-label"><b>Team</b></label>--}}
+            {{--                                                    <div class="form-check">--}}
+            {{--                                                        @foreach ($teams as $team)--}}
+            {{--                                                            @if(isset($request))--}}
+            {{--                                                                <input class="form-check-input" name="team[]"--}}
+            {{--                                                                       type="checkbox"--}}
+            {{--                                                                       {{in_array($team->id, $request -> team ) && count($request -> team) != count($teams)? 'checked':''}}  value="{{ $team->id }}"--}}
+            {{--                                                                       id="type{{ $team->id }}">--}}
+            {{--                                                                <label class="form-check-label">--}}
+            {{--                                                                    {{ $team->name }}--}}
+            {{--                                                                </label> <br>--}}
+            {{--                                                            @else--}}
+            {{--                                                                <input class="form-check-input" name="team[]"--}}
+            {{--                                                                       type="checkbox"--}}
+            {{--                                                                       value="{{ $team->id }}"--}}
+            {{--                                                                       id="type{{ $team->id }}">--}}
+            {{--                                                                <label class="form-check-label">--}}
+            {{--                                                                    {{ $team->name }}--}}
+            {{--                                                                </label> <br>--}}
+            {{--                                                            @endif--}}
+            {{--                                                        @endforeach--}}
+            {{--                                                    </div>--}}
+            {{--                                                </div>--}}
+            {{--                                                <div class="col-12 col-lg-2">--}}
+            {{--                                                    <label for="working_status" class="form-label"><b>Working--}}
+            {{--                                                            Status</b></label>--}}
+            {{--                                                    <div class="form-check">--}}
+
+            {{--                                                        @foreach ($working_statuses as $working_status)--}}
+            {{--                                                            @if(isset($request))--}}
+            {{--                                                                <input class="form-check-input" name="working_status[]"--}}
+            {{--                                                                       type="checkbox"--}}
+            {{--                                                                       {{in_array($working_status->id, $request -> working_status ) && count($request -> working_status) != count($working_statuses)? 'checked':''}}  value="{{ $working_status->id }}"--}}
+            {{--                                                                       id="type{{ $working_status->id }}">--}}
+            {{--                                                                <label class="form-check-label">--}}
+            {{--                                                                    {{ $working_status->name }}--}}
+            {{--                                                                </label> <br>--}}
+            {{--                                                            @else--}}
+            {{--                                                                <input class="form-check-input" name="working_status[]"--}}
+            {{--                                                                       type="checkbox"--}}
+            {{--                                                                       value="{{ $working_status->id }}"--}}
+            {{--                                                                       id="type{{ $working_status->id }}">--}}
+            {{--                                                                <label class="form-check-label">--}}
+            {{--                                                                    {{ $working_status->name }}--}}
+            {{--                                                                </label> <br>--}}
+            {{--                                                            @endif--}}
+            {{--                                                        @endforeach--}}
+            {{--                                                    </div>--}}
+            {{--                                                </div>--}}
+            {{--                                                <div class="col-12 col-lg-2">--}}
+            {{--                                                    <label for="ticket_status" class="form-label"><b>Ticket--}}
+            {{--                                                            Status</b></label>--}}
+            {{--                                                    <div class="form-check">--}}
+            {{--                                                        @foreach ($ticket_statuses as $ticket_status)--}}
+            {{--                                                            @if(isset($request))--}}
+            {{--                                                                <input class="form-check-input" name="ticket_status[]"--}}
+            {{--                                                                       type="checkbox"--}}
+            {{--                                                                       {{in_array($ticket_status->id, $request -> ticket_status ) && count($request -> ticket_status) != count($ticket_statuses)? 'checked':''}}  value="{{ $ticket_status->id }}"--}}
+            {{--                                                                       id="type{{ $ticket_status->id }}">--}}
+            {{--                                                                <label class="form-check-label">--}}
+            {{--                                                                    {{ $ticket_status->name }}--}}
+            {{--                                                                </label> <br>--}}
+            {{--                                                            @else--}}
+            {{--                                                                <input class="form-check-input" name="ticket_status[]"--}}
+            {{--                                                                       type="checkbox"--}}
+            {{--                                                                       value="{{ $ticket_status->id }}"--}}
+            {{--                                                                       id="type{{ $ticket_status->id }}">--}}
+            {{--                                                                <label class="form-check-label">--}}
+            {{--                                                                    {{ $ticket_status->name }}--}}
+            {{--                                                                </label> <br>--}}
+            {{--                                                            @endif--}}
+            {{--                                                        @endforeach--}}
+            {{--                                                    </div>--}}
+            {{--                                                </div>--}}
+            {{--                                                <div class="col-12 col-lg-2">--}}
+            {{--                                                    <label for="priority" class="form-label"><b>Priority</b></label>--}}
+            {{--                                                    <div class="form-check">--}}
+
+            {{--                                                        @foreach ($priorities as $priority)--}}
+            {{--                                                            @if(isset($request))--}}
+            {{--                                                                <input class="form-check-input" name="priority[]"--}}
+            {{--                                                                       type="checkbox"--}}
+            {{--                                                                       {{in_array($priority->id, $request -> priority ) && count($request -> priority) != count($priorities)? 'checked':''}}  value="{{ $priority->id }}"--}}
+            {{--                                                                       id="type{{ $priority->id }}">--}}
+            {{--                                                                <label class="form-check-label">--}}
+            {{--                                                                    {{ $priority->name }}--}}
+            {{--                                                                </label> <br>--}}
+            {{--                                                            @else--}}
+            {{--                                                                <input class="form-check-input" name="priority[]"--}}
+            {{--                                                                       type="checkbox"--}}
+            {{--                                                                       value="{{ $priority->id }}"--}}
+            {{--                                                                       id="type{{ $priority->id }}">--}}
+            {{--                                                                <label class="form-check-label">--}}
+            {{--                                                                    {{ $priority->name }}--}}
+            {{--                                                                </label> <br>--}}
+            {{--                                                            @endif--}}
+            {{--                                                        @endforeach--}}
+            {{--                                                    </div>--}}
+            {{--                                                </div>--}}
+            {{--                                                <div class="col-12 col-lg-2">--}}
+            {{--                                                    <label for="tester" class="form-label"><b>Tester</b></label>--}}
+            {{--                                                    <div class="form-check">--}}
+            {{--                                                        @foreach ($users as $user)--}}
+            {{--                                                            @if(isset($request))--}}
+            {{--                                                                <input class="form-check-input" name="user[]"--}}
+            {{--                                                                       type="checkbox"--}}
+            {{--                                                                       {{in_array($user->id, $request -> user ) && count($request -> user) != count($users)? 'checked':''}}  value="{{ $user->id }}"--}}
+            {{--                                                                       id="type{{ $user->id }}">--}}
+            {{--                                                                <label class="form-check-label">--}}
+            {{--                                                                    {{ $user->name }}--}}
+            {{--                                                                </label> <br>--}}
+            {{--                                                            @else--}}
+            {{--                                                                <input class="form-check-input" name="user[]"--}}
+            {{--                                                                       type="checkbox"--}}
+            {{--                                                                       value="{{ $user->id }}"--}}
+            {{--                                                                       id="type{{ $user->id }}">--}}
+            {{--                                                                <label class="form-check-label">--}}
+            {{--                                                                    {{ $user->name }}--}}
+            {{--                                                                </label> <br>--}}
+            {{--                                                            @endif--}}
+            {{--                                                        @endforeach--}}
+            {{--                                                    </div>--}}
+            {{--                                                </div>--}}
+            {{--                                            </div><!---end row-->--}}
+            {{--                                            <div class="row mt-1 g-3">--}}
+            {{--                                                <div class="col-12 col-lg-6">--}}
+            {{--                                                    <a href="{{route('manager.show.board', $board-> id)}}"--}}
+            {{--                                                       class="btn btn-secondary px-4" type="reset">--}}
+            {{--                                                        Reset--}}
+            {{--                                                    </a>--}}
+            {{--                                                    <button class="btn btn-primary px-4" type="submit">--}}
+            {{--                                                        Apply--}}
+            {{--                                                    </button>--}}
+            {{--                                                </div>--}}
+            {{--                                            </div><!---end row-->--}}
+            {{--                                        </div>--}}
+            {{--                                    </form>--}}
+            {{--                                </div>--}}
+
+            {{--                            </div>--}}
+            {{--                        </div>--}}
+            {{--                    </div>--}}
+            {{--                </div>--}}
+            {{--            </div>--}}
+            <div class="card-body p-4">
+                <form class="row g-3" action="{{ route('manager.task.filter') }}" method="get">
+                    <input type="hidden" name="board_id" value="{{$board-> id}}">
+                    <div class="col-md-3">
+                        <label for="type" class="form-label">Type</label>
+                        <div class="position-relative">
+                            <select class="form-select" name="type" id="type">
+                                <option disabled selected>Select Type</option>
+                                @foreach ($types as $type)
+                                    @if(isset($request))
+                                        <option
+                                            value="{{ $type->id }}" {{ $type->id == $request-> type ? 'selected' : '' }}>{{ $type->id == $request-> type ? \App\Models\Type::find($request -> type) -> name : $type -> name}}</option>
+                                    @else
+                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="card radius-10 bg-gradient-ohhappiness">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="me-auto">
-                                        <p class="mb-0 text-white">Completed</p>
-                                        <h4 class="my-1 text-white">{{count(\App\Models\Task::where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</h4>
-                                        <p class="mb-0 font-13 text-white">-4.5% from yesterday</p>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="col-md-3">
+                        <label for="team" class="form-label">Team</label>
+                        <div class="position-relative">
+                            <select class="form-select" name="team" id="name">
+                                <option disabled selected>Select Team</option>
+                                @foreach ($teams as $team)
+                                    @if(isset($request))
+                                        <option
+                                            value="{{ $team->id }}" {{ $team->id == $request-> team ? 'selected' : '' }}>{{ $team->id == $request-> team ? \App\Models\Team::find($request -> team) -> name : $team -> name}}</option>
+                                    @else
+                                        <option value="{{ $team->id }}">{{ $team->name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="card radius-10 bg-gradient-kyoto">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="me-auto">
-                                        <p class="mb-0 text-dark">In Progress</p>
-                                        <h4 class="my-1 text-dark">{{count(\App\Models\Task::where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</h4>
-                                        <p class="mb-0 font-13 text-dark">+8.4% from yesterday</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-3">
+                        <label for="tester" class="form-label">Tester</label>
+                        <select class="form-select" name="tester" id="tester">
+                            <option disabled selected>Select Teser</option>
+                            @foreach ($users as $user)
+                                @if(isset($request))
+                                    <option
+                                        value="{{ $user->id }}" {{ $user->id == $request-> tester ? 'selected' : '' }}>{{ $user->id == $request-> tester ? \App\Models\User::find($request -> tester) -> name : $user -> name}}</option>
+                                @else
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endif
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="col">
-                        <div class="card radius-10 bg-gradient-ibiza">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="me-auto">
-                                        <p class="mb-0 text-white">Bug Found</p>
-                                        <h4 class="my-1 text-white">{{count(\App\Models\Task::where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</h4>
-                                        <p class="mb-0 font-13 text-white">+5.4% from yesterday</p>
-                                    </div>
+                    <div class="col-md-3">
+                        <label for="input22" class="form-label">
+                            Filter
+                        </label>
+                        <div class="position-relative input-icon">
+                            <div class="col-md-12">
+                                <div class="d-md-flex d-grid align-items-center gap-3">
+                                    @if(isset($request))
+                                        <button type="submit" class="btn btn-success">Filtered {{$no}}</button>
+                                    @else
+                                        <button type="submit" class="btn btn-primary px-4">Filter</button>
+                                    @endif
+                                    <a href="{{route('manager.show.board', $board-> id)}}" --}}
+                                       class="btn btn-secondary px-4" type="reset">
+                                        Reset
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                </div><!--end row-->
-            </div>
-            <div class="card-body">
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button font-weight-bold" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                <span class="font-weight-bold">Search and Filter</span>
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body" style="background: #EEEEEE">
-                                <div class="bs-stepper-content">
-                                    <form id="myForm" action="{{ route('task.filter') }}" method="get">
-                                        <div id="test-l-1" role="tabpanel" class="bs-stepper-pane"
-                                             aria-labelledby="stepper1trigger1">
-                                            <input type="hidden" name="board_id" value="{{$board-> id}}">
-                                            <div class="row g-3">
-                                                <div class="col-12 col-lg-2">
-                                                    <div class="mb-3">
-                                                        <label class="form-label"><b>From:</b></label>
-                                                        <input type="date" value="{{$dateS}}" name="from_date"
-                                                               class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-lg-2">
-                                                    <div class="mb-3">
-                                                        <label class="form-label"><b>To:</b></label>
-                                                        <input type="date" value="{{$dateT}}" name="to_date"
-                                                               class="form-control">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row g-3">
-                                                <div class="col-12 col-lg-2">
-                                                    <label for="type" class="form-label"><b>Type</b></label>
-                                                    <div class="form-check">
-                                                        @foreach ($types as $type)
-                                                            @if(isset($request))
-                                                                <input class="form-check-input" name="type[]"
-                                                                       type="checkbox"
-                                                                       {{in_array($type->id, $request -> type) && count($request -> type) != count($types)? 'checked':''}}  value="{{ $type->id }}"
-                                                                       id="type{{ $type->id }}">
-                                                                <label class="form-check-label">
-                                                                    {{ $type->name }}
-                                                                </label> <br>
-                                                            @else
-                                                                <input class="form-check-input" name="type[]"
-                                                                       type="checkbox"
-                                                                       value="{{ $type->id }}"
-                                                                       id="type{{ $type->id }}">
-                                                                <label class="form-check-label">
-                                                                    {{ $type->name }}
-                                                                </label> <br>
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-lg-2">
-                                                    <label for="team" class="form-label"><b>Team</b></label>
-                                                    <div class="form-check">
-                                                        @foreach ($teams as $team)
-                                                            @if(isset($request))
-                                                                <input class="form-check-input" name="team[]"
-                                                                       type="checkbox"
-                                                                       {{in_array($team->id, $request -> team ) && count($request -> team) != count($teams)? 'checked':''}}  value="{{ $team->id }}"
-                                                                       id="type{{ $team->id }}">
-                                                                <label class="form-check-label">
-                                                                    {{ $team->name }}
-                                                                </label> <br>
-                                                            @else
-                                                                <input class="form-check-input" name="team[]"
-                                                                       type="checkbox"
-                                                                       value="{{ $team->id }}"
-                                                                       id="type{{ $team->id }}">
-                                                                <label class="form-check-label">
-                                                                    {{ $team->name }}
-                                                                </label> <br>
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-lg-2">
-                                                    <label for="working_status" class="form-label"><b>Working
-                                                            Status</b></label>
-                                                    <div class="form-check">
-
-                                                        @foreach ($working_statuses as $working_status)
-                                                            @if(isset($request))
-                                                                <input class="form-check-input" name="working_status[]"
-                                                                       type="checkbox"
-                                                                       {{in_array($working_status->id, $request -> working_status ) && count($request -> working_status) != count($working_statuses)? 'checked':''}}  value="{{ $working_status->id }}"
-                                                                       id="type{{ $working_status->id }}">
-                                                                <label class="form-check-label">
-                                                                    {{ $working_status->name }}
-                                                                </label> <br>
-                                                            @else
-                                                                <input class="form-check-input" name="working_status[]"
-                                                                       type="checkbox"
-                                                                       value="{{ $working_status->id }}"
-                                                                       id="type{{ $working_status->id }}">
-                                                                <label class="form-check-label">
-                                                                    {{ $working_status->name }}
-                                                                </label> <br>
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-lg-2">
-                                                    <label for="ticket_status" class="form-label"><b>Ticket
-                                                            Status</b></label>
-                                                    <div class="form-check">
-                                                        @foreach ($ticket_statuses as $ticket_status)
-                                                            @if(isset($request))
-                                                                <input class="form-check-input" name="ticket_status[]"
-                                                                       type="checkbox"
-                                                                       {{in_array($ticket_status->id, $request -> ticket_status ) && count($request -> ticket_status) != count($ticket_statuses)? 'checked':''}}  value="{{ $ticket_status->id }}"
-                                                                       id="type{{ $ticket_status->id }}">
-                                                                <label class="form-check-label">
-                                                                    {{ $ticket_status->name }}
-                                                                </label> <br>
-                                                            @else
-                                                                <input class="form-check-input" name="ticket_status[]"
-                                                                       type="checkbox"
-                                                                       value="{{ $ticket_status->id }}"
-                                                                       id="type{{ $ticket_status->id }}">
-                                                                <label class="form-check-label">
-                                                                    {{ $ticket_status->name }}
-                                                                </label> <br>
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-lg-2">
-                                                    <label for="priority" class="form-label"><b>Priority</b></label>
-                                                    <div class="form-check">
-
-                                                        @foreach ($priorities as $priority)
-                                                            @if(isset($request))
-                                                                <input class="form-check-input" name="priority[]"
-                                                                       type="checkbox"
-                                                                       {{in_array($priority->id, $request -> priority ) && count($request -> priority) != count($priorities)? 'checked':''}}  value="{{ $priority->id }}"
-                                                                       id="type{{ $priority->id }}">
-                                                                <label class="form-check-label">
-                                                                    {{ $priority->name }}
-                                                                </label> <br>
-                                                            @else
-                                                                <input class="form-check-input" name="priority[]"
-                                                                       type="checkbox"
-                                                                       value="{{ $priority->id }}"
-                                                                       id="type{{ $priority->id }}">
-                                                                <label class="form-check-label">
-                                                                    {{ $priority->name }}
-                                                                </label> <br>
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-lg-2">
-                                                    <label for="tester" class="form-label"><b>Tester</b></label>
-                                                    <div class="form-check">
-                                                        @foreach ($users as $user)
-                                                            @if(isset($request))
-                                                                <input class="form-check-input" name="user[]"
-                                                                       type="checkbox"
-                                                                       {{in_array($user->id, $request -> user ) && count($request -> user) != count($users)? 'checked':''}}  value="{{ $user->id }}"
-                                                                       id="type{{ $user->id }}">
-                                                                <label class="form-check-label">
-                                                                    {{ $user->name }}
-                                                                </label> <br>
-                                                            @else
-                                                                <input class="form-check-input" name="user[]"
-                                                                       type="checkbox"
-                                                                       value="{{ $user->id }}"
-                                                                       id="type{{ $user->id }}">
-                                                                <label class="form-check-label">
-                                                                    {{ $user->name }}
-                                                                </label> <br>
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                            </div><!---end row-->
-                                            <div class="row mt-1 g-3">
-                                                <div class="col-12 col-lg-6">
-                                                    <a href="{{route('manager.show.board', $board-> id)}}"
-                                                       class="btn btn-secondary px-4" type="reset">
-                                                        Reset
-                                                    </a>
-                                                    <button class="btn btn-primary px-4" type="submit">
-                                                        Apply
-                                                    </button>
-                                                </div>
-                                            </div><!---end row-->
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </form>
             </div>
             <div class="card-body">
                 <ul class="nav nav-tabs nav-primary mb-0" role="tablist">
@@ -354,15 +426,12 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Review?</th>
-                                            @if($board_config-> team != null)
-                                                <th>Team</th>
-                                            @endif
+                                            {{--                                            <th>Review?</th>--}}
                                             @if($board_config-> type != null)
                                                 <th>Type</th>
                                             @endif
-                                            @if($board_config-> jira_id != null)
-                                                <th>ID</th>
+                                            @if($board_config-> team != null)
+                                                <th>Team</th>
                                             @endif
                                             @if($board_config-> jira_summary != null)
                                                 <th>Jira Summary</th>
@@ -376,6 +445,12 @@
                                             @if($board_config-> priority != null)
                                                 <th>Priority</th>
                                             @endif
+                                            {{--                                            @if($board_config-> environment != null)--}}
+                                            {{--                                                <th>Environments</th>--}}
+                                            {{--                                            @endif--}}
+                                            @if($board_config-> isSubBug != null)
+                                                <th>Bugs</th>
+                                            @endif
                                             @if($board_config-> link_to_result != null)
                                                 <th>Link To Result</th>
                                             @endif
@@ -385,25 +460,9 @@
                                             @if($board_config-> sprint != null)
                                                 <th>Sprint</th>
                                             @endif
-                                            @if($board_config-> note != null)
-                                                <th>Note</th>
-                                            @endif
                                             @if($board_config-> tester_1 != null)
-                                                <th>Tester 1</th>
+                                                <th>Testers</th>
                                             @endif
-                                            @if($board_config-> tester_2 != null)
-                                                <th>Tester 2</th>
-                                            @endif
-                                            @if($board_config-> tester_3 != null)
-                                                <th>Tester 3</th>
-                                            @endif
-                                            @if($board_config-> tester_4 != null)
-                                                <th>Tester 4</th>
-                                            @endif
-                                            @if($board_config-> tester_5 != null)
-                                                <th>Tester 5</th>
-                                            @endif
-                                            <th>Updated at</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
@@ -412,13 +471,36 @@
                                         @foreach ($tasks as $key=> $item)
                                             <tr>
                                                 <td>{{ $key+1 }}</td>
-                                                <td>
-                                                    @if ($item->status == 1)
-                                                        <span class="badge bg-success">Reviewed </span>
-                                                    @else
-                                                        <span class="badge bg-danger">Waiting </span>
-                                                    @endif
-                                                </td>
+                                                {{--                                                <td>--}}
+                                                {{--                                                    @if ($item->status == 1)--}}
+                                                {{--                                                        <span class="badge bg-success">Reviewed </span>--}}
+                                                {{--                                                    @else--}}
+                                                {{--                                                        <span class="badge bg-danger">Waiting </span>--}}
+                                                {{--                                                    @endif--}}
+                                                {{--                                                </td>--}}
+
+                                                @if($board_config-> type != 0)
+                                                    <td>
+                                                        @switch($item-> type)
+                                                            @case('1')
+                                                            <i class="bx bxs-bug-alt text-danger"
+                                                               style="font-size: 1.5rem" title="Bugs Reported"></i>
+                                                            @break
+                                                            @case('2')
+                                                            <i class="bx bxs-check-square text-primary"
+                                                               style="font-size: 1.5rem" title="Testing Requests"></i>
+                                                            @break
+                                                            @case('3')
+                                                            <i class="bx bxs-news text-success"
+                                                               style="font-size: 1.5rem"
+                                                               title="Tickets Verification"></i>
+                                                            @break
+                                                            @default
+                                                            <span
+                                                                class="badge" style="background-color: {{\App\Models\Type::find($item-> type) -> desc}}">{{\App\Models\Type::find($item-> type) -> name}} </span>
+                                                        @endswitch
+                                                    </td>
+                                                @endif
                                                 @if($board_config-> team != 0)
                                                     <td>
                                                         @if($item-> team !=null)
@@ -426,103 +508,31 @@
                                                         @endif
                                                     </td>
                                                 @endif
-                                                @if($board_config-> type != 0)
-                                                    <td>
-                                                        @switch($item-> type)
-                                                            @case('1')
-                                                            <i class="bx bxs-bug-alt text-danger"
-                                                               style="font-size: 1.5rem"></i>
-                                                            @break
-                                                            @case('2')
-                                                            <i class="bx bxs-check-square text-primary"
-                                                               style="font-size: 1.5rem"></i>
-                                                            @break
-                                                            @case('3')
-                                                            <i class="bx bxs-news text-success"
-                                                               style="font-size: 1.5rem"></i>
-                                                            @break
-                                                            <span
-                                                                class="badge bg-warning">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}} </span>
-                                                        @endswitch
-                                                    </td>
-                                                @endif
-                                                @if($board_config-> jira_id != 0)
-                                                    <td>
-                                                        @if($item-> jira_id !=null)
-                                                            <a href="{{$board_config -> jira_url}}{{$item-> jira_id }}"
-                                                               target="_blank">{{ $item->jira_id }}</a>
-                                                        @endif
-                                                    </td>
-                                                @endif
                                                 @if($board_config-> jira_summary != 0)
-                                                    <td>
+                                                    <td style="width: 15%">
                                                         @if($item-> jira_summary !=null)
-                                                            {{ $item->jira_summary }}
+                                                            <a href="{{url($board_config -> jira_url . $item-> jira_id) }}"
+                                                               target="_blank">{{ $item->jira_id }}</a>
+                                                            - {{ \Illuminate\Support\Str::limit($item->jira_summary, 50, $end=' ...') }}
                                                         @endif
                                                     </td>
                                                 @endif
                                                 @if($board_config-> working_status != 0)
                                                     <td>
-                                                        @switch($item-> working_status)
-                                                            @case('1')
+                                                        @if($item-> working_status !=null)
                                                             <span
-                                                                class="badge bg-primary">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
-                                                            @break
-                                                            @case('2')
-                                                            <span
-                                                                class="badge bg-success">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
-                                                            @break
-                                                            @case('3')
-                                                            <span
-                                                                class="badge bg-info">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
-                                                            @break
-                                                            @case('4')
-                                                            <span
-                                                                class="badge bg-secondary">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
-                                                            @break
-                                                            @case(null)
-                                                            <span>------------</span>
-                                                            @break
-                                                            @case('')
-                                                            <span>------------</span>
-                                                            @break
-                                                            @default
-                                                            <span
-                                                                class="badge bg-warning">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
-                                                        @endswitch
+                                                                class="badge"
+                                                                style="background-color: {{\App\Models\WorkingStatus::find($item-> working_status) -> desc}}">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
+                                                        @endif
                                                     </td>
                                                 @endif
                                                 @if($board_config-> ticket_status != 0)
                                                     <td>
-
-                                                        @switch($item-> ticket_status)
-                                                            @case('1')
+                                                        @if($item-> ticket_status !=null)
                                                             <span
-                                                                class="badge bg-primary">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}</span>
-                                                            @break
-                                                            @case('2')
-                                                            <span
-                                                                class="badge bg-success">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}} </span>
-                                                            @break
-                                                            @case('3')
-                                                            <span
-                                                                class="badge bg-success">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}} </span>
-                                                            @break
-                                                            @case('4')
-                                                            <span
-                                                                class="badge bg-primary">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}</span>
-                                                            @break
-                                                            @case('5')
-                                                            <span
-                                                                class="badge bg-primary">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}</span>
-                                                            @break
-                                                            @case(null)
-                                                            <span>------------</span>
-                                                            @break
-                                                            @default
-                                                            <span
-                                                                class="badge bg-warning">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}} </span>
-                                                        @endswitch
+                                                                class="badge"
+                                                                style="background-color: {{\App\Models\TicketStatus::find($item-> ticket_status) -> desc}}">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}</span>
+                                                        @endif
                                                     </td>
                                                 @endif
                                                 @if($board_config-> priority != 0)
@@ -532,12 +542,57 @@
                                                         @endif
                                                     </td>
                                                 @endif
+                                                {{--                                                @if($board_config-> environment != 0)--}}
+                                                {{--                                                    <td>--}}
+                                                {{--                                                        <div class="d-flex order-actions">--}}
+                                                {{--                                                            <a href="{{ route('task.details',$item->id) }}"--}}
+                                                {{--                                                               title="View" class=""><i--}}
+                                                {{--                                                                    class='lni lni-eye text-success'></i></a>--}}
+                                                {{--                                                            @if($item -> environment == null)--}}
+                                                {{--                                                                <a href="{{ route('manager.add.env',$item->id) }}"--}}
+                                                {{--                                                                   title="Add env" class=""><i--}}
+                                                {{--                                                                        class='bx bxs-plus-circle text-primary'></i></a>--}}
+                                                {{--                                                            @else--}}
+                                                {{--                                                                <a href="{{ route('manager.edit.env',\App\Models\Environment::find($item-> environment) -> id) }}"--}}
+                                                {{--                                                                   title="Edit env" class=""><i--}}
+                                                {{--                                                                        class='bx bxs-edit text-info'></i></a>--}}
+                                                {{--                                                            @endif--}}
+                                                {{--                                                        </div>--}}
+                                                {{--                                                    </td>--}}
+                                                {{--                                                @endif--}}
+                                                @if($board_config-> isSubBug != '0')
+                                                    <td>
+                                                        {{--                                                        @if(count(\App\Models\Task::where('parent_task_id', $item -> id) ->latest()->get()) !=0)--}}
+                                                        {{--                                                            <ul>--}}
+                                                        {{--                                                                @foreach(\App\Models\Task::where('parent_task_id', $item -> id) ->latest()->get()  as $row)--}}
+                                                        {{--                                                                    <li>--}}
+                                                        {{--                                                                        <a href="{{url($board_config -> jira_url . $row-> jira_id) }}"--}}
+                                                        {{--                                                                           target="_blank">{{ $row->jira_id }}</a>--}}
+                                                        {{--                                                                        - {{ $row->jira_summary }} <a--}}
+                                                        {{--                                                                            href="{{ route('manager.edit.sub-task',$row -> id) }}"--}}
+                                                        {{--                                                                            title="Edit sub bug" class=""><i--}}
+                                                        {{--                                                                                class='bx bxs-edit text-info'></i></a>--}}
+                                                        {{--                                                                        @if(Auth::user()->role ==='manager' || Auth::user() -> id == $row -> tester_1 )--}}
+                                                        {{--                                                                            <a href="{{ route('manager.delete.task',$row->id) }}"--}}
+                                                        {{--                                                                               id="Delete"--}}
+                                                        {{--                                                                               title="delete" class=""><i--}}
+                                                        {{--                                                                                    class='bx bxs-trash text-danger'></i></a>--}}
+                                                        {{--                                                                        @endif--}}
+                                                        {{--                                                                    </li>--}}
+                                                        {{--                                                                @endforeach--}}
+                                                        {{--                                                            </ul>--}}
+                                                        {{--                                                        @else--}}
+                                                        {{--                                                            <p>No sub bugs added</p>--}}
+                                                        {{--                                                        @endif--}}
+                                                        <span
+                                                            class="badge bg-danger rounded-pill">{{count(\App\Models\Task::where('parent_task_id', $item -> id) ->latest()->get())}}</span>
+                                                    </td>
+                                                @endif
                                                 @if($board_config-> link_to_result != 0)
                                                     <td>
                                                         @if($item-> link_to_result !=null)
                                                             <a target="_blank" href=" {{ $item->link_to_result }}">Link
                                                                 To Result</a>
-
                                                         @endif
                                                     </td>
                                                 @endif
@@ -556,51 +611,47 @@
                                                         @endif
                                                     </td>
                                                 @endif
-                                                @if($board_config-> note != 0)
-                                                    <td>
-                                                        @if($item-> test_plan !=null)
-                                                            {{ $item->note }}
-                                                        @endif
-                                                    </td>
-                                                @endif
                                                 @if($board_config-> tester_1 != 0)
-                                                    <td>{{ \App\Models\User::find($item-> tester_1) -> name }}</td>
-                                                @endif
-                                                @if($board_config-> tester_2 != 0)
                                                     <td>
-                                                        @if($item-> tester_2 !=null)
-                                                            {{ \App\Models\User::find($item-> tester_2) -> name }}
+                                                        @if($item-> tester_1 !=null || $item-> tester_1 !=0 )
+                                                            <div style="" class="chip chip-sm bg-light text-dark">
+                                                                <img
+                                                                    src="{{ (!empty(\App\Models\User::find($item -> tester_1)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_1)->photo) : url('upload/no_image.jpg')}}"
+                                                                    alt="Tester">{{\App\Models\User::find($item -> tester_1) -> name}}
+                                                            </div>
+                                                        @endif
+                                                        @if($item-> tester_2 !=null || $item-> tester_2 !=0 )
+                                                            <div class="chip chip-sm bg-light text-dark">
+                                                                <img
+                                                                    src="{{ (!empty(\App\Models\User::find($item -> tester_2)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_2)->photo) : url('upload/no_image.jpg')}}"
+                                                                    alt="Tester">{{\App\Models\User::find($item -> tester_2) -> name}}
+                                                            </div>
+                                                        @endif
+                                                        @if($item-> tester_3 !=null || $item-> tester_3 !=0 )
+                                                            <br>
+                                                            <div class="chip chip-sm bg-light text-dark">
+                                                                <img
+                                                                    src="{{ (!empty(\App\Models\User::find($item -> tester_3)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_3)->photo) : url('upload/no_image.jpg')}}"
+                                                                    alt="Tester">{{\App\Models\User::find($item -> tester_3) -> name}}
+                                                            </div>
+                                                        @endif
+                                                        @if($item-> tester_4 !=null || $item-> tester_4 !=0 )
+                                                            <div class="chip chip-sm bg-light text-dark">
+                                                                <img
+                                                                    src="{{ (!empty(\App\Models\User::find($item -> tester_4)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_4)->photo) : url('upload/no_image.jpg')}}"
+                                                                    alt="Tester">{{\App\Models\User::find($item -> tester_4) -> name}}
+                                                            </div>
+                                                        @endif
+                                                        @if($item-> tester_5 !=null || $item-> tester_5 !=0 )
+                                                            <div class="chip chip-sm bg-light text-dark">
+                                                                <img
+                                                                    src="{{ (!empty(\App\Models\User::find($item -> tester_5)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_5)->photo) : url('upload/no_image.jpg')}}"
+                                                                    alt="Tester">{{\App\Models\User::find($item -> tester_5) -> name}}
+                                                            </div>
                                                         @endif
                                                     </td>
                                                 @endif
-                                                @if($board_config-> tester_3 != 0)
-                                                    <td>
-                                                        @if($item-> tester_3 !=null)
-                                                            {{ \App\Models\User::find($item-> tester_3) -> name }}
-                                                        @endif
-                                                    </td>
-                                                @endif
-                                                @if($board_config-> tester_4 != 0)
-                                                    <td>
-                                                        @if($item-> tester_4 !=null)
-                                                            {{ \App\Models\User::find($item-> tester_4) -> name }}
-                                                        @endif
-                                                    </td>
-                                                @endif
-                                                @if($board_config-> tester_5 != 0)
-                                                    <td>
-                                                        @if($item-> tester_5    !=null)
-                                                            {{ \App\Models\User::find($item-> tester_5) -> name }}
-                                                        @endif
-                                                    </td>
-                                                @endif
-                                                <td>
-                                                    @if($item->updated_at !=null)
-                                                        {{ $item->updated_at }}
-                                                    @else
-                                                        {{ $item->created_at }}
-                                                    @endif
-                                                </td>
+
                                                 <td>
                                                     <div class="d-flex order-actions">
                                                         <a href="{{ route('task.details',$item->id) }}"
@@ -614,12 +665,6 @@
                                                                 <a href="{{ route('manager.edit.task',$item->id) }}"
                                                                    title="Edit" class=""><i
                                                                         class='bx bxs-edit text-primary'></i></a>
-                                                            @endif
-                                                            @if(Auth::user()->role ==='manager' || Auth::user() -> id == $item -> tester_1 )
-                                                                <a href="{{ route('manager.delete.task',$item->id) }}"
-                                                                   id="Delete"
-                                                                   title="delete" class=""><i
-                                                                        class='bx bxs-trash text-danger'></i></a>
                                                             @endif
                                                         @endauth
                                                     </div>
@@ -752,7 +797,7 @@
                                                                 <p class="MsoNormal" align="center"
                                                                    style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
                                                                     <span
-                                                                        style="color:black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
+                                                                        style="color:black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
                                                                 </p>
                                                             </td>
                                                             <td width="84" nowrap=""
@@ -760,15 +805,7 @@
                                                                 <p class="MsoNormal" align="center"
                                                                    style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
                                                                     <span
-                                                                        style="color:black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
-                                                                </p>
-                                                            </td>
-                                                            <td width="82" nowrap=""
-                                                                style="background-color: {{$team -> desc}};width:61.75pt;border-top:none;border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;padding:0in 5.4pt;height:15pt">
-                                                                <p class="MsoNormal" align="center"
-                                                                   style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
-                                                                    <span
-                                                                        style="color:black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
+                                                                        style="color:black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
                                                                 </p>
                                                             </td>
                                                             <td width="82" nowrap=""
@@ -777,6 +814,14 @@
                                                                    style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
                                                                     <span
                                                                         style="color:black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
+                                                                </p>
+                                                            </td>
+                                                            <td width="82" nowrap=""
+                                                                style="background-color: {{$team -> desc}};width:61.75pt;border-top:none;border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;padding:0in 5.4pt;height:15pt">
+                                                                <p class="MsoNormal" align="center"
+                                                                   style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
+                                                                    <span
+                                                                        style="color:black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
                                                                 </p>
                                                             </td>
                                                             <td width="92" nowrap=""
@@ -1247,13 +1292,13 @@
                                                     <input class="form-check-input"
                                                            {{$board_config -> priority == 1 ? 'checked': ''}} checked
                                                            type="radio" name="priority" id="priority1" value="1">
-                                                    <label class="form-check-label" for="ticket_status1">Enable</label>
+                                                    <label class="form-check-label" for="priority1">Enable</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input"
                                                            {{$board_config -> priority == 0 ? 'checked': ''}} type="radio"
                                                            name="priority" id="priority0" value="0">
-                                                    <label class="form-check-label" for="ticket_status0">Disable</label>
+                                                    <label class="form-check-label" for="priority0">Disable</label>
                                                 </div>
                                                 @error('priority')
                                                 <span class="text-danger">{{ $message }}</span>
@@ -1344,7 +1389,46 @@
                                                 @enderror
                                             </div>
                                         </div>
-
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Environment</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> environment == 1 ? 'checked': ''}} type="radio"
+                                                           name="environment" id="environment1" value="1">
+                                                    <label class="form-check-label" for="environment1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> environment == 0 ? 'checked': ''}} type="radio"
+                                                           name="environment" id="environment0" value="0">
+                                                    <label class="form-check-label" for="environment0">Disable</label>
+                                                </div>
+                                                @error('environment')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Sub Bug</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> isSubBug == 1 ? 'checked': ''}} type="radio"
+                                                           name="isSubBug" id="isSubBug1" value="1">
+                                                    <label class="form-check-label" for="isSubBug1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> isSubBug == 0 ? 'checked': ''}} type="radio"
+                                                           name="isSubBug" id="isSubBug0" value="0">
+                                                    <label class="form-check-label" for="isSubBug0">Disable</label>
+                                                </div>
+                                                @error('environment')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
                                         <div class="row mb-3">
                                             <label class="col-sm-3 col-form-label">Tester 1</label>
                                             <div class="col-sm-9">
@@ -1449,7 +1533,46 @@
                                                 @enderror
                                             </div>
                                         </div>
-
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Test Case Pass</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> pass == 1 ? 'checked': ''}} type="radio"
+                                                           name="pass" id="pass1" value="1">
+                                                    <label class="form-check-label" for="pass1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> fail == 0 ? 'checked': ''}} type="radio"
+                                                           name="pass" id="pass0" value="0">
+                                                    <label class="form-check-label" for="pass0">Disable</label>
+                                                </div>
+                                                @error('pass')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Test Case Fail</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> fail == 1 ? 'checked': ''}} type="radio"
+                                                           name="fail" id="fail1" value="1">
+                                                    <label class="form-check-label" for="fail1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> fail == 0 ? 'checked': ''}} type="radio"
+                                                           name="fail" id="fail0" value="0">
+                                                    <label class="form-check-label" for="fail0">Disable</label>
+                                                </div>
+                                                @error('fail')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <label class="col-sm-3 col-form-label"></label>
                                             <div class="col-sm-9">

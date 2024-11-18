@@ -30,10 +30,9 @@
                         <div class="row mb-3">
                             <label for="project_name" class="col-sm-3 col-form-label">Board Name</label>
                             <div class="col-sm-9">
-                                <div class="position-relative input-icon">
+                                <div class="position-relative">
                                     <input type="text" class="form-control" disabled value="{{$board ->name}}"
                                            id="board_name">
-                                    <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
                                 </div>
                             </div>
                         </div>
@@ -180,11 +179,9 @@
                             <div class="row mb-3">
                                 <label for="test_plan" class="col-sm-3 col-form-label">Test Plan</label>
                                 <div class="col-sm-9">
-                                    <div class="position-relative input-icon">
+                                    <div class="position-relative">
                                         <input type="text" class="form-control" name="test_plan" id="test_plan"
                                                placeholder="Enter Test Plan" value="{{$task ->test_plan }}">
-                                        <span class="position-absolute top-50 translate-middle-y"><i
-                                                class='bx bx-user'></i></span>
                                         @error('test_plan')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -198,11 +195,9 @@
                             <div class="row mb-3">
                                 <label for="test_plan" class="col-sm-3 col-form-label">Sprint</label>
                                 <div class="col-sm-9">
-                                    <div class="position-relative input-icon">
+                                    <div class="position-relative">
                                         <input type="text" class="form-control" name="sprint" id="sprint"
                                                placeholder="Enter Sprint" value="{{$task ->sprint }}">
-                                        <span class="position-absolute top-50 translate-middle-y"><i
-                                                class='bx bx-user'></i></span>
                                         @error('sprint')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror

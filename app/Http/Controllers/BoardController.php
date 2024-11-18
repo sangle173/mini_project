@@ -78,6 +78,8 @@ class BoardController extends Controller
             'sprint' => 1,
             'note' => 1,
             'priority' => 1,
+            'environment' => 1,
+            'isSubBug' => 1,
             'tester_1' => 1,
             'tester_2' => 1,
             'tester_3' => 1,
@@ -106,7 +108,7 @@ class BoardController extends Controller
         $dateS = Carbon::today('Asia/Ho_Chi_Minh')->format('Y-m-d');
         $dateT = Carbon::today('Asia/Ho_Chi_Minh')->format('Y-m-d');
         $board = Board::find($id);
-        $tasks = Task::where('board_id', $board->id)->whereDate('created_at', Carbon::today())->latest()->get();
+        $tasks = Task::where('board_id', $board->id) -> where ('isSubBug', '0') ->whereDate('created_at', Carbon::today())->latest()->get();
         $today_tasks = Task::where('board_id', $board->id)->whereDate('created_at', Carbon::today())->latest()->get();
         $board_config = BoardConfig::find(Board::find($id)->board_config_id);
         $teams = Team::all()-> sortBy('id');
@@ -114,7 +116,7 @@ class BoardController extends Controller
         $working_statuses = WorkingStatus::latest()->get();
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
-        $users = User::whereNotIn('role', ['admin'])->latest()->get();
+        $users = User::whereNotIn('role', ['admin'])->orderBy('name')->get();
         $report_config = ReportConfig::where('board_id', $board->id) -> first();
         $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         $final_subject = $report_config -> subject . ' ' . $days[Carbon::today('Asia/Ho_Chi_Minh') -> dayOfWeek] . ', '. Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config ->date_format);

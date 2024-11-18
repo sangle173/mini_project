@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Exports\TasksExport;
-use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Board;
 use App\Models\BoardConfig;
 use App\Models\Comment;
+use App\Models\Environment;
 use App\Models\Priority;
+use App\Models\ReportConfig;
 use App\Models\Task;
 use App\Models\Team;
 use App\Models\TicketStatus;
@@ -55,6 +56,7 @@ class TaskController extends Controller
      */
     public function create($id)
     {
+        $currentUser = Auth::user();
         $board = Board::find($id);
         $board_config = BoardConfig::find($board->board_config_id);
         $teams = Team::latest()->get();
@@ -63,7 +65,7 @@ class TaskController extends Controller
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
         $users = User::whereNotIn('role', ['admin'])->latest()->get();;
-        return view('manager.boards.tasks.add_task', compact('board', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users'));
+        return view('manager.boards.tasks.add_task', compact('board', 'currentUser', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users'));
     }
 
     /**
@@ -81,10 +83,11 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'team' => 'required',
             'type' => 'required',
+            'working_status' => 'required',
+            'ticket_status' => 'required',
             'jira_summary' => 'required',
-            'tester_1' => 'required',
+            'tester_1' => 'required|not_in:0',
         ]);
         $task_id = Task::insertGetId([
             'board_id' => $request->board_id,
@@ -104,6 +107,8 @@ class TaskController extends Controller
             'tester_3' => $request->tester_3,
             'tester_4' => $request->tester_4,
             'tester_5' => $request->tester_5,
+            'pass' => $request->pass,
+            'fail' => $request->fail,
             'task_slug' => strtolower(str_replace(' ', '-', $request->jira_id)),
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
@@ -203,8 +208,8 @@ class TaskController extends Controller
     public function update(Request $request)
     {
         $id = $request->task_id;
+        $existingTask = Task::find($id);
         $validated = $request->validate([
-            'team' => 'required',
             'type' => 'required',
             'jira_summary' => 'required',
             'tester_1' => 'required',
@@ -226,9 +231,16 @@ class TaskController extends Controller
             'tester_3' => $request->tester_3,
             'tester_4' => $request->tester_4,
             'tester_5' => $request->tester_5,
+            'pass' => $request->pass,
+            'fail' => $request->fail,
+            "environment" => $existingTask->environment,
+            "parent_task_id" => $existingTask->parent_task_id,
+            "isSubBug" => $existingTask->isSubBug,
             'task_slug' => strtolower(str_replace(' ', '-', $request->jira_id)),
             'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
+        //        dd($request);
+
 
         $notification = array(
             'message' => 'Update Task Successfully',
@@ -244,12 +256,20 @@ class TaskController extends Controller
     {
         $id = $request->task_id;
         $validated = $request->validate([
-            'team' => 'required',
             'type' => 'required',
             'jira_summary' => 'required',
             'tester_1' => 'required',
         ]);
-//        dd($request);
+        $existingTask = Task::find($id);
+        if (BoardConfig::find(Board::find($request->board_id)->board_config_id)->environment != 0) {
+            $newEnv = Environment::find($existingTask->environment)->replicate();
+            $newEnv->created_at = Carbon::now('Asia/Ho_Chi_Minh');
+            $newEnv->save();
+            $newEnvId = $newEnv -> id;
+        } else {
+            $newEnvId = null;
+        }
+
         $task_id = Task::insertGetId([
             'board_id' => $request->board_id,
             'team' => $request->team,
@@ -268,6 +288,9 @@ class TaskController extends Controller
             'tester_3' => $request->tester_3,
             'tester_4' => $request->tester_4,
             'tester_5' => $request->tester_5,
+            'pass' => $request->pass,
+            'fail' => $request->fail,
+            "environment" => $newEnvId,
             'task_slug' => strtolower(str_replace(' ', '-', $request->jira_id)),
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
@@ -285,18 +308,118 @@ class TaskController extends Controller
     public function destroy($id)
     {
         $task = Task::find($id);
+        $board = Board::find($task->board_id);
         if (!is_null($task)) {
             $task->delete();
         }
 
         $notification = array(
-            'message' => 'Delete Ticket Status Successfully',
+            'message' => 'Delete Task Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->back()->with($notification);
+        return redirect()->route('manager.show.board', $board->id)->with($notification);
+
     }
 
     public function filter(Request $request)
+    {
+        $no = 0;
+        $type = $request->type;
+        $team = $request->team;
+        $tester = $request->tester;
+        $tasks = DB::table('tasks')
+            ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+            ->where('board_id', $request->board_id)
+            ->where('type', $request->type)
+            ->where('team', $request->team)
+            ->where('tester_1', $request->tester)
+            ->get();
+        if ($type != null && $team == null && $tester == null) {
+            $tasks = DB::table('tasks')
+                ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+                ->where('board_id', $request->board_id)
+                ->where('type', $request->type)
+                ->get();
+            $no = 1;
+        }
+        if ($type == null && $team != null && $tester == null) {
+            $tasks = DB::table('tasks')
+                ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+                ->where('board_id', $request->board_id)
+                ->where('team', $request->team)
+                ->get();
+            $no = 1;
+        }
+        if ($type == null && $team == null && $tester != null) {
+            $tasks = DB::table('tasks')
+                ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+                ->where('board_id', $request->board_id)
+                ->where('tester_1', $request->tester)
+                ->get();
+            $no = 1;
+        }
+        if ($type != null && $team != null && $tester != null) {
+            $tasks = DB::table('tasks')
+                ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+                ->where('board_id', $request->board_id)
+                ->where('type', $request->type)
+                ->where('team', $request->team)
+                ->where('tester_1', $request->tester)
+                ->get();
+            $no = 3;
+        }
+
+        if ($type != null && $team != null && $tester == null) {
+            $tasks = DB::table('tasks')
+                ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+                ->where('board_id', $request->board_id)
+                ->where('type', $request->type)
+                ->where('team', $request->team)
+                ->get();
+            $no = 2;
+        }
+        if ($type == null && $team != null && $tester != null) {
+            $tasks = DB::table('tasks')
+                ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+                ->where('board_id', $request->board_id)
+                ->where('type', $request->type)
+                ->where('tester_1', $request->tester)
+                ->get();
+            $no = 2;
+        }
+        if ($type != null && $team == null && $tester != null) {
+            $tasks = DB::table('tasks')
+                ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+                ->where('board_id', $request->board_id)
+                ->where('type', $request->type)
+                ->where('tester_1', $request->tester)
+                ->get();
+            $no = 2;
+        }
+
+        if ($type == null && $team == null && $tester == null) {
+            $tasks = DB::table('tasks')
+                ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+                ->where('board_id', $request->board_id)
+                ->get();
+            $no = 0;
+        }
+
+        $types = Type::latest()->get();
+        $boards = Board::latest()->get();
+        $priorities = Priority::latest()->get();
+        $users = User::whereNotIn('role', ['admin'])->orderBy('name')->get();
+        $working_statuses = WorkingStatus::latest()->get();
+        $board = Board::find($request->board_id);
+        $teams = Team::all()->sortBy('id');
+        $board_config = BoardConfig::find(Board::find($request->board_id)->board_config_id);
+        $report_config = ReportConfig::where('board_id', $board->id)->first();
+        $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        $final_subject = $report_config->subject . ' ' . $days[Carbon::today('Asia/Ho_Chi_Minh')->dayOfWeek] . ', ' . Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config->date_format);
+        return view('manager.boards.view_board', compact('types', 'boards', 'no', 'working_statuses', 'priorities', 'request', 'users', 'tasks', 'board', 'teams', 'board_config', 'final_subject', 'report_config'));
+    }
+
+    public function filter2(Request $request)
     {
         $dateS = $request->from_date;
         $dateT = $request->to_date;
@@ -406,4 +529,64 @@ class TaskController extends Controller
         $tasks = DB::table('tasks')->whereIn('id', $taskIdList)->get();
         return Excel::download(new TasksExport($tasks), 'tasks.xlsx');
     }
+
+    public function create_sub_task($id)
+    {
+        $board = Board::find(Task::find($id)->board_id);
+        $parent_task = Task::find($id);
+        return view('manager.boards.tasks.add_sub_task', compact('parent_task', 'board'));
+    }
+
+    public function save_sub_task(Request $request)
+    {
+        $parent_task_id = $request->task_id;
+        $validated = $request->validate([
+            'jira_summary' => 'required',
+            'jira_id' => 'required',
+        ]);
+        $sub_task_id = Task::insertGetId([
+            'type' => 1,
+            'board_id' => $request->board_id,
+            'jira_id' => $request->jira_id,
+            'parent_task_id' => $parent_task_id,
+            'jira_summary' => $request->jira_summary,
+            'isSubBug' => '1',
+            'tester_1' => Auth::user()->id,
+            'task_slug' => strtolower(str_replace(' ', '-', $request->jira_id)),
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+
+        $notification = array(
+            'message' => 'Create Sub Task Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('manager.show.board', $request->board_id)->with($notification);
+    }
+
+    public function edit_sub_task($id)
+    {
+        $board = Board::find(Task::find($id)->board_id);
+        $task = Task::find($id);
+        $parent_task = Task::find(Task::find($id)->parent_task_id);
+        return view('manager.boards.tasks.edit_sub_task', compact('task', 'board', 'parent_task'));
+    }
+
+    public function update_sub_task(Request $request)
+    {
+        Task::find($request->sub_task_id)->update([
+            'jira_id' => $request->jira_id,
+            'jira_summary' => $request->jira_summary,
+            'tester_1' => Auth::user()->id,
+            'task_slug' => strtolower(str_replace(' ', '-', $request->jira_id)),
+            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+        $board_id = Board::find(Task::find($request->sub_task_id)->board_id)->id;
+
+        $notification = array(
+            'message' => 'Sub Bug Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('manager.show.board', $board_id)->with($notification);
+    }
+
 }

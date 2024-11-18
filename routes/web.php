@@ -7,6 +7,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BoardConfigController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\EnvironmentController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\PriorityController;
@@ -120,7 +121,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/manager/all/board/', 'index')->name('manager.all.boards');
         Route::get('/manager/add/board/', 'create')->name('manager.add.board');
-        Route::get('/manager/show/board/{id}', 'show')->name('manager.show.board');
+        Route::get('/manager/show/board/', 'show')->name('manager.show.board');
         Route::post('/manager/save-board/', 'store')->name('manager.save-board');
         Route::get('/manager/edit/board/{id}', 'edit')->name('manager.edit.board');
         Route::post('/manager/update/board', 'update')->name('manager.update-board');
@@ -226,11 +227,23 @@ Route::middleware('auth')->group(function () {
         Route::post('/manager/clone/board/task', 'cloneTaskAction')->name('manager.clone-task');
         Route::get('/manager/delete/board/task/{id}', 'destroy')->name('manager.delete.task');
         Route::get('/manager/all/tasks/filter', 'filter')->name('manager.task.filter');
-        Route::get('/manager/all/tasks/filter', 'filter')->name('manager.task.filter');
         Route::get('/manager/task/export/',  'export')->name('manager.task.export');
         Route::get('/manager/task/export-html/',  'exportToHtml')->name('manager.task.export.html');
         Route::get('/manager/task/export-pdf/',  'exportToPdf')->name('manager.task.export.pdf');
-//        Route::post('/manager/update/board/ticket_status/status', 'UpdateTeamStatus')->name('manager.update.boardticket_status.status');
+
+        Route::get('/manager/add/board/sub-tasks/{id}', 'create_sub_task')->name('manager.add.sub-task');
+        Route::post('/manager/save/board/sub-tasks', 'save_sub_task')->name('manager.save.sub-task');
+        Route::get('/manager/edit/board/sub-tasks/{id}', 'edit_sub_task')->name('manager.edit.sub-task');
+        Route::post('/manager/update/board/sub-tasks', 'update_sub_task')->name('manager.update.sub-task');
+    });
+
+    // Manager Env
+    Route::controller(EnvironmentController::class)->group(function () {
+        Route::get('/manager/add/env/{id}', 'create')->name('manager.add.env');
+        Route::get('/manager/edit/env/{id}', 'edit')->name('manager.edit.env');
+        Route::get('/manager/show/env/{id}', 'show')->name('manager.show.env');
+        Route::post('/manager/save/env/', 'store')->name('manager.save.env');
+        Route::post('/manager/update/env/', 'update')->name('manager.update.env');
     });
 
     // Manager Comment

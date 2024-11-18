@@ -10,7 +10,8 @@
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bxs-home-circle"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page"><a href="{{route('manager.show.board', $board -> id)}}">{{$board -> name}} Board</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a
+                                href="{{route('manager.show.board', $board -> id)}}">{{$board -> name}} Board</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Add Task</li>
                     </ol>
                 </nav>
@@ -31,10 +32,9 @@
                         <div class="row mb-3">
                             <label for="project_name" class="col-sm-3 col-form-label">Board Name</label>
                             <div class="col-sm-9">
-                                <div class="position-relative input-icon">
+                                <div class="position-relative">
                                     <input type="text" class="form-control" disabled value="{{$board ->name}}"
                                            id="board_name">
-                                    <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
                                 </div>
                             </div>
                         </div>
@@ -113,7 +113,8 @@
                                     <select class="form-select" name="working_status" id="working_status">
                                         <option selected="" disabled>Select Working Status</option>
                                         @foreach ($working_statuses as $working_status)
-                                            <option value="{{ $working_status->id }}">{{ $working_status->name }}</option>
+                                            <option
+                                                value="{{ $working_status->id }}">{{ $working_status->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('working_status')
@@ -165,7 +166,8 @@
                                 <label for="link_to_result" class="col-sm-3 col-form-label">Link To Result</label>
                                 <div class="col-sm-9">
                                     <div class="position-relative">
-                                        <input type="text" class="form-control" name="link_to_result" id="link_to_result"
+                                        <input type="text" class="form-control" name="link_to_result"
+                                               id="link_to_result"
                                                placeholder="Enter Link To Result">
                                         @error('link_to_result')
                                         <span class="text-danger">{{ $message }}</span>
@@ -180,16 +182,13 @@
                             <div class="row mb-3">
                                 <label for="test_plan" class="col-sm-3 col-form-label">Test Plan</label>
                                 <div class="col-sm-9">
-                                    <div class="position-relative input-icon">
+                                    <div class="position-relative">
                                         <input type="text" class="form-control" name="test_plan" id="test_plan"
                                                placeholder="Enter Test Plan">
-                                        <span class="position-absolute top-50 translate-middle-y"><i
-                                                class='bx bx-user'></i></span>
                                         @error('test_plan')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-
                                 </div>
                             </div>
                         @endif
@@ -198,26 +197,23 @@
                             <div class="row mb-3">
                                 <label for="test_plan" class="col-sm-3 col-form-label">Sprint</label>
                                 <div class="col-sm-9">
-                                    <div class="position-relative input-icon">
+                                    <div class="position-relative">
                                         <input type="text" class="form-control" name="sprint" id="sprint"
                                                placeholder="Enter Sprint">
-                                        <span class="position-absolute top-50 translate-middle-y"><i
-                                                class='bx bx-user'></i></span>
                                         @error('sprint')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-
                                 </div>
                             </div>
                         @endif
 
                         @if($board_config -> tester_1 == 1)
                             <div class="row mb-3">
-                                <label for="tester_1" class="col-sm-3 col-form-label">Tester 1</label>
+                                <label for="tester_1" class="col-sm-3 col-form-label">Created By/Tester 1</label>
                                 <div class="col-sm-9">
                                     <select class="form-select" name="tester_1" id="tester_1">
-                                        <option value="0">Select Tester</option>
+                                        <option value="{{ $currentUser->id }}">{{ $currentUser->name }} (You)</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
@@ -299,19 +295,46 @@
 
                             </div>
                         @endif
+                        @if($board_config -> pass == 1)
+                            <div class="row mb-3">
+                                <label for="pass" class="col-sm-3 col-form-label">Test Case Pass</label>
+                                <div class="col-sm-9">
+                                    <div class="position-relative">
+                                        <input type="number" class="form-control" name="pass" id="pass"
+                                               placeholder="Enter Test Case Pass">
+                                        @error('pass')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        @if($board_config -> fail == 1)
+                            <div class="row mb-3">
+                                <label for="fail" class="col-sm-3 col-form-label">Test Case Fail</label>
+                                <div class="col-sm-9">
+                                    <div class="position-relative">
+                                        <input type="number" class="form-control" name="fail" id="fail"
+                                               placeholder="Enter Test Case Fail">
+                                        @error('fail')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                         @if($board_config -> note == 1)
-                        <div class="row mb-3">
-                            <label for="note" class="col-sm-3 col-form-label">Note</label>
-                            <div class="col-sm-9">
+                            <div class="row mb-3">
+                                <label for="note" class="col-sm-3 col-form-label">Note</label>
+                                <div class="col-sm-9">
                                 <textarea class="form-control" name="note" id="note" rows="3"
                                           placeholder="Enter the note ..."></textarea>
-                                @error('note')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                                    @error('note')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
                         @endif
-
                         <div class="row">
                             <label class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
@@ -346,19 +369,28 @@
         });
 
     </script>
-{{--    <script>--}}
-{{--        $('#type').change(function(e){--}}
-{{--            if($(this).val() == "1"){--}}
-{{--                $("#working_status").prop('disabled',true);--}}
-{{--                $("#link_to_result").prop('disabled',true);--}}
-{{--                $("#tester_2").prop('disabled',true);--}}
-{{--                $("#tester_3").prop('disabled',true);--}}
-{{--                $("#tester_4").prop('disabled',true);--}}
-{{--                $("#tester_5").prop('disabled',true);--}}
-{{--            }--}}
-{{--            // else {--}}
-{{--            //     $("#size option[value='Medium']").prop('disabled',false);--}}
-{{--            // }--}}
-{{--        });--}}
-{{--    </script>--}}
+        <script>
+            $('#type').change(function(e){
+                if($(this).val() == "1"){
+                    $("#working_status option[value='1']").prop('disabled',true);
+                    $("#link_to_result").prop('disabled',true);
+                    $("#ticket_status option[value='1']").prop('disabled',true);
+                    $("#ticket_status option[value='2']").prop('disabled',true);
+                    $("#ticket_status option[value='3']").prop('disabled',true);
+                    $("#ticket_status option[value='4']").prop('disabled',true);
+                    $("#ticket_status option[value='5']").prop('disabled',true);
+                    $("#ticket_status option[value='6']").prop('disabled',true);
+                }
+                else {
+                    $("#working_status option[value='1']").prop('disabled',false);
+                    $("#ticket_status option[value='1']").prop('disabled',false);
+                    $("#ticket_status option[value='2']").prop('disabled',false);
+                    $("#ticket_status option[value='3']").prop('disabled',false);
+                    $("#ticket_status option[value='4']").prop('disabled',false);
+                    $("#ticket_status option[value='5']").prop('disabled',false);
+                    $("#ticket_status option[value='6']").prop('disabled',false);
+                    $("#link_to_result").prop('disabled',false);
+                }
+            });
+        </script>
 @endsection
