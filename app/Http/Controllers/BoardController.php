@@ -97,7 +97,7 @@ class BoardController extends Controller
             'message' => 'Board Created Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.show.board',$request->board_id)->with($notification);
+        return redirect()->route('manager.show.board', $request->board_id)->with($notification);
     }
 
     /**
@@ -108,19 +108,20 @@ class BoardController extends Controller
         $dateS = Carbon::today('Asia/Ho_Chi_Minh')->format('Y-m-d');
         $dateT = Carbon::today('Asia/Ho_Chi_Minh')->format('Y-m-d');
         $board = Board::find($id);
-        $tasks = Task::where('board_id', $board->id) -> where ('isSubBug', '0') ->whereDate('created_at', Carbon::today())->latest()->get();
+        $tasks = Task::where('board_id', $board->id)->where('isSubBug', '0')->whereDate('created_at', Carbon::today())->latest()->get();
         $today_tasks = Task::where('board_id', $board->id)->whereDate('created_at', Carbon::today())->latest()->get();
         $board_config = BoardConfig::find(Board::find($id)->board_config_id);
-        $teams = Team::all()-> sortBy('id');
+        $teams = Team::all()->sortBy('id');
         $types = Type::latest()->get();
         $working_statuses = WorkingStatus::latest()->get();
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
         $users = User::whereNotIn('role', ['admin'])->orderBy('name')->get();
-        $report_config = ReportConfig::where('board_id', $board->id) -> first();
+        $report_config = ReportConfig::where('board_id', $board->id)->first();
         $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        $final_subject = $report_config -> subject . ' ' . $days[Carbon::today('Asia/Ho_Chi_Minh') -> dayOfWeek] . ', '. Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config ->date_format);
-        return view('manager.boards.view_board', compact('board', 'tasks', 'final_subject', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'dateT', 'dateS', 'today_tasks', 'report_config'));
+        $final_subject = $report_config->subject . ' ' . $days[Carbon::today('Asia/Ho_Chi_Minh')->dayOfWeek] . ', ' . Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config->date_format);
+        $slack_subject = "Hi team, please see below for the daily report on " . $days[Carbon::today('Asia/Ho_Chi_Minh')->dayOfWeek] . ', ' . Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config->date_format);
+        return view('manager.boards.view_board', compact('board', 'tasks', 'final_subject', 'board_config', 'teams', 'slack_subject', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'dateT', 'dateS', 'today_tasks', 'report_config'));
     }
 
     /**
@@ -141,7 +142,7 @@ class BoardController extends Controller
         $name_gen = hexdec(uniqid()) . '.' . $photo->getClientOriginalExtension();
         Image::make($photo)->resize(370, 246)->save('upload/board/' . $name_gen);
         $save_url = 'upload/board/' . $name_gen;
-        Board::find($request -> board_id)->update([
+        Board::find($request->board_id)->update([
             'name' => $request->name,
             'title' => $request->title,
             'start_date' => $request->start_date,
@@ -156,7 +157,7 @@ class BoardController extends Controller
             'message' => 'Update Board Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.show.board',$request->board_id)->with($notification);
+        return redirect()->route('manager.show.board', $request->board_id)->with($notification);
     }
 
     /**
@@ -181,8 +182,8 @@ class BoardController extends Controller
         $dateS = $request->from_date;
         $dateT = $request->to_date;
         $dateFrom = new Carbon($request->from_date, 'Asia/Ho_Chi_Minh');
-        $dateTo = new Carbon($request->to_date,'Asia/Ho_Chi_Minh');
-        $dateTo -> addDays(1);
+        $dateTo = new Carbon($request->to_date, 'Asia/Ho_Chi_Minh');
+        $dateTo->addDays(1);
         if (!isset($request->type) || $request->type == null) {
             $allTypeId = [];
             $types = DB::table('types')->select('id')->get();
@@ -264,9 +265,9 @@ class BoardController extends Controller
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
         $users = User::whereNotIn('role', ['admin'])->latest()->get();
-        $report_config = ReportConfig::where('board_id', $board->id) -> first();
+        $report_config = ReportConfig::where('board_id', $board->id)->first();
         $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        $final_subject = $report_config -> subject . ' ' . $days[Carbon::today('Asia/Ho_Chi_Minh') -> dayOfWeek] . ', '. Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config ->date_format);
-        return view('manager.boards.view_board', compact('board', 'report_config', 'final_subject', 'tasks', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'request','dateS', 'dateT', 'today_tasks'));
+        $final_subject = $report_config->subject . ' ' . $days[Carbon::today('Asia/Ho_Chi_Minh')->dayOfWeek] . ', ' . Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config->date_format);
+        return view('manager.boards.view_board', compact('board', 'report_config', 'final_subject', 'tasks', 'board_config', 'teams', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'request', 'dateS', 'dateT', 'today_tasks'));
     }
 }

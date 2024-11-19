@@ -120,11 +120,11 @@
                                                        href="{{ route('manager.edit.board', $item -> id) }}">Edit
                                                         Board</a>
                                                 </li>
-                                                <li>
-                                                    <a class="dropdown-item text-danger"
-                                                       href="{{ route('manager.delete.board', $item -> id) }}">Delete
-                                                        Board</a>
-                                                </li>
+{{--                                                <li>--}}
+{{--                                                    <a class="dropdown-item text-danger"--}}
+{{--                                                       href="{{ route('manager.delete.board', $item -> id) }}">Delete--}}
+{{--                                                        Board</a>--}}
+{{--                                                </li>--}}
                                             </ul>
                                         </div>
                                     @endif

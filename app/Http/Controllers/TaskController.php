@@ -416,7 +416,8 @@ class TaskController extends Controller
         $report_config = ReportConfig::where('board_id', $board->id)->first();
         $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         $final_subject = $report_config->subject . ' ' . $days[Carbon::today('Asia/Ho_Chi_Minh')->dayOfWeek] . ', ' . Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config->date_format);
-        return view('manager.boards.view_board', compact('types', 'boards', 'no', 'working_statuses', 'priorities', 'request', 'users', 'tasks', 'board', 'teams', 'board_config', 'final_subject', 'report_config'));
+        $slack_subject = "Hi team, please see below for the daily report on " . $days[Carbon::today('Asia/Ho_Chi_Minh')->dayOfWeek] . ', ' . Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config->date_format);
+        return view('manager.boards.view_board', compact('types', 'boards', 'slack_subject', 'no', 'working_statuses', 'priorities', 'request', 'users', 'tasks', 'board', 'teams', 'board_config', 'final_subject', 'report_config'));
     }
 
     public function filter2(Request $request)

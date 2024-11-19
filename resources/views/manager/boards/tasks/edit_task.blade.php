@@ -278,6 +278,34 @@
                                 @enderror
                             </div>
                         @endif
+                        @if($board_config -> pass == 1)
+                            <div class="row mb-3">
+                                <label for="pass" class="col-sm-3 col-form-label">Test Case Pass</label>
+                                <div class="col-sm-9">
+                                    <div class="position-relative">
+                                        <input type="number" class="form-control" name="pass" id="pass"
+                                               placeholder="Enter Test Case Pass" value="{{$task ->pass }}">
+                                        @error('pass')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        @if($board_config -> fail == 1)
+                            <div class="row mb-3">
+                                <label for="fail" class="col-sm-3 col-form-label">Test Case Fail</label>
+                                <div class="col-sm-9">
+                                    <div class="position-relative">
+                                        <input type="number" class="form-control" name="fail" id="fail"
+                                               placeholder="Enter Test Case Fail" value="{{$task ->fail }}">
+                                        @error('fail')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                         @if($board_config -> note == 1)
                         <div class="row mb-3">
                             <label for="note" class="col-sm-3 col-form-label">Note</label>

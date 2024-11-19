@@ -161,7 +161,7 @@
                 <a href="javascript:;" class="has-arrow">
                     <div class="parent-icon"><i class='text-bg-primary bx bxs-school'></i>
                     </div>
-                    <div class="menu-title">Course</div>
+                    <div class="menu-title">Training Course</div>
                 </a>
                 <ul>
                     <li><a href="{{ route('all.course') }}"><i class='bx bxs-book-bookmark'></i>All Courses </a>
