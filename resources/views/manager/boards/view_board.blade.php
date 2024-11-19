@@ -388,6 +388,7 @@
                             </div>
                         </a>
                     </li>
+                    @if($board -> id == 1)
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" data-bs-toggle="tab" href="#slack_report" role="tab"
                            aria-selected="false">
@@ -398,6 +399,7 @@
                             </div>
                         </a>
                     </li>
+                    @endif
                     @auth()
                         @if(Auth::user()->role ==='manager')
                             <li class="nav-item" role="presentation">
@@ -570,7 +572,8 @@
                                                 @if($board_config-> test_plan != 0)
                                                     <td>
                                                         @if($item-> test_plan !=null)
-                                                            <a target="_blank" href="{{ $item->test_plan }}">Test
+                                                            <a target="_blank"
+                                                               href="{{ url('https://sonos.testrail.com/index.php?/plans/view/'.$item->test_plan) }}">Test
                                                                 Plan</a>
                                                         @endif
                                                     </td>
@@ -1030,1145 +1033,1449 @@
                                             <div class="card-body">
                                                 <div id="divExp" class="bdyItmPrt" _fallwcm="1">
                                                     <div>
-                                                        <div><span lang="en-US">
-        <div>
-        <div style="margin:0;"><font face="Times New Roman,serif" size="3"><span style="font-size:12pt;"><font
-                        face="Tahoma,sans-serif" size="2" color="black"><span
-                            style="font-size:10pt;">Hi Sri and Chris,</span></font></span></font></div>
-            <!--        <div style="margin:0;"><font face="Times New Roman,serif" size="3"><span style="font-size:12pt;"><font-->
-            <!--          face="Tahoma,sans-serif" color="black">&nbsp;</font></span></font></div>-->
-        <div style="margin:0;"><font face="Times New Roman,serif" size="3"><span style="font-size:12pt;"><font
-                        face="Tahoma,sans-serif" size="2" color="black"><span style="font-size:10pt;">Below is the status report for today. Please let me know if you have any comments/questions.</span></font></span></font></div>
+                                                        <div>
+                                                            <div>
+                                                                <div style="margin:0;"><font
+                                                                        face="Times New Roman,serif" size="3"><span
+                                                                            style="font-size:12pt;"><font
+                                                                                face="Tahoma,sans-serif" size="2"
+                                                                                color="black"><span
+                                                                                    style="font-size:10pt;">Hi Sri and Chris,</span></font></span></font>
+                                                                </div>
+                                                                <!--        <div style="margin:0;"><font face="Times New Roman,serif" size="3"><span style="font-size:12pt;"><font-->
+                                                                <!--          face="Tahoma,sans-serif" color="black">&nbsp;</font></span></font></div>-->
+                                                                <div style="margin:0;"><font
+                                                                        face="Times New Roman,serif" size="3"><span
+                                                                            style="font-size:12pt;"><font
+                                                                                face="Tahoma,sans-serif" size="2"
+                                                                                color="black"><span
+                                                                                    style="font-size:10pt;">Below is the status report for today. Please let me know if you have any comments/questions.</span></font></span></font>
+                                                                </div>
 
 
-          <table width="1113" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;width:668pt;">
-        <tbody>
-        <tr height="86" style="height:51.75pt;">
-        <td colspan="10" width="1113" style="width:668pt;height:51.75pt;padding:0 5.4pt;">
-        <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font size="6" color="black"><span
-                            style="font-size:26pt;"><b>{{$final_subject}}</b></span></font></span></font></div>
-        </td>
-        </tr>
-        <tr height="30" style="height:18pt;">
-        <td colspan="10" width="1113" valign="bottom" nowrap="" style="width:668pt;height:18pt;padding:0 5.4pt;">
-        </td>
-        </tr>
-        <tr height="30" style="height:18pt;">
-        <td width="43" style="width:26pt;height:18pt;padding:0 5.4pt;">
-        <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font size="4" color="black"><span
-                            style="font-size:14pt;"><b>I</b></span></font></span></font></div>
-        </td>
-        <td colspan="9" width="1070" style="width:642pt;height:18pt;padding:0 5.4pt;">
-        <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font size="4"
-                                                                                                            color="black"><span
-                            style="font-size:14pt;"><b>TODAY'S ACCOMPLISHMENTS</b></span></font></span></font></div>
-        </td>
-        </tr>
-       @foreach(\App\Models\Task::where('board_id', 5) -> where('isSubBug', '0') -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $key=> $item)
+                                                                <table width="1113" border="0" cellspacing="0"
+                                                                       cellpadding="0"
+                                                                       style="border-collapse:collapse;width:668pt;">
+                                                                    <tbody>
+                                                                    <tr height="86" style="height:51.75pt;">
+                                                                        <td colspan="10" width="1113"
+                                                                            style="width:668pt;height:51.75pt;padding:0 5.4pt;">
+                                                                            <div align="center"
+                                                                                 style="text-align:center;margin:0;">
+                                                                                <font face="Calibri,sans-serif"
+                                                                                      size="2"><span
+                                                                                        style="font-size:11pt;"><font
+                                                                                            size="6" color="black"><span
+                                                                                                style="font-size:26pt;"><b>{{$final_subject}}</b></span></font></span></font>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr height="30" style="height:18pt;">
+                                                                        <td colspan="10" width="1113" valign="bottom"
+                                                                            nowrap=""
+                                                                            style="width:668pt;height:18pt;padding:0 5.4pt;">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr height="30" style="height:18pt;">
+                                                                        <td width="43"
+                                                                            style="width:26pt;height:18pt;padding:0 5.4pt;">
+                                                                            <div align="center"
+                                                                                 style="text-align:center;margin:0;">
+                                                                                <font face="Calibri,sans-serif"
+                                                                                      size="2"><span
+                                                                                        style="font-size:11pt;"><font
+                                                                                            size="4" color="black"><span
+                                                                                                style="font-size:14pt;"><b>I</b></span></font></span></font>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td colspan="9" width="1070"
+                                                                            style="width:642pt;height:18pt;padding:0 5.4pt;">
+                                                                            <div style="margin:0;"><font
+                                                                                    face="Calibri,sans-serif"
+                                                                                    size="2"><span
+                                                                                        style="font-size:11pt;"><font
+                                                                                            size="4"
+                                                                                            color="black"><span
+                                                                                                style="font-size:14pt;"><b>TODAY'S ACCOMPLISHMENTS</b></span></font></span></font>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    @foreach(\App\Models\Task::where('board_id', 5) -> where('isSubBug', '0') -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $key=> $item)
 
-           <tr height="30" style="height:18pt;">
-        <td width="43" nowrap="" style="width:26pt;height:18pt;padding:0 5.4pt;">
-        <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font color="black"><b>{{$key + 1 }}</b></font></span></font></div>
-        </td>
-        <td colspan="8" width="941" nowrap="" style="width:565pt;height:18pt;padding:0 5.4pt;">
-        <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                        color="black"><b>{{$item -> jira_summary}}</b></font></span></font></div>
-        </td>
-        <td width="128" style="width:77pt;height:18pt;padding:0 5.4pt;">
-            @if(\App\Models\WorkingStatus::find($item -> working_status)!=null)
-                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                                face="Tahoma,sans-serif" size="2"
-                                color="{{\App\Models\WorkingStatus::find($item -> working_status) -> desc}}"><span
-                                    style="font-size:10pt;"><b>{{\App\Models\WorkingStatus::find($item -> working_status) -> name}}</b></span></font></span></font></div>
-            @endif
-        </td>
-        </tr>
-           <tr height="30" style="height:18pt;">
-        <td width="43" nowrap="" style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
-        <td width="105" style="width:63pt;height:18pt;padding:0 5.4pt;">
-        <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                        color="black">Jira Story:</font></span></font></div>
-        </td>
-        <td colspan="7" width="836" style="width:502pt;height:18pt;padding:0 5.4pt;">
-        <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><a
-                        href="{{$board_config -> jira_url}}{{$item -> jira_id}}"
-                        target="_blank" rel="noopener noreferrer">{{$item -> jira_id}}</a></span></font></div>
-        </td>
-        <td width="128" style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
-        </tr>
-           <tr height="30" style="height:18pt;">
-        <td width="43" nowrap="" style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
-        <td width="105" style="width:63pt;height:18pt;padding:0 5.4pt;">
-        <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                        color="black">Test Plan:</font></span></font></div>
-        </td>
-        <td colspan="7" width="836" style="width:502pt;height:18pt;padding:0 5.4pt;">
-        <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><a
-                        href="{{url('https://sonos.testrail.com/index.php?/plans/view/'.$item -> test_plan)}}"
-                        target="_blank"
-                        rel="noopener noreferrer">{{$item -> test_plan}}</a></span></font></div>
-        </td>
-        <td width="128" style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
-        </tr>
-           <tr height="30" style="height:18pt;">
-        <td width="43" nowrap="" style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
-        <td width="105" style="width:63pt;height:18pt;padding:0 5.4pt;">
-        <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                        color="black">Executed:</font></span></font></div>
-        </td>
- <td width="145" style="width:87pt;height:18pt;padding:0 5.4pt;">
-        <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                        color="black"><b>Total:</b></font></span></font></div>
-        </td>
-        <td width="50" style="width:30pt;height:18pt;padding:0 5.4pt;">
-        <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font
-                        color="black"><b>{{ $item->fail + $item->pass }}</b></font></span></font></div>
-        </td>
-        <td width="128" style="width:77pt;height:18pt;padding:0 5.4pt;">
-        <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font color="black">test cases</font></span></font></div>
-        </td>
-        <td colspan="5" width="641" valign="bottom" style="width:385pt;height:18pt;padding:0 5.4pt;">
-        </td>
-        </tr>
-           <tr height="30" style="height:18pt;">
-        <td width="43" nowrap="" style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
-        <td width="105" style="width:63pt;height:18pt;padding:0 5.4pt;"></td>
-        <td width="145" style="width:87pt;height:18pt;padding:0 5.4pt;">
-        <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                        color="#34A853"><b>Passed: </b></font></span></font></div>
-        </td>
-        <td width="50" style="width:30pt;height:18pt;padding:0 5.4pt;">
-        <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font color="black"><b>{{$item->pass}}</b></font></span></font></div>
-        </td>
-        <td width="128" style="width:77pt;height:18pt;padding:0 5.4pt;">
-        <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font color="black">test cases</font></span></font></div>
-        </td>
-        <td colspan="5" width="641" valign="bottom" style="width:385pt;height:18pt;padding:0 5.4pt;">
-        </td>
-        </tr>
-           <tr height="30" style="height:18pt;">
-        <td width="43" nowrap="" style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
-        <td width="105" style="width:63pt;height:18pt;padding:0 5.4pt;"></td>
-        <td width="145" style="width:87pt;height:18pt;padding:0 5.4pt;">
-        <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font color="red"><b>Failed:</b></font></span></font></div>
-        </td>
-        <td width="50" style="width:30pt;height:18pt;padding:0 5.4pt;">
-        <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font color="black"><b>{{$item->fail}}</b></font></span></font></div>
-        </td>
-        <td width="128" style="width:77pt;height:18pt;padding:0 5.4pt;">
-        <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font color="black">test cases</font></span></font></div>
-        </td>
-        <td colspan="5" width="641" valign="bottom" style="width:385pt;height:18pt;padding:0 5.4pt;">
-        </td>
-               @if(count(\App\Models\Task::where('parent_task_id', $item -> id) ->latest()->get())!=0)
-        </tr>
-           <tr height="30" style="height:18pt;">
-          <td width="43" style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
-          <td width="105" style="width:63pt;height:18pt;padding:0 5.4pt;vertical-align: top">
+                                                                        <tr height="30" style="height:18pt;">
+                                                                            <td width="43" nowrap=""
+                                                                                style="width:26pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div align="center"
+                                                                                     style="text-align:center;margin:0;">
+                                                                                    <font face="Calibri,sans-serif"
+                                                                                          size="2"><span
+                                                                                            style="font-size:11pt;"><font
+                                                                                                color="black"><b>{{$key + 1 }}</b></font></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td colspan="8" width="941" nowrap=""
+                                                                                style="width:565pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div style="margin:0;"><font
+                                                                                        face="Calibri,sans-serif"
+                                                                                        size="2"><span
+                                                                                            style="font-size:11pt;"><font
+                                                                                                color="black"><b>{{$item -> jira_summary}}</b></font></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td width="128"
+                                                                                style="width:77pt;height:18pt;padding:0 5.4pt;">
+                                                                                @if(\App\Models\WorkingStatus::find($item -> working_status)!=null)
+                                                                                    <div style="margin:0;"><font
+                                                                                            face="Calibri,sans-serif"
+                                                                                            size="2"><span
+                                                                                                style="font-size:11pt;"><font
+                                                                                                    face="Tahoma,sans-serif"
+                                                                                                    size="2"
+                                                                                                    color="{{\App\Models\WorkingStatus::find($item -> working_status) -> desc}}"><span
+                                                                                                        style="font-size:10pt;"><b>{{\App\Models\WorkingStatus::find($item -> working_status) -> name}}</b></span></font></span></font>
+                                                                                    </div>
+                                                                                @endif
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr height="30" style="height:18pt;">
+                                                                            <td width="43" nowrap=""
+                                                                                style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                            <td width="105"
+                                                                                style="width:63pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div style="margin:0;"><font
+                                                                                        face="Calibri,sans-serif"
+                                                                                        size="2"><span
+                                                                                            style="font-size:11pt;"><font
+                                                                                                color="black">Jira Story:</font></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td colspan="7" width="836"
+                                                                                style="width:502pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div style="margin:0;"><font
+                                                                                        face="Calibri,sans-serif"
+                                                                                        size="2"><span
+                                                                                            style="font-size:11pt;"><a
+                                                                                                href="{{$board_config -> jira_url}}{{$item -> jira_id}}"
+                                                                                                target="_blank"
+                                                                                                rel="noopener noreferrer">{{$item -> jira_id}}</a></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td width="128"
+                                                                                style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                        </tr>
+                                                                        <tr height="30" style="height:18pt;">
+                                                                            <td width="43" nowrap=""
+                                                                                style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                            <td width="105"
+                                                                                style="width:63pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div style="margin:0;"><font
+                                                                                        face="Calibri,sans-serif"
+                                                                                        size="2"><span
+                                                                                            style="font-size:11pt;"><font
+                                                                                                color="black">Test Plan:</font></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td colspan="7" width="836"
+                                                                                style="width:502pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div style="margin:0;"><font
+                                                                                        face="Calibri,sans-serif"
+                                                                                        size="2"><span
+                                                                                            style="font-size:11pt;"><a
+                                                                                                href="{{url('https://sonos.testrail.com/index.php?/plans/view/'.$item -> test_plan)}}"
+                                                                                                target="_blank"
+                                                                                                rel="noopener noreferrer">{{$item -> test_plan}}</a></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td width="128"
+                                                                                style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                        </tr>
+                                                                        <tr height="30" style="height:18pt;">
+                                                                            <td width="43" nowrap=""
+                                                                                style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                            <td width="105"
+                                                                                style="width:63pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div style="margin:0;"><font
+                                                                                        face="Calibri,sans-serif"
+                                                                                        size="2"><span
+                                                                                            style="font-size:11pt;"><font
+                                                                                                color="black">Executed:</font></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td width="145"
+                                                                                style="width:87pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div style="margin:0;"><font
+                                                                                        face="Calibri,sans-serif"
+                                                                                        size="2"><span
+                                                                                            style="font-size:11pt;"><font
+                                                                                                color="black"><b>Total:</b></font></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td width="50"
+                                                                                style="width:30pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div align="center"
+                                                                                     style="text-align:center;margin:0;">
+                                                                                    <font face="Calibri,sans-serif"
+                                                                                          size="2"><span
+                                                                                            style="font-size:11pt;"><font
+                                                                                                color="black"><b>{{ $item->fail + $item->pass }}</b></font></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td width="128"
+                                                                                style="width:77pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div align="center"
+                                                                                     style="text-align:center;margin:0;">
+                                                                                    <font face="Calibri,sans-serif"
+                                                                                          size="2"><span
+                                                                                            style="font-size:11pt;"><font
+                                                                                                color="black">test cases</font></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td colspan="5" width="641" valign="bottom"
+                                                                                style="width:385pt;height:18pt;padding:0 5.4pt;">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr height="30" style="height:18pt;">
+                                                                            <td width="43" nowrap=""
+                                                                                style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                            <td width="105"
+                                                                                style="width:63pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                            <td width="145"
+                                                                                style="width:87pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div style="margin:0;"><font
+                                                                                        face="Calibri,sans-serif"
+                                                                                        size="2"><span
+                                                                                            style="font-size:11pt;"><font
+                                                                                                color="#34A853"><b>Passed: </b></font></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td width="50"
+                                                                                style="width:30pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div align="center"
+                                                                                     style="text-align:center;margin:0;">
+                                                                                    <font face="Calibri,sans-serif"
+                                                                                          size="2"><span
+                                                                                            style="font-size:11pt;"><font
+                                                                                                color="black"><b>{{$item->pass}}</b></font></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td width="128"
+                                                                                style="width:77pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div align="center"
+                                                                                     style="text-align:center;margin:0;">
+                                                                                    <font face="Calibri,sans-serif"
+                                                                                          size="2"><span
+                                                                                            style="font-size:11pt;"><font
+                                                                                                color="black">test cases</font></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td colspan="5" width="641" valign="bottom"
+                                                                                style="width:385pt;height:18pt;padding:0 5.4pt;">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr height="30" style="height:18pt;">
+                                                                            <td width="43" nowrap=""
+                                                                                style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                            <td width="105"
+                                                                                style="width:63pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                            <td width="145"
+                                                                                style="width:87pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div style="margin:0;"><font
+                                                                                        face="Calibri,sans-serif"
+                                                                                        size="2"><span
+                                                                                            style="font-size:11pt;"><font
+                                                                                                color="red"><b>Failed:</b></font></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td width="50"
+                                                                                style="width:30pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div align="center"
+                                                                                     style="text-align:center;margin:0;">
+                                                                                    <font face="Calibri,sans-serif"
+                                                                                          size="2"><span
+                                                                                            style="font-size:11pt;"><font
+                                                                                                color="black"><b>{{$item->fail}}</b></font></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td width="128"
+                                                                                style="width:77pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div align="center"
+                                                                                     style="text-align:center;margin:0;">
+                                                                                    <font face="Calibri,sans-serif"
+                                                                                          size="2"><span
+                                                                                            style="font-size:11pt;"><font
+                                                                                                color="black">test cases</font></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td colspan="5" width="641" valign="bottom"
+                                                                                style="width:385pt;height:18pt;padding:0 5.4pt;">
+                                                                            </td>
+                                                                            @if(count(\App\Models\Task::where('parent_task_id', $item -> id) ->latest()->get())!=0)
+                                                                        </tr>
+                                                                        <tr height="30" style="height:18pt;">
+                                                                            <td width="43"
+                                                                                style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                            <td width="105"
+                                                                                style="width:63pt;height:18pt;padding:0 5.4pt;vertical-align: top">
 
-          <div *ngIf="i ===0" style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                      style="font-size:11pt;"><font
-                          color="black">Bug(s): {{count(\App\Models\Task::where('parent_task_id', $item -> id) ->latest()->get())}}</font></span></font></div>
-          </td>
-          <td colspan="7" width="836" style="width:502pt;height:18pt;padding:0 5.4pt;">
-               @foreach(\App\Models\Task::where('parent_task_id', $item -> id) ->latest()->get()  as $key => $row)
-                  <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                                  color="black"><a href="{{$board_config -> jira_url}}{{$row -> jira_id}}"
-                                                   target="_blank">{{$row -> jira_id}}</a> - {{$row -> jira_summary}}</font></span></font></div>
-              @endforeach
+                                                                                <div *ngIf="i ===0" style="margin:0;">
+                                                                                    <font face="Calibri,sans-serif"
+                                                                                          size="2"><span
+                                                                                            style="font-size:11pt;"><font
+                                                                                                color="black">Bug(s): {{count(\App\Models\Task::where('parent_task_id', $item -> id) ->latest()->get())}}</font></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td colspan="7" width="836"
+                                                                                style="width:502pt;height:18pt;padding:0 5.4pt;">
+                                                                                @foreach(\App\Models\Task::where('parent_task_id', $item -> id) ->latest()->get()  as $key => $row)
+                                                                                    <div style="margin:0;"><font
+                                                                                            face="Calibri,sans-serif"
+                                                                                            size="2"><span
+                                                                                                style="font-size:11pt;"><font
+                                                                                                    color="black"><a
+                                                                                                        href="{{$board_config -> jira_url}}{{$row -> jira_id}}"
+                                                                                                        target="_blank">{{$row -> jira_id}}</a> - {{$row -> jira_summary}}</font></span></font>
+                                                                                    </div>
+                                                                                @endforeach
 
-          </td>
-          <td width="128" style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
-          </tr>
-           @endif
-       @endforeach
-        <tr height="30" style="height:18pt;">
-                  <tr height="30" style="height:18pt;">
+                                                                            </td>
+                                                                            <td width="128"
+                                                                                style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                        </tr>
+                                                                        @endif
+                                                                    @endforeach
+                                                                    <tr height="30" style="height:18pt;">
+                                                                    <tr height="30" style="height:18pt;">
 
-        <td width="43" style="width:26pt;height:18pt;padding:0 5.4pt;">
-        <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font size="4" color="black"><span
-                            style="font-size:14pt;"><b>II</b></span></font></span></font></div>
-        </td>
-        <td colspan="9" width="1070" style="width:642pt;height:18pt;padding:0 5.4pt;">
-        <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font size="4"
-                                                                                                            color="black"><span
-                            style="font-size:14pt;"><b>TEST ENVIRONMENTS</b></span></font></span></font></div>
-        </td>
-        </tr>
+                                                                        <td width="43"
+                                                                            style="width:26pt;height:18pt;padding:0 5.4pt;">
+                                                                            <div align="center"
+                                                                                 style="text-align:center;margin:0;">
+                                                                                <font face="Calibri,sans-serif"
+                                                                                      size="2"><span
+                                                                                        style="font-size:11pt;"><font
+                                                                                            size="4" color="black"><span
+                                                                                                style="font-size:14pt;"><b>II</b></span></font></span></font>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td colspan="9" width="1070"
+                                                                            style="width:642pt;height:18pt;padding:0 5.4pt;">
+                                                                            <div style="margin:0;"><font
+                                                                                    face="Calibri,sans-serif"
+                                                                                    size="2"><span
+                                                                                        style="font-size:11pt;"><font
+                                                                                            size="4"
+                                                                                            color="black"><span
+                                                                                                style="font-size:14pt;"><b>TEST ENVIRONMENTS</b></span></font></span></font>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
 
-        @foreach(\App\Models\Task::where('board_id', 5) -> where('isSubBug', '0') -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $key=> $task)
-            <tr height="30" style="height:18pt;">
-              <td width="43" nowrap="" style="width:26pt;height:18pt;padding:0 5.4pt;">
-        <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font color="black"><b>{{$key + 1 }}</b></font></span></font></div>
-        </td>
-        <td colspan="8" width="941" nowrap="" style="width:565pt;height:18pt;padding:0 5.4pt;">
-        <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                        color="black"><b>{{$task -> jira_summary}}</b></font></span></font></div>
-        </td>
-        <td width="128" style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
-        </tr>
-            @if($task-> environment !=null)
-                @if(\App\Models\Environment::find($task-> environment) -> email !=null)
-                    <tr height="30" style="height:18pt;">
-        <td width="43" style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
-        <td width="105" style="width:63pt;height:18pt;padding:0 5.4pt;vertical-align: top">
-        <div *ngIf="i ===0" style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font
-                        color="black">Email/SonosID:</font></span></font></div>
-        </td>
-        <td colspan="7" width="836" style="width:502pt;height:18pt;padding:0 5.4pt;">
-            @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> email) as $row)
-                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                                color="black">{{$row}}</font></span></font></div>
-            @endforeach
-        </td>
-        <td width="128" style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
-        </tr>
-                @endif
-
-
-                @if(\App\Models\Environment::find($task-> environment) -> browser !=null)
-                    <tr height="30" style="height:18pt;">
-        <td width="43" style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
-        <td width="105" style="width:63pt;height:18pt;padding:0 5.4pt;vertical-align: top">
-        <div *ngIf="i ===0" style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font
-                        color="black">Browser:</font></span></font></div>
-        </td>
-        <td colspan="7" width="836" style="width:502pt;height:18pt;padding:0 5.4pt;">
-            @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> browser) as $row)
-                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                                color="black">{{$row}}</font></span></font></div>
-            @endforeach
-        </td>
-        <td width="128" style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
-        </tr>
-                @endif
-
-                @if(\App\Models\Environment::find($task-> environment) -> player !=null)
-                    <tr height="30" style="height:18pt;">
-        <td width="43" style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
-        <td width="105" style="width:63pt;height:18pt;padding:0 5.4pt;vertical-align: top">
-        <div *ngIf="i ===0" style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font
-                        color="black">Player:</font></span></font></div>
-        </td>
-        <td colspan="7" width="836" style="width:502pt;height:18pt;padding:0 5.4pt;">
-            @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> player) as $row)
-                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                                color="black">{{$row}}</font></span></font></div>
-            @endforeach
-        </td>
-        <td width="128" style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
-        </tr>
-                @endif
-
-                @if(\App\Models\Environment::find($task-> environment) -> drop_date !=null)
-                    <tr height="30" style="height:18pt;">
-        <td width="43" style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
-        <td width="105" style="width:63pt;height:18pt;padding:0 5.4pt;vertical-align: top">
-        <div *ngIf="i ===0" style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font
-                        color="black">Drop Date:</font></span></font></div>
-        </td>
-        <td colspan="7" width="836" style="width:502pt;height:18pt;padding:0 5.4pt;">
-            @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> drop_date) as $row)
-                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                                color="black">{{$row}}</font></span></font></div>
-            @endforeach
-        </td>
-        <td width="128" style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
-        </tr>
-                @endif
-
-                @if(\App\Models\Environment::find($task-> environment) -> build !=null)
-                    <tr height="30" style="height:18pt;">
-        <td width="43" style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
-        <td width="105" style="width:63pt;height:18pt;padding:0 5.4pt;vertical-align: top">
-        <div *ngIf="i ===0" style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font
-                        color="black">Build:</font></span></font></div>
-        </td>
-        <td colspan="7" width="836" style="width:502pt;height:18pt;padding:0 5.4pt;">
-            @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> build) as $row)
-                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                                color="black">{{$row}}</font></span></font></div>
-            @endforeach
-        </td>
-        <td width="128" style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
-        </tr>
-                @endif
-
-                @if(\App\Models\Environment::find($task-> environment) -> device !=null)
-                    <tr height="30" style="height:18pt;">
-        <td width="43" style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
-        <td width="105" style="width:63pt;height:18pt;padding:0 5.4pt;vertical-align: top">
-        <div  style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font
-                        color="black">Device:</font></span></font></div>
-        </td>
-        <td colspan="7" width="836" style="width:502pt;height:18pt;padding:0 5.4pt;">
-            @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> device) as $row)
-                <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                                color="black">{{$row}}</font></span></font></div>
-            @endforeach
-        </td>
-        <td width="128" style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
-        </tr>
-                @endif
-            @endif
-
-        @endforeach
-        <tr height="30" style="height:18pt;"></tr>
-        <tr height="30" style="height:18pt;">
-        <td width="43" style="width:26pt;height:18pt;padding:0 5.4pt;">
-        <div align="center" style="text-align:center;margin:0;"><font face="Calibri,sans-serif" size="2"><span
-                    style="font-size:11pt;"><font size="4" color="black"><span
-                            style="font-size:14pt;"><b>III</b></span></font></span></font></div>
-        </td>
-        <td colspan="9" width="1070" style="width:642pt;height:18pt;padding:0 5.4pt;">
-        <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font size="4"
-                                                                                                            color="black"><span
-                            style="font-size:14pt;"><b>TO DO NEXT</b></span></font></span></font></div>
-        </td>
-        </tr>
-        <tr height="30" style="height:18pt;">
-        <td width="43" valign="bottom" nowrap="" style="width:26pt;height:18pt;padding:0 5.4pt;">
-        </td>
-        <td width="105" style="width:63pt;height:18pt;padding:0 5.4pt;">
-        <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                        color="black">Continue </font></span></font></div>
-        </td>
-        <td colspan="7" width="836" style="width:502pt;height:18pt;padding:0 5.4pt;">
-        <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span style="font-size:11pt;"><font
-                        color="black"><b>TBD</b></font></span></font></div>
-        </td>
-        <td width="128" style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
-        </tr>
-        <tr height="30" style="height:18pt;">
-        <td colspan="10" width="1113" valign="bottom" nowrap="" style="width:668pt;height:18pt;padding:0 5.4pt;">
-        </td>
-        </tr>
-        <tr height="30" style="height:18pt;">
-          </tr>
-        </tbody>
-        </table>
-     </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @endif
-                                        </div>
-                                        <div class="tab-pane fade" id="slack_report" role="tabpanel">
-                                            <div>
-                                                <div class="container-fluid">
-                                                    <div class="card">
-                                                        <div class="card-header bg-light">
-                                                            <h5>Slack Report Type</h5>
-                                                        </div>
-                                                        <div class="card-body">
-                                                            @if($board -> id == 1)
-                                                                <div class="p-rich_text_block" dir="auto">
-                                                                    @foreach ($teams as $team)
-                                                                        @if(
-                            count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0
-                            || count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
-                            || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
-                            || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
-                            || count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0 )
-                                                                            <div class="card-body">
-                                                                                <div id=":pw" class="a3s aiL ">
-                                                                                    <div dir="ltr" id="divExp">
-                                                                                        <div
-                                                                                            style="margin:0;"><font
+                                                                    @foreach(\App\Models\Task::where('board_id', 5) -> where('isSubBug', '0') -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $key=> $task)
+                                                                        <tr height="30" style="height:18pt;">
+                                                                            <td width="43" nowrap=""
+                                                                                style="width:26pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div align="center"
+                                                                                     style="text-align:center;margin:0;">
+                                                                                    <font face="Calibri,sans-serif"
+                                                                                          size="2"><span
+                                                                                            style="font-size:11pt;"><font
+                                                                                                color="black"><b>{{$key + 1 }}</b></font></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td colspan="8" width="941" nowrap=""
+                                                                                style="width:565pt;height:18pt;padding:0 5.4pt;">
+                                                                                <div style="margin:0;"><font
+                                                                                        face="Calibri,sans-serif"
+                                                                                        size="2"><span
+                                                                                            style="font-size:11pt;"><font
+                                                                                                color="black"><b>{{$task -> jira_summary}}</b></font></span></font>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td width="128"
+                                                                                style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                        </tr>
+                                                                        @if($task-> environment !=null)
+                                                                            @if(\App\Models\Environment::find($task-> environment) -> email !=null)
+                                                                                <tr height="30" style="height:18pt;">
+                                                                                    <td width="43"
+                                                                                        style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                                    <td width="105"
+                                                                                        style="width:63pt;height:18pt;padding:0 5.4pt;vertical-align: top">
+                                                                                        <div *ngIf="i ===0"
+                                                                                             style="margin:0;"><font
                                                                                                 face="Calibri,sans-serif"
                                                                                                 size="2"><span
                                                                                                     style="font-size:11pt;"><font
-                                                                                                        size="4"
-                                                                                                        color="#0070C0"><span
-                                                                                                            style="font-size:14pt;"><b>{{$team -> name}}</b></span></font></span></font>
+                                                                                                        color="black">Email/SonosID:</font></span></font>
                                                                                         </div>
-                                                                                        <div
-                                                                                            style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                                            {{$slack_subject}}
+                                                                                    </td>
+                                                                                    <td colspan="7" width="836"
+                                                                                        style="width:502pt;height:18pt;padding:0 5.4pt;">
+                                                                                        @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> email) as $row)
+                                                                                            <div style="margin:0;"><font
+                                                                                                    face="Calibri,sans-serif"
+                                                                                                    size="2"><span
+                                                                                                        style="font-size:11pt;"><font
+                                                                                                            color="black">{{$row}}</font></span></font>
+                                                                                            </div>
+                                                                                        @endforeach
+                                                                                    </td>
+                                                                                    <td width="128"
+                                                                                        style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                                </tr>
+                                                                            @endif
+
+                                                                            @if(\App\Models\Environment::find($task-> environment) -> browser !=null)
+                                                                                <tr height="30" style="height:18pt;">
+                                                                                    <td width="43"
+                                                                                        style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                                    <td width="105"
+                                                                                        style="width:63pt;height:18pt;padding:0 5.4pt;vertical-align: top">
+                                                                                        <div *ngIf="i ===0"
+                                                                                             style="margin:0;"><font
+                                                                                                face="Calibri,sans-serif"
+                                                                                                size="2"><span
+                                                                                                    style="font-size:11pt;"><font
+                                                                                                        color="black">Browser:</font></span></font>
                                                                                         </div>
-                                                                                        @if(count(\App\Models\Task::where('team', $team -> id) -> where('board_id', 1) -> where('type', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
-                                                                                            <div
-                                                                                                style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                                                <b
-                                                                                                    style="box-sizing:inherit">Testing
-                                                                                                    requests</b>
+                                                                                    </td>
+                                                                                    <td colspan="7" width="836"
+                                                                                        style="width:502pt;height:18pt;padding:0 5.4pt;">
+                                                                                        @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> browser) as $row)
+                                                                                            <div style="margin:0;"><font
+                                                                                                    face="Calibri,sans-serif"
+                                                                                                    size="2"><span
+                                                                                                        style="font-size:11pt;"><font
+                                                                                                            color="black">{{$row}}</font></span></font>
                                                                                             </div>
-                                                                                            <ul style="box-sizing:inherit;margin:0px;padding:0px;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                                                @foreach(\App\Models\Task::where('team', $team -> id) -> where('board_id', 1) -> where('type', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $item)
+                                                                                        @endforeach
+                                                                                    </td>
+                                                                                    <td width="128"
+                                                                                        style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                                </tr>
+                                                                            @endif
 
-                                                                                                    <li
-                                                                                                        style="box-sizing:inherit;margin-bottom:0px;margin-left:28px;">
-                                                                                                        <a
-                                                                                                            href="{{$board_config -> jira_url}}{{$item -> jira_id}}"
-                                                                                                            rel="noopener noreferrer"
-                                                                                                            style="box-sizing:inherit;text-decoration-line:none"
-                                                                                                            target="_blank">{{$item -> jira_id}}</a>&nbsp;-
-                                                                                                        {{$item -> jira_summary}}
-                                                                                                        -&nbsp;<b
-                                                                                                            style="box-sizing:inherit">{{strtoupper(\App\Models\TicketStatus::find($item -> ticket_status) -> name) }}
-                                                                                                            @if($item -> link_to_result != null)
-                                                                                                                <span>&nbsp;- No new issue found&nbsp;</span>
-                                                                                                            @endif
-
-
-                                                                                                        </b>
-                                                                                                        @if($item -> link_to_result != null)
-                                                                                                            <b style="box-sizing:inherit">-&nbsp;<a
-                                                                                                                    [href]="item.link_to_result"
-                                                                                                                    rel="noopener noreferrer"
-                                                                                                                    style="box-sizing:inherit;text-decoration-line:none"
-                                                                                                                    target="_blank">Link
-                                                                                                                    to
-                                                                                                                    result</a></b>
-                                                                                                        @endif
-                                                                                                    </li>
-                                                                                                @endforeach
-                                                                                            </ul>
-                                                                                        @endif
-                                                                                        @if(count(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) ->  where('type', 3) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
-                                                                                            <div
-                                                                                                style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                                                <b style="box-sizing:inherit">Tickets
-                                                                                                    verification</b>
-                                                                                            </div>
-                                                                                            <ul style="box-sizing:inherit;margin:0px;padding:0px;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                                                @foreach(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) -> where('type', 3) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $item)
-                                                                                                    <li
-                                                                                                        style="box-sizing:inherit;margin-bottom:0px;margin-left:28px;">
-                                                                                                        <a
-                                                                                                            href="{{$board_config -> jira_url}}{{$item -> jira_id}}"
-                                                                                                            rel="noopener noreferrer"
-                                                                                                            style="box-sizing:inherit;text-decoration-line:none"
-                                                                                                            target="_blank">{{$item -> jira_id}}</a>-
-                                                                                                        {{$item -> jira_summary}}
-                                                                                                        -&nbsp;<b
-                                                                                                            style="box-sizing:inherit">{{strtoupper(\App\Models\TicketStatus::find($item -> ticket_status) -> name) }}
-                                                                                                            @if($item -> link_to_result != null && $team -> id ==22)
-                                                                                                                <span>&nbsp;- No new issue found&nbsp;</span>
-                                                                                                            @endif
-
-
-                                                                                                        </b>
-                                                                                                        @if($item -> link_to_result != null)
-                                                                                                            <b style="box-sizing:inherit">-&nbsp;<a
-                                                                                                                    href="{{$item -> link_to_result}}"
-                                                                                                                    rel="noopener noreferrer"
-                                                                                                                    style="box-sizing:inherit;text-decoration-line:none"
-                                                                                                                    target="_blank">Link
-                                                                                                                    to
-                                                                                                                    result</a></b>
-                                                                                                        @endif
-                                                                                                    </li>
-                                                                                                @endforeach
-                                                                                            </ul>
-                                                                                        @endif
-                                                                                        @if(count(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
-
-                                                                                            <div
-                                                                                                style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                                                <b style="box-sizing:inherit">Bugs
-                                                                                                    Reported</b>
-                                                                                            </div>
-                                                                                            <ul style="box-sizing:inherit;margin:0px;padding:0px;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                                                @foreach(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $item)
-
-                                                                                                    <li
-                                                                                                        style="box-sizing:inherit;margin-bottom:0px;margin-left:28px;">
-                                                                                                        <a
-                                                                                                            href="{{$board_config -> jira_url}}{{$item -> jira_id}}"
-                                                                                                            rel="noopener noreferrer"
-                                                                                                            style="box-sizing:inherit;text-decoration-line:none"
-                                                                                                            target="_blank">{{$item -> jira_id}}</a>-
-                                                                                                        {{$item -> jira_summary}}
-                                                                                                        @if(\App\Models\TicketStatus::find($item -> ticket_status) -> id == 7)
-                                                                                                            -&nbsp;<b
-                                                                                                                style="box-sizing:inherit">{{strtoupper(\App\Models\TicketStatus::find($item -> ticket_status) -> name) }}
-                                                                                                            </b>
-                                                                                                        @endif
-                                                                                                    </li>
-                                                                                                @endforeach
-                                                                                            </ul>
-                                                                                        @endif
-                                                                                        <div
-                                                                                            style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                    <span aria-label=""
-                                                                          style="box-sizing:inherit;height:8px;display:block"></span>Thanks!
+                                                                            @if(\App\Models\Environment::find($task-> environment) -> player !=null)
+                                                                                <tr height="30" style="height:18pt;">
+                                                                                    <td width="43"
+                                                                                        style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                                    <td width="105"
+                                                                                        style="width:63pt;height:18pt;padding:0 5.4pt;vertical-align: top">
+                                                                                        <div *ngIf="i ===0"
+                                                                                             style="margin:0;"><font
+                                                                                                face="Calibri,sans-serif"
+                                                                                                size="2"><span
+                                                                                                    style="font-size:11pt;"><font
+                                                                                                        color="black">Player:</font></span></font>
                                                                                         </div>
-                                                                                        <hr>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
+                                                                                    </td>
+                                                                                    <td colspan="7" width="836"
+                                                                                        style="width:502pt;height:18pt;padding:0 5.4pt;">
+                                                                                        @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> player) as $row)
+                                                                                            <div style="margin:0;"><font
+                                                                                                    face="Calibri,sans-serif"
+                                                                                                    size="2"><span
+                                                                                                        style="font-size:11pt;"><font
+                                                                                                            color="black">{{$row}}</font></span></font>
+                                                                                            </div>
+                                                                                        @endforeach
+                                                                                    </td>
+                                                                                    <td width="128"
+                                                                                        style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                                </tr>
+                                                                            @endif
+
+                                                                            @if(\App\Models\Environment::find($task-> environment) -> drop_date !=null)
+                                                                                <tr height="30" style="height:18pt;">
+                                                                                    <td width="43"
+                                                                                        style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                                    <td width="105"
+                                                                                        style="width:63pt;height:18pt;padding:0 5.4pt;vertical-align: top">
+                                                                                        <div *ngIf="i ===0"
+                                                                                             style="margin:0;"><font
+                                                                                                face="Calibri,sans-serif"
+                                                                                                size="2"><span
+                                                                                                    style="font-size:11pt;"><font
+                                                                                                        color="black">Drop Date:</font></span></font>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td colspan="7" width="836"
+                                                                                        style="width:502pt;height:18pt;padding:0 5.4pt;">
+                                                                                        @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> drop_date) as $row)
+                                                                                            <div style="margin:0;"><font
+                                                                                                    face="Calibri,sans-serif"
+                                                                                                    size="2"><span
+                                                                                                        style="font-size:11pt;"><font
+                                                                                                            color="black">{{$row}}</font></span></font>
+                                                                                            </div>
+                                                                                        @endforeach
+                                                                                    </td>
+                                                                                    <td width="128"
+                                                                                        style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                                </tr>
+                                                                            @endif
+
+                                                                            @if(\App\Models\Environment::find($task-> environment) -> build !=null)
+                                                                                <tr height="30" style="height:18pt;">
+                                                                                    <td width="43"
+                                                                                        style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                                    <td width="105"
+                                                                                        style="width:63pt;height:18pt;padding:0 5.4pt;vertical-align: top">
+                                                                                        <div *ngIf="i ===0"
+                                                                                             style="margin:0;"><font
+                                                                                                face="Calibri,sans-serif"
+                                                                                                size="2"><span
+                                                                                                    style="font-size:11pt;"><font
+                                                                                                        color="black">Build:</font></span></font>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td colspan="7" width="836"
+                                                                                        style="width:502pt;height:18pt;padding:0 5.4pt;">
+                                                                                        @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> build) as $row)
+                                                                                            <div style="margin:0;"><font
+                                                                                                    face="Calibri,sans-serif"
+                                                                                                    size="2"><span
+                                                                                                        style="font-size:11pt;"><font
+                                                                                                            color="black">{{$row}}</font></span></font>
+                                                                                            </div>
+                                                                                        @endforeach
+                                                                                    </td>
+                                                                                    <td width="128"
+                                                                                        style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                                </tr>
+                                                                            @endif
+
+                                                                            @if(\App\Models\Environment::find($task-> environment) -> device !=null)
+                                                                                <tr height="30" style="height:18pt;">
+                                                                                    <td width="43"
+                                                                                        style="width:26pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                                    <td width="105"
+                                                                                        style="width:63pt;height:18pt;padding:0 5.4pt;vertical-align: top">
+                                                                                        <div style="margin:0;"><font
+                                                                                                face="Calibri,sans-serif"
+                                                                                                size="2"><span
+                                                                                                    style="font-size:11pt;"><font
+                                                                                                        color="black">Device:</font></span></font>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td colspan="7" width="836"
+                                                                                        style="width:502pt;height:18pt;padding:0 5.4pt;">
+                                                                                        @foreach(explode(';',\App\Models\Environment::find($task-> environment) -> device) as $row)
+                                                                                            <div style="margin:0;"><font
+                                                                                                    face="Calibri,sans-serif"
+                                                                                                    size="2"><span
+                                                                                                        style="font-size:11pt;"><font
+                                                                                                            color="black">{{$row}}</font></span></font>
+                                                                                            </div>
+                                                                                        @endforeach
+                                                                                    </td>
+                                                                                    <td width="128"
+                                                                                        style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                                </tr>
+                                                                            @endif
                                                                         @endif
+
                                                                     @endforeach
-                                                                </div>
-                                                            @endif
+                                                                    <tr height="30" style="height:18pt;"></tr>
+                                                                    <tr height="30" style="height:18pt;">
+                                                                        <td width="43"
+                                                                            style="width:26pt;height:18pt;padding:0 5.4pt;">
+                                                                            <div align="center"
+                                                                                 style="text-align:center;margin:0;">
+                                                                                <font face="Calibri,sans-serif"
+                                                                                      size="2"><span
+                                                                                        style="font-size:11pt;"><font
+                                                                                            size="4" color="black"><span
+                                                                                                style="font-size:14pt;"><b>III</b></span></font></span></font>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td colspan="9" width="1070"
+                                                                            style="width:642pt;height:18pt;padding:0 5.4pt;">
+                                                                            <div style="margin:0;"><font
+                                                                                    face="Calibri,sans-serif"
+                                                                                    size="2"><span
+                                                                                        style="font-size:11pt;"><font
+                                                                                            size="4"
+                                                                                            color="black"><span
+                                                                                                style="font-size:14pt;"><b>TO DO NEXT</b></span></font></span></font>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr height="30" style="height:18pt;">
+                                                                        <td width="43" valign="bottom" nowrap=""
+                                                                            style="width:26pt;height:18pt;padding:0 5.4pt;">
+                                                                        </td>
+                                                                        <td width="105"
+                                                                            style="width:63pt;height:18pt;padding:0 5.4pt;">
+                                                                            <div style="margin:0;"><font
+                                                                                    face="Calibri,sans-serif"
+                                                                                    size="2"><span
+                                                                                        style="font-size:11pt;"><font
+                                                                                            color="black">Continue </font></span></font>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td colspan="7" width="836"
+                                                                            style="width:502pt;height:18pt;padding:0 5.4pt;">
+                                                                            <div style="margin:0;"><font
+                                                                                    face="Calibri,sans-serif"
+                                                                                    size="2"><span
+                                                                                        style="font-size:11pt;"><font
+                                                                                            color="black"><b>TBD</b></font></span></font>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td width="128"
+                                                                            style="width:77pt;height:18pt;padding:0 5.4pt;"></td>
+                                                                    </tr>
+                                                                    <tr height="30" style="height:18pt;">
+                                                                        <td colspan="10" width="1113" valign="bottom"
+                                                                            nowrap=""
+                                                                            style="width:668pt;height:18pt;padding:0 5.4pt;">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr height="30" style="height:18pt;">
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="reportconfig" role="tabpanel">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <form id="myForm" action="{{ route('manager.save-report-config') }}"
-                                                          method="post"
-                                                          class="row g-3"
-                                                          enctype="multipart/form-data">
-                                                        @csrf
-                                                        <div class="card-body">
-                                                            <h5 class="mb-4">Report Config</h5>
-                                                            <input type="hidden" name="board_id"
-                                                                   value="{{$board -> id}}">
-                                                            <div class="row mb-3">
-                                                                <label for="project_name"
-                                                                       class="col-sm-3 col-form-label">Board
-                                                                    Name</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="position-relative input-icon">
-                                                                        <input type="text" class="form-control" disabled
-                                                                               value="{{$board ->name}}"
-                                                                               id="board_name">
-                                                                        <span
-                                                                            class="position-absolute top-50 translate-middle-y"><i
-                                                                                class='bx bx-user'></i></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-3">
-                                                                <label for="subject" class="col-sm-3 col-form-label">Subject</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="col-sm-9">
-                                                                        <div class="position-relative input-icon">
-                                                                            <input type="text" class="form-control"
-                                                                                   name="subject" id="subject"
-                                                                                   value="{{$report_config -> subject}}">
-                                                                            <span
-                                                                                class="position-absolute top-50 translate-middle-y"><i
-                                                                                    class='bx bx-user'></i></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    @error('subject')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-3">
-                                                                <label for="cc" class="col-sm-3 col-form-label">CC
-                                                                    List</label>
-                                                                <div class="col-sm-9">
-                                <textarea class="form-control" name="cc" id="cc" rows="5"
-                                          placeholder="Enter the cc list ...">{{$report_config -> cc}}</textarea>
-                                                                    @error('cc')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row mb-3">
-                                                                <label for="date_format"
-                                                                       class="col-sm-3 col-form-label">Date
-                                                                    Format</label>
-                                                                <div class="col-sm-9">
-
-                                                                    <div class="col-sm-9">
-                                                                        <div class="position-relative input-icon">
-                                                                            <input type="text" class="form-control"
-                                                                                   name="date_format" id="date_format"
-                                                                                   value="{{$report_config -> date_format}}">
-                                                                            <span
-                                                                                class="position-absolute top-50 translate-middle-y"><i
-                                                                                    class='bx bx-user'></i></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    @error('cc')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <label class="col-sm-3 col-form-label"></label>
-                                                                <div class="col-sm-9">
-                                                                    <div
-                                                                        class="d-md-flex d-grid align-items-center gap-3">
-                                                                        <button type="submit"
-                                                                                class="btn btn-primary px-5"><i
-                                                                                class='bx bx-add-to-queue mr-1'></i>Save
-                                                                            Report Config
-                                                                        </button>
-                                                                        <button type="reset"
-                                                                                class="btn btn-outline-secondary px-5">
-                                                                            <i
-                                                                                class='bx bx-reset mr-1'></i>Reset
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="primarycontact" role="tabpanel">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <form id="myForm"
-                                                          action="{{ route('manager.update-board-config') }}"
-                                                          method="post"
-                                                          class="row g-3"
-                                                          enctype="multipart/form-data">
-                                                        @csrf
-                                                        <div class="card-body">
-                                                            <h5 class="mb-4">Board Config</h5>
-                                                            <input type="hidden" name="board_config_id"
-                                                                   value="{{$board_config -> id}}">
-                                                            <div class="row mb-3">
-                                                                <label for="project_name"
-                                                                       class="col-sm-3 col-form-label">Board
-                                                                    Name</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="position-relative input-icon">
-                                                                        <input type="text" class="form-control" disabled
-                                                                               value="{{$board ->name}}"
-                                                                               id="board_name">
-                                                                        <span
-                                                                            class="position-absolute top-50 translate-middle-y"><i
-                                                                                class='bx bx-user'></i></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-3">
-                                                                <label for="jira_url" class="col-sm-3 col-form-label">Jira
-                                                                    URL</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="col-sm-9">
-                                                                        <div class="position-relative input-icon">
-                                                                            <input type="text" class="form-control"
-                                                                                   value="{{$board_config ->jira_url}}"
-                                                                                   name="jira_url" id="jira_url">
-                                                                            <span
-                                                                                class="position-absolute top-50 translate-middle-y"><i
-                                                                                    class='bx bx-user'></i></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    @error('jira_url')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Team</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> team == 1 ? 'checked': ''}} type="radio"
-                                                                               name="team" id="team1" value="1">
-                                                                        <label class="form-check-label" for="team1">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> team == 0 ? 'checked': ''}} type="radio"
-                                                                               name="team" id="team0" value="0">
-                                                                        <label class="form-check-label" for="team0">Disable</label>
-                                                                    </div>
-                                                                    @error('team')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Type</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> type == 1 ? 'checked': ''}} type="radio"
-                                                                               name="type" id="type1" value="1">
-                                                                        <label class="form-check-label" for="type1">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> type == 0 ? 'checked': ''}} type="radio"
-                                                                               name="type" id="type0" value="0">
-                                                                        <label class="form-check-label" for="type0">Disable</label>
-                                                                    </div>
-                                                                    @error('type')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Jira Id</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> jira_id == 1 ? 'checked': ''}} type="radio"
-                                                                               name="jira_id" id="jira_id1" value="1">
-                                                                        <label class="form-check-label" for="jira_id1">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> jira_id == 0 ? 'checked': ''}} type="radio"
-                                                                               name="jira_id" id="jira_id0" value="0">
-                                                                        <label class="form-check-label" for="jira_id0">Disable</label>
-                                                                    </div>
-                                                                    @error('jira_id')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Jira
-                                                                    Summary</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> jira_summary == 1 ? 'checked': ''}} type="radio"
-                                                                               name="jira_summary" id="jira_summary1"
-                                                                               value="1">
-                                                                        <label class="form-check-label"
-                                                                               for="jira_summary1">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> jira_summary == 0 ? 'checked': ''}} type="radio"
-                                                                               name="jira_summary" id="jira_summary0"
-                                                                               value="0">
-                                                                        <label class="form-check-label"
-                                                                               for="jira_summary0">Disable</label>
-                                                                    </div>
-                                                                    @error('jira_summary')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Working
-                                                                    Status</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> working_status == 1 ? 'checked': ''}} type="radio"
-                                                                               name="working_status"
-                                                                               id="working_status1" value="1">
-                                                                        <label class="form-check-label"
-                                                                               for="working_status1">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> working_status == 0 ? 'checked': ''}} type="radio"
-                                                                               name="working_status"
-                                                                               id="working_status0" value="0">
-                                                                        <label class="form-check-label"
-                                                                               for="working_status0">Disable</label>
-                                                                    </div>
-                                                                    @error('working_status')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Ticket
-                                                                    Status</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> ticket_status == 1 ? 'checked': ''}} type="radio"
-                                                                               name="ticket_status" id="ticket_status1"
-                                                                               value="1">
-                                                                        <label class="form-check-label"
-                                                                               for="ticket_status1">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> ticket_status == 0 ? 'checked': ''}} type="radio"
-                                                                               name="ticket_status" id="ticket_status0"
-                                                                               value="0">
-                                                                        <label class="form-check-label"
-                                                                               for="ticket_status0">Disable</label>
-                                                                    </div>
-                                                                    @error('ticket_status')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Priority</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> priority == 1 ? 'checked': ''}} checked
-                                                                               type="radio" name="priority"
-                                                                               id="priority1" value="1">
-                                                                        <label class="form-check-label" for="priority1">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> priority == 0 ? 'checked': ''}} type="radio"
-                                                                               name="priority" id="priority0" value="0">
-                                                                        <label class="form-check-label" for="priority0">Disable</label>
-                                                                    </div>
-                                                                    @error('priority')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Link To
-                                                                    Result</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> link_to_result == 1 ? 'checked': ''}} type="radio"
-                                                                               name="link_to_result"
-                                                                               id="link_to_result1" value="1">
-                                                                        <label class="form-check-label"
-                                                                               for="link_to_result1">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> link_to_result == 0 ? 'checked': ''}} type="radio"
-                                                                               name="link_to_result"
-                                                                               id="link_to_result0" value="0">
-                                                                        <label class="form-check-label"
-                                                                               for="link_to_result0">Disable</label>
-                                                                    </div>
-                                                                    @error('link_to_result')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Test Plan</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> test_plan == 1 ? 'checked': ''}} type="radio"
-                                                                               name="test_plan" id="test_plan1"
-                                                                               value="1">
-                                                                        <label class="form-check-label"
-                                                                               for="test_plan1">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> test_plan == 0 ? 'checked': ''}} type="radio"
-                                                                               name="test_plan" id="test_plan0"
-                                                                               value="0">
-                                                                        <label class="form-check-label"
-                                                                               for="test_plan0">Disable</label>
-                                                                    </div>
-                                                                    @error('test_plan')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Sprint</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> sprint == 1 ? 'checked': ''}} type="radio"
-                                                                               name="sprint" id="sprint1" value="1">
-                                                                        <label class="form-check-label" for="sprint1">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> sprint == 0 ? 'checked': ''}} type="radio"
-                                                                               name="sprint" id="sprint0" value="0">
-                                                                        <label class="form-check-label" for="sprint0">Disable</label>
-                                                                    </div>
-                                                                    @error('sprint')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Note</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> note == 1 ? 'checked': ''}} type="radio"
-                                                                               name="note" id="note1" value="1">
-                                                                        <label class="form-check-label" for="note1">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> note == 0 ? 'checked': ''}} type="radio"
-                                                                               name="note" id="note0" value="0">
-                                                                        <label class="form-check-label" for="note0">Disable</label>
-                                                                    </div>
-                                                                    @error('note')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-3">
-                                                                <label
-                                                                    class="col-sm-3 col-form-label">Environment</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> environment == 1 ? 'checked': ''}} type="radio"
-                                                                               name="environment" id="environment1"
-                                                                               value="1">
-                                                                        <label class="form-check-label"
-                                                                               for="environment1">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> environment == 0 ? 'checked': ''}} type="radio"
-                                                                               name="environment" id="environment0"
-                                                                               value="0">
-                                                                        <label class="form-check-label"
-                                                                               for="environment0">Disable</label>
-                                                                    </div>
-                                                                    @error('environment')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Sub Bug</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> isSubBug == 1 ? 'checked': ''}} type="radio"
-                                                                               name="isSubBug" id="isSubBug1" value="1">
-                                                                        <label class="form-check-label" for="isSubBug1">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> isSubBug == 0 ? 'checked': ''}} type="radio"
-                                                                               name="isSubBug" id="isSubBug0" value="0">
-                                                                        <label class="form-check-label" for="isSubBug0">Disable</label>
-                                                                    </div>
-                                                                    @error('environment')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Tester 1</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> tester_1 == 1 ? 'checked': ''}} type="radio"
-                                                                               name="tester_1" id="tester_11" value="1">
-                                                                        <label class="form-check-label" for="tester_11">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> tester_1 == 0 ? 'checked': ''}} type="radio"
-                                                                               name="tester_1" id="tester_10" value="0">
-                                                                        <label class="form-check-label" for="tester_10">Disable</label>
-                                                                    </div>
-                                                                    @error('tester_1')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Tester 2</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> tester_2 == 1 ? 'checked': ''}} type="radio"
-                                                                               name="tester_2" id="tester_21" value="1">
-                                                                        <label class="form-check-label" for="tester_21">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> tester_2 == 0 ? 'checked': ''}} type="radio"
-                                                                               name="tester_2" id="tester_20" value="0">
-                                                                        <label class="form-check-label" for="tester_20">Disable</label>
-                                                                    </div>
-                                                                    @error('tester_2')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Tester 3</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> tester_3 == 1 ? 'checked': ''}} type="radio"
-                                                                               name="tester_3" id="tester_31" value="1">
-                                                                        <label class="form-check-label" for="tester_31">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> tester_3 == 0 ? 'checked': ''}} type="radio"
-                                                                               name="tester_3" id="tester_30" value="0">
-                                                                        <label class="form-check-label" for="tester_30">Disable</label>
-                                                                    </div>
-                                                                    @error('tester_3')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Tester 4</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> tester_4 == 1 ? 'checked': ''}} type="radio"
-                                                                               name="tester_4" id="tester_41" value="1">
-                                                                        <label class="form-check-label" for="tester_41">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> tester_4 == 0 ? 'checked': ''}} type="radio"
-                                                                               name="tester_4" id="tester_40" value="0">
-                                                                        <label class="form-check-label" for="tester_40">Disable</label>
-                                                                    </div>
-                                                                    @error('tester_4')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Tester 5</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> tester_5 == 1 ? 'checked': ''}} type="radio"
-                                                                               name="tester_5" id="tester_51" value="1">
-                                                                        <label class="form-check-label" for="tester_51">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> tester_5 == 0 ? 'checked': ''}} type="radio"
-                                                                               name="tester_5" id="tester_50" value="0">
-                                                                        <label class="form-check-label" for="tester_50">Disable</label>
-                                                                    </div>
-                                                                    @error('tester_5')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Test Case
-                                                                    Pass</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> pass == 1 ? 'checked': ''}} type="radio"
-                                                                               name="pass" id="pass1" value="1">
-                                                                        <label class="form-check-label" for="pass1">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> fail == 0 ? 'checked': ''}} type="radio"
-                                                                               name="pass" id="pass0" value="0">
-                                                                        <label class="form-check-label" for="pass0">Disable</label>
-                                                                    </div>
-                                                                    @error('pass')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-3 col-form-label">Test Case
-                                                                    Fail</label>
-                                                                <div class="col-sm-9">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> fail == 1 ? 'checked': ''}} type="radio"
-                                                                               name="fail" id="fail1" value="1">
-                                                                        <label class="form-check-label" for="fail1">Enable</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input"
-                                                                               {{$board_config -> fail == 0 ? 'checked': ''}} type="radio"
-                                                                               name="fail" id="fail0" value="0">
-                                                                        <label class="form-check-label" for="fail0">Disable</label>
-                                                                    </div>
-                                                                    @error('fail')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <label class="col-sm-3 col-form-label"></label>
-                                                                <div class="col-sm-9">
-                                                                    <div
-                                                                        class="d-md-flex d-grid align-items-center gap-3">
-                                                                        <button type="submit"
-                                                                                class="btn btn-primary px-5"><i
-                                                                                class='bx bx-add-to-queue mr-1'></i>Save
-                                                                            Config
-                                                                        </button>
-                                                                        <button type="reset"
-                                                                                class="btn btn-outline-secondary px-5">
-                                                                            <i
-                                                                                class='bx bx-reset mr-1'></i>Reset
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+                        @endif
                     </div>
+                    @if($board -> id == 1)
+                    <div class="tab-pane fade" id="slack_report" role="tabpanel">
+                        <div>
+                            <div class="container-fluid">
+                                <div class="card">
+                                    <div class="card-header bg-light">
+                                        <h5>Slack Report Type</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        @if($board -> id == 1)
+                                            <div class="p-rich_text_block" dir="auto">
+                                                @foreach ($teams as $team)
+                                                    @if(
+        count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0
+        || count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+        || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+        || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+        || count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0 )
+                                                        <div class="card-body">
+                                                            <div id=":pw" class="a3s aiL ">
+                                                                <div dir="ltr" id="divExp">
+                                                                    <div
+                                                                        style="margin:0;"><font
+                                                                            face="Calibri,sans-serif"
+                                                                            size="2"><span
+                                                                                style="font-size:11pt;"><font
+                                                                                    size="4"
+                                                                                    color="#0070C0"><span
+                                                                                        style="font-size:14pt;"><b>{{$team -> name}}</b></span></font></span></font>
+                                                                    </div>
+                                                                    <div
+                                                                        style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
+                                                                        {{$slack_subject}}
+                                                                    </div>
+                                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('board_id', 1) -> where('type', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
+                                                                        <div
+                                                                            style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
+                                                                            <b
+                                                                                style="box-sizing:inherit">Testing
+                                                                                requests</b>
+                                                                        </div>
+                                                                        <ul style="box-sizing:inherit;margin:0px;padding:0px;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
+                                                                            @foreach(\App\Models\Task::where('team', $team -> id) -> where('board_id', 1) -> where('type', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $item)
 
-                    <script>
-                        function copyFunction() {
-                            const elm = document.getElementById("divExp");
-                            // for Internet Explorer
+                                                                                <li
+                                                                                    style="box-sizing:inherit;margin-bottom:0px;margin-left:28px;">
+                                                                                    <a
+                                                                                        href="{{$board_config -> jira_url}}{{$item -> jira_id}}"
+                                                                                        rel="noopener noreferrer"
+                                                                                        style="box-sizing:inherit;text-decoration-line:none"
+                                                                                        target="_blank">{{$item -> jira_id}}</a>&nbsp;-
+                                                                                    {{$item -> jira_summary}}
+                                                                                    -&nbsp;<b
+                                                                                        style="box-sizing:inherit">{{strtoupper(\App\Models\TicketStatus::find($item -> ticket_status) -> name) }}
+                                                                                        @if($item -> link_to_result != null)
+                                                                                            <span>&nbsp;- No new issue found&nbsp;</span>
+                                                                                        @endif
 
-                            if (document.body.createTextRange) {
-                                const range = document.body.createTextRange();
-                                range.moveToElementText(elm);
-                                range.select();
-                                document.execCommand("copy");
-                                alert("Copied div content to clipboard");
-                            } else if (window.getSelection) {
-                                // other browsers
 
-                                const selection = window.getSelection();
-                                const range = document.createRange();
-                                range.selectNodeContents(elm);
-                                selection.removeAllRanges();
-                                selection.addRange(range);
-                                document.execCommand("copy");
-                                alert("Copied div content to clipboard");
-                            }
-                        }
-                    </script>
+                                                                                    </b>
+                                                                                    @if($item -> link_to_result != null)
+                                                                                        <b style="box-sizing:inherit">-&nbsp;<a
+                                                                                                [href]="item.link_to_result"
+                                                                                                rel="noopener noreferrer"
+                                                                                                style="box-sizing:inherit;text-decoration-line:none"
+                                                                                                target="_blank">Link
+                                                                                                to
+                                                                                                result</a></b>
+                                                                                    @endif
+                                                                                </li>
+                                                                            @endforeach
+                                                                        </ul>
+                                                                    @endif
+                                                                    @if(count(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) ->  where('type', 3) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
+                                                                        <div
+                                                                            style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
+                                                                            <b style="box-sizing:inherit">Tickets
+                                                                                verification</b>
+                                                                        </div>
+                                                                        <ul style="box-sizing:inherit;margin:0px;padding:0px;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
+                                                                            @foreach(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) -> where('type', 3) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $item)
+                                                                                <li
+                                                                                    style="box-sizing:inherit;margin-bottom:0px;margin-left:28px;">
+                                                                                    <a
+                                                                                        href="{{$board_config -> jira_url}}{{$item -> jira_id}}"
+                                                                                        rel="noopener noreferrer"
+                                                                                        style="box-sizing:inherit;text-decoration-line:none"
+                                                                                        target="_blank">{{$item -> jira_id}}</a>-
+                                                                                    {{$item -> jira_summary}}
+                                                                                    -&nbsp;<b
+                                                                                        style="box-sizing:inherit">{{strtoupper(\App\Models\TicketStatus::find($item -> ticket_status) -> name) }}
+                                                                                        @if($item -> link_to_result != null && $team -> id ==22)
+                                                                                            <span>&nbsp;- No new issue found&nbsp;</span>
+                                                                                        @endif
+
+
+                                                                                    </b>
+                                                                                    @if($item -> link_to_result != null)
+                                                                                        <b style="box-sizing:inherit">-&nbsp;<a
+                                                                                                href="{{$item -> link_to_result}}"
+                                                                                                rel="noopener noreferrer"
+                                                                                                style="box-sizing:inherit;text-decoration-line:none"
+                                                                                                target="_blank">Link
+                                                                                                to
+                                                                                                result</a></b>
+                                                                                    @endif
+                                                                                </li>
+                                                                            @endforeach
+                                                                        </ul>
+                                                                    @endif
+                                                                    @if(count(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
+
+                                                                        <div
+                                                                            style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
+                                                                            <b style="box-sizing:inherit">Bugs
+                                                                                Reported</b>
+                                                                        </div>
+                                                                        <ul style="box-sizing:inherit;margin:0px;padding:0px;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
+                                                                            @foreach(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $item)
+
+                                                                                <li
+                                                                                    style="box-sizing:inherit;margin-bottom:0px;margin-left:28px;">
+                                                                                    <a
+                                                                                        href="{{$board_config -> jira_url}}{{$item -> jira_id}}"
+                                                                                        rel="noopener noreferrer"
+                                                                                        style="box-sizing:inherit;text-decoration-line:none"
+                                                                                        target="_blank">{{$item -> jira_id}}</a>-
+                                                                                    {{$item -> jira_summary}}
+                                                                                    @if(\App\Models\TicketStatus::find($item -> ticket_status) -> id == 7)
+                                                                                        -&nbsp;<b
+                                                                                            style="box-sizing:inherit">{{strtoupper(\App\Models\TicketStatus::find($item -> ticket_status) -> name) }}
+                                                                                        </b>
+                                                                                    @endif
+                                                                                </li>
+                                                                            @endforeach
+                                                                        </ul>
+                                                                    @endif
+                                                                    <div
+                                                                        style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
+                                                                    <span aria-label=""
+                                                                          style="box-sizing:inherit;height:8px;display:block"></span>Thanks!
+                                                                    </div>
+                                                                    <hr>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                    <div class="tab-pane fade" id="reportconfig" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="myForm" action="{{ route('manager.save-report-config') }}"
+                                      method="post"
+                                      class="row g-3"
+                                      enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="card-body">
+                                        <h5 class="mb-4">Report Config</h5>
+                                        <input type="hidden" name="board_id"
+                                               value="{{$board -> id}}">
+                                        <div class="row mb-3">
+                                            <label for="project_name"
+                                                   class="col-sm-3 col-form-label">Board
+                                                Name</label>
+                                            <div class="col-sm-9">
+                                                <div class="position-relative input-icon">
+                                                    <input type="text" class="form-control" disabled
+                                                           value="{{$board ->name}}"
+                                                           id="board_name">
+                                                    <span
+                                                        class="position-absolute top-50 translate-middle-y"><i
+                                                            class='bx bx-user'></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="subject"
+                                                   class="col-sm-3 col-form-label">Subject</label>
+                                            <div class="col-sm-9">
+                                                <div class="col-sm-9">
+                                                    <div class="position-relative input-icon">
+                                                        <input type="text" class="form-control"
+                                                               name="subject" id="subject"
+                                                               value="{{$report_config -> subject}}">
+                                                        <span
+                                                            class="position-absolute top-50 translate-middle-y"><i
+                                                                class='bx bx-user'></i></span>
+                                                    </div>
+                                                </div>
+                                                @error('subject')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="cc" class="col-sm-3 col-form-label">CC
+                                                List</label>
+                                            <div class="col-sm-9">
+                                <textarea class="form-control" name="cc" id="cc" rows="5"
+                                          placeholder="Enter the cc list ...">{{$report_config -> cc}}</textarea>
+                                                @error('cc')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="date_format"
+                                                   class="col-sm-3 col-form-label">Date
+                                                Format</label>
+                                            <div class="col-sm-9">
+
+                                                <div class="col-sm-9">
+                                                    <div class="position-relative input-icon">
+                                                        <input type="text" class="form-control"
+                                                               name="date_format" id="date_format"
+                                                               value="{{$report_config -> date_format}}">
+                                                        <span
+                                                            class="position-absolute top-50 translate-middle-y"><i
+                                                                class='bx bx-user'></i></span>
+                                                    </div>
+                                                </div>
+                                                @error('cc')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <label class="col-sm-3 col-form-label"></label>
+                                            <div class="col-sm-9">
+                                                <div
+                                                    class="d-md-flex d-grid align-items-center gap-3">
+                                                    <button type="submit"
+                                                            class="btn btn-primary px-5"><i
+                                                            class='bx bx-add-to-queue mr-1'></i>Save
+                                                        Report Config
+                                                    </button>
+                                                    <button type="reset"
+                                                            class="btn btn-outline-secondary px-5">
+                                                        <i
+                                                            class='bx bx-reset mr-1'></i>Reset
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="primarycontact" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="myForm"
+                                      action="{{ route('manager.update-board-config') }}"
+                                      method="post"
+                                      class="row g-3"
+                                      enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="card-body">
+                                        <h5 class="mb-4">Board Config</h5>
+                                        <input type="hidden" name="board_config_id"
+                                               value="{{$board_config -> id}}">
+                                        <div class="row mb-3">
+                                            <label for="project_name"
+                                                   class="col-sm-3 col-form-label">Board
+                                                Name</label>
+                                            <div class="col-sm-9">
+                                                <div class="position-relative input-icon">
+                                                    <input type="text" class="form-control" disabled
+                                                           value="{{$board ->name}}"
+                                                           id="board_name">
+                                                    <span
+                                                        class="position-absolute top-50 translate-middle-y"><i
+                                                            class='bx bx-user'></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="jira_url" class="col-sm-3 col-form-label">Jira
+                                                URL</label>
+                                            <div class="col-sm-9">
+                                                <div class="col-sm-9">
+                                                    <div class="position-relative input-icon">
+                                                        <input type="text" class="form-control"
+                                                               value="{{$board_config ->jira_url}}"
+                                                               name="jira_url" id="jira_url">
+                                                        <span
+                                                            class="position-absolute top-50 translate-middle-y"><i
+                                                                class='bx bx-user'></i></span>
+                                                    </div>
+                                                </div>
+                                                @error('jira_url')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Team</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> team == 1 ? 'checked': ''}} type="radio"
+                                                           name="team" id="team1" value="1">
+                                                    <label class="form-check-label"
+                                                           for="team1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> team == 0 ? 'checked': ''}} type="radio"
+                                                           name="team" id="team0" value="0">
+                                                    <label class="form-check-label"
+                                                           for="team0">Disable</label>
+                                                </div>
+                                                @error('team')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Type</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> type == 1 ? 'checked': ''}} type="radio"
+                                                           name="type" id="type1" value="1">
+                                                    <label class="form-check-label"
+                                                           for="type1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> type == 0 ? 'checked': ''}} type="radio"
+                                                           name="type" id="type0" value="0">
+                                                    <label class="form-check-label"
+                                                           for="type0">Disable</label>
+                                                </div>
+                                                @error('type')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Jira Id</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> jira_id == 1 ? 'checked': ''}} type="radio"
+                                                           name="jira_id" id="jira_id1" value="1">
+                                                    <label class="form-check-label"
+                                                           for="jira_id1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> jira_id == 0 ? 'checked': ''}} type="radio"
+                                                           name="jira_id" id="jira_id0" value="0">
+                                                    <label class="form-check-label"
+                                                           for="jira_id0">Disable</label>
+                                                </div>
+                                                @error('jira_id')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Jira
+                                                Summary</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> jira_summary == 1 ? 'checked': ''}} type="radio"
+                                                           name="jira_summary" id="jira_summary1"
+                                                           value="1">
+                                                    <label class="form-check-label"
+                                                           for="jira_summary1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> jira_summary == 0 ? 'checked': ''}} type="radio"
+                                                           name="jira_summary" id="jira_summary0"
+                                                           value="0">
+                                                    <label class="form-check-label"
+                                                           for="jira_summary0">Disable</label>
+                                                </div>
+                                                @error('jira_summary')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Working
+                                                Status</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> working_status == 1 ? 'checked': ''}} type="radio"
+                                                           name="working_status"
+                                                           id="working_status1" value="1">
+                                                    <label class="form-check-label"
+                                                           for="working_status1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> working_status == 0 ? 'checked': ''}} type="radio"
+                                                           name="working_status"
+                                                           id="working_status0" value="0">
+                                                    <label class="form-check-label"
+                                                           for="working_status0">Disable</label>
+                                                </div>
+                                                @error('working_status')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Ticket
+                                                Status</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> ticket_status == 1 ? 'checked': ''}} type="radio"
+                                                           name="ticket_status" id="ticket_status1"
+                                                           value="1">
+                                                    <label class="form-check-label"
+                                                           for="ticket_status1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> ticket_status == 0 ? 'checked': ''}} type="radio"
+                                                           name="ticket_status" id="ticket_status0"
+                                                           value="0">
+                                                    <label class="form-check-label"
+                                                           for="ticket_status0">Disable</label>
+                                                </div>
+                                                @error('ticket_status')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Priority</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> priority == 1 ? 'checked': ''}} checked
+                                                           type="radio" name="priority"
+                                                           id="priority1" value="1">
+                                                    <label class="form-check-label"
+                                                           for="priority1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> priority == 0 ? 'checked': ''}} type="radio"
+                                                           name="priority" id="priority0" value="0">
+                                                    <label class="form-check-label"
+                                                           for="priority0">Disable</label>
+                                                </div>
+                                                @error('priority')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Link To
+                                                Result</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> link_to_result == 1 ? 'checked': ''}} type="radio"
+                                                           name="link_to_result"
+                                                           id="link_to_result1" value="1">
+                                                    <label class="form-check-label"
+                                                           for="link_to_result1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> link_to_result == 0 ? 'checked': ''}} type="radio"
+                                                           name="link_to_result"
+                                                           id="link_to_result0" value="0">
+                                                    <label class="form-check-label"
+                                                           for="link_to_result0">Disable</label>
+                                                </div>
+                                                @error('link_to_result')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Test Plan</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> test_plan == 1 ? 'checked': ''}} type="radio"
+                                                           name="test_plan" id="test_plan1"
+                                                           value="1">
+                                                    <label class="form-check-label"
+                                                           for="test_plan1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> test_plan == 0 ? 'checked': ''}} type="radio"
+                                                           name="test_plan" id="test_plan0"
+                                                           value="0">
+                                                    <label class="form-check-label"
+                                                           for="test_plan0">Disable</label>
+                                                </div>
+                                                @error('test_plan')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Sprint</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> sprint == 1 ? 'checked': ''}} type="radio"
+                                                           name="sprint" id="sprint1" value="1">
+                                                    <label class="form-check-label"
+                                                           for="sprint1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> sprint == 0 ? 'checked': ''}} type="radio"
+                                                           name="sprint" id="sprint0" value="0">
+                                                    <label class="form-check-label"
+                                                           for="sprint0">Disable</label>
+                                                </div>
+                                                @error('sprint')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Note</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> note == 1 ? 'checked': ''}} type="radio"
+                                                           name="note" id="note1" value="1">
+                                                    <label class="form-check-label"
+                                                           for="note1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> note == 0 ? 'checked': ''}} type="radio"
+                                                           name="note" id="note0" value="0">
+                                                    <label class="form-check-label"
+                                                           for="note0">Disable</label>
+                                                </div>
+                                                @error('note')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label
+                                                class="col-sm-3 col-form-label">Environment</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> environment == 1 ? 'checked': ''}} type="radio"
+                                                           name="environment" id="environment1"
+                                                           value="1">
+                                                    <label class="form-check-label"
+                                                           for="environment1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> environment == 0 ? 'checked': ''}} type="radio"
+                                                           name="environment" id="environment0"
+                                                           value="0">
+                                                    <label class="form-check-label"
+                                                           for="environment0">Disable</label>
+                                                </div>
+                                                @error('environment')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Sub Bug</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> isSubBug == 1 ? 'checked': ''}} type="radio"
+                                                           name="isSubBug" id="isSubBug1" value="1">
+                                                    <label class="form-check-label"
+                                                           for="isSubBug1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> isSubBug == 0 ? 'checked': ''}} type="radio"
+                                                           name="isSubBug" id="isSubBug0" value="0">
+                                                    <label class="form-check-label"
+                                                           for="isSubBug0">Disable</label>
+                                                </div>
+                                                @error('environment')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Tester 1</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> tester_1 == 1 ? 'checked': ''}} type="radio"
+                                                           name="tester_1" id="tester_11" value="1">
+                                                    <label class="form-check-label"
+                                                           for="tester_11">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> tester_1 == 0 ? 'checked': ''}} type="radio"
+                                                           name="tester_1" id="tester_10" value="0">
+                                                    <label class="form-check-label"
+                                                           for="tester_10">Disable</label>
+                                                </div>
+                                                @error('tester_1')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Tester 2</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> tester_2 == 1 ? 'checked': ''}} type="radio"
+                                                           name="tester_2" id="tester_21" value="1">
+                                                    <label class="form-check-label"
+                                                           for="tester_21">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> tester_2 == 0 ? 'checked': ''}} type="radio"
+                                                           name="tester_2" id="tester_20" value="0">
+                                                    <label class="form-check-label"
+                                                           for="tester_20">Disable</label>
+                                                </div>
+                                                @error('tester_2')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Tester 3</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> tester_3 == 1 ? 'checked': ''}} type="radio"
+                                                           name="tester_3" id="tester_31" value="1">
+                                                    <label class="form-check-label"
+                                                           for="tester_31">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> tester_3 == 0 ? 'checked': ''}} type="radio"
+                                                           name="tester_3" id="tester_30" value="0">
+                                                    <label class="form-check-label"
+                                                           for="tester_30">Disable</label>
+                                                </div>
+                                                @error('tester_3')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Tester 4</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> tester_4 == 1 ? 'checked': ''}} type="radio"
+                                                           name="tester_4" id="tester_41" value="1">
+                                                    <label class="form-check-label"
+                                                           for="tester_41">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> tester_4 == 0 ? 'checked': ''}} type="radio"
+                                                           name="tester_4" id="tester_40" value="0">
+                                                    <label class="form-check-label"
+                                                           for="tester_40">Disable</label>
+                                                </div>
+                                                @error('tester_4')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Tester 5</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> tester_5 == 1 ? 'checked': ''}} type="radio"
+                                                           name="tester_5" id="tester_51" value="1">
+                                                    <label class="form-check-label"
+                                                           for="tester_51">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> tester_5 == 0 ? 'checked': ''}} type="radio"
+                                                           name="tester_5" id="tester_50" value="0">
+                                                    <label class="form-check-label"
+                                                           for="tester_50">Disable</label>
+                                                </div>
+                                                @error('tester_5')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Test Case
+                                                Pass</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> pass == 1 ? 'checked': ''}} type="radio"
+                                                           name="pass" id="pass1" value="1">
+                                                    <label class="form-check-label"
+                                                           for="pass1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> fail == 0 ? 'checked': ''}} type="radio"
+                                                           name="pass" id="pass0" value="0">
+                                                    <label class="form-check-label"
+                                                           for="pass0">Disable</label>
+                                                </div>
+                                                @error('pass')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label">Test Case
+                                                Fail</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> fail == 1 ? 'checked': ''}} type="radio"
+                                                           name="fail" id="fail1" value="1">
+                                                    <label class="form-check-label"
+                                                           for="fail1">Enable</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input"
+                                                           {{$board_config -> fail == 0 ? 'checked': ''}} type="radio"
+                                                           name="fail" id="fail0" value="0">
+                                                    <label class="form-check-label"
+                                                           for="fail0">Disable</label>
+                                                </div>
+                                                @error('fail')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-3 col-form-label"></label>
+                                            <div class="col-sm-9">
+                                                <div
+                                                    class="d-md-flex d-grid align-items-center gap-3">
+                                                    <button type="submit"
+                                                            class="btn btn-primary px-5"><i
+                                                            class='bx bx-add-to-queue mr-1'></i>Save
+                                                        Config
+                                                    </button>
+                                                    <button type="reset"
+                                                            class="btn btn-outline-secondary px-5">
+                                                        <i
+                                                            class='bx bx-reset mr-1'></i>Reset
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function copyFunction() {
+            const elm = document.getElementById("divExp");
+            // for Internet Explorer
+
+            if (document.body.createTextRange) {
+                const range = document.body.createTextRange();
+                range.moveToElementText(elm);
+                range.select();
+                document.execCommand("copy");
+                alert("Copied div content to clipboard");
+            } else if (window.getSelection) {
+                // other browsers
+
+                const selection = window.getSelection();
+                const range = document.createRange();
+                range.selectNodeContents(elm);
+                selection.removeAllRanges();
+                selection.addRange(range);
+                document.execCommand("copy");
+                alert("Copied div content to clipboard");
+            }
+        }
+    </script>
 @endsection
