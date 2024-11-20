@@ -40,15 +40,18 @@ class TaskController extends Controller
      */
     public function all_task()
     {
+//        dd(1);
         $dateS = Carbon::today('Asia/Ho_Chi_Minh')->format('Y-m-d');
         $dateT = Carbon::today('Asia/Ho_Chi_Minh')->format('Y-m-d');
+
         $types = Type::latest()->get();
         $boards = Board::latest()->get();
         $priorities = Priority::latest()->get();
         $users = User::whereNotIn('role', ['admin'])->latest()->get();
         $tasks = Task::latest()->get();
         $working_statuses = WorkingStatus::latest()->get();
-        return view('manager.boards.tasks.all_task', compact('tasks', 'users', 'priorities', 'types', 'dateS', 'dateT', 'boards', 'working_statuses'));
+        $teams = Team::all()->sortBy('id');
+        return view('manager.boards.tasks.all_task', compact('tasks', 'teams', 'users', 'priorities', 'types', 'dateS', 'dateT', 'boards', 'working_statuses'));
     }
 
     /**
@@ -327,16 +330,7 @@ class TaskController extends Controller
         $type = $request->type;
         $team = $request->team;
         $tester = $request->tester;
-//        dd($request-> date);
         $date = new Carbon($request->date, 'Asia/Ho_Chi_Minh');
-//        dd($date);
-        $tasks = DB::table('tasks')
-            ->whereDate('created_at', $date)
-            ->where('board_id', $request->board_id)
-            ->where('type', $request->type)
-            ->where('team', $request->team)
-            ->where('tester_1', $request->tester)
-            ->get();
         if ($type != null && $team == null && $tester == null) {
             $tasks = DB::table('tasks')
                 ->whereDate('created_at', $date)
@@ -350,6 +344,7 @@ class TaskController extends Controller
                 ->whereDate('created_at', $date)
                 ->where('board_id', $request->board_id)
                 ->where('team', $request->team)
+                ->latest()
                 ->get();
             $no = 1;
         }
@@ -358,6 +353,7 @@ class TaskController extends Controller
                 ->whereDate('created_at', $date)
                 ->where('board_id', $request->board_id)
                 ->where('tester_1', $request->tester)
+                ->latest()
                 ->get();
             $no = 1;
         }
@@ -368,6 +364,7 @@ class TaskController extends Controller
                 ->where('type', $request->type)
                 ->where('team', $request->team)
                 ->where('tester_1', $request->tester)
+                ->latest()
                 ->get();
             $no = 3;
         }
@@ -378,6 +375,7 @@ class TaskController extends Controller
                 ->where('board_id', $request->board_id)
                 ->where('type', $request->type)
                 ->where('team', $request->team)
+                ->latest()
                 ->get();
             $no = 2;
         }
@@ -385,8 +383,9 @@ class TaskController extends Controller
             $tasks = DB::table('tasks')
                 ->whereDate('created_at', $date)
                 ->where('board_id', $request->board_id)
-                ->where('type', $request->type)
+                ->where('team', $request->team)
                 ->where('tester_1', $request->tester)
+                ->latest()
                 ->get();
             $no = 2;
         }
@@ -396,6 +395,7 @@ class TaskController extends Controller
                 ->where('board_id', $request->board_id)
                 ->where('type', $request->type)
                 ->where('tester_1', $request->tester)
+                ->latest()
                 ->get();
             $no = 2;
         }
@@ -404,6 +404,7 @@ class TaskController extends Controller
             $tasks = DB::table('tasks')
                 ->whereDate('created_at', $date)
                 ->where('board_id', $request->board_id)
+                ->latest()
                 ->get();
             $no = 0;
         }
@@ -421,6 +422,97 @@ class TaskController extends Controller
         $final_subject = $report_config->subject . ' ' . $days[Carbon::today('Asia/Ho_Chi_Minh')->dayOfWeek] . ', ' . Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config->date_format);
         $slack_subject = "Hi team, please see below for the daily report on " . $days[Carbon::today('Asia/Ho_Chi_Minh')->dayOfWeek] . ', ' . Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config->date_format);
         return view('manager.boards.view_board', compact('types', 'boards', 'slack_subject', 'no', 'working_statuses', 'priorities', 'request', 'users', 'tasks', 'board', 'teams', 'board_config', 'final_subject', 'report_config'));
+    }
+
+    public function filter_export(Request $request)
+    {
+//        dd($request);
+        $no = 0;
+        $type = $request->type;
+        $tester = $request->tester;
+        $board = $request->board;
+        $fromDate = new Carbon($request->from_date, 'Asia/Ho_Chi_Minh');
+        $toDate = new Carbon($request->to_date, 'Asia/Ho_Chi_Minh');
+        $toDate->addDays(1);
+        if ($type != null && $board == null && $tester == null) {
+            $tasks = DB::table('tasks')
+                ->whereBetween('created_at', [$fromDate, $toDate])
+                ->where('type', $request->type)
+                ->latest()
+                ->get();
+            $no = 1;
+        }
+        if ($type == null && $board != null && $tester == null) {
+            $tasks = DB::table('tasks')
+                ->whereBetween('created_at', [$fromDate, $toDate])
+                ->where('board_id', $request->board)
+                ->latest()
+                ->get();
+            $no = 1;
+        }
+        if ($type == null && $board == null && $tester != null) {
+            $tasks = DB::table('tasks')
+                ->whereBetween('created_at', [$fromDate, $toDate])
+                ->where('tester_1', $request->tester)
+                ->latest()
+                ->get();
+            $no = 1;
+        }
+        if ($type != null && $board != null && $tester != null) {
+            $tasks = DB::table('tasks')
+                ->whereBetween('created_at', [$fromDate, $toDate])
+                ->where('board_id', $request->board)
+                ->where('type', $request->type)
+                ->where('tester_1', $request->tester)
+                ->latest()
+                ->get();
+            $no = 3;
+        }
+
+        if ($type != null && $board != null && $tester == null) {
+            $tasks = DB::table('tasks')
+                ->whereBetween('created_at', [$fromDate, $toDate])
+                ->where('board_id', $request->board)
+                ->where('type', $request->type)
+                ->latest()
+                ->get();
+            $no = 2;
+        }
+        if ($type == null && $board != null && $tester != null) {
+            $tasks = DB::table('tasks')
+                ->whereBetween('created_at', [$fromDate, $toDate])
+                ->where('board_id', $request->board)
+                ->where('tester_1', $request->tester)
+                ->latest()
+                ->get();
+            $no = 2;
+        }
+        if ($type != null && $board == null && $tester != null) {
+            $tasks = DB::table('tasks')
+                ->whereBetween('created_at', [$fromDate, $toDate])
+                ->where('type', $request->type)
+                ->where('tester_1', $request->tester)
+                ->latest()
+                ->get();
+            $no = 2;
+        }
+
+        if ($type == null && $board == null && $tester == null) {
+            $tasks = DB::table('tasks')
+                ->whereBetween('created_at', [$fromDate, $toDate])
+                ->latest()
+                ->get();
+            $no = 0;
+        }
+
+        $types = Type::latest()->get();
+        $boards = Board::latest()->get();
+        $priorities = Priority::latest()->get();
+        $users = User::whereNotIn('role', ['admin'])->orderBy('name')->get();
+        $working_statuses = WorkingStatus::latest()->get();
+        $board = Board::find($request->board);
+        $teams = Team::all()->sortBy('id');
+        return view('manager.boards.tasks.all_task', compact('types', 'boards', 'no', 'working_statuses', 'priorities', 'request', 'users', 'tasks', 'board', 'teams'));
     }
 
     public function filter2(Request $request)

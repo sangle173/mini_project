@@ -29,18 +29,20 @@
                                 class='bx bxs-file-export mr-1'></i>Export-Excel
                         </button>
                     </form>
-                    <form id="myForm2" style="margin-left: 2px" action="{{ route('manager.task.export.html') }}" method="get">
+                    <form id="myForm2" style="margin-left: 2px" action="{{ route('manager.task.export.html') }}"
+                          method="get">
                         <input type="hidden" value="{{$tasks}}" name="tasks">
                         <button type="submit" class="btn btn-secondary px-3"><i
                                 class='bx bxs-file-html mr-1'></i>Export-Html
                         </button>
                     </form>
-                    <form id="myForm2" style="margin-left: 2px" action="{{ route('manager.task.export.pdf') }}" method="get">
-                        <input type="hidden" value="{{$tasks}}" name="tasks">
-                        <button type="submit" class="btn btn-danger px-3"><i
-                                class='bx bxs-file-pdf mr-1'></i>Export-PDF
-                        </button>
-                    </form>
+                    {{--                    <form id="myForm2" style="margin-left: 2px" action="{{ route('manager.task.export.pdf') }}"--}}
+                    {{--                          method="get">--}}
+                    {{--                        <input type="hidden" value="{{$tasks}}" name="tasks">--}}
+                    {{--                        <button type="submit" class="btn btn-danger px-3"><i--}}
+                    {{--                                class='bx bxs-file-pdf mr-1'></i>Export-PDF--}}
+                    {{--                        </button>--}}
+                    {{--                    </form>--}}
                 </div>
             </div>
         </div>
@@ -58,162 +60,125 @@
                          data-bs-parent="#accordionExample">
                         <div class="accordion-body" style="background: #EEEEEE">
                             <div class="bs-stepper-content">
-                                <form id="myForm" action="{{ route('manager.task.filter') }}" method="get">
+                                <form id="myForm" action="{{ route('manager.task.filter-export') }}" method="get">
                                     <div id="test-l-1" role="tabpanel" class="bs-stepper-pane"
                                          aria-labelledby="stepper1trigger1">
-                                        {{--                            <input type="hidden" name="board_id" value="{{$board-> id}}">--}}
                                         <div class="row g-3">
-                                            <div class="col-12 col-lg-2">
-                                                <div class="mb-3">
-                                                    <label class="form-label"><b>From:</b></label>
-                                                    <input type="date" value="{{$dateS}}" name="from_date"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-lg-2">
-                                                <div class="mb-3">
-                                                    <label class="form-label"><b>To:</b></label>
-                                                    <input type="date" value="{{$dateT}}" name="to_date"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row g-3">
-                                            <div class="col-12 col-lg-2">
-                                                <label for="team" class="form-label"><b>Board</b></label>
-                                                <div class="form-check">
-                                                    @foreach ($boards as $board)
-                                                        @if(isset($request))
-                                                            <input class="form-check-input" name="board[]"
-                                                                   type="checkbox"
-                                                                   {{in_array($board->id, $request -> board ) && count($request -> board) != count($boards)? 'checked':''}}  value="{{ $board->id }}"
-                                                                   id="type{{ $board->id }}">
-                                                            <label class="form-check-label">
-                                                                {{ $board->name }}
-                                                            </label> <br>
-                                                        @else
-                                                            <input class="form-check-input" name="team[]"
-                                                                   type="checkbox"
-                                                                   value="{{ $board->id }}"
-                                                                   id="type{{ $board->id }}">
-                                                            <label class="form-check-label">
-                                                                {{ $board->name }}
-                                                            </label> <br>
-                                                        @endif
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-lg-2">
-                                                <label for="type" class="form-label"><b>Type</b></label>
-                                                <div class="form-check">
-                                                    @foreach ($types as $type)
-                                                        @if(isset($request))
-                                                            <input class="form-check-input" name="type[]"
-                                                                   type="checkbox"
-                                                                   {{in_array($type->id, $request -> type) && count($request -> type) != count($types)? 'checked':''}}  value="{{ $type->id }}"
-                                                                   id="type{{ $type->id }}">
-                                                            <label class="form-check-label">
-                                                                {{ $type->name }}
-                                                            </label> <br>
-                                                        @else
-                                                            <input class="form-check-input" name="type[]"
-                                                                   type="checkbox"
-                                                                   value="{{ $type->id }}"
-                                                                   id="type{{ $type->id }}">
-                                                            <label class="form-check-label">
-                                                                {{ $type->name }}
-                                                            </label> <br>
-                                                        @endif
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-lg-2">
-                                                <label for="working_status" class="form-label"><b>Working
-                                                        Status</b></label>
-                                                <div class="form-check">
+                                            <div class="col-md-2">
+                                                <label for="from_date" class="form-label">From Date</label>
+                                                <div class="position-relative">
+                                                    @if(isset($request))
+                                                        <input type="date" value="{{$request -> from_date}}"
+                                                               name="from_date"
+                                                               class="form-control">
+                                                    @else
+                                                        <input class="form-control" type="date" name="from_date">
+                                                    @endif
 
-                                                    @foreach ($working_statuses as $working_status)
-                                                        @if(isset($request))
-                                                            <input class="form-check-input" name="working_status[]"
-                                                                   type="checkbox"
-                                                                   {{in_array($working_status->id, $request -> working_status ) && count($request -> working_status) != count($working_statuses)? 'checked':''}}  value="{{ $working_status->id }}"
-                                                                   id="type{{ $working_status->id }}">
-                                                            <label class="form-check-label">
-                                                                {{ $working_status->name }}
-                                                            </label> <br>
-                                                        @else
-                                                            <input class="form-check-input" name="working_status[]"
-                                                                   type="checkbox"
-                                                                   value="{{ $working_status->id }}"
-                                                                   id="type{{ $working_status->id }}">
-                                                            <label class="form-check-label">
-                                                                {{ $working_status->name }}
-                                                            </label> <br>
-                                                        @endif
-                                                    @endforeach
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-lg-2">
-                                                <label for="priority" class="form-label"><b>Priority</b></label>
-                                                <div class="form-check">
+                                            <div class="col-md-2">
+                                                <label for="to_date" class="form-label">To Date</label>
+                                                <div class="position-relative">
+                                                    @if(isset($request))
+                                                        <input type="date" value="{{$request -> to_date}}"
+                                                               name="to_date"
+                                                               class="form-control">
+                                                    @else
+                                                        <input class="form-control" type="date" name="to_date">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="board" class="form-label">Board</label>
+                                                <div class="position-relative">
+                                                    <select class="form-select" name="board" id="board">
+                                                        <option disabled selected>Select Board</option>
+                                                        @foreach ($boards as $board)
+                                                            @if(isset($request))
+                                                                <option
+                                                                    value="{{ $board->id }}" {{ $board->id == $request-> board ? 'selected' : '' }}>{{ $board->id == $request-> board ? \App\Models\Board::find($request -> board) -> name : $board -> name}}</option>
+                                                            @else
+                                                                <option
+                                                                    value="{{ $board->id }}">{{ $board->name }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
 
-                                                    @foreach ($priorities as $priority)
-                                                        @if(isset($request))
-                                                            <input class="form-check-input" name="priority[]"
-                                                                   type="checkbox"
-                                                                   {{in_array($priority->id, $request -> priority ) && count($request -> priority) != count($priorities)? 'checked':''}}  value="{{ $priority->id }}"
-                                                                   id="type{{ $priority->id }}">
-                                                            <label class="form-check-label">
-                                                                {{ $priority->name }}
-                                                            </label> <br>
-                                                        @else
-                                                            <input class="form-check-input" name="priority[]"
-                                                                   type="checkbox"
-                                                                   value="{{ $priority->id }}"
-                                                                   id="type{{ $priority->id }}">
-                                                            <label class="form-check-label">
-                                                                {{ $priority->name }}
-                                                            </label> <br>
-                                                        @endif
-                                                    @endforeach
+                                            <div class="col-md-2">
+                                                <label for="type" class="form-label">Type</label>
+                                                <div class="position-relative">
+                                                    <select class="form-select" name="type" id="type">
+                                                        <option disabled selected>Select Type</option>
+                                                        @foreach ($types as $type)
+                                                            @if(isset($request))
+                                                                <option
+                                                                    value="{{ $type->id }}" {{ $type->id == $request-> type ? 'selected' : '' }}>{{ $type->id == $request-> type ? \App\Models\Type::find($request -> type) -> name : $type -> name}}</option>
+                                                            @else
+                                                                <option
+                                                                    value="{{ $type->id }}">{{ $type->name }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-lg-2">
-                                                <label for="tester" class="form-label"><b>Tester</b></label>
-                                                <div class="form-check">
+                                            {{--                                            <div class="col-md-2">--}}
+                                            {{--                                                <label for="team" class="form-label">Team</label>--}}
+                                            {{--                                                <div class="position-relative">--}}
+                                            {{--                                                    <select class="form-select" name="team" id="name">--}}
+                                            {{--                                                        <option disabled selected>Select Team</option>--}}
+                                            {{--                                                        @foreach ($teams as $team)--}}
+                                            {{--                                                            @if(isset($request))--}}
+                                            {{--                                                                <option--}}
+                                            {{--                                                                    value="{{ $team->id }}" {{ $team->id == $request-> team ? 'selected' : '' }}>{{ $team->id == $request-> team ? \App\Models\Team::find($request -> team) -> name : $team -> name}}</option>--}}
+                                            {{--                                                            @else--}}
+                                            {{--                                                                <option--}}
+                                            {{--                                                                    value="{{ $team->id }}">{{ $team->name }}</option>--}}
+                                            {{--                                                            @endif--}}
+                                            {{--                                                        @endforeach--}}
+                                            {{--                                                    </select>--}}
+                                            {{--                                                </div>--}}
+                                            {{--                                            </div>--}}
+                                            <div class="col-md-2">
+                                                <label for="tester" class="form-label">Tester</label>
+                                                <select class="form-select" name="tester" id="tester">
+                                                    <option disabled selected>Select Tester</option>
                                                     @foreach ($users as $user)
                                                         @if(isset($request))
-                                                            <input class="form-check-input" name="user[]"
-                                                                   type="checkbox"
-                                                                   {{in_array($user->id, $request -> user ) && count($request -> user) != count($users)? 'checked':''}}  value="{{ $user->id }}"
-                                                                   id="type{{ $user->id }}">
-                                                            <label class="form-check-label">
-                                                                {{ $user->name }}
-                                                            </label> <br>
+                                                            <option
+                                                                value="{{ $user->id }}" {{ $user->id == $request-> tester ? 'selected' : '' }}>{{ $user->id == $request-> tester ? \App\Models\User::find($request -> tester) -> name : $user -> name}}</option>
                                                         @else
-                                                            <input class="form-check-input" name="user[]"
-                                                                   type="checkbox"
-                                                                   value="{{ $user->id }}"
-                                                                   id="type{{ $user->id }}">
-                                                            <label class="form-check-label">
-                                                                {{ $user->name }}
-                                                            </label> <br>
+                                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                         @endif
                                                     @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="input22" class="form-label">
+                                                    Filter
+                                                </label>
+                                                <div class="position-relative input-icon">
+                                                    <div class="col-md-12">
+                                                        <div class="d-md-flex d-grid align-items-center gap-3">
+                                                            @if(isset($request))
+                                                                <button type="submit" class="btn btn-success">
+                                                                    Filtered {{$no + 1}}</button>
+                                                            @else
+                                                                <button type="submit" class="btn btn-primary px-4">
+                                                                    Filter
+                                                                </button>
+                                                            @endif
+                                                            <a href="{{route('manager.tasks', $board-> id)}}" --}}
+                                                               class="btn btn-secondary px-4" type="reset">
+                                                                Reset
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div><!---end row-->
-                                        <div class="row mt-1 g-3">
-                                            <div class="col-12 col-lg-6">
-                                                <a href="{{route('manager.tasks')}}"
-                                                   class="btn btn-secondary px-4" type="reset">
-                                                    Reset
-                                                </a>
-                                                <button class="btn btn-primary px-4" type="submit">
-                                                    Apply
-                                                </button>
-                                            </div>
-                                        </div><!---end row-->
+                                            </div><!---end row-->
+                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -277,19 +242,23 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{ $item->jira_id }}
+                                    <a target="_blank" href=" {{ url('https://jira.sonos.com/browse/'.$item->jira_id) }}">{{ $item->jira_id }}</a>
                                 </td>
                                 <td>
                                     {{ $item->jira_summary }}
                                 </td>
                                 <td>
                                     @if($item-> working_status !=null)
-                                        {{\App\Models\WorkingStatus::find($item-> working_status) -> name}}
+                                        <span
+                                            class="badge"
+                                            style="background-color: {{\App\Models\WorkingStatus::find($item-> working_status) -> desc}}">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
                                     @endif
                                 </td>
                                 <td>
                                     @if($item-> ticket_status !=null)
-                                        {{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}
+                                        <span
+                                            class="badge"
+                                            style="background-color: {{\App\Models\TicketStatus::find($item-> ticket_status) -> desc}}">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}</span>
                                     @endif
                                 </td>
                                 <td>
@@ -298,11 +267,13 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a target="_blank" href=" {{ $item->link_to_result }}">Link To Result</a>
-                                </td>
+                                    @if($item-> link_to_result !=null)
+                                        <a target="_blank" href=" {{ $item->link_to_result }}">Link
+                                            To Result</a>
+                                    @endif                                </td>
                                 <td>
-                                    <a target="_blank" href="{{ $item->test_plan }}">Test Plan</a>
-                                </td>
+                                    <a target="_blank"
+                                       href="{{ url('https://sonos.testrail.com/index.php?/plans/view/'.$item->test_plan) }}">{{$item->test_plan}}</a></td>
                                 <td>
                                     {{ $item->sprint }}
                                 </td>

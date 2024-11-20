@@ -6,9 +6,9 @@
 
 <div class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
-        <div>
-            <img src="{{ asset('backend/assets/images/logo_agest.png') }}" class="logo-icon" alt="logo icon">
-        </div>
+{{--        <div>--}}
+{{--            <img src="{{ asset('backend/assets/images/logo_agest.png') }}" class="logo-icon" alt="logo icon">--}}
+{{--        </div>--}}
         @auth()
             <div>
                 <h4 class="logo-text">
@@ -76,7 +76,7 @@
                     <a href="javascript:;" class="has-arrow">
                         <div class="parent-icon"><i class='text-bg-secondary bx bxs-news'></i>
                         </div>
-                        <div class="menu-title">Tasks</div>
+                        <div class="menu-title">Tasks/Export</div>
                     </a>
                     <ul>
                         <li><a href="{{ route('manager.tasks') }}"><i class='bx bxs-book-bookmark'></i>All Tasks </a>

@@ -584,8 +584,7 @@
                                                     <td>
                                                         @if($item-> test_plan !=null)
                                                             <a target="_blank"
-                                                               href="{{ url('https://sonos.testrail.com/index.php?/plans/view/'.$item->test_plan) }}">Test
-                                                                Plan</a>
+                                                               href="{{ url('https://sonos.testrail.com/index.php?/plans/view/'.$item->test_plan) }}">{{$item->test_plan}}</a>
                                                         @endif
                                                     </td>
                                                 @endif
