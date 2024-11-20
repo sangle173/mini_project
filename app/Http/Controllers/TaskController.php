@@ -426,7 +426,11 @@ class TaskController extends Controller
 
     public function filter_export(Request $request)
     {
-//        dd($request);
+        $validated = $request->validate([
+            'from_date' => 'required',
+            'to_date' => 'required'
+        ]);
+
         $no = 0;
         $type = $request->type;
         $tester = $request->tester;

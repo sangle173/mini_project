@@ -74,7 +74,9 @@
                                                     @else
                                                         <input class="form-control" type="date" name="from_date">
                                                     @endif
-
+                                                    @error('from_date')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
@@ -87,6 +89,9 @@
                                                     @else
                                                         <input class="form-control" type="date" name="to_date">
                                                     @endif
+                                                    @error('to_date')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
@@ -242,7 +247,8 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a target="_blank" href=" {{ url('https://jira.sonos.com/browse/'.$item->jira_id) }}">{{ $item->jira_id }}</a>
+                                    <a target="_blank"
+                                       href=" {{ url('https://jira.sonos.com/browse/'.$item->jira_id) }}">{{ $item->jira_id }}</a>
                                 </td>
                                 <td>
                                     {{ $item->jira_summary }}
@@ -273,7 +279,8 @@
                                     @endif                                </td>
                                 <td>
                                     <a target="_blank"
-                                       href="{{ url('https://sonos.testrail.com/index.php?/plans/view/'.$item->test_plan) }}">{{$item->test_plan}}</a></td>
+                                       href="{{ url('https://sonos.testrail.com/index.php?/plans/view/'.$item->test_plan) }}">{{$item->test_plan}}</a>
+                                </td>
                                 <td>
                                     {{ $item->sprint }}
                                 </td>
