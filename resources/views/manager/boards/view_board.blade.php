@@ -1712,14 +1712,14 @@
                                                                                         -&nbsp;<b
                                                                                             style="box-sizing:inherit">{{strtoupper(\App\Models\TicketStatus::find($item -> ticket_status) -> name) }}
                                                                                             @if($item -> link_to_result != null)
-                                                                                                <span>&nbsp;- No new issue found&nbsp;</span>
+                                                                                                <span>- No new issue found</span>
                                                                                             @endif
 
 
                                                                                         </b>
                                                                                         @if($item -> link_to_result != null)
                                                                                             <b style="box-sizing:inherit">-&nbsp;<a
-                                                                                                    [href]="item.link_to_result"
+                                                                                                    href="{{$item -> link_to_result}}"
                                                                                                     rel="noopener noreferrer"
                                                                                                     style="box-sizing:inherit;text-decoration-line:none"
                                                                                                     target="_blank">Link
