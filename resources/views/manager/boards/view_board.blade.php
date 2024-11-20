@@ -305,17 +305,6 @@
                             @else
                                 <input class="form-control" value="<?php echo date('Y-m-d'); ?>" type="date" name="date">
                             @endif
-                            {{--                            <select class="form-select" name="type" id="type">--}}
-                            {{--                                <option disabled selected>Select Type</option>--}}
-                            {{--                                @foreach ($types as $type)--}}
-                            {{--                                    @if(isset($request))--}}
-                            {{--                                        <option--}}
-                            {{--                                            value="{{ $type->id }}" {{ $type->id == $request-> type ? 'selected' : '' }}>{{ $type->id == $request-> type ? \App\Models\Type::find($request -> type) -> name : $type -> name}}</option>--}}
-                            {{--                                    @else--}}
-                            {{--                                        <option value="{{ $type->id }}">{{ $type->name }}</option>--}}
-                            {{--                                    @endif--}}
-                            {{--                                @endforeach--}}
-                            {{--                            </select>--}}
                         </div>
                     </div>
                     <div class="col-md-2">
