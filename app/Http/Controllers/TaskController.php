@@ -265,7 +265,7 @@ class TaskController extends Controller
             $newEnv = Environment::find($existingTask->environment)->replicate();
             $newEnv->created_at = Carbon::now('Asia/Ho_Chi_Minh');
             $newEnv->save();
-            $newEnvId = $newEnv -> id;
+            $newEnvId = $newEnv->id;
         } else {
             $newEnvId = null;
         }
@@ -327,8 +327,11 @@ class TaskController extends Controller
         $type = $request->type;
         $team = $request->team;
         $tester = $request->tester;
+//        dd($request-> date);
+        $date = new Carbon($request->date, 'Asia/Ho_Chi_Minh');
+//        dd($date);
         $tasks = DB::table('tasks')
-            ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+            ->whereDate('created_at', $date)
             ->where('board_id', $request->board_id)
             ->where('type', $request->type)
             ->where('team', $request->team)
@@ -336,7 +339,7 @@ class TaskController extends Controller
             ->get();
         if ($type != null && $team == null && $tester == null) {
             $tasks = DB::table('tasks')
-                ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+                ->whereDate('created_at', $date)
                 ->where('board_id', $request->board_id)
                 ->where('type', $request->type)
                 ->get();
@@ -344,7 +347,7 @@ class TaskController extends Controller
         }
         if ($type == null && $team != null && $tester == null) {
             $tasks = DB::table('tasks')
-                ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+                ->whereDate('created_at', $date)
                 ->where('board_id', $request->board_id)
                 ->where('team', $request->team)
                 ->get();
@@ -352,7 +355,7 @@ class TaskController extends Controller
         }
         if ($type == null && $team == null && $tester != null) {
             $tasks = DB::table('tasks')
-                ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+                ->whereDate('created_at', $date)
                 ->where('board_id', $request->board_id)
                 ->where('tester_1', $request->tester)
                 ->get();
@@ -360,7 +363,7 @@ class TaskController extends Controller
         }
         if ($type != null && $team != null && $tester != null) {
             $tasks = DB::table('tasks')
-                ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+                ->whereDate('created_at', $date)
                 ->where('board_id', $request->board_id)
                 ->where('type', $request->type)
                 ->where('team', $request->team)
@@ -371,7 +374,7 @@ class TaskController extends Controller
 
         if ($type != null && $team != null && $tester == null) {
             $tasks = DB::table('tasks')
-                ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+                ->whereDate('created_at', $date)
                 ->where('board_id', $request->board_id)
                 ->where('type', $request->type)
                 ->where('team', $request->team)
@@ -380,7 +383,7 @@ class TaskController extends Controller
         }
         if ($type == null && $team != null && $tester != null) {
             $tasks = DB::table('tasks')
-                ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+                ->whereDate('created_at', $date)
                 ->where('board_id', $request->board_id)
                 ->where('type', $request->type)
                 ->where('tester_1', $request->tester)
@@ -389,7 +392,7 @@ class TaskController extends Controller
         }
         if ($type != null && $team == null && $tester != null) {
             $tasks = DB::table('tasks')
-                ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+                ->whereDate('created_at', $date)
                 ->where('board_id', $request->board_id)
                 ->where('type', $request->type)
                 ->where('tester_1', $request->tester)
@@ -399,7 +402,7 @@ class TaskController extends Controller
 
         if ($type == null && $team == null && $tester == null) {
             $tasks = DB::table('tasks')
-                ->whereDate('created_at', Carbon::today('Asia/Ho_Chi_Minh'))
+                ->whereDate('created_at', $date)
                 ->where('board_id', $request->board_id)
                 ->get();
             $no = 0;

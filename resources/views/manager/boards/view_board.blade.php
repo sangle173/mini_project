@@ -297,7 +297,28 @@
             <div class="card-body p-4">
                 <form class="row g-3" action="{{ route('manager.task.filter') }}" method="get">
                     <input type="hidden" name="board_id" value="{{$board-> id}}">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
+                        <label for="type" class="form-label">Date</label>
+                        <div class="position-relative">
+                            @if(isset($request))
+                                <input class="form-control" type="date" value="{{$request -> date}}" name="date">
+                            @else
+                                <input class="form-control" value="<?php echo date('Y-m-d'); ?>" type="date" name="date">
+                            @endif
+                            {{--                            <select class="form-select" name="type" id="type">--}}
+                            {{--                                <option disabled selected>Select Type</option>--}}
+                            {{--                                @foreach ($types as $type)--}}
+                            {{--                                    @if(isset($request))--}}
+                            {{--                                        <option--}}
+                            {{--                                            value="{{ $type->id }}" {{ $type->id == $request-> type ? 'selected' : '' }}>{{ $type->id == $request-> type ? \App\Models\Type::find($request -> type) -> name : $type -> name}}</option>--}}
+                            {{--                                    @else--}}
+                            {{--                                        <option value="{{ $type->id }}">{{ $type->name }}</option>--}}
+                            {{--                                    @endif--}}
+                            {{--                                @endforeach--}}
+                            {{--                            </select>--}}
+                        </div>
+                    </div>
+                    <div class="col-md-2">
                         <label for="type" class="form-label">Type</label>
                         <div class="position-relative">
                             <select class="form-select" name="type" id="type">
@@ -313,7 +334,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label for="team" class="form-label">Team</label>
                         <div class="position-relative">
                             <select class="form-select" name="team" id="name">
@@ -329,10 +350,10 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label for="tester" class="form-label">Tester</label>
                         <select class="form-select" name="tester" id="tester">
-                            <option disabled selected>Select Teser</option>
+                            <option disabled selected>Select Tester</option>
                             @foreach ($users as $user)
                                 @if(isset($request))
                                     <option
@@ -343,7 +364,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label for="input22" class="form-label">
                             Filter
                         </label>
@@ -351,7 +372,7 @@
                             <div class="col-md-12">
                                 <div class="d-md-flex d-grid align-items-center gap-3">
                                     @if(isset($request))
-                                        <button type="submit" class="btn btn-success">Filtered {{$no}}</button>
+                                        <button type="submit" class="btn btn-success">Filtered {{$no + 1}}</button>
                                     @else
                                         <button type="submit" class="btn btn-primary px-4">Filter</button>
                                     @endif
@@ -389,16 +410,16 @@
                         </a>
                     </li>
                     @if($board -> id == 1)
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" data-bs-toggle="tab" href="#slack_report" role="tab"
-                           aria-selected="false">
-                            <div class="d-flex align-items-center">
-                                <div class="tab-icon"><i class='bx bx-bookmark-alt font-18 me-1'></i>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" href="#slack_report" role="tab"
+                               aria-selected="false">
+                                <div class="d-flex align-items-center">
+                                    <div class="tab-icon"><i class='bx bx-bookmark-alt font-18 me-1'></i>
+                                    </div>
+                                    <div class="tab-title">Report Slack</div>
                                 </div>
-                                <div class="tab-title">Report Slack</div>
-                            </div>
-                        </a>
-                    </li>
+                            </a>
+                        </li>
                     @endif
                     @auth()
                         @if(Auth::user()->role ==='manager')
@@ -482,7 +503,8 @@
 
                                         @foreach ($tasks as $key=> $item)
                                             <tr>
-                                                <td>{{ $key+1 }}</td>
+                                                <td><a href="{{ route('task.details',$item->id) }}"
+                                                       title="View" class="text-black">{{ $key+1 }}</a></td>
                                                 {{--                                                <td>--}}
                                                 {{--                                                    @if ($item->status == 1)--}}
                                                 {{--                                                        <span class="badge bg-success">Reviewed </span>--}}
@@ -1648,160 +1670,160 @@
                         @endif
                     </div>
                     @if($board -> id == 1)
-                    <div class="tab-pane fade" id="slack_report" role="tabpanel">
-                        <div>
-                            <div class="container-fluid">
-                                <div class="card">
-                                    <div class="card-header bg-light">
-                                        <h5>Slack Report Type</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        @if($board -> id == 1)
-                                            <div class="p-rich_text_block" dir="auto">
-                                                @foreach ($teams as $team)
-                                                    @if(
-        count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0
-        || count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
-        || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
-        || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
-        || count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0 )
-                                                        <div class="card-body">
-                                                            <div id=":pw" class="a3s aiL ">
-                                                                <div dir="ltr" id="divExp">
-                                                                    <div
-                                                                        style="margin:0;"><font
-                                                                            face="Calibri,sans-serif"
-                                                                            size="2"><span
-                                                                                style="font-size:11pt;"><font
-                                                                                    size="4"
-                                                                                    color="#0070C0"><span
-                                                                                        style="font-size:14pt;"><b>{{$team -> name}}</b></span></font></span></font>
-                                                                    </div>
-                                                                    <div
-                                                                        style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                        {{$slack_subject}}
-                                                                    </div>
-                                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('board_id', 1) -> where('type', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
+                        <div class="tab-pane fade" id="slack_report" role="tabpanel">
+                            <div>
+                                <div class="container-fluid">
+                                    <div class="card">
+                                        <div class="card-header bg-light">
+                                            <h5>Slack Report Type</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            @if($board -> id == 1)
+                                                <div class="p-rich_text_block" dir="auto">
+                                                    @foreach ($teams as $team)
+                                                        @if(
+            count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0
+            || count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+            || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+            || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+            || count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0 )
+                                                            <div class="card-body">
+                                                                <div id=":pw" class="a3s aiL ">
+                                                                    <div dir="ltr" id="divExp">
+                                                                        <div
+                                                                            style="margin:0;"><font
+                                                                                face="Calibri,sans-serif"
+                                                                                size="2"><span
+                                                                                    style="font-size:11pt;"><font
+                                                                                        size="4"
+                                                                                        color="#0070C0"><span
+                                                                                            style="font-size:14pt;"><b>{{$team -> name}}</b></span></font></span></font>
+                                                                        </div>
                                                                         <div
                                                                             style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                            <b
-                                                                                style="box-sizing:inherit">Testing
-                                                                                requests</b>
+                                                                            {{$slack_subject}}
                                                                         </div>
-                                                                        <ul style="box-sizing:inherit;margin:0px;padding:0px;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                            @foreach(\App\Models\Task::where('team', $team -> id) -> where('board_id', 1) -> where('type', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $item)
+                                                                        @if(count(\App\Models\Task::where('team', $team -> id) -> where('board_id', 1) -> where('type', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
+                                                                            <div
+                                                                                style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
+                                                                                <b
+                                                                                    style="box-sizing:inherit">Testing
+                                                                                    requests</b>
+                                                                            </div>
+                                                                            <ul style="box-sizing:inherit;margin:0px;padding:0px;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
+                                                                                @foreach(\App\Models\Task::where('team', $team -> id) -> where('board_id', 1) -> where('type', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $item)
 
-                                                                                <li
-                                                                                    style="box-sizing:inherit;margin-bottom:0px;margin-left:28px;">
-                                                                                    <a
-                                                                                        href="{{$board_config -> jira_url}}{{$item -> jira_id}}"
-                                                                                        rel="noopener noreferrer"
-                                                                                        style="box-sizing:inherit;text-decoration-line:none"
-                                                                                        target="_blank">{{$item -> jira_id}}</a>&nbsp;-
-                                                                                    {{$item -> jira_summary}}
-                                                                                    -&nbsp;<b
-                                                                                        style="box-sizing:inherit">{{strtoupper(\App\Models\TicketStatus::find($item -> ticket_status) -> name) }}
-                                                                                        @if($item -> link_to_result != null)
-                                                                                            <span>&nbsp;- No new issue found&nbsp;</span>
-                                                                                        @endif
-
-
-                                                                                    </b>
-                                                                                    @if($item -> link_to_result != null)
-                                                                                        <b style="box-sizing:inherit">-&nbsp;<a
-                                                                                                [href]="item.link_to_result"
-                                                                                                rel="noopener noreferrer"
-                                                                                                style="box-sizing:inherit;text-decoration-line:none"
-                                                                                                target="_blank">Link
-                                                                                                to
-                                                                                                result</a></b>
-                                                                                    @endif
-                                                                                </li>
-                                                                            @endforeach
-                                                                        </ul>
-                                                                    @endif
-                                                                    @if(count(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) ->  where('type', 3) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
-                                                                        <div
-                                                                            style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                            <b style="box-sizing:inherit">Tickets
-                                                                                verification</b>
-                                                                        </div>
-                                                                        <ul style="box-sizing:inherit;margin:0px;padding:0px;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                            @foreach(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) -> where('type', 3) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $item)
-                                                                                <li
-                                                                                    style="box-sizing:inherit;margin-bottom:0px;margin-left:28px;">
-                                                                                    <a
-                                                                                        href="{{$board_config -> jira_url}}{{$item -> jira_id}}"
-                                                                                        rel="noopener noreferrer"
-                                                                                        style="box-sizing:inherit;text-decoration-line:none"
-                                                                                        target="_blank">{{$item -> jira_id}}</a>-
-                                                                                    {{$item -> jira_summary}}
-                                                                                    -&nbsp;<b
-                                                                                        style="box-sizing:inherit">{{strtoupper(\App\Models\TicketStatus::find($item -> ticket_status) -> name) }}
-                                                                                        @if($item -> link_to_result != null && $team -> id ==22)
-                                                                                            <span>&nbsp;- No new issue found&nbsp;</span>
-                                                                                        @endif
-
-
-                                                                                    </b>
-                                                                                    @if($item -> link_to_result != null)
-                                                                                        <b style="box-sizing:inherit">-&nbsp;<a
-                                                                                                href="{{$item -> link_to_result}}"
-                                                                                                rel="noopener noreferrer"
-                                                                                                style="box-sizing:inherit;text-decoration-line:none"
-                                                                                                target="_blank">Link
-                                                                                                to
-                                                                                                result</a></b>
-                                                                                    @endif
-                                                                                </li>
-                                                                            @endforeach
-                                                                        </ul>
-                                                                    @endif
-                                                                    @if(count(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
-
-                                                                        <div
-                                                                            style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                            <b style="box-sizing:inherit">Bugs
-                                                                                Reported</b>
-                                                                        </div>
-                                                                        <ul style="box-sizing:inherit;margin:0px;padding:0px;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                            @foreach(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $item)
-
-                                                                                <li
-                                                                                    style="box-sizing:inherit;margin-bottom:0px;margin-left:28px;">
-                                                                                    <a
-                                                                                        href="{{$board_config -> jira_url}}{{$item -> jira_id}}"
-                                                                                        rel="noopener noreferrer"
-                                                                                        style="box-sizing:inherit;text-decoration-line:none"
-                                                                                        target="_blank">{{$item -> jira_id}}</a>-
-                                                                                    {{$item -> jira_summary}}
-                                                                                    @if(\App\Models\TicketStatus::find($item -> ticket_status) -> id == 7)
+                                                                                    <li
+                                                                                        style="box-sizing:inherit;margin-bottom:0px;margin-left:28px;">
+                                                                                        <a
+                                                                                            href="{{$board_config -> jira_url}}{{$item -> jira_id}}"
+                                                                                            rel="noopener noreferrer"
+                                                                                            style="box-sizing:inherit;text-decoration-line:none"
+                                                                                            target="_blank">{{$item -> jira_id}}</a>&nbsp;-
+                                                                                        {{$item -> jira_summary}}
                                                                                         -&nbsp;<b
                                                                                             style="box-sizing:inherit">{{strtoupper(\App\Models\TicketStatus::find($item -> ticket_status) -> name) }}
+                                                                                            @if($item -> link_to_result != null)
+                                                                                                <span>&nbsp;- No new issue found&nbsp;</span>
+                                                                                            @endif
+
+
                                                                                         </b>
-                                                                                    @endif
-                                                                                </li>
-                                                                            @endforeach
-                                                                        </ul>
-                                                                    @endif
-                                                                    <div
-                                                                        style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
+                                                                                        @if($item -> link_to_result != null)
+                                                                                            <b style="box-sizing:inherit">-&nbsp;<a
+                                                                                                    [href]="item.link_to_result"
+                                                                                                    rel="noopener noreferrer"
+                                                                                                    style="box-sizing:inherit;text-decoration-line:none"
+                                                                                                    target="_blank">Link
+                                                                                                    to
+                                                                                                    result</a></b>
+                                                                                        @endif
+                                                                                    </li>
+                                                                                @endforeach
+                                                                            </ul>
+                                                                        @endif
+                                                                        @if(count(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) ->  where('type', 3) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
+                                                                            <div
+                                                                                style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
+                                                                                <b style="box-sizing:inherit">Tickets
+                                                                                    verification</b>
+                                                                            </div>
+                                                                            <ul style="box-sizing:inherit;margin:0px;padding:0px;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
+                                                                                @foreach(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) -> where('type', 3) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $item)
+                                                                                    <li
+                                                                                        style="box-sizing:inherit;margin-bottom:0px;margin-left:28px;">
+                                                                                        <a
+                                                                                            href="{{$board_config -> jira_url}}{{$item -> jira_id}}"
+                                                                                            rel="noopener noreferrer"
+                                                                                            style="box-sizing:inherit;text-decoration-line:none"
+                                                                                            target="_blank">{{$item -> jira_id}}</a>-
+                                                                                        {{$item -> jira_summary}}
+                                                                                        -&nbsp;<b
+                                                                                            style="box-sizing:inherit">{{strtoupper(\App\Models\TicketStatus::find($item -> ticket_status) -> name) }}
+                                                                                            @if($item -> link_to_result != null && $team -> id ==22)
+                                                                                                <span>&nbsp;- No new issue found&nbsp;</span>
+                                                                                            @endif
+
+
+                                                                                        </b>
+                                                                                        @if($item -> link_to_result != null)
+                                                                                            <b style="box-sizing:inherit">-&nbsp;<a
+                                                                                                    href="{{$item -> link_to_result}}"
+                                                                                                    rel="noopener noreferrer"
+                                                                                                    style="box-sizing:inherit;text-decoration-line:none"
+                                                                                                    target="_blank">Link
+                                                                                                    to
+                                                                                                    result</a></b>
+                                                                                        @endif
+                                                                                    </li>
+                                                                                @endforeach
+                                                                            </ul>
+                                                                        @endif
+                                                                        @if(count(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
+
+                                                                            <div
+                                                                                style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
+                                                                                <b style="box-sizing:inherit">Bugs
+                                                                                    Reported</b>
+                                                                            </div>
+                                                                            <ul style="box-sizing:inherit;margin:0px;padding:0px;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
+                                                                                @foreach(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $item)
+
+                                                                                    <li
+                                                                                        style="box-sizing:inherit;margin-bottom:0px;margin-left:28px;">
+                                                                                        <a
+                                                                                            href="{{$board_config -> jira_url}}{{$item -> jira_id}}"
+                                                                                            rel="noopener noreferrer"
+                                                                                            style="box-sizing:inherit;text-decoration-line:none"
+                                                                                            target="_blank">{{$item -> jira_id}}</a>-
+                                                                                        {{$item -> jira_summary}}
+                                                                                        @if(\App\Models\TicketStatus::find($item -> ticket_status) -> id == 7)
+                                                                                            -&nbsp;<b
+                                                                                                style="box-sizing:inherit">{{strtoupper(\App\Models\TicketStatus::find($item -> ticket_status) -> name) }}
+                                                                                            </b>
+                                                                                        @endif
+                                                                                    </li>
+                                                                                @endforeach
+                                                                            </ul>
+                                                                        @endif
+                                                                        <div
+                                                                            style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
                                                                     <span aria-label=""
                                                                           style="box-sizing:inherit;height:8px;display:block"></span>Thanks!
+                                                                        </div>
+                                                                        <hr>
                                                                     </div>
-                                                                    <hr>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                        @endif
+                                                        @endif
+                                                    @endforeach
+                                                </div>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     @endif
                     <div class="tab-pane fade" id="reportconfig" role="tabpanel">
                         <div class="card">

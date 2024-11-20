@@ -228,6 +228,12 @@
                                         </td>
                                 </tr>
                             @endif
+                                <tr>
+                                    <td width="20%">Created At</td>
+                                    <td colspan="2">
+                                        {{ $task->created_at }}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         @if($board_config-> isSubBug != 0)
