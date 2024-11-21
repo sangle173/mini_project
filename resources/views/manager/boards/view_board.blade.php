@@ -303,7 +303,8 @@
                             @if(isset($request))
                                 <input class="form-control" type="date" value="{{$request -> date}}" name="date">
                             @else
-                                <input class="form-control" value="<?php echo date('Y-m-d'); ?>" type="date" name="date">
+                                <input class="form-control" value="<?php echo date('Y-m-d'); ?>" type="date"
+                                       name="date">
                             @endif
                         </div>
                     </div>
@@ -597,42 +598,74 @@
                                                 @endif
                                                 @if($board_config-> tester_1 != 0)
                                                     <td>
-                                                        @if($item-> tester_1 !=null || $item-> tester_1 !=0 )
-                                                            <div style="" class="chip chip-sm bg-light text-dark">
+                                                        <div class="user-groups ms-auto">
+                                                            @if($item-> tester_1 !=null || $item-> tester_1 !=0 )
                                                                 <img
                                                                     src="{{ (!empty(\App\Models\User::find($item -> tester_1)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_1)->photo) : url('upload/no_image.jpg')}}"
-                                                                    alt="Tester">{{\App\Models\User::find($item -> tester_1) -> name}}
-                                                            </div>
-                                                        @endif
-                                                        @if($item-> tester_2 !=null || $item-> tester_2 !=0 )
-                                                            <div class="chip chip-sm bg-light text-dark">
+                                                                    width="35" height="35" class="rounded-circle"
+                                                                    alt=""/>
+                                                            @endif
+                                                            @if($item-> tester_2 !=null || $item-> tester_2 !=0 )
                                                                 <img
                                                                     src="{{ (!empty(\App\Models\User::find($item -> tester_2)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_2)->photo) : url('upload/no_image.jpg')}}"
-                                                                    alt="Tester">{{\App\Models\User::find($item -> tester_2) -> name}}
-                                                            </div>
-                                                        @endif
-                                                        @if($item-> tester_3 !=null || $item-> tester_3 !=0 )
-                                                            <br>
-                                                            <div class="chip chip-sm bg-light text-dark">
+                                                                    width="35" height="35" class="rounded-circle"
+                                                                    alt=""/>
+                                                            @endif
+                                                            @if($item-> tester_3 !=null || $item-> tester_3 !=0 )
                                                                 <img
                                                                     src="{{ (!empty(\App\Models\User::find($item -> tester_3)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_3)->photo) : url('upload/no_image.jpg')}}"
-                                                                    alt="Tester">{{\App\Models\User::find($item -> tester_3) -> name}}
-                                                            </div>
-                                                        @endif
-                                                        @if($item-> tester_4 !=null || $item-> tester_4 !=0 )
-                                                            <div class="chip chip-sm bg-light text-dark">
+                                                                    width="35" height="35" class="rounded-circle"
+                                                                    alt=""/>
+                                                            @endif
+                                                            @if($item-> tester_4 !=null || $item-> tester_4 !=0 )
                                                                 <img
                                                                     src="{{ (!empty(\App\Models\User::find($item -> tester_4)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_4)->photo) : url('upload/no_image.jpg')}}"
-                                                                    alt="Tester">{{\App\Models\User::find($item -> tester_4) -> name}}
-                                                            </div>
-                                                        @endif
-                                                        @if($item-> tester_5 !=null || $item-> tester_5 !=0 )
-                                                            <div class="chip chip-sm bg-light text-dark">
+                                                                    width="35" height="35" class="rounded-circle"
+                                                                    alt=""/>
+                                                            @endif
+                                                            @if($item-> tester_5 !=null || $item-> tester_5 !=0 )
                                                                 <img
-                                                                    src="{{ (!empty(\App\Models\User::find($item -> tester_5)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_5)->photo) : url('upload/no_image.jpg')}}"
-                                                                    alt="Tester">{{\App\Models\User::find($item -> tester_5) -> name}}
-                                                            </div>
-                                                        @endif
+                                                                    src="{{ (!empty(\App\Models\User::find($item -> tester_1)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_5)->photo) : url('upload/no_image.jpg')}}"
+                                                                    width="35" height="35" class="rounded-circle"
+                                                                    alt=""/>
+                                                            @endif
+                                                        </div>
+{{--                                                        @if($item-> tester_1 !=null || $item-> tester_1 !=0 )--}}
+{{--                                                            <div style="" class="chip chip-sm bg-light text-dark">--}}
+{{--                                                                <img--}}
+{{--                                                                    src="{{ (!empty(\App\Models\User::find($item -> tester_1)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_1)->photo) : url('upload/no_image.jpg')}}"--}}
+{{--                                                                    alt="Tester">{{\App\Models\User::find($item -> tester_1) -> name}}--}}
+{{--                                                            </div>--}}
+{{--                                                        @endif--}}
+{{--                                                        @if($item-> tester_2 !=null || $item-> tester_2 !=0 )--}}
+{{--                                                            <div class="chip chip-sm bg-light text-dark">--}}
+{{--                                                                <img--}}
+{{--                                                                    src="{{ (!empty(\App\Models\User::find($item -> tester_2)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_2)->photo) : url('upload/no_image.jpg')}}"--}}
+{{--                                                                    alt="Tester">{{\App\Models\User::find($item -> tester_2) -> name}}--}}
+{{--                                                            </div>--}}
+{{--                                                        @endif--}}
+{{--                                                        @if($item-> tester_3 !=null || $item-> tester_3 !=0 )--}}
+{{--                                                            <br>--}}
+{{--                                                            <div class="chip chip-sm bg-light text-dark">--}}
+{{--                                                                <img--}}
+{{--                                                                    src="{{ (!empty(\App\Models\User::find($item -> tester_3)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_3)->photo) : url('upload/no_image.jpg')}}"--}}
+{{--                                                                    alt="Tester">{{\App\Models\User::find($item -> tester_3) -> name}}--}}
+{{--                                                            </div>--}}
+{{--                                                        @endif--}}
+{{--                                                        @if($item-> tester_4 !=null || $item-> tester_4 !=0 )--}}
+{{--                                                            <div class="chip chip-sm bg-light text-dark">--}}
+{{--                                                                <img--}}
+{{--                                                                    src="{{ (!empty(\App\Models\User::find($item -> tester_4)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_4)->photo) : url('upload/no_image.jpg')}}"--}}
+{{--                                                                    alt="Tester">{{\App\Models\User::find($item -> tester_4) -> name}}--}}
+{{--                                                            </div>--}}
+{{--                                                        @endif--}}
+{{--                                                        @if($item-> tester_5 !=null || $item-> tester_5 !=0 )--}}
+{{--                                                            <div class="chip chip-sm bg-light text-dark">--}}
+{{--                                                                <img--}}
+{{--                                                                    src="{{ (!empty(\App\Models\User::find($item -> tester_5)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_5)->photo) : url('upload/no_image.jpg')}}"--}}
+{{--                                                                    alt="Tester">{{\App\Models\User::find($item -> tester_5) -> name}}--}}
+{{--                                                            </div>--}}
+{{--                                                        @endif--}}
                                                     </td>
                                                 @endif
 

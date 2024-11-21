@@ -48,9 +48,9 @@ class ManagerController extends Controller
 
         $id = Auth::user()->id;
         $data = User::find($id);
-        $data->name = $request->name;
-        $data->username = $request->username;
-        $data->email = $request->email;
+//        $data->name = $request->name;
+//        $data->username = $request->username;
+//        $data->email = $request->email;
         $data->phone = $request->phone;
         $data->address = $request->address;
 
