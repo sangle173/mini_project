@@ -603,31 +603,31 @@
                                                                 <img
                                                                     src="{{ (!empty(\App\Models\User::find($item -> tester_1)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_1)->photo) : url('upload/no_image.jpg')}}"
                                                                     width="35" height="35" class="rounded-circle"
-                                                                    alt=""/>
+                                                                    title="{{\App\Models\User::find($item -> tester_1)-> name}}" alt=""/>
                                                             @endif
                                                             @if($item-> tester_2 !=null || $item-> tester_2 !=0 )
                                                                 <img
                                                                     src="{{ (!empty(\App\Models\User::find($item -> tester_2)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_2)->photo) : url('upload/no_image.jpg')}}"
                                                                     width="35" height="35" class="rounded-circle"
-                                                                    alt=""/>
+                                                                    title="{{\App\Models\User::find($item -> tester_2)-> name}}" alt=""/>
                                                             @endif
                                                             @if($item-> tester_3 !=null || $item-> tester_3 !=0 )
                                                                 <img
                                                                     src="{{ (!empty(\App\Models\User::find($item -> tester_3)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_3)->photo) : url('upload/no_image.jpg')}}"
                                                                     width="35" height="35" class="rounded-circle"
-                                                                    alt=""/>
+                                                                    title="{{\App\Models\User::find($item -> tester_3)-> name}}" alt=""/>
                                                             @endif
                                                             @if($item-> tester_4 !=null || $item-> tester_4 !=0 )
                                                                 <img
                                                                     src="{{ (!empty(\App\Models\User::find($item -> tester_4)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_4)->photo) : url('upload/no_image.jpg')}}"
                                                                     width="35" height="35" class="rounded-circle"
-                                                                    alt=""/>
+                                                                    title="{{\App\Models\User::find($item -> tester_4)-> name}}" alt=""/>
                                                             @endif
                                                             @if($item-> tester_5 !=null || $item-> tester_5 !=0 )
                                                                 <img
                                                                     src="{{ (!empty(\App\Models\User::find($item -> tester_1)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_5)->photo) : url('upload/no_image.jpg')}}"
                                                                     width="35" height="35" class="rounded-circle"
-                                                                    alt=""/>
+                                                                    title="{{\App\Models\User::find($item -> tester_5)-> name}}" alt=""/>
                                                             @endif
                                                         </div>
 {{--                                                        @if($item-> tester_1 !=null || $item-> tester_1 !=0 )--}}
