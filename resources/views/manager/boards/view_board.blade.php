@@ -598,7 +598,7 @@
                                                 @endif
                                                 @if($board_config-> tester_1 != 0)
                                                     <td>
-                                                        <div class="user-groups ms-auto">
+                                                        <div class="user-groups ms-auto text-center">
                                                             @if($item-> tester_1 !=null || $item-> tester_1 !=0 )
                                                                 <img
                                                                     src="{{ (!empty(\App\Models\User::find($item -> tester_1)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_1)->photo) : url('upload/no_image.jpg')}}"
