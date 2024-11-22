@@ -610,36 +610,42 @@
                                                 @endif
                                                 @if($board_config-> tester_1 != 0)
                                                     <td>
-                                                        <div style="margin-left: 15px!important;" class="user-groups ms-auto">
+                                                        <div style="margin-left: 15px!important;"
+                                                             class="user-groups ms-auto">
                                                             @if($item-> tester_1 !=null || $item-> tester_1 !=0 )
                                                                 <img
                                                                     src="{{ (!empty(\App\Models\User::find($item -> tester_1)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_1)->photo) : url('upload/no_image.jpg')}}"
                                                                     width="35" height="35" class="rounded-circle"
-                                                                    title="{{\App\Models\User::find($item -> tester_1)-> name}}" alt=""/>
+                                                                    title="{{\App\Models\User::find($item -> tester_1)-> name}}"
+                                                                    alt=""/>
                                                             @endif
                                                             @if($item-> tester_2 !=null || $item-> tester_2 !=0 )
                                                                 <img
                                                                     src="{{ (!empty(\App\Models\User::find($item -> tester_2)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_2)->photo) : url('upload/no_image.jpg')}}"
                                                                     width="35" height="35" class="rounded-circle"
-                                                                    title="{{\App\Models\User::find($item -> tester_2)-> name}}" alt=""/>
+                                                                    title="{{\App\Models\User::find($item -> tester_2)-> name}}"
+                                                                    alt=""/>
                                                             @endif
                                                             @if($item-> tester_3 !=null || $item-> tester_3 !=0 )
                                                                 <img
                                                                     src="{{ (!empty(\App\Models\User::find($item -> tester_3)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_3)->photo) : url('upload/no_image.jpg')}}"
                                                                     width="35" height="35" class="rounded-circle"
-                                                                    title="{{\App\Models\User::find($item -> tester_3)-> name}}" alt=""/>
+                                                                    title="{{\App\Models\User::find($item -> tester_3)-> name}}"
+                                                                    alt=""/>
                                                             @endif
                                                             @if($item-> tester_4 !=null || $item-> tester_4 !=0 )
                                                                 <img
                                                                     src="{{ (!empty(\App\Models\User::find($item -> tester_4)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_4)->photo) : url('upload/no_image.jpg')}}"
                                                                     width="35" height="35" class="rounded-circle"
-                                                                    title="{{\App\Models\User::find($item -> tester_4)-> name}}" alt=""/>
+                                                                    title="{{\App\Models\User::find($item -> tester_4)-> name}}"
+                                                                    alt=""/>
                                                             @endif
                                                             @if($item-> tester_5 !=null || $item-> tester_5 !=0 )
                                                                 <img
                                                                     src="{{ (!empty(\App\Models\User::find($item -> tester_1)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_5)->photo) : url('upload/no_image.jpg')}}"
                                                                     width="35" height="35" class="rounded-circle"
-                                                                    title="{{\App\Models\User::find($item -> tester_5)-> name}}" alt=""/>
+                                                                    title="{{\App\Models\User::find($item -> tester_5)-> name}}"
+                                                                    alt=""/>
                                                             @endif
                                                         </div>
                                                     </td>
@@ -1720,10 +1726,9 @@
                                                                                         {{$item -> jira_summary}}
                                                                                         -&nbsp;<b
                                                                                             style="box-sizing:inherit">{{strtoupper(\App\Models\TicketStatus::find($item -> ticket_status) -> name) }}
-                                                                                            @if($item -> link_to_result != null)
+                                                                                            @if($item -> link_to_result != null && $item -> team == 22)
                                                                                                 <span>- No new issue found</span>
                                                                                             @endif
-
 
                                                                                         </b>
                                                                                         @if($item -> link_to_result != null)
@@ -1757,11 +1762,9 @@
                                                                                         {{$item -> jira_summary}}
                                                                                         -&nbsp;<b
                                                                                             style="box-sizing:inherit">{{strtoupper(\App\Models\TicketStatus::find($item -> ticket_status) -> name) }}
-                                                                                            @if($item -> link_to_result != null && $team -> id ==22)
+                                                                                            @if($item -> link_to_result != null && $item -> team == 22)
                                                                                                 <span>&nbsp;- No new issue found&nbsp;</span>
                                                                                             @endif
-
-
                                                                                         </b>
                                                                                         @if($item -> link_to_result != null)
                                                                                             <b style="box-sizing:inherit">-&nbsp;<a
@@ -1830,15 +1833,18 @@
                                         <div class="card-header bg-light">
                                             <h5>Sprint Report</h5>
                                             <div class="col-6">
-                                                <form id="myForm" action="{{ route('manager.sprint.report') }}" method="get" class="row g-3">
-                                                    <input name="sprint" type="text" class="form-control" placeholder="Enter Sprint">
+                                                <form id="myForm" action="{{ route('manager.sprint.report') }}"
+                                                      method="get" class="row g-3">
+                                                    <input name="sprint" type="text" class="form-control"
+                                                           placeholder="Enter Sprint">
                                                     <input type="hidden" name="board_id" value="{{$board -> id}}">
                                                     <div class="col-sm-9">
                                                         <div class="d-md-flex d-grid align-items-center gap-3">
                                                             <button type="submit" class="btn btn-primary px-5"><i
                                                                     class='bx bx-add-to-queue mr-1'></i>Generate
                                                             </button>
-                                                            <button type="reset" class="btn btn-outline-secondary px-5"><i
+                                                            <button type="reset" class="btn btn-outline-secondary px-5">
+                                                                <i
                                                                     class='bx bx-reset mr-1'></i>Reset
                                                             </button>
                                                         </div>
@@ -2525,5 +2531,36 @@
                 alert("Copied div content to clipboard");
             }
         }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.status-toggle').on('change', function () {
+                var userId = $(this).data('user-id');
+                var isChecked = $(this).is(':checked');
+
+                // send an ajax request to update status
+
+                $.ajax({
+                    url: "{{ route('manager.update.user.status') }}",
+                    method: "POST",
+                    data: {
+                        user_id: userId,
+                        is_checked: isChecked ? 1 : 0,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function (response) {
+                        toastr.success(response.message);
+                        window.setTimeout(function () {
+                            location.reload();
+                        }, 2000);
+
+                    },
+                    error: function () {
+
+                    }
+                });
+
+            });
+        });
     </script>
 @endsection
