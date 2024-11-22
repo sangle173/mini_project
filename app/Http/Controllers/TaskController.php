@@ -689,4 +689,18 @@ class TaskController extends Controller
         return redirect()->route('manager.show.board', $board_id)->with($notification);
     }
 
+
+
+    public function sprint_report(Request $request)
+    {
+        $sprint = $request -> sprint;
+        $board = Board::find($request -> board_id);
+        $types = Type::latest()->get();
+        $tasks = DB::table('tasks')
+            ->where('board_id', $request -> board_id )
+            ->where('sprint', $sprint )
+            ->latest()
+            ->get();
+        return view('manager.boards.tasks.sprint_report', compact('types','sprint','tasks', 'board'));
+    }
 }

@@ -411,6 +411,18 @@
                             </a>
                         </li>
                     @endif
+                    @if($board -> id == 5)
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" href="#sprint_report" role="tab"
+                               aria-selected="false">
+                                <div class="d-flex align-items-center">
+                                    <div class="tab-icon"><i class='bx bx-bookmark-alt font-18 me-1'></i>
+                                    </div>
+                                    <div class="tab-title">Sprint Report</div>
+                                </div>
+                            </a>
+                        </li>
+                    @endif
                     @auth()
                         @if(Auth::user()->role ==='manager')
                             <li class="nav-item" role="presentation">
@@ -538,7 +550,7 @@
                                                         @if($item-> jira_summary !=null)
                                                             <a href="{{url($board_config -> jira_url . $item-> jira_id) }}"
                                                                target="_blank">{{ $item->jira_id }}</a>
-                                                            - {{ \Illuminate\Support\Str::limit($item->jira_summary, 50, $end=' ...') }}
+                                                            - {{ \Illuminate\Support\Str::limit($item->jira_summary, 100, $end=' ...') }}
                                                         @endif
                                                     </td>
                                                 @endif
@@ -1772,7 +1784,7 @@
                                                                                     Reported</b>
                                                                             </div>
                                                                             <ul style="box-sizing:inherit;margin:0px;padding:0px;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                                @foreach(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $item)
+                                                                                @foreach(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today()) -> orderBy('jira_id', 'ASC')->get() as $item)
 
                                                                                     <li
                                                                                         style="box-sizing:inherit;margin-bottom:0px;margin-left:28px;">
@@ -1804,6 +1816,35 @@
                                                     @endforeach
                                                 </div>
                                             @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @if($board -> id == 5)
+                        <div class="tab-pane fade" id="sprint_report" role="tabpanel">
+                            <div>
+                                <div class="container-fluid">
+                                    <div class="card">
+                                        <div class="card-header bg-light">
+                                            <h5>Sprint Report</h5>
+                                            <div class="col-6">
+                                                <form id="myForm" action="{{ route('manager.sprint.report') }}" method="get" class="row g-3">
+                                                    <input name="sprint" type="text" class="form-control" placeholder="Enter Sprint">
+                                                    <input type="hidden" name="board_id" value="{{$board -> id}}">
+                                                    <div class="col-sm-9">
+                                                        <div class="d-md-flex d-grid align-items-center gap-3">
+                                                            <button type="submit" class="btn btn-primary px-5"><i
+                                                                    class='bx bx-add-to-queue mr-1'></i>Generate
+                                                            </button>
+                                                            <button type="reset" class="btn btn-outline-secondary px-5"><i
+                                                                    class='bx bx-reset mr-1'></i>Reset
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

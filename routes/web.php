@@ -228,6 +228,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/manager/delete/board/task/{id}', 'destroy')->name('manager.delete.task');
         Route::get('/manager/all/tasks/filter', 'filter')->name('manager.task.filter');
         Route::get('/manager/all/tasks/filter-export', 'filter_export')->name('manager.task.filter-export');
+        Route::get('/manager/all/sprint/report', 'sprint_report')->name('manager.sprint.report');
         Route::get('/manager/task/export/',  'export')->name('manager.task.export');
         Route::get('/manager/task/export-html/',  'exportToHtml')->name('manager.task.export.html');
         Route::get('/manager/task/export-pdf/',  'exportToPdf')->name('manager.task.export.pdf');
