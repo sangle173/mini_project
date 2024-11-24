@@ -435,7 +435,7 @@
                             <div class="d-flex align-items-center">
                                 <div class="tab-icon"><i class='bx bx-comment-detail font-18 me-1'></i>
                                 </div>
-                                <div class="tab-title"> Task</div>
+                                <div class="tab-title"> Tasks</div>
                             </div>
                         </a>
                     </li>

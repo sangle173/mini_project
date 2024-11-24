@@ -11,13 +11,11 @@
     <div class="page-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Boards</div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bxs-home-circle"></i></a>
                         </li>
-                        {{--                        <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('manager.all.s',$board-> project_id) }}">{{\App\Models\Board::getProjectById($board-> project_id)-> name}} Project</a></li>--}}
                         <li class="breadcrumb-item active" aria-current="page">All Boards</li>
                     </ol>
                 </nav>
@@ -27,7 +25,8 @@
                     @auth()
                         @if(Auth::user()->role ==='manager')
 
-                            <a href="{{ route('manager.add.board') }}" type="button" style="background-color: #754FFE;color: white" class="btn px-5"><i
+                            <a href="{{ route('manager.add.board') }}" type="button"
+                               style="background-color: #754FFE;color: white" class="btn px-5"><i
                                     class='bx bx-add-to-queue mr-1'></i>Add Boards</a>
                         @endif
                     @endauth
@@ -35,108 +34,109 @@
             </div>
         </div>
         <!--end breadcrumb-->
+        <div class="container-fluid">
+            <div class="row row-cols-1 row-cols-md-1 row-cols-lg-4 row-cols-xl-4">
+                @foreach ($boards as $key=> $item)
+                    <div class="col">
+                        <div class="card border-primary border-bottom border-0">
+                            <a href="{{route('manager.show.board', $item -> id)}}"><img src="{{ asset($item->photo) }}"
+                                                                                        class="card-img-top" alt="..."></a>
+                            <div class="card-body">
+                                <a href="{{route('manager.show.board', $item -> id)}}"><h5
+                                        class="card-title text-primary">{{$item -> name}}</h5></a>
+                                <p class="card-text">{{$item -> title}}</p>
+                                <hr>
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center"><span><i
+                                                class='bx bx-task text-primary font-18 align-middle me-1'></i> Total Task</span>
+                                        <span
+                                            class="badge bg-secondary rounded-pill"> {{count(\App\Models\Task::where('board_id', $item->id)->whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center"><span><i
+                                                class='bx bx-store text-success font-18 align-middle me-1'></i> Completed</span>
+                                        <span
+                                            class="badge bg-success rounded-pill">{{count(\App\Models\Task::where('board_id', $item->id)->where('working_status', 2 ) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center"><span><i
+                                                class='bx bx-loader-circle text-primary font-18 align-middle me-1'></i> In-progress</span>
+                                        <span
+                                            class="badge bg-primary rounded-pill">{{count(\App\Models\Task::where('board_id', $item->id)->where('working_status', 1 ) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center"><span><i
+                                                class='bx bxs-bug text-danger font-18 align-middle me-1'></i> Bug Found</span>
+                                        <span
+                                            class="badge bg-danger rounded-pill">{{count(\App\Models\Task::where('board_id', $item->id)->where('type', 1 ) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
+                                    </li>
+                                </ul>
+                                <br>
+                                <div class="d-flex align-items-center gap-2">
+                                    <a href="{{ route('manager.show.board', $item -> id) }}"
+                                       class="btn btn-inverse-secondary">View Board</a>
+                                    @auth
 
-        <div class="row row-cols-1 row-cols-md-1 row-cols-lg-4 row-cols-xl-4    ">
-            @foreach ($boards as $key=> $item)
-                <div class="col">
-                    <div class="card border-primary border-bottom border-0">
-                        <a href="{{route('manager.show.board', $item -> id)}}"><img src="{{ asset($item->photo) }}"
-                                                                                    class="card-img-top" alt="..."></a>
-                        <div class="card-body">
-                            <a href="{{route('manager.show.board', $item -> id)}}"><h5 class="card-title text-primary">{{$item -> name}}</h5></a>
-                            <p class="card-text">{{$item -> title}}</p>
-                            <hr>
-                            <ul class="list-group">
-                                <li class="list-group-item d-flex justify-content-between align-items-center"><span><i
-                                            class='bx bx-task text-primary font-18 align-middle me-1'></i> Total Task</span>
-                                    <span
-                                        class="badge bg-secondary rounded-pill"> {{count(\App\Models\Task::where('board_id', $item->id)->whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center"><span><i
-                                            class='bx bx-store text-success font-18 align-middle me-1'></i> Completed</span>
-                                    <span
-                                        class="badge bg-success rounded-pill">{{count(\App\Models\Task::where('board_id', $item->id)->where('working_status', 2 ) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center"><span><i
-                                            class='bx bx-loader-circle text-primary font-18 align-middle me-1'></i> In-progress</span>
-                                    <span
-                                        class="badge bg-primary rounded-pill">{{count(\App\Models\Task::where('board_id', $item->id)->where('working_status', 1 ) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center"><span><i
-                                            class='bx bxs-bug text-danger font-18 align-middle me-1'></i> Bug Found</span>
-                                    <span
-                                        class="badge bg-danger rounded-pill">{{count(\App\Models\Task::where('board_id', $item->id)->where('type', 1 ) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
-                                </li>
-                            </ul>
-                            <br>
-                            <div class="d-flex align-items-center gap-2">
-                                <a href="{{ route('manager.show.board', $item -> id) }}"
-                                   class="btn btn-inverse-secondary">View Board</a>
-                                @auth
-
-                                    @if(Auth::user()->role ==='manager')
-                                        <div class="dropdown">
-                                            <button class="btn btn-inverse-secondary dropdown-toggle" type="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">Board Config
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                       href="{{ route('manager.all.teams', $item -> id) }}">Manage
-                                                        Team</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                       href="{{ route('manager.all.types', $item -> id) }}">Manage
-                                                        Type</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                       href="{{ route('manager.all.working_statuses', $item -> id) }}">Manage
-                                                        Working Status</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                       href="{{ route('manager.all.ticket_statuses', $item -> id) }}">Manage
-                                                        Ticket Status</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                       href="{{ route('manager.all.priorities', $item -> id) }}">Manage
-                                                        Priority</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                       href="{{ route('manager.all.tasks', $item -> id) }}">Manage
-                                                        Task</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                       href="{{ route('manager.config.board', $item -> id) }}">Board
-                                                        Config</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item text-primary"
-                                                       href="{{ route('manager.edit.board', $item -> id) }}">Edit
-                                                        Board</a>
-                                                </li>
-{{--                                                <li>--}}
-{{--                                                    <a class="dropdown-item text-danger"--}}
-{{--                                                       href="{{ route('manager.delete.board', $item -> id) }}">Delete--}}
-{{--                                                        Board</a>--}}
-{{--                                                </li>--}}
-                                            </ul>
-                                        </div>
-                                    @endif
-                                @endauth
+                                        @if(Auth::user()->role ==='manager')
+                                            <div class="dropdown">
+                                                <button class="btn btn-inverse-secondary dropdown-toggle" type="button"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">Board Config
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item"
+                                                           href="{{ route('manager.all.teams', $item -> id) }}">Manage
+                                                            Team</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item"
+                                                           href="{{ route('manager.all.types', $item -> id) }}">Manage
+                                                            Type</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item"
+                                                           href="{{ route('manager.all.working_statuses', $item -> id) }}">Manage
+                                                            Working Status</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item"
+                                                           href="{{ route('manager.all.ticket_statuses', $item -> id) }}">Manage
+                                                            Ticket Status</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item"
+                                                           href="{{ route('manager.all.priorities', $item -> id) }}">Manage
+                                                            Priority</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item"
+                                                           href="{{ route('manager.all.tasks', $item -> id) }}">Manage
+                                                            Task</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item"
+                                                           href="{{ route('manager.config.board', $item -> id) }}">Board
+                                                            Config</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item text-primary"
+                                                           href="{{ route('manager.edit.board', $item -> id) }}">Edit
+                                                            Board</a>
+                                                    </li>
+                                                    {{--                                                <li>--}}
+                                                    {{--                                                    <a class="dropdown-item text-danger"--}}
+                                                    {{--                                                       href="{{ route('manager.delete.board', $item -> id) }}">Delete--}}
+                                                    {{--                                                        Board</a>--}}
+                                                    {{--                                                </li>--}}
+                                                </ul>
+                                            </div>
+                                        @endif
+                                    @endauth
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
+            <!--end row-->
         </div>
-        <!--end row-->
-
     </div>
 
 @endsection
