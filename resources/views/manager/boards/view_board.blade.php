@@ -51,7 +51,6 @@
                                     <div class="modal-body">
                                         <form id="myForm" action="{{ route('manager.tasks.save') }}" method="post"
                                               class="row g-3" enctype="multipart/form-data">
-{{--                                        <form  id="myForm" class="row g-3"  enctype="multipart/form-data">--}}
                                             @csrf
                                             <input type="hidden" name="board_id" value="{{$board -> id}}">
                                             @if($board_config -> team == 1)
@@ -3161,4 +3160,28 @@
 {{--            });--}}
 {{--        });--}}
 {{--    </script>--}}
+    <script>
+        $('#type').change(function(e){
+            if($(this).val() == "1"){
+                $("#working_status option[value='1']").prop('disabled',true);
+                $("#link_to_result").prop('disabled',true);
+                $("#ticket_status option[value='1']").prop('disabled',true);
+                $("#ticket_status option[value='2']").prop('disabled',true);
+                $("#ticket_status option[value='3']").prop('disabled',true);
+                $("#ticket_status option[value='4']").prop('disabled',true);
+                $("#ticket_status option[value='5']").prop('disabled',true);
+                $("#ticket_status option[value='6']").prop('disabled',true);
+            }
+            else {
+                $("#working_status option[value='1']").prop('disabled',false);
+                $("#ticket_status option[value='1']").prop('disabled',false);
+                $("#ticket_status option[value='2']").prop('disabled',false);
+                $("#ticket_status option[value='3']").prop('disabled',false);
+                $("#ticket_status option[value='4']").prop('disabled',false);
+                $("#ticket_status option[value='5']").prop('disabled',false);
+                $("#ticket_status option[value='6']").prop('disabled',false);
+                $("#link_to_result").prop('disabled',false);
+            }
+        });
+    </script>
 @endsection
