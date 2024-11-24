@@ -224,15 +224,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/manager/chart/show', 'chart_show')->name('chart.show');
         Route::get('/manager/clone/board/task/{id}', 'cloneTask')->name('manager.clone.task');
         Route::post('/manager/update/board/task', 'update')->name('manager.update-task');
+        Route::post('/manager/update/working-status', 'update_working_status')->name('manager.update-working-status');
+        Route::post('/manager/update/ticket-status', 'update_ticket_status')->name('manager.update-ticket-status');
         Route::post('/manager/clone/board/task', 'cloneTaskAction')->name('manager.clone-task');
         Route::get('/manager/delete/board/task/{id}', 'destroy')->name('manager.delete.task');
         Route::get('/manager/all/tasks/filter', 'filter')->name('manager.task.filter');
         Route::get('/manager/all/tasks/filter-export', 'filter_export')->name('manager.task.filter-export');
         Route::get('/manager/all/sprint/report', 'sprint_report')->name('manager.sprint.report');
-        Route::get('/manager/task/export/',  'export')->name('manager.task.export');
-        Route::get('/manager/task/export-html/',  'exportToHtml')->name('manager.task.export.html');
-        Route::get('/manager/task/export-pdf/',  'exportToPdf')->name('manager.task.export.pdf');
-
+        Route::post('/manager/task/export/',  'export')->name('manager.task.export');
+        Route::post('/manager/task/export-html/',  'exportToHtml')->name('manager.task.export.html');
+        Route::post('/manager/task/export-pdf/',  'exportToPdf')->name('manager.task.export.pdf');
         Route::get('/manager/add/board/sub-tasks/{id}', 'create_sub_task')->name('manager.add.sub-task');
         Route::post('/manager/save/board/sub-tasks', 'save_sub_task')->name('manager.save.sub-task');
         Route::get('/manager/edit/board/sub-tasks/{id}', 'edit_sub_task')->name('manager.edit.sub-task');

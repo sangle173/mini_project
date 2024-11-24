@@ -27,7 +27,7 @@
                     @auth()
                         @if(Auth::user()->role ==='manager')
 
-                            <a href="{{ route('manager.add.board') }}" type="button" class="btn btn-info px-5"><i
+                            <a href="{{ route('manager.add.board') }}" type="button" style="background-color: #754FFE;color: white" class="btn px-5"><i
                                     class='bx bx-add-to-queue mr-1'></i>Add Boards</a>
                         @endif
                     @endauth

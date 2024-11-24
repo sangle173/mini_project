@@ -23,14 +23,16 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <form id="myForm2" action="{{ route('manager.task.export') }}" method="get">
+                    <form id="myForm2" action="{{ route('manager.task.export') }}" method="post" enctype="multipart/form-data">
+                        @csrf
                         <input type="hidden" value="{{$tasks}}" name="tasks">
                         <button type="submit" class="btn btn-info px-3"><i
                                 class='bx bxs-file-export mr-1'></i>Export-Excel
                         </button>
                     </form>
                     <form id="myForm2" style="margin-left: 2px" action="{{ route('manager.task.export.html') }}"
-                          method="get">
+                          method="post" enctype="multipart/form-data">
+                        @csrf
                         <input type="hidden" value="{{$tasks}}" name="tasks">
                         <button type="submit" class="btn btn-secondary px-3"><i
                                 class='bx bxs-file-html mr-1'></i>Export-Html
@@ -129,23 +131,6 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            {{--                                            <div class="col-md-2">--}}
-                                            {{--                                                <label for="team" class="form-label">Team</label>--}}
-                                            {{--                                                <div class="position-relative">--}}
-                                            {{--                                                    <select class="form-select" name="team" id="name">--}}
-                                            {{--                                                        <option disabled selected>Select Team</option>--}}
-                                            {{--                                                        @foreach ($teams as $team)--}}
-                                            {{--                                                            @if(isset($request))--}}
-                                            {{--                                                                <option--}}
-                                            {{--                                                                    value="{{ $team->id }}" {{ $team->id == $request-> team ? 'selected' : '' }}>{{ $team->id == $request-> team ? \App\Models\Team::find($request -> team) -> name : $team -> name}}</option>--}}
-                                            {{--                                                            @else--}}
-                                            {{--                                                                <option--}}
-                                            {{--                                                                    value="{{ $team->id }}">{{ $team->name }}</option>--}}
-                                            {{--                                                            @endif--}}
-                                            {{--                                                        @endforeach--}}
-                                            {{--                                                    </select>--}}
-                                            {{--                                                </div>--}}
-                                            {{--                                            </div>--}}
                                             <div class="col-md-2">
                                                 <label for="tester" class="form-label">Tester</label>
                                                 <select class="form-select" name="tester" id="tester">
@@ -168,12 +153,9 @@
                                                     <div class="col-md-12">
                                                         <div class="d-md-flex d-grid align-items-center gap-3">
                                                             @if(isset($request))
-                                                                <button type="submit" class="btn btn-success">
-                                                                    Filtered {{$no + 1}}</button>
+                                                                <button type="submit" class="btn" style="background-color: #FFE800"><i class="bx bx-filter"></i> Filtered</button>
                                                             @else
-                                                                <button type="submit" class="btn btn-primary px-4">
-                                                                    Filter
-                                                                </button>
+                                                                <button type="submit" class="btn px-4" style="background-color: #FFE800"><i class="bx bx-filter"></i> Filter</button>
                                                             @endif
                                                             <a href="{{route('manager.tasks', $board-> id)}}" --}}
                                                                class="btn btn-secondary px-4" type="reset">
@@ -198,7 +180,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <table data-page-length='50' id="example" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                         <tr>
                             <th>#</th>

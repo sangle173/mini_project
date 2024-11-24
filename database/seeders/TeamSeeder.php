@@ -16,37 +16,30 @@ class TeamSeeder extends Seeder
     {
         DB::table('teams')->insert([
             [
-                'board_id'=> 1,
                 'name' => 'Team A',
                 'desc' => 'demo'
             ],
             [
-                'board_id'=> 1,
                 'name' => 'Team B',
                 'desc' => 'demo'
             ],
             [
-                'board_id'=> 1,
                 'name' => 'Team C',
                 'desc' => 'demo'
             ],
             [
-                'board_id'=> 1,
                 'name' => 'Team D',
                 'desc' => 'demo'
             ],
             [
-                'board_id'=> 1,
                 'name' => 'Team E',
                 'desc' => 'demo'
             ],
             [
-                'board_id'=> 1,
                 'name' => 'Team F',
                 'desc' => 'demo'
             ],
             [
-                'board_id'=> 1,
                 'name' => 'Team K',
                 'desc' => 'demo'
             ]

@@ -6,13 +6,18 @@
         .large-checkbox {
             transform: scale(1.5);
         }
+
+        .nav-pills > li > a.active {
+            background-color: #FFE800 !important;
+            color: black !important;
+        }
     </style>
 
-    <div class="page-content">
+    <div class="container-fluid">
 
         <!--breadcrumb-->
-        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Board Details</div>
+        <div class="d-none d-sm-flex align-items-center"
+             style="margin-bottom: 1px!important;padding-top: 5px!important;">
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
@@ -24,276 +29,317 @@
                     </ol>
                 </nav>
             </div>
-            <div class="ms-auto">
+            <div class="ms-auto mb-1">
                 <div class="btn-group">
-                    <a href="{{ route('manager.add.task',$board->id) }}" type="button" class="btn btn-info px-5"><i
-                            class='bx bx-add-to-queue mr-1'></i>Add Task</a>
+                    <div class="col" >
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn" style="background-color: #754FFE;color: white"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampleModal"><i
+                                class='bx bx-add-to-queue mr-1'></i>Add Task
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-light">
+                                        <h5 class="modal-title" id="exampleModalLabel">Create Task</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="myForm" action="{{ route('manager.tasks.save') }}" method="post"
+                                              class="row g-3" enctype="multipart/form-data">
+{{--                                        <form  id="myForm" class="row g-3"  enctype="multipart/form-data">--}}
+                                            @csrf
+                                            <input type="hidden" name="board_id" value="{{$board -> id}}">
+                                            @if($board_config -> team == 1)
+                                                <label for="team" class="col-md-2 col-form-label ">Team</label>
+                                                <div class="col-md-5">
+                                                    <select class="form-select" name="team" id="team">
+                                                        <option selected="" disabled>Choose...</option>
+                                                        @foreach ($teams as $team)
+                                                            <option
+                                                                value="{{ $team->id }}">{{ $team->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('team')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-5"></div>
+                                            @endif
+                                            @if($board_config -> type == 1)
+                                                <label for="type" class="col-md-2 col-form-label ">Type <span
+                                                        class="text-danger">*</span></label>
+                                                <div class="col-md-5">
+                                                    <select  class="form-select" name="type" id="type" required>
+                                                        <option selected="" disabled>Choose...</option>
+                                                        @foreach ($types as $type)
+                                                            <option
+                                                                value="{{ $type->id }}">{{ $type->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('type')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-5"></div>
+
+                                            @endif
+                                            @if($board_config -> jira_id == 1)
+                                                <label for="jira_id" class="col-md-2 col-form-label ">Jira
+                                                    Id</label>
+                                                <div class="col-md-5">
+                                                    <input type="text" class="form-control" name="jira_id" id="jira_id"
+                                                           placeholder="Enter Jira Id">
+                                                    @error('jira_id')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-5"></div>
+                                            @endif
+                                            @if($board_config -> jira_summary == 1)
+                                                <label for="jira_summary" class="col-md-2 col-form-label ">Jira
+                                                    Summary <span class="text-danger">*</span></label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" name="jira_summary"
+                                                           id="jira_summary"
+                                                           placeholder="Enter Jira Summary" required>
+                                                    @error('jira_summary')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            @endif
+
+                                            @if($board_config -> working_status == 1)
+                                                <label for="working_status" class="col-md-2 col-form-label ">Working
+                                                    Status <span class="text-danger">*</span></label>
+                                                <div class="col-md-5">
+                                                    <select class="form-select" name="working_status"
+                                                            id="working_status">
+                                                        <option selected="" disabled>Choose...</option>
+                                                        @foreach ($working_statuses as $working_status)
+                                                            <option
+                                                                value="{{ $working_status->id }}">{{ $working_status->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('working_status')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-5"></div>
+                                            @endif
+                                            @if($board_config -> ticket_status == 1)
+                                                <label for="ticket_status" class="col-md-2 col-form-label ">Ticket
+                                                    Status <span class="text-danger">*</span></label>
+                                                <div class="col-md-5">
+                                                    <select class="form-select" name="ticket_status"
+                                                            id="ticket_status">
+                                                        <option selected="" disabled>Choose...</option>
+                                                        @foreach ($ticket_statuses as $ticket_status)
+                                                            <option
+                                                                value="{{ $ticket_status->id }}">{{ $ticket_status->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('ticket_status')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-5"></div>
+                                            @endif
+                                            @if($board_config -> priority == 1)
+                                                <label for="priority"
+                                                       class="col-md-2 col-form-label ">Priority</label>
+                                                <div class="col-md-5">
+                                                    <select class="form-select" name="priority" id="priority">
+                                                        <option selected="" disabled>Choose...</option>
+                                                        @foreach ($priorities as $priority)
+                                                            <option
+                                                                value="{{ $priority->id }}">{{ $priority->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('$priority')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-5"></div>
+                                            @endif
+                                            @if($board_config -> link_to_result == 1)
+                                                <label for="link_to_result" class="col-md-2 col-form-label ">Link To
+                                                    Result</label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" name="link_to_result"
+                                                           id="link_to_result"
+                                                           placeholder="Enter Link">
+                                                    @error('link_to_result')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            @endif
+                                            @if($board_config -> test_plan == 1)
+                                                <label for="test_plan" class="col-md-2 col-form-label ">Test
+                                                    Plan</label>
+                                                <div class="col-md-5">
+                                                    <input type="text" class="form-control" name="test_plan"
+                                                           id="test_plan"
+                                                           placeholder="Enter Test Plan">
+                                                    @error('test_plan')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-5"></div>
+
+                                            @endif
+                                            @if($board_config -> sprint == 1)
+                                                <label for="sprint" class="col-md-2 col-form-label ">Sprint</label>
+                                                <div class="col-md-5">
+                                                    <input type="text" class="form-control" name="sprint" id="sprint"
+                                                           placeholder="Enter Sprint">
+                                                    @error('sprint')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-5"></div>
+                                            @endif
+                                            @if($board_config -> tester_1 == 1)
+                                                <label for="tester_1" class="col-md-2 col-form-label ">Tester 1 <span
+                                                        class="text-danger">*</span></label>
+                                                <div class="col-md-5">
+                                                    <select class="form-select" name="tester_1" id="tester_1">
+                                                        <option value="{{ $currentUser->id }}">{{ $currentUser->name }}
+                                                            (You)
+                                                        </option>
+                                                        @foreach ($users as $user)
+                                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('tester_1')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-5"></div>
+                                            @endif
+                                            @if($board_config -> tester_2 == 1)
+                                                <label for="tester_2" class="col-md-2 col-form-label ">Tester 2</label>
+                                                <div class="col-md-5">
+                                                    <select class="form-select" name="tester_2" id="tester_2">
+                                                        <option value="0">Choose...</option>
+                                                        @foreach ($users as $user)
+                                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('tester_2')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-5"></div>
+                                            @endif
+                                            @if($board_config -> tester_3 == 1)
+                                                <label for="tester_3" class="col-md-2 col-form-label ">Tester 3</label>
+                                                <div class="col-md-5">
+                                                    <select class="form-select" name="tester_3" id="tester_3">
+                                                        <option value="0">Choose...</option>
+                                                        @foreach ($users as $user)
+                                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('tester_3')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-5"></div>
+                                            @endif
+                                            @if($board_config -> tester_4 == 1)
+                                                <label for="tester_4" class="col-md-2 col-form-label ">Tester 4</label>
+                                                <div class="col-md-5">
+                                                    <select class="form-select" name="tester_4" id="tester_4">
+                                                        <option value="0">Choose...</option>
+                                                        @foreach ($users as $user)
+                                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('tester_4')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-5"></div>
+                                            @endif
+                                            @if($board_config -> tester_5 == 1)
+                                                <label for="tester_5" class="col-md-2 col-form-label ">Tester 5</label>
+                                                <div class="col-md-5">
+                                                    <select class="form-select" name="tester_5" id="tester_5">
+                                                        <option value="0">Choose...</option>
+                                                        @foreach ($users as $user)
+                                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('tester_5')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-5"></div>
+                                            @endif
+                                            @if($board_config -> pass == 1)
+                                                <label for="pass" class="col-md-2 col-form-label ">Test Case
+                                                    Pass</label>
+                                                <div class="col-md-5">
+                                                    <input type="number" class="form-control" name="pass" id="pass"
+                                                           placeholder="Enter Test Case Pass">
+                                                    @error('pass')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-5"></div>
+                                            @endif
+                                            @if($board_config -> fail == 1)
+                                                <label for="fail" class="col-md-2 col-form-label ">Test Case
+                                                    Fail</label>
+                                                <div class="col-md-5">
+                                                    <input type="number" class="form-control" name="fail" id="fail"
+                                                           placeholder="Enter Test Case Fail">
+                                                    @error('fail')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-5"></div>
+                                            @endif
+                                            @if($board_config -> note == 1)
+                                                <label for="note" class="col-md-2 col-form-label ">Note</label>
+                                                <div class="col-md-10">
+                                                    <textarea class="form-control" name="note" id="note" rows="3"
+                                                              placeholder="Enter the note ..."></textarea>
+                                                    @error('note')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                        @endif
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                        </button>
+                                        <button type="submit" id="submitbtn" class="btn text-white" style="background-color: #754FFE;">
+                                            Add Task
+                                        </button>
+                                    </div>
+                                    </form>
+                                    @if (count($errors) > 0)
+                                        <script>
+                                            $( document ).ready(function() {
+                                                $('#exampleModal').modal('show');
+                                            });
+                                        </script>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <!--end breadcrumb-->
-
-        <div class="card">
-            {{--            <div class="page-content">--}}
-            {{--                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-2 row-cols-xxl-4">--}}
-            {{--                    <div class="col">--}}
-            {{--                        <div class="card radius-10 bg-gradient-cosmic">--}}
-            {{--                            <div class="card-body">--}}
-            {{--                                <div class="d-flex align-items-center">--}}
-            {{--                                    <div class="me-auto">--}}
-            {{--                                        <p class="mb-0 text-white">Total Task</p>--}}
-            {{--                                        <h4 class="my-1 text-white">{{count($today_tasks)}}</h4>--}}
-            {{--                                        <p class="mb-0 font-13 text-white">+2.5% from yesterday</p>--}}
-            {{--                                    </div>--}}
-            {{--                                </div>--}}
-            {{--                            </div>--}}
-            {{--                        </div>--}}
-            {{--                    </div>--}}
-            {{--                    <div class="col">--}}
-            {{--                        <div class="card radius-10 bg-gradient-ohhappiness">--}}
-            {{--                            <div class="card-body">--}}
-            {{--                                <div class="d-flex align-items-center">--}}
-            {{--                                    <div class="me-auto">--}}
-            {{--                                        <p class="mb-0 text-white">Completed</p>--}}
-            {{--                                        <h4 class="my-1 text-white">{{count(\App\Models\Task::where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</h4>--}}
-            {{--                                        <p class="mb-0 font-13 text-white">-4.5% from yesterday</p>--}}
-            {{--                                    </div>--}}
-            {{--                                </div>--}}
-            {{--                            </div>--}}
-            {{--                        </div>--}}
-            {{--                    </div>--}}
-            {{--                    <div class="col">--}}
-            {{--                        <div class="card radius-10 bg-gradient-kyoto">--}}
-            {{--                            <div class="card-body">--}}
-            {{--                                <div class="d-flex align-items-center">--}}
-            {{--                                    <div class="me-auto">--}}
-            {{--                                        <p class="mb-0 text-dark">In Progress</p>--}}
-            {{--                                        <h4 class="my-1 text-dark">{{count(\App\Models\Task::where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</h4>--}}
-            {{--                                        <p class="mb-0 font-13 text-dark">+8.4% from yesterday</p>--}}
-            {{--                                    </div>--}}
-            {{--                                </div>--}}
-            {{--                            </div>--}}
-            {{--                        </div>--}}
-            {{--                    </div>--}}
-            {{--                    <div class="col">--}}
-            {{--                        <div class="card radius-10 bg-gradient-ibiza">--}}
-            {{--                            <div class="card-body">--}}
-            {{--                                <div class="d-flex align-items-center">--}}
-            {{--                                    <div class="me-auto">--}}
-            {{--                                        <p class="mb-0 text-white">Bug Found</p>--}}
-            {{--                                        <h4 class="my-1 text-white">{{count(\App\Models\Task::where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</h4>--}}
-            {{--                                        <p class="mb-0 font-13 text-white">+5.4% from yesterday</p>--}}
-            {{--                                    </div>--}}
-            {{--                                </div>--}}
-            {{--                            </div>--}}
-            {{--                        </div>--}}
-            {{--                    </div>--}}
-
-            {{--                </div><!--end row-->--}}
-            {{--            </div>--}}
-            {{--            <div class="card-body">--}}
-            {{--                <div class="accordion" id="accordionExample">--}}
-            {{--                    <div class="accordion-item">--}}
-            {{--                        <h2 class="accordion-header" id="headingOne">--}}
-            {{--                            <button class="accordion-button font-weight-bold" type="button" data-bs-toggle="collapse"--}}
-            {{--                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">--}}
-            {{--                                <span class="font-weight-bold">Search and Filter</span>--}}
-            {{--                            </button>--}}
-            {{--                        </h2>--}}
-            {{--                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"--}}
-            {{--                             data-bs-parent="#accordionExample">--}}
-            {{--                            <div class="accordion-body" style="background: #EEEEEE">--}}
-            {{--                                <div class="bs-stepper-content">--}}
-            {{--                                    <form id="myForm" action="{{ route('task.filter') }}" method="get">--}}
-            {{--                                        <div id="test-l-1" role="tabpanel" class="bs-stepper-pane"--}}
-            {{--                                             aria-labelledby="stepper1trigger1">--}}
-            {{--                                            <input type="hidden" name="board_id" value="{{$board-> id}}">--}}
-            {{--                                            <div class="row g-3">--}}
-            {{--                                                <div class="col-12 col-lg-2">--}}
-            {{--                                                    <div class="mb-3">--}}
-            {{--                                                        <label class="form-label"><b>From:</b></label>--}}
-            {{--                                                        <input type="date" value="{{$dateS}}" name="from_date"--}}
-            {{--                                                               class="form-control">--}}
-            {{--                                                    </div>--}}
-            {{--                                                </div>--}}
-            {{--                                                <div class="col-12 col-lg-2">--}}
-            {{--                                                    <div class="mb-3">--}}
-            {{--                                                        <label class="form-label"><b>To:</b></label>--}}
-            {{--                                                        <input type="date" value="{{$dateT}}" name="to_date"--}}
-            {{--                                                               class="form-control">--}}
-            {{--                                                    </div>--}}
-            {{--                                                </div>--}}
-            {{--                                            </div>--}}
-            {{--                                            <div class="row g-3">--}}
-            {{--                                                <div class="col-12 col-lg-2">--}}
-            {{--                                                    <label for="type" class="form-label"><b>Type</b></label>--}}
-            {{--                                                    <div class="form-check">--}}
-            {{--                                                        @foreach ($types as $type)--}}
-            {{--                                                            @if(isset($request))--}}
-            {{--                                                                <input class="form-check-input" name="type[]"--}}
-            {{--                                                                       type="checkbox"--}}
-            {{--                                                                       {{in_array($type->id, $request -> type) && count($request -> type) != count($types)? 'checked':''}}  value="{{ $type->id }}"--}}
-            {{--                                                                       id="type{{ $type->id }}">--}}
-            {{--                                                                <label class="form-check-label">--}}
-            {{--                                                                    {{ $type->name }}--}}
-            {{--                                                                </label> <br>--}}
-            {{--                                                            @else--}}
-            {{--                                                                <input class="form-check-input" name="type[]"--}}
-            {{--                                                                       type="checkbox"--}}
-            {{--                                                                       value="{{ $type->id }}"--}}
-            {{--                                                                       id="type{{ $type->id }}">--}}
-            {{--                                                                <label class="form-check-label">--}}
-            {{--                                                                    {{ $type->name }}--}}
-            {{--                                                                </label> <br>--}}
-            {{--                                                            @endif--}}
-            {{--                                                        @endforeach--}}
-            {{--                                                    </div>--}}
-            {{--                                                </div>--}}
-            {{--                                                <div class="col-12 col-lg-2">--}}
-            {{--                                                    <label for="team" class="form-label"><b>Team</b></label>--}}
-            {{--                                                    <div class="form-check">--}}
-            {{--                                                        @foreach ($teams as $team)--}}
-            {{--                                                            @if(isset($request))--}}
-            {{--                                                                <input class="form-check-input" name="team[]"--}}
-            {{--                                                                       type="checkbox"--}}
-            {{--                                                                       {{in_array($team->id, $request -> team ) && count($request -> team) != count($teams)? 'checked':''}}  value="{{ $team->id }}"--}}
-            {{--                                                                       id="type{{ $team->id }}">--}}
-            {{--                                                                <label class="form-check-label">--}}
-            {{--                                                                    {{ $team->name }}--}}
-            {{--                                                                </label> <br>--}}
-            {{--                                                            @else--}}
-            {{--                                                                <input class="form-check-input" name="team[]"--}}
-            {{--                                                                       type="checkbox"--}}
-            {{--                                                                       value="{{ $team->id }}"--}}
-            {{--                                                                       id="type{{ $team->id }}">--}}
-            {{--                                                                <label class="form-check-label">--}}
-            {{--                                                                    {{ $team->name }}--}}
-            {{--                                                                </label> <br>--}}
-            {{--                                                            @endif--}}
-            {{--                                                        @endforeach--}}
-            {{--                                                    </div>--}}
-            {{--                                                </div>--}}
-            {{--                                                <div class="col-12 col-lg-2">--}}
-            {{--                                                    <label for="working_status" class="form-label"><b>Working--}}
-            {{--                                                            Status</b></label>--}}
-            {{--                                                    <div class="form-check">--}}
-
-            {{--                                                        @foreach ($working_statuses as $working_status)--}}
-            {{--                                                            @if(isset($request))--}}
-            {{--                                                                <input class="form-check-input" name="working_status[]"--}}
-            {{--                                                                       type="checkbox"--}}
-            {{--                                                                       {{in_array($working_status->id, $request -> working_status ) && count($request -> working_status) != count($working_statuses)? 'checked':''}}  value="{{ $working_status->id }}"--}}
-            {{--                                                                       id="type{{ $working_status->id }}">--}}
-            {{--                                                                <label class="form-check-label">--}}
-            {{--                                                                    {{ $working_status->name }}--}}
-            {{--                                                                </label> <br>--}}
-            {{--                                                            @else--}}
-            {{--                                                                <input class="form-check-input" name="working_status[]"--}}
-            {{--                                                                       type="checkbox"--}}
-            {{--                                                                       value="{{ $working_status->id }}"--}}
-            {{--                                                                       id="type{{ $working_status->id }}">--}}
-            {{--                                                                <label class="form-check-label">--}}
-            {{--                                                                    {{ $working_status->name }}--}}
-            {{--                                                                </label> <br>--}}
-            {{--                                                            @endif--}}
-            {{--                                                        @endforeach--}}
-            {{--                                                    </div>--}}
-            {{--                                                </div>--}}
-            {{--                                                <div class="col-12 col-lg-2">--}}
-            {{--                                                    <label for="ticket_status" class="form-label"><b>Ticket--}}
-            {{--                                                            Status</b></label>--}}
-            {{--                                                    <div class="form-check">--}}
-            {{--                                                        @foreach ($ticket_statuses as $ticket_status)--}}
-            {{--                                                            @if(isset($request))--}}
-            {{--                                                                <input class="form-check-input" name="ticket_status[]"--}}
-            {{--                                                                       type="checkbox"--}}
-            {{--                                                                       {{in_array($ticket_status->id, $request -> ticket_status ) && count($request -> ticket_status) != count($ticket_statuses)? 'checked':''}}  value="{{ $ticket_status->id }}"--}}
-            {{--                                                                       id="type{{ $ticket_status->id }}">--}}
-            {{--                                                                <label class="form-check-label">--}}
-            {{--                                                                    {{ $ticket_status->name }}--}}
-            {{--                                                                </label> <br>--}}
-            {{--                                                            @else--}}
-            {{--                                                                <input class="form-check-input" name="ticket_status[]"--}}
-            {{--                                                                       type="checkbox"--}}
-            {{--                                                                       value="{{ $ticket_status->id }}"--}}
-            {{--                                                                       id="type{{ $ticket_status->id }}">--}}
-            {{--                                                                <label class="form-check-label">--}}
-            {{--                                                                    {{ $ticket_status->name }}--}}
-            {{--                                                                </label> <br>--}}
-            {{--                                                            @endif--}}
-            {{--                                                        @endforeach--}}
-            {{--                                                    </div>--}}
-            {{--                                                </div>--}}
-            {{--                                                <div class="col-12 col-lg-2">--}}
-            {{--                                                    <label for="priority" class="form-label"><b>Priority</b></label>--}}
-            {{--                                                    <div class="form-check">--}}
-
-            {{--                                                        @foreach ($priorities as $priority)--}}
-            {{--                                                            @if(isset($request))--}}
-            {{--                                                                <input class="form-check-input" name="priority[]"--}}
-            {{--                                                                       type="checkbox"--}}
-            {{--                                                                       {{in_array($priority->id, $request -> priority ) && count($request -> priority) != count($priorities)? 'checked':''}}  value="{{ $priority->id }}"--}}
-            {{--                                                                       id="type{{ $priority->id }}">--}}
-            {{--                                                                <label class="form-check-label">--}}
-            {{--                                                                    {{ $priority->name }}--}}
-            {{--                                                                </label> <br>--}}
-            {{--                                                            @else--}}
-            {{--                                                                <input class="form-check-input" name="priority[]"--}}
-            {{--                                                                       type="checkbox"--}}
-            {{--                                                                       value="{{ $priority->id }}"--}}
-            {{--                                                                       id="type{{ $priority->id }}">--}}
-            {{--                                                                <label class="form-check-label">--}}
-            {{--                                                                    {{ $priority->name }}--}}
-            {{--                                                                </label> <br>--}}
-            {{--                                                            @endif--}}
-            {{--                                                        @endforeach--}}
-            {{--                                                    </div>--}}
-            {{--                                                </div>--}}
-            {{--                                                <div class="col-12 col-lg-2">--}}
-            {{--                                                    <label for="tester" class="form-label"><b>Tester</b></label>--}}
-            {{--                                                    <div class="form-check">--}}
-            {{--                                                        @foreach ($users as $user)--}}
-            {{--                                                            @if(isset($request))--}}
-            {{--                                                                <input class="form-check-input" name="user[]"--}}
-            {{--                                                                       type="checkbox"--}}
-            {{--                                                                       {{in_array($user->id, $request -> user ) && count($request -> user) != count($users)? 'checked':''}}  value="{{ $user->id }}"--}}
-            {{--                                                                       id="type{{ $user->id }}">--}}
-            {{--                                                                <label class="form-check-label">--}}
-            {{--                                                                    {{ $user->name }}--}}
-            {{--                                                                </label> <br>--}}
-            {{--                                                            @else--}}
-            {{--                                                                <input class="form-check-input" name="user[]"--}}
-            {{--                                                                       type="checkbox"--}}
-            {{--                                                                       value="{{ $user->id }}"--}}
-            {{--                                                                       id="type{{ $user->id }}">--}}
-            {{--                                                                <label class="form-check-label">--}}
-            {{--                                                                    {{ $user->name }}--}}
-            {{--                                                                </label> <br>--}}
-            {{--                                                            @endif--}}
-            {{--                                                        @endforeach--}}
-            {{--                                                    </div>--}}
-            {{--                                                </div>--}}
-            {{--                                            </div><!---end row-->--}}
-            {{--                                            <div class="row mt-1 g-3">--}}
-            {{--                                                <div class="col-12 col-lg-6">--}}
-            {{--                                                    <a href="{{route('manager.show.board', $board-> id)}}"--}}
-            {{--                                                       class="btn btn-secondary px-4" type="reset">--}}
-            {{--                                                        Reset--}}
-            {{--                                                    </a>--}}
-            {{--                                                    <button class="btn btn-primary px-4" type="submit">--}}
-            {{--                                                        Apply--}}
-            {{--                                                    </button>--}}
-            {{--                                                </div>--}}
-            {{--                                            </div><!---end row-->--}}
-            {{--                                        </div>--}}
-            {{--                                    </form>--}}
-            {{--                                </div>--}}
-
-            {{--                            </div>--}}
-            {{--                        </div>--}}
-            {{--                    </div>--}}
-            {{--                </div>--}}
-            {{--            </div>--}}
+        <div class="container-fluid mt-1">
             <div class="card-body p-4">
                 <form class="row g-3" action="{{ route('manager.task.filter') }}" method="get">
                     <input type="hidden" name="board_id" value="{{$board-> id}}">
@@ -309,26 +355,10 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <label for="type" class="form-label">Type</label>
-                        <div class="position-relative">
-                            <select class="form-select" name="type" id="type">
-                                <option disabled selected>Select Type</option>
-                                @foreach ($types as $type)
-                                    @if(isset($request))
-                                        <option
-                                            value="{{ $type->id }}" {{ $type->id == $request-> type ? 'selected' : '' }}>{{ $type->id == $request-> type ? \App\Models\Type::find($request -> type) -> name : $type -> name}}</option>
-                                    @else
-                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
                         <label for="team" class="form-label">Team</label>
                         <div class="position-relative">
                             <select class="form-select" name="team" id="name">
-                                <option disabled selected>Select Team</option>
+                                <option disabled selected>Choose...</option>
                                 @foreach ($teams as $team)
                                     @if(isset($request))
                                         <option
@@ -341,9 +371,25 @@
                         </div>
                     </div>
                     <div class="col-md-2">
+                        <label for="type" class="form-label">Type</label>
+                        <div class="position-relative">
+                            <select class="form-select" name="type" id="type">
+                                <option disabled selected>Choose...</option>
+                                @foreach ($types as $type)
+                                    @if(isset($request))
+                                        <option
+                                            value="{{ $type->id }}" {{ $type->id == $request-> type ? 'selected' : '' }}>{{ $type->id == $request-> type ? \App\Models\Type::find($request -> type) -> name : $type -> name}}</option>
+                                    @else
+                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
                         <label for="tester" class="form-label">Tester</label>
                         <select class="form-select" name="tester" id="tester">
-                            <option disabled selected>Select Tester</option>
+                            <option disabled selected>Choose...</option>
                             @foreach ($users as $user)
                                 @if(isset($request))
                                     <option
@@ -358,15 +404,19 @@
                         <label for="input22" class="form-label">
                             Filter
                         </label>
-                        <div class="position-relative input-icon">
+                        <div class="position-relative">
                             <div class="col-md-12">
                                 <div class="d-md-flex d-grid align-items-center gap-3">
                                     @if(isset($request))
-                                        <button type="submit" class="btn btn-success">Filtered {{$no + 1}}</button>
+                                        <button type="submit" class="btn" style="background-color: #FFE800"><i
+                                                class="bx bx-filter"></i>Filtered
+                                        </button>
                                     @else
-                                        <button type="submit" class="btn btn-primary px-4">Filter</button>
+                                        <button type="submit" class="btn px-4" style="background-color: #FFE800"><i
+                                                class="bx bx-filter"></i>Filter
+                                        </button>
                                     @endif
-                                    <a href="{{route('manager.show.board', $board-> id)}}" --}}
+                                    <a href="{{route('manager.show.board', $board-> id)}}"
                                        class="btn btn-secondary px-4" type="reset">
                                         Reset
                                     </a>
@@ -378,9 +428,9 @@
                 </form>
             </div>
             <div class="card-body">
-                <ul class="nav nav-tabs nav-primary mb-0" role="tablist">
+                <ul class="nav nav-pills nav-pills mb-0" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" data-bs-toggle="tab" href="#tag-config" role="tab"
+                        <a class="nav-link active" data-bs-toggle="pill" href="#tag-config" role="tab"
                            aria-selected="true">
                             <div class="d-flex align-items-center">
                                 <div class="tab-icon"><i class='bx bx-comment-detail font-18 me-1'></i>
@@ -390,10 +440,10 @@
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" data-bs-toggle="tab" href="#primaryprofile" role="tab"
+                        <a class="nav-link" data-bs-toggle="pill" href="#primaryprofile" role="tab"
                            aria-selected="false">
                             <div class="d-flex align-items-center">
-                                <div class="tab-icon"><i class='bx bx-bookmark-alt font-18 me-1'></i>
+                                <div class="tab-icon"><i class='bx bx-mail-send font-18 me-1'></i>
                                 </div>
                                 <div class="tab-title">Report Outlook</div>
                             </div>
@@ -401,10 +451,10 @@
                     </li>
                     @if($board -> id == 1)
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" data-bs-toggle="tab" href="#slack_report" role="tab"
+                            <a class="nav-link" data-bs-toggle="pill" href="#slack_report" role="tab"
                                aria-selected="false">
                                 <div class="d-flex align-items-center">
-                                    <div class="tab-icon"><i class='bx bx-bookmark-alt font-18 me-1'></i>
+                                    <div class="tab-icon"><i class='bx bxs-chat font-18 me-1'></i>
                                     </div>
                                     <div class="tab-title">Report Slack</div>
                                 </div>
@@ -413,7 +463,7 @@
                     @endif
                     @if($board -> id == 5)
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" data-bs-toggle="tab" href="#sprint_report" role="tab"
+                            <a class="nav-link" data-bs-toggle="pill" href="#sprint_report" role="tab"
                                aria-selected="false">
                                 <div class="d-flex align-items-center">
                                     <div class="tab-icon"><i class='bx bx-bookmark-alt font-18 me-1'></i>
@@ -426,7 +476,7 @@
                     @auth()
                         @if(Auth::user()->role ==='manager')
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" data-bs-toggle="tab" href="#reportconfig" role="tab"
+                                <a class="nav-link" data-bs-toggle="pill" href="#reportconfig" role="tab"
                                    aria-selected="false">
                                     <div class="d-flex align-items-center">
                                         <div class="tab-icon"><i class='bx bx-cog font-18 me-1'></i>
@@ -457,11 +507,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                    <table data-page-length='50' id="example" class="table table-striped table-bordered"
+                                           style="width:100%">
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            {{--                                            <th>Review?</th>--}}
                                             @if($board_config-> type != null)
                                                 <th>Type</th>
                                             @endif
@@ -480,9 +530,6 @@
                                             @if($board_config-> priority != null)
                                                 <th>Priority</th>
                                             @endif
-                                            {{--                                            @if($board_config-> environment != null)--}}
-                                            {{--                                                <th>Environments</th>--}}
-                                            {{--                                            @endif--}}
                                             @if($board_config-> isSubBug != null)
                                                 <th>Bugs</th>
                                             @endif
@@ -507,28 +554,20 @@
                                             <tr>
                                                 <td><a href="{{ route('task.details',$item->id) }}"
                                                        title="View" class="text-black">{{ $key+1 }}</a></td>
-                                                {{--                                                <td>--}}
-                                                {{--                                                    @if ($item->status == 1)--}}
-                                                {{--                                                        <span class="badge bg-success">Reviewed </span>--}}
-                                                {{--                                                    @else--}}
-                                                {{--                                                        <span class="badge bg-danger">Waiting </span>--}}
-                                                {{--                                                    @endif--}}
-                                                {{--                                                </td>--}}
-
                                                 @if($board_config-> type != 0)
                                                     <td>
                                                         @switch($item-> type)
                                                             @case('1')
-                                                            <i class="bx bxs-bug-alt text-danger"
-                                                               style="font-size: 1.5rem" title="Bugs Reported"></i>
+                                                            <i class="bx bxs-bug text-danger font-18"
+                                                               style="font-size: 1.2rem" title="Bugs Reported"></i>
                                                             @break
                                                             @case('2')
                                                             <i class="bx bxs-check-square text-primary"
-                                                               style="font-size: 1.5rem" title="Testing Requests"></i>
+                                                               style="font-size: 1.2rem" title="Testing Requests"></i>
                                                             @break
                                                             @case('3')
                                                             <i class="bx bxs-news text-success"
-                                                               style="font-size: 1.5rem"
+                                                               style="font-size: 1.2rem"
                                                                title="Tickets Verification"></i>
                                                             @break
                                                             @default
@@ -550,26 +589,157 @@
                                                         @if($item-> jira_summary !=null)
                                                             <a href="{{url($board_config -> jira_url . $item-> jira_id) }}"
                                                                target="_blank">{{ $item->jira_id }}</a>
-                                                            - {{ \Illuminate\Support\Str::limit($item->jira_summary, 100, $end=' ...') }}
+                                                            - {{ \Illuminate\Support\Str::limit($item->jira_summary, 40, $end=' ...') }}
                                                         @endif
                                                     </td>
                                                 @endif
                                                 @if($board_config-> working_status != 0)
                                                     <td>
                                                         @if($item-> working_status !=null)
-                                                            <span
-                                                                class="badge"
-                                                                style="background-color: {{\App\Models\WorkingStatus::find($item-> working_status) -> desc}}">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
+
+                                                            <a type="button" data-bs-toggle="modal"
+                                                               data-bs-target="#update_working_status{{$item -> id}}">
+                                                                <span
+                                                                    class="badge"
+                                                                    style="background-color: {{\App\Models\WorkingStatus::find($item-> working_status) -> desc}}">{{\App\Models\WorkingStatus::find($item-> working_status) -> name}} </span>
+                                                            </a>
+                                                            <!-- Modal -->
+                                                            <div class="modal fade"
+                                                                 id="update_working_status{{$item -> id}}" tabindex="-1"
+                                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header bg-light">
+                                                                            <h5 class="modal-title"
+                                                                                id="exampleModalLabel">Update Working
+                                                                                Status <a
+                                                                                    href="{{url($board_config -> jira_url . \App\Models\Task::find($item -> id)-> jira_id) }}"
+                                                                                    target="_blank">{{ \App\Models\Task::find($item -> id)->jira_id }}</a>
+                                                                            </h5>
+                                                                            <button type="button" class="btn-close"
+                                                                                    data-bs-dismiss="modal"
+                                                                                    aria-label="Close"></button>
+                                                                        </div>
+                                                                        <form id="myForm"
+                                                                              action="{{ route('manager.update-working-status') }}"
+                                                                              method="post"
+                                                                              class="row g-3"
+                                                                              enctype="multipart/form-data">
+                                                                            @csrf
+                                                                            <input type="hidden" name="board_id"
+                                                                                   value="{{$board -> id}}">
+                                                                            <input type="hidden" name="task_id"
+                                                                                   value="{{$item -> id}}">
+                                                                            <div class="modal-body">
+                                                                                <div class="col-md-12">
+                                                                                    <label for="working_status"
+                                                                                           class="form-label ">Working
+                                                                                        Status</label>
+                                                                                    <select class="form-select"
+                                                                                            name="working_status"
+                                                                                            id="working_status">
+                                                                                        @foreach ($working_statuses as $working_status)
+                                                                                            <option
+                                                                                                value="{{ $working_status->id }}" {{ $working_status->id == \App\Models\Task::find($item -> id)->working_status ? 'selected' : '' }}>{{ $working_status->name }}</option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                    @error('working_status')
+                                                                                    <span
+                                                                                        class="text-danger">{{ $message }}</span>
+                                                                                    @enderror
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                        class="btn btn-secondary"
+                                                                                        data-bs-dismiss="modal">Close
+                                                                                </button>
+                                                                                <button type="submit"
+                                                                                        class="btn text-white"
+                                                                                        style="background-color: #754FFE;">
+                                                                                    Update
+                                                                                </button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         @endif
                                                     </td>
                                                 @endif
                                                 @if($board_config-> ticket_status != 0)
                                                     <td>
                                                         @if($item-> ticket_status !=null)
-                                                            <span
-                                                                class="badge"
-                                                                style="background-color: {{\App\Models\TicketStatus::find($item-> ticket_status) -> desc}}">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}</span>
+
+                                                            <a type="button" data-bs-toggle="modal"
+                                                               data-bs-target="#update_ticket_status{{$item -> id}}">
+                                                                <span
+                                                                    class="badge"
+                                                                    style="background-color: {{\App\Models\TicketStatus::find($item-> ticket_status) -> desc}}">{{\App\Models\TicketStatus::find($item-> ticket_status) -> name}}</span>
+                                                            </a>
+                                                            <!-- Modal -->
+                                                            <div class="modal fade"
+                                                                 id="update_ticket_status{{$item -> id}}" tabindex="-1"
+                                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header bg-light">
+                                                                            <h5 class="modal-title"
+                                                                                id="exampleModalLabel">Update Ticket
+                                                                                Status <a
+                                                                                    href="{{url($board_config -> jira_url . \App\Models\Task::find($item -> id)-> jira_id) }}"
+                                                                                    target="_blank">{{ \App\Models\Task::find($item -> id)->jira_id }}</a>
+                                                                            </h5>
+                                                                            <button type="button" class="btn-close"
+                                                                                    data-bs-dismiss="modal"
+                                                                                    aria-label="Close"></button>
+                                                                        </div>
+                                                                        <form id="myForm"
+                                                                              action="{{ route('manager.update-ticket-status') }}"
+                                                                              method="post"
+                                                                              class="row g-3"
+                                                                              enctype="multipart/form-data">
+                                                                            @csrf
+                                                                            <input type="hidden" name="board_id"
+                                                                                   value="{{$board -> id}}">
+                                                                            <input type="hidden" name="task_id"
+                                                                                   value="{{$item -> id}}">
+                                                                            <div class="modal-body">
+                                                                                <div class="col-md-12">
+                                                                                    <label for="ticket_status"
+                                                                                           class="form-label ">Ticket
+                                                                                        Status</label>
+                                                                                    <select class="form-select"
+                                                                                            name="ticket_status"
+                                                                                            id="ticket_status">
+                                                                                        @foreach ($ticket_statuses as $ticket_status)
+                                                                                            <option
+                                                                                                value="{{ $ticket_status->id }}" {{ $ticket_status->id == \App\Models\Task::find($item -> id)->ticket_status ? 'selected' : '' }}>{{ $ticket_status->name }}</option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                    @error('ticket_status')
+                                                                                    <span
+                                                                                        class="text-danger">{{ $message }}</span>
+                                                                                    @enderror
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                        class="btn btn-secondary"
+                                                                                        data-bs-dismiss="modal">Close
+                                                                                </button>
+                                                                                <button type="submit"
+                                                                                        class="btn text-white"
+                                                                                        style="background-color: #754FFE;">
+                                                                                    Update
+                                                                                </button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         @endif
+
                                                     </td>
                                                 @endif
                                                 @if($board_config-> priority != 0)
@@ -661,11 +831,436 @@
                                                                 class='bx bxs-copy text-info'></i></a>
                                                         @auth()
                                                             @if(Auth::user()->role ==='manager' || Auth::user() -> id == $item -> tester_1 )
-                                                                <a href="{{ route('manager.edit.task',$item->id) }}"
-                                                                   title="Edit" class=""><i
-                                                                        class='bx bxs-edit text-primary'></i></a>
-                                                            @endif
-                                                        @endauth
+                                                                {{--                                                                <a href="{{ route('manager.edit.task',$item->id) }}"--}}
+                                                                {{--                                                                   title="Edit" class=""><i--}}
+                                                                {{--                                                                        class='bx bxs-edit text-primary'></i></a>--}}
+                                                                <a type="button" class="btn-sm btn-mute"
+                                                                   data-bs-toggle="modal"
+                                                                   data-bs-target="#edit{{$item->id}}"><i
+                                                                        class='bx bxs-edit text-primary'></i>
+                                                                </a>
+                                                                <!-- Modal -->
+                                                                <div class="modal fade" id="edit{{$item->id}}"
+                                                                     tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                                     aria-hidden="true">
+                                                                    <div class="modal-dialog modal-lg">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header bg-light">
+                                                                                <h5 class="modal-title"
+                                                                                    id="exampleModalLabel">Update
+                                                                                    Task</h5>
+                                                                                <button type="button" class="btn-close"
+                                                                                        data-bs-dismiss="modal"
+                                                                                        aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <form id="myForm"
+                                                                                      action="{{ route('manager.update-task') }}"
+                                                                                      method="post"
+                                                                                      class="row g-3"
+                                                                                      enctype="multipart/form-data">
+                                                                                    @csrf
+                                                                                    <input type="hidden" name="board_id"
+                                                                                           value="{{$board -> id}}">
+                                                                                    <input type="hidden" name="task_id"
+                                                                                           value="{{$item -> id}}">
+                                                                                    @if($board_config -> team == 1)
+                                                                                        <label for="name"
+                                                                                               class="col-md-2 col-form-label ">Team</label>
+                                                                                        <div class="col-md-5">
+                                                                                            <select class="form-select"
+                                                                                                    name="team"
+                                                                                                    id="name">
+                                                                                                <option selected=""
+                                                                                                        disabled>
+                                                                                                    Choose...
+                                                                                                </option>
+                                                                                                @foreach ($teams as $team)
+                                                                                                    <option
+                                                                                                        value="{{ $team->id }}" {{ $team->id == \App\Models\Task::find($item -> id)-> team ? 'selected' : '' }}>{{ $team->name }}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                            @error('team')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                        <div class="col-md-5"></div>
+                                                                                    @endif
+                                                                                    @if($board_config -> type == 1)
+                                                                                        <label for="type"
+                                                                                               class="col-md-2 col-form-label ">Type
+                                                                                            <span
+                                                                                                class="text-danger">*</span></label>
+                                                                                        <div class="col-md-5">
+                                                                                            <select class="form-select"
+                                                                                                    name="type"
+                                                                                                    id="type">
+                                                                                                <option selected=""
+                                                                                                        disabled>
+                                                                                                    Choose...
+                                                                                                </option>
+                                                                                                @foreach ($types as $type)
+                                                                                                    <option
+                                                                                                        value="{{ $type->id }}" {{ $type->id == \App\Models\Task::find($item -> id)->type ? 'selected' : '' }}>{{ $type->name }}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                            @error('type')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                        <div class="col-md-5"></div>
+
+                                                                                    @endif
+                                                                                    @if($board_config -> jira_id == 1)
+                                                                                        <label for="jira_id"
+                                                                                               class="col-md-2 col-form-label ">Jira
+                                                                                            Id</label>
+                                                                                        <div class="col-md-5">
+                                                                                            <input type="text"
+                                                                                                   class="form-control"
+                                                                                                   name="jira_id"
+                                                                                                   id="jira_id"
+                                                                                                   placeholder="Enter Jira Id"
+                                                                                                   value="{{\App\Models\Task::find($item -> id) ->jira_id }}">
+                                                                                            @error('jira_id')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                        <div class="col-md-5"></div>
+                                                                                    @endif
+                                                                                    @if($board_config -> jira_summary == 1)
+                                                                                        <label for="jira_summary"
+                                                                                               class="col-md-2 col-form-label ">Jira
+                                                                                            Summary <span
+                                                                                                class="text-danger">*</span></label>
+                                                                                        <div class="col-md-10">
+                                                                                            <input type="text"
+                                                                                                   class="form-control"
+                                                                                                   name="jira_summary"
+                                                                                                   id="jira_summary"
+                                                                                                   placeholder="Enter Jira Summary"
+                                                                                                   value="{{\App\Models\Task::find($item -> id) ->jira_summary }}">
+                                                                                            @error('jira_summary')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                    @endif
+                                                                                    @if($board_config -> working_status == 1)
+                                                                                        <label for="working_status"
+                                                                                               class="col-md-2 col-form-label ">Working
+                                                                                            Status <span
+                                                                                                class="text-danger">*</span></label>
+                                                                                        <div class="col-md-5">
+                                                                                            <select class="form-select"
+                                                                                                    name="working_status"
+                                                                                                    id="working_status">
+                                                                                                <option selected=""
+                                                                                                        disabled>
+                                                                                                    Choose...
+                                                                                                </option>
+                                                                                                @foreach ($working_statuses as $working_status)
+                                                                                                    <option
+                                                                                                        value="{{ $working_status->id }}" {{ $working_status->id == \App\Models\Task::find($item -> id)->working_status ? 'selected' : '' }}>{{ $working_status->name }}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                            @error('working_status')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                        <div class="col-md-5"></div>
+                                                                                    @endif
+                                                                                    @if($board_config -> ticket_status == 1)
+                                                                                        <label for="ticket_status"
+                                                                                               class="col-md-2 col-form-label ">Ticket
+                                                                                            Status <span
+                                                                                                class="text-danger">*</span></label>
+                                                                                        <div class="col-md-5">
+                                                                                            <select class="form-select"
+                                                                                                    name="ticket_status"
+                                                                                                    id="ticket_status">
+                                                                                                <option selected=""
+                                                                                                        disabled>
+                                                                                                    Choose...
+                                                                                                </option>
+                                                                                                @foreach ($ticket_statuses as $ticket_status)
+                                                                                                    <option
+                                                                                                        value="{{ $ticket_status->id }}" {{ $ticket_status->id == \App\Models\Task::find($item -> id)->ticket_status ? 'selected' : '' }}>{{ $ticket_status->name }}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                            @error('ticket_status')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                        <div class="col-md-5"></div>
+                                                                                    @endif
+                                                                                    @if($board_config -> priority == 1)
+                                                                                        <label for="priority"
+                                                                                               class="col-md-2 col-form-label ">Priority</label>
+                                                                                        <div class="col-md-5">
+                                                                                            <select class="form-select"
+                                                                                                    name="priority"
+                                                                                                    id="priority">
+                                                                                                <option selected=""
+                                                                                                        disabled>
+                                                                                                    Choose...
+                                                                                                </option>
+                                                                                                @foreach ($priorities as $priority)
+                                                                                                    <option
+                                                                                                        value="{{ $priority->id }}" {{ $priority->id == \App\Models\Task::find($item -> id)->priority ? 'selected' : '' }}>{{ $priority->name }}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                            @error('$priority')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                        <div class="col-md-5"></div>
+                                                                                    @endif
+                                                                                    @if($board_config -> link_to_result == 1)
+                                                                                        <label for="link_to_result"
+                                                                                               class="col-md-2 col-form-label ">Link
+                                                                                            To
+                                                                                            Result</label>
+                                                                                        <div class="col-md-10">
+                                                                                            <input type="text"
+                                                                                                   class="form-control"
+                                                                                                   name="link_to_result"
+                                                                                                   id="link_to_result"
+                                                                                                   placeholder="Enter Link To Result"
+                                                                                                   value="{{\App\Models\Task::find($item -> id) ->link_to_result }}">
+                                                                                            @error('link_to_result')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                    @endif
+                                                                                    @if($board_config -> test_plan == 1)
+                                                                                        <label for="test_plan"
+                                                                                               class="col-md-2 col-form-label ">Test
+                                                                                            Plan</label>
+                                                                                        <div class="col-md-5">
+                                                                                            <input type="text"
+                                                                                                   class="form-control"
+                                                                                                   name="test_plan"
+                                                                                                   id="test_plan"
+                                                                                                   placeholder="Enter Test Plan"
+                                                                                                   value="{{\App\Models\Task::find($item -> id) ->test_plan }}">
+                                                                                            @error('test_plan')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                        <div class="col-md-5"></div>
+
+                                                                                    @endif
+                                                                                    @if($board_config -> sprint == 1)
+                                                                                        <label for="sprint"
+                                                                                               class="col-md-2 col-form-label ">Sprint</label>
+                                                                                        <div class="col-md-5">
+                                                                                            <input type="text"
+                                                                                                   class="form-control"
+                                                                                                   name="sprint"
+                                                                                                   id="sprint"
+                                                                                                   placeholder="Enter Sprint"
+                                                                                                   value="{{\App\Models\Task::find($item -> id) ->sprint }}">
+                                                                                            @error('sprint')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                        <div class="col-md-5"></div>
+                                                                                    @endif
+                                                                                    @if($board_config -> tester_1 == 1)
+                                                                                        <label for="tester_1"
+                                                                                               class="col-md-2 col-form-label ">Tester
+                                                                                            1 <span
+                                                                                                class="text-danger">*</span></label>
+                                                                                        <div class="col-md-5">
+                                                                                            <select class="form-select"
+                                                                                                    name="tester_1"
+                                                                                                    id="tester_1">
+                                                                                                <option
+                                                                                                    value="{{ $currentUser->id }}">{{ $currentUser->name }}
+                                                                                                    (You)
+                                                                                                </option>
+                                                                                                @foreach ($users as $user)
+                                                                                                    <option
+                                                                                                        value="{{ $user->id }}" {{ $user->id == \App\Models\Task::find($item -> id)->tester_1 ? 'selected' : '' }}>{{ $user->name }} {{ $user->id == $currentUser->id ? '(You)' : '' }}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                            @error('tester_1')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                        <div class="col-md-5"></div>
+                                                                                    @endif
+                                                                                    @if($board_config -> tester_2 == 1)
+                                                                                        <label for="tester_2"
+                                                                                               class="col-md-2 col-form-label ">Tester
+                                                                                            2</label>
+                                                                                        <div class="col-md-5">
+                                                                                            <select class="form-select"
+                                                                                                    name="tester_2"
+                                                                                                    id="tester_2">
+                                                                                                <option value="0">
+                                                                                                    Choose...
+                                                                                                </option>
+                                                                                                @foreach ($users as $user)
+                                                                                                    <option
+                                                                                                        value="{{ $user->id }}" {{ $user->id == \App\Models\Task::find($item -> id)->tester_2 ? 'selected' : '' }}>{{ $user->name }} {{ $user->id == $currentUser->id ? '(You)' : '' }}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                            @error('tester_2')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                        <div class="col-md-5"></div>
+                                                                                    @endif
+                                                                                    @if($board_config -> tester_3 == 1)
+                                                                                        <label for="tester_3"
+                                                                                               class="col-md-2 col-form-label ">Tester
+                                                                                            3</label>
+                                                                                        <div class="col-md-5">
+                                                                                            <select class="form-select"
+                                                                                                    name="tester_3"
+                                                                                                    id="tester_3">
+                                                                                                <option value="0">
+                                                                                                    Choose...
+                                                                                                </option>
+                                                                                                @foreach ($users as $user)
+                                                                                                    <option
+                                                                                                        value="{{ $user->id }}" {{ $user->id == \App\Models\Task::find($item -> id)->tester_3 ? 'selected' : '' }}>{{ $user->name }} {{ $user->id == $currentUser->id ? '(You)' : '' }}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                            @error('tester_3')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                        <div class="col-md-5"></div>
+                                                                                    @endif
+                                                                                    @if($board_config -> tester_4 == 1)
+                                                                                        <label for="tester_4"
+                                                                                               class="col-md-2 col-form-label ">Tester
+                                                                                            4</label>
+                                                                                        <div class="col-md-5">
+                                                                                            <select class="form-select"
+                                                                                                    name="tester_4"
+                                                                                                    id="tester_4">
+                                                                                                <option value="0">
+                                                                                                    Choose...
+                                                                                                </option>
+                                                                                                @foreach ($users as $user)
+                                                                                                    <option
+                                                                                                        value="{{ $user->id }}" {{ $user->id == \App\Models\Task::find($item -> id)->tester_4 ? 'selected' : '' }}>{{ $user->name }} {{ $user->id == $currentUser->id ? '(You)' : '' }}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                            @error('tester_4')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                        <div class="col-md-5"></div>
+                                                                                    @endif
+                                                                                    @if($board_config -> tester_5 == 1)
+                                                                                        <label for="tester_5"
+                                                                                               class="col-md-2 col-form-label ">Tester
+                                                                                            5</label>
+                                                                                        <div class="col-md-5">
+                                                                                            <select class="form-select"
+                                                                                                    name="tester_5"
+                                                                                                    id="tester_5">
+                                                                                                <option value="0">
+                                                                                                    Choose...
+                                                                                                </option>
+                                                                                                @foreach ($users as $user)
+                                                                                                    <option
+                                                                                                        value="{{ $user->id }}" {{ $user->id == \App\Models\Task::find($item -> id)->tester_5 ? 'selected' : '' }}>{{ $user->name }} {{ $user->id == $currentUser->id ? '(You)' : '' }}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                            @error('tester_5')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                        <div class="col-md-5"></div>
+                                                                                    @endif
+                                                                                    @if($board_config -> pass == 1)
+                                                                                        <label for="pass"
+                                                                                               class="col-md-2 col-form-label ">Test
+                                                                                            Case Pass</label>
+                                                                                        <div class="col-md-5">
+                                                                                            <input type="number"
+                                                                                                   class="form-control"
+                                                                                                   name="pass" id="pass"
+                                                                                                   placeholder="Enter Test Case Pass"
+                                                                                                   value="{{\App\Models\Task::find($item -> id) ->pass }}">
+                                                                                            @error('pass')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                        <div class="col-md-5"></div>
+                                                                                    @endif
+                                                                                    @if($board_config -> fail == 1)
+                                                                                        <label for="fail"
+                                                                                               class="col-md-2 col-form-label ">Test
+                                                                                            Case Fail</label>
+                                                                                        <div class="col-md-5">
+                                                                                            <input type="number"
+                                                                                                   class="form-control"
+                                                                                                   name="fail" id="fail"
+                                                                                                   placeholder="Enter Test Case Fail"
+                                                                                                   value="{{\App\Models\Task::find($item -> id) ->fail }}">
+                                                                                            @error('fail')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                        <div class="col-md-5"></div>
+                                                                                    @endif
+                                                                                    @if($board_config -> note == 1)
+                                                                                        <label for="note"
+                                                                                               class="col-md-2 col-form-label ">Note</label>
+                                                                                        <div class="col-md-10">
+                                                    <textarea
+                                                        class="form-control"
+                                                        name="note" id="note"
+                                                        rows="3"
+                                                        placeholder="Enter the note ...">{{\App\Models\Task::find($item -> id) ->note }}</textarea>
+                                                                                            @error('note')
+                                                                                            <span
+                                                                                                class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                @endif
+
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                        class="btn btn-secondary"
+                                                                                        data-bs-dismiss="modal">Close
+                                                                                </button>
+                                                                                <button type="submit"
+                                                                                        class="btn text-white"
+                                                                                        style="background-color: #754FFE;">
+                                                                                    Update
+                                                                                </button>
+                                                                            </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                    @endif
+                                                                    @endauth
+                                                                </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -1874,13 +2469,10 @@
                                                    class="col-sm-3 col-form-label">Board
                                                 Name</label>
                                             <div class="col-sm-9">
-                                                <div class="position-relative input-icon">
+                                                <div class="position-relative">
                                                     <input type="text" class="form-control" disabled
                                                            value="{{$board ->name}}"
                                                            id="board_name">
-                                                    <span
-                                                        class="position-absolute top-50 translate-middle-y"><i
-                                                            class='bx bx-user'></i></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -1889,13 +2481,10 @@
                                                    class="col-sm-3 col-form-label">Subject</label>
                                             <div class="col-sm-9">
                                                 <div class="col-sm-9">
-                                                    <div class="position-relative input-icon">
+                                                    <div class="position-relative">
                                                         <input type="text" class="form-control"
                                                                name="subject" id="subject"
                                                                value="{{$report_config -> subject}}">
-                                                        <span
-                                                            class="position-absolute top-50 translate-middle-y"><i
-                                                                class='bx bx-user'></i></span>
                                                     </div>
                                                 </div>
                                                 @error('subject')
@@ -1922,13 +2511,10 @@
                                             <div class="col-sm-9">
 
                                                 <div class="col-sm-9">
-                                                    <div class="position-relative input-icon">
+                                                    <div class="position-relative">
                                                         <input type="text" class="form-control"
                                                                name="date_format" id="date_format"
                                                                value="{{$report_config -> date_format}}">
-                                                        <span
-                                                            class="position-absolute top-50 translate-middle-y"><i
-                                                                class='bx bx-user'></i></span>
                                                     </div>
                                                 </div>
                                                 @error('cc')
@@ -1978,13 +2564,10 @@
                                                    class="col-sm-3 col-form-label">Board
                                                 Name</label>
                                             <div class="col-sm-9">
-                                                <div class="position-relative input-icon">
+                                                <div class="position-relative">
                                                     <input type="text" class="form-control" disabled
                                                            value="{{$board ->name}}"
                                                            id="board_name">
-                                                    <span
-                                                        class="position-absolute top-50 translate-middle-y"><i
-                                                            class='bx bx-user'></i></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -1993,13 +2576,10 @@
                                                 URL</label>
                                             <div class="col-sm-9">
                                                 <div class="col-sm-9">
-                                                    <div class="position-relative input-icon">
+                                                    <div class="position-relative">
                                                         <input type="text" class="form-control"
                                                                value="{{$board_config ->jira_url}}"
                                                                name="jira_url" id="jira_url">
-                                                        <span
-                                                            class="position-absolute top-50 translate-middle-y"><i
-                                                                class='bx bx-user'></i></span>
                                                     </div>
                                                 </div>
                                                 @error('jira_url')
@@ -2532,35 +3112,53 @@
             }
         }
     </script>
-    <script>
-        $(document).ready(function () {
-            $('.status-toggle').on('change', function () {
-                var userId = $(this).data('user-id');
-                var isChecked = $(this).is(':checked');
+{{--    <script>--}}
+{{--        $(document).ready(function () {--}}
+{{--            $('.status-toggle').on('change', function () {--}}
+{{--                var userId = $(this).data('user-id');--}}
+{{--                var isChecked = $(this).is(':checked');--}}
 
-                // send an ajax request to update status
+{{--                // send an ajax request to update status--}}
 
-                $.ajax({
-                    url: "{{ route('manager.update.user.status') }}",
-                    method: "POST",
-                    data: {
-                        user_id: userId,
-                        is_checked: isChecked ? 1 : 0,
-                        _token: "{{ csrf_token() }}"
-                    },
-                    success: function (response) {
-                        toastr.success(response.message);
-                        window.setTimeout(function () {
-                            location.reload();
-                        }, 2000);
+{{--                $.ajax({--}}
+{{--                    url: "{{ route('manager.update.user.status') }}",--}}
+{{--                    method: "POST",--}}
+{{--                    data: {--}}
+{{--                        user_id: userId,--}}
+{{--                        is_checked: isChecked ? 1 : 0,--}}
+{{--                        _token: "{{ csrf_token() }}"--}}
+{{--                    },--}}
+{{--                    success: function (response) {--}}
+{{--                        toastr.success(response.message);--}}
+{{--                        window.setTimeout(function () {--}}
+{{--                            location.reload();--}}
+{{--                        }, 2000);--}}
 
-                    },
-                    error: function () {
+{{--                    },--}}
+{{--                    error: function () {--}}
 
-                    }
-                });
+{{--                    }--}}
+{{--                });--}}
 
-            });
-        });
-    </script>
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
+{{--    <script>--}}
+{{--        $("#submitbtn").click(function (event) {--}}
+{{--            event.preventDefault();--}}
+{{--            var data = $("#myForm").serialize();--}}
+{{--            console.log(data);--}}
+{{--            $.ajax({--}}
+{{--                type: "post",--}}
+{{--                url: "{{ route('manager.tasks.save') }}",--}}
+{{--                data: data,--}}
+{{--                success: function (data) {--}}
+{{--                    toastr.success(response.message);--}}
+{{--                },--}}
+{{--                error: function (data) {--}}
+{{--                    // Android.passParams(url);--}}
+{{--                }--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
 @endsection

@@ -17,6 +17,7 @@ use App\Models\Type;
 use App\Models\User;
 use App\Models\WorkingStatus;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
@@ -116,12 +117,13 @@ class BoardController extends Controller
         $working_statuses = WorkingStatus::latest()->get();
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
+        $currentUser = Auth::user();
         $users = User::whereNotIn('role', ['admin'])->orderBy('name')->get();
         $report_config = ReportConfig::where('board_id', $board->id)->first();
         $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         $final_subject = $report_config->subject . ' ' . $days[Carbon::today('Asia/Ho_Chi_Minh')->dayOfWeek] . ', ' . Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config->date_format);
         $slack_subject = "Hi team, please see below for the daily report on " . $days[Carbon::today('Asia/Ho_Chi_Minh')->dayOfWeek] . ', ' . Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config->date_format);
-        return view('manager.boards.view_board', compact('board', 'tasks', 'final_subject', 'board_config', 'teams', 'slack_subject', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'dateT', 'dateS', 'today_tasks', 'report_config'));
+        return view('manager.boards.view_board', compact('board', 'currentUser','tasks', 'final_subject', 'board_config', 'teams', 'slack_subject', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'dateT', 'dateS', 'today_tasks', 'report_config'));
     }
 
     /**

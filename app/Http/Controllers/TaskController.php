@@ -120,7 +120,7 @@ class TaskController extends Controller
             'message' => 'Ticket Created Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.show.board', $request->board_id)->with($notification);
+        return redirect()->back()->with($notification);
     }
 
     public function update_status(Request $request)
@@ -210,6 +210,7 @@ class TaskController extends Controller
      */
     public function update(Request $request)
     {
+//        dd($request);
         $id = $request->task_id;
         $existingTask = Task::find($id);
         $validated = $request->validate([
@@ -421,7 +422,9 @@ class TaskController extends Controller
         $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         $final_subject = $report_config->subject . ' ' . $days[Carbon::today('Asia/Ho_Chi_Minh')->dayOfWeek] . ', ' . Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config->date_format);
         $slack_subject = "Hi team, please see below for the daily report on " . $days[Carbon::today('Asia/Ho_Chi_Minh')->dayOfWeek] . ', ' . Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config->date_format);
-        return view('manager.boards.view_board', compact('types', 'boards', 'slack_subject', 'no', 'working_statuses', 'priorities', 'request', 'users', 'tasks', 'board', 'teams', 'board_config', 'final_subject', 'report_config'));
+        $ticket_statuses = TicketStatus::latest()->get();
+        $currentUser = Auth::user();
+        return view('manager.boards.view_board', compact('types', 'currentUser', 'ticket_statuses', 'boards', 'slack_subject', 'no', 'working_statuses', 'priorities', 'request', 'users', 'tasks', 'board', 'teams', 'board_config', 'final_subject', 'report_config'));
     }
 
     public function filter_export(Request $request)
@@ -690,17 +693,53 @@ class TaskController extends Controller
     }
 
 
-
     public function sprint_report(Request $request)
     {
-        $sprint = $request -> sprint;
-        $board = Board::find($request -> board_id);
+        $sprint = $request->sprint;
+        $board = Board::find($request->board_id);
         $types = Type::latest()->get();
         $tasks = DB::table('tasks')
-            ->where('board_id', $request -> board_id )
-            ->where('sprint', $sprint )
+            ->where('board_id', $request->board_id)
+            ->where('sprint', $sprint)
             ->latest()
             ->get();
-        return view('manager.boards.tasks.sprint_report', compact('types','sprint','tasks', 'board'));
+        return view('manager.boards.tasks.sprint_report', compact('types', 'sprint', 'tasks', 'board'));
+    }
+
+    public function update_working_status(Request $request)
+    {
+//        dd($request);
+        $id = $request->task_id;
+        $validated = $request->validate([
+            'working_status' => 'required',
+        ]);
+        Task::find($id)->update([
+            'working_status' => $request->working_status,
+            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+
+        $notification = array(
+            'message' => 'Update Working Status Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function update_ticket_status(Request $request)
+    {
+        $id = $request->task_id;
+        $validated = $request->validate([
+            'ticket_status' => 'required',
+        ]);
+        Task::find($id)->update([
+            'ticket_status' => $request->ticket_status,
+            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+
+        $notification = array(
+            'message' => 'Update Ticket Status Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 }

@@ -15,32 +15,26 @@ class PrioritySeeder extends Seeder
     {
         DB::table('priorities')->insert([
             [
-                'board_id'=> 1,
                 'name' => 'Critical',
                 'desc' => 'demo'
             ],
             [
-                'board_id'=> 1,
                 'name' => 'Minor',
                 'desc' => 'demo'
             ],
             [
-                'board_id'=> 1,
                 'name' => 'Major',
                 'desc' => 'demo'
             ],
             [
-                'board_id'=> 1,
                 'name' => 'Hight',
                 'desc' => 'demo'
             ],
             [
-                'board_id'=> 1,
                 'name' => 'Medium',
                 'desc' => 'demo'
             ],
             [
-                'board_id'=> 1,
                 'name' => 'Low',
                 'desc' => 'demo'
             ]

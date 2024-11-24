@@ -99,7 +99,7 @@ a {
 }
 
 .page-content {
-	padding: 1.5rem 1.5rem 0.7rem 1.5rem
+	padding: 2px 2px 2px 2px
 }
 
 .page-footer {
@@ -634,7 +634,7 @@ a {
 	display: flex;
 	background-color: #f7f7ff;
 	min-height: 100vh;
-	
+
 }
 
 .auth-cover-right {
@@ -842,7 +842,7 @@ form select.error:focus {
 	color: #32393f;
   }
 
-  
+
   .w_chart canvas {
 	position: absolute;
 	top: 0;
@@ -1761,11 +1761,11 @@ form select.error:focus {
 .text-facebook{
 	color: #3b5998!important
  }
- 
+
  .text-twitter{
 	 color: #55acee!important
   }
- 
+
   .text-youtube{
 	 color: #e52d27!important
   }
@@ -2534,7 +2534,7 @@ input::placeholder {
 	.topbar {
 		left: 0!important
 	}
-	
+
 	.mobile-toggle-menu {
 		display: block
 	}

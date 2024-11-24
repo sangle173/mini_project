@@ -23,7 +23,7 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('manager.add.users') }}" type="button" class="btn btn-info px-5"><i
+                    <a href="{{ route('manager.add.users') }}" type="button" style="background-color: #754FFE;color: white" class="btn px-5"><i
                             class='bx bx-user-plus mr-1'></i>Add User</a>
                 </div>
             </div>
@@ -80,14 +80,14 @@
                                         <span class="badge bg-danger">InActive </span>
                                     @endif
                                 </td>
-{{--                                <td>--}}
-{{--                                    <div class="form-check-danger form-check form-switch">--}}
-{{--                                        <input class="form-check-input status-toggle large-checkbox" type="checkbox"--}}
-{{--                                               id="flexSwitchCheckCheckedDanger"--}}
-{{--                                               data-user-id="{{ $item->id }}" {{ $item->status ? 'checked' : ''}} >--}}
-{{--                                        <label class="form-check-label" for="flexSwitchCheckCheckedDanger"> </label>--}}
-{{--                                    </div>--}}
-{{--                                </td>--}}
+                                <td>
+                                    <div class="form-check-danger form-check form-switch">
+                                        <input class="form-check-input status-toggle large-checkbox" type="checkbox"
+                                               id="flexSwitchCheckCheckedDanger"
+                                               data-user-id="{{ $item->id }}" {{ $item->status ? 'checked' : ''}} >
+                                        <label class="form-check-label" for="flexSwitchCheckCheckedDanger"> </label>
+                                    </div>
+                                </td>
                                 <td>
                                     <div class="d-flex order-actions">
                                         <a href="{{ route('manager.edit.user',$item->id) }}"

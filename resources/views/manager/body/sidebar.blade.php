@@ -4,14 +4,11 @@
 {{--  $status = $instructorId->status;--}}
 {{--@endphp--}}
 
-<div class="sidebar-wrapper" data-simplebar="true">
-    <div class="sidebar-header">
-{{--        <div>--}}
-{{--            <img src="{{ asset('backend/assets/images/logo_agest.png') }}" class="logo-icon" alt="logo icon">--}}
-{{--        </div>--}}
+<div class="sidebar-wrapper" style="background-color: #334155;" data-simplebar="true">
+    <div class="sidebar-header" style="background-color: #334155;" >
         @auth()
             <div>
-                <h4 class="logo-text">
+                <h4 class="text-white">
                     @if(Auth::user()->role ==='manager')
                         Manager
                     @elseif(Auth::user()->role ==='user')
@@ -28,23 +25,23 @@
 
         <li>
             <a href="{{ route('manager.all.boards') }}">
-                <div class="parent-icon"><i class='text-bg-info bx bxs-dashboard'></i>
+                <div class="parent-icon"><i style="color: #94A3B8" class='bx bxs-dashboard'></i>
                 </div>
-                <div class="menu-title"><b>Dashboard</b></div>
+                <div class="menu-title"><b style="color: #94A3B8">Dashboard</b></div>
             </a>
         </li>
 
         @auth
 
-            <li class="menu-label">Manage Project</li>
+            <li class="menu-label" style="color: #94A3B8">Manage Project</li>
             <li>
                 <a href="javascript:;" class="has-arrow">
-                    <div class="parent-icon"><i class='text-bg-success bx bxs-bolt-circle'></i>
+                    <div class="parent-icon"><i style="color: #94A3B8" class='bx bxs-bolt-circle'></i>
                     </div>
-                    <div class="menu-title">Boards</div>
+                    <div class="menu-title" style="color: #94A3B8">Boards</div>
                 </a>
-                <ul>
-                    <li><a href="{{ route('manager.all.boards') }}"><i class='bx bxs-book-bookmark'></i>All Boards </a>
+                <ul style="background-color: #334155;">
+                    <li><a href="{{ route('manager.all.boards') }}" style="color: #94A3B8">All Boards </a>
                     </li>
 
                 </ul>
@@ -55,12 +52,12 @@
             @if(Auth::user()->role ==='manager')
                 <li>
                     <a href="javascript:;" class="has-arrow">
-                        <div class="parent-icon"><i class='text-bg-primary bx bxs-user-account'></i>
+                        <div class="parent-icon"><i style="color: #94A3B8" class='bx bxs-user-account'></i>
                         </div>
-                        <div class="menu-title">Users</div>
+                        <div class="menu-title" style="color: #94A3B8">Users</div>
                     </a>
-                    <ul>
-                        <li><a href="{{ route('manager.all.users') }}"><i class='bx bxs-book-bookmark'></i>All Users </a>
+                    <ul style="background-color: #334155;">
+                        <li><a style="color: #94A3B8" href="{{ route('manager.all.users') }}">All Users </a>
                         </li>
 
                     </ul>
@@ -74,12 +71,12 @@
             @if(Auth::user()->role ==='manager')
                 <li>
                     <a href="javascript:;" class="has-arrow">
-                        <div class="parent-icon"><i class='text-bg-secondary bx bxs-news'></i>
+                        <div class="parent-icon"><i style="color: #94A3B8" class='bx bxs-news'></i>
                         </div>
-                        <div class="menu-title">Tasks/Export</div>
+                        <div class="menu-title" style="color: #94A3B8">Tasks/Export</div>
                     </a>
-                    <ul>
-                        <li><a href="{{ route('manager.tasks') }}"><i class='bx bxs-book-bookmark'></i>All Tasks </a>
+                    <ul style="background-color: #334155;">
+                        <li><a style="color: #94A3B8" href="{{ route('manager.tasks') }}">All Tasks </a>
                         </li>
 
                     </ul>
@@ -93,20 +90,20 @@
             @if(Auth::user()->role ==='manager')
                 <li>
                     <a href="javascript:;" class="has-arrow">
-                        <div class="parent-icon"><i class='text-bg-info bx bxs-component'></i>
+                        <div class="parent-icon"><i style="color: #94A3B8" class='bx bxs-component'></i>
                         </div>
-                        <div class="menu-title">Components</div>
+                        <div class="menu-title" style="color: #94A3B8">Components</div>
                     </a>
-                    <ul>
-                        <li><a href="{{ route('manager.all.teams') }}"><i class='bx bxs-book-bookmark'></i>All Teams</a>
+                    <ul style="background-color: #334155;">
+                        <li><a style="color: #94A3B8" href="{{ route('manager.all.teams') }}">All Teams</a>
                         </li>
-                        <li><a href="{{ route('manager.all.types') }}"><i class='bx bxs-book-bookmark'></i>All Types</a>
+                        <li><a style="color: #94A3B8" href="{{ route('manager.all.types') }}">All Types</a>
                         </li>
-                        <li><a href="{{ route('manager.all.priorities') }}"><i class='bx bxs-book-bookmark'></i>All Priorities</a>
+                        <li><a style="color: #94A3B8" href="{{ route('manager.all.priorities') }}">All Priorities</a>
                         </li>
-                        <li><a href="{{ route('manager.all.working_statuses') }}"><i class='bx bxs-book-bookmark'></i>All Working Status</a>
+                        <li><a style="color: #94A3B8" href="{{ route('manager.all.working_statuses') }}">All Working Status</a>
                         </li>
-                        <li><a href="{{ route('manager.all.ticket_statuses') }}"><i class='bx bxs-book-bookmark'></i>All Ticket Status</a>
+                        <li><a style="color: #94A3B8" href="{{ route('manager.all.ticket_statuses') }}">All Ticket Status</a>
                         </li>
                     </ul>
                 </li>
@@ -116,39 +113,39 @@
         @endauth
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class='text-bg-danger bx bxs-file'></i>
+                <div class="parent-icon"><i style="color: #94A3B8" class='bx bxs-file'></i>
                 </div>
-                <div class="menu-title">Files</div>
+                <div class="menu-title" style="color: #94A3B8">Files</div>
             </a>
-            <ul>
-                <li><a href="{{ route('all.file') }}"><i class='bx bxs-book-bookmark'></i>All Files </a>
+            <ul style="background-color: #334155;">
+                <li><a style="color: #94A3B8" href="{{ route('all.file') }}">All Files </a>
                 </li>
             </ul>
         </li>
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class='text-bg-warning bx bxs-widget'></i>
+                <div class="parent-icon"><i style="color: #94A3B8" class='bx bxs-widget'></i>
                 </div>
-                <div class="menu-title">Post</div>
+                <div class="menu-title" style="color: #94A3B8">Post</div>
             </a>
-            <ul>
-                <li><a href="{{ route('blog.post') }}"><i class='bx bxs-book-bookmark'></i>All Post </a>
+            <ul style="background-color: #334155;">
+                <li><a style="color: #94A3B8" href="{{ route('blog.post') }}">All Post </a>
                 </li>
-                <li><a href="{{ route('blog.category') }}"><i class='bx bxs-book-bookmark'></i>All Post Category </a>
+                <li><a style="color: #94A3B8" href="{{ route('blog.category') }}">All Post Category </a>
                 </li>
             </ul>
         </li>
         @auth
 
-            <li class="menu-label">CHART</li>
+            <li class="menu-label" >CHART</li>
             <li>
                 <a href="javascript:;" class="has-arrow">
-                    <div class="parent-icon"><i class='text-bg-success bx bxs-chart'></i>
+                    <div class="parent-icon"><i style="color: #94A3B8" class='bx bxs-chart'></i>
                     </div>
-                    <div class="menu-title">Chart</div>
+                    <div class="menu-title" style="color: #94A3B8">Chart</div>
                 </a>
-                <ul>
-                    <li><a href="{{ route('chart.show') }}"><i class='bx bxs-book-bookmark'></i>View Chart </a>
+                <ul style="background-color: #334155;">
+                    <li><a style="color: #94A3B8" href="{{ route('chart.show') }}">View Chart </a>
                     </li>
 
                 </ul>
@@ -156,19 +153,19 @@
         @endauth
         @auth
 
-            <li class="menu-label">TRAINING COURSE</li>
+            <li class="menu-label" style="color: #94A3B8">TRAINING COURSE</li>
             <li>
                 <a href="javascript:;" class="has-arrow">
-                    <div class="parent-icon"><i class='text-bg-primary bx bxs-school'></i>
+                    <div class="parent-icon"><i style="color: #94A3B8" class='bx bxs-school'></i>
                     </div>
-                    <div class="menu-title">Training Course</div>
+                    <div class="menu-title" style="color: #94A3B8">Training Course</div>
                 </a>
-                <ul>
-                    <li><a href="{{ route('all.course') }}"><i class='bx bxs-book-bookmark'></i>All Courses </a>
+                <ul style="background-color: #334155;">
+                    <li><a style="color: #94A3B8" href="{{ route('all.course') }}">All Courses </a>
                     </li>
-                    <li><a href="{{ route('all.category') }}"><i class='bx bxs-book-bookmark'></i>Category </a>
+                    <li><a style="color: #94A3B8" href="{{ route('all.category') }}">Category </a>
                     </li>
-                    <li><a href="{{ route('all.subcategory') }}"><i class='bx bxs-book-bookmark'></i>Sub Category </a>
+                    <li><a style="color: #94A3B8" href="{{ route('all.subcategory') }}">Sub Category </a>
                     </li>
                 </ul>
             </li>
@@ -176,12 +173,12 @@
 
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class='text-bg-danger bx bxs-file'></i>
+                <div class="parent-icon"><i style="color: #94A3B8" class='bx bxs-file'></i>
                 </div>
-                <div class="menu-title">QR Code</div>
+                <div class="menu-title" style="color: #94A3B8">QR Code</div>
             </a>
-            <ul>
-                <li><a href="{{ route('qrcode') }}"><i class='bx bxs-book-bookmark'></i>Dev Mode </a>
+            <ul style="background-color: #334155;">
+                <li><a style="color: #94A3B8" href="{{ route('qrcode') }}">Dev Mode </a>
                 </li>
             </ul>
         </li>

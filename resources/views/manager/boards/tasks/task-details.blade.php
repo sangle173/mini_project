@@ -5,11 +5,12 @@
 
     <div class="page-content">
         <!--breadcrumb-->
-        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">View Task</div>
+        <div class="d-none d-sm-flex align-items-center mb-3">
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home"></i></a>
+                        </li>
                         <li class="breadcrumb-item active" aria-current="page"><a
                                 href="{{ route('manager.show.board', \App\Models\Board::find($task-> board_id) -> id) }}">{{\App\Models\Board::find($task-> board_id) -> name}}</a>
                         </li>
