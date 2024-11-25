@@ -207,9 +207,11 @@
                                                         class="text-danger">*</span></label>
                                                 <div class="col-md-5">
                                                     <select class="form-select" name="tester_1" id="tester_1">
+                                                        @if($currentUser !=null)
                                                         <option value="{{ $currentUser->id }}">{{ $currentUser->name }}
                                                             (You)
                                                         </option>
+                                                        @endif
                                                         @foreach ($users as $user)
                                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                         @endforeach
