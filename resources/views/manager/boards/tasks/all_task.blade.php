@@ -211,7 +211,8 @@
                         @foreach ($tasks as $key=> $item)
                             <tr>
                                 <td>{{ $key+1 }}</td>
-                                <td>{{ $item -> id }}</td>
+                                <td><a href="{{ route('task.details',$item->id) }}"
+                                       title="Task Details">{{ $item -> id }}</a></td>
                                 <td>
                                     @if ($item->status == 1)
                                         <span class="badge bg-success">Reviewed </span>
