@@ -5,6 +5,8 @@
     Blog
 @endsection
 <!--tagsinput-->
+<link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet"
+      type="text/css" />
 <link href="{{ asset('backend/assets/plugins/input-tags/css/tagsinput.css') }}" rel="stylesheet" />
 <!--tagsinput-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -49,10 +51,11 @@
 
 
 
-                <div class="form-group col-md-12">
-                    <label for="input1" class="form-label">Post Description</label>
-                    <textarea name="long_descp" class="form-control" id="myeditorinstance"></textarea>
-                </div>
+{{--                <div class="form-group col-md-12">--}}
+{{--                    <label for="input1" class="form-label">Post Description</label>--}}
+{{--                    <textarea name="long_descp" class="form-control" id="froala-editor"></textarea>--}}
+{{--                </div>--}}
+                <div id="froala-editor"> </div>
 
                 <div class="form-group col-md-6">
                     <label for="input1" class="form-label">Post Tags</label>
@@ -100,6 +103,11 @@
     });
 
 </script>
-
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
+<script>
+    var content = new FroalaEditor("div#froala-editor");
+    console.log(content);
+</script>
 
 @endsection
