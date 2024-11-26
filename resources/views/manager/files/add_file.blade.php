@@ -23,7 +23,7 @@
         <div class="ms-auto">
             <div class="btn-group">
                 <form id="myForm" action="{{ route('upload.files.user') }}" method="get" class="row g-3">
-                    @csrf
+             
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
