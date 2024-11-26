@@ -409,16 +409,14 @@
                             <div class="col-md-12">
                                 <div class="d-md-flex d-grid align-items-center gap-3">
                                     @if(isset($request))
-                                        <button type="submit" class="btn" style="background-color: #FFE800"><i
-                                                class="bx bx-filter"></i>Filtered
+                                        <button type="submit" class="btn" style="background-color: #FFE800">Filtered
                                         </button>
                                     @else
-                                        <button type="submit" class="btn px-4" style="background-color: #FFE800"><i
-                                                class="bx bx-filter"></i>Filter
+                                        <button type="submit" class="btn" style="background-color: #FFE800">Filter
                                         </button>
                                     @endif
                                     <a href="{{route('manager.show.board', $board-> id)}}"
-                                       class="btn btn-secondary px-4" type="reset">
+                                       class="btn btn-secondary" type="reset">
                                         Reset
                                     </a>
                                 </div>
