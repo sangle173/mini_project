@@ -153,12 +153,12 @@
                                                     <div class="col-md-12">
                                                         <div class="d-md-flex d-grid align-items-center gap-3">
                                                             @if(isset($request))
-                                                                <button type="submit" class="btn" style="background-color: #FFE800"><i class="bx bx-filter"></i> Filtered</button>
+                                                                <button type="submit" class="btn" style="background-color: #FFE800">Filtered</button>
                                                             @else
-                                                                <button type="submit" class="btn px-4" style="background-color: #FFE800"><i class="bx bx-filter"></i> Filter</button>
+                                                                <button type="submit" class="btn" style="background-color: #FFE800">Filter</button>
                                                             @endif
                                                             <a href="{{route('manager.tasks', $board-> id)}}" --}}
-                                                               class="btn btn-secondary px-4" type="reset">
+                                                               class="btn btn-secondary" type="reset">
                                                                 Reset
                                                             </a>
                                                         </div>
@@ -184,6 +184,7 @@
                         <thead>
                         <tr>
                             <th>#</th>
+                            <th>Task ID</th>
                             <th>Review?</th>
                             <th>Board</th>
                             <th>Team</th>
@@ -210,6 +211,7 @@
                         @foreach ($tasks as $key=> $item)
                             <tr>
                                 <td>{{ $key+1 }}</td>
+                                <td>{{ $item -> id }}</td>
                                 <td>
                                     @if ($item->status == 1)
                                         <span class="badge bg-success">Reviewed </span>
