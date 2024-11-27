@@ -154,6 +154,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
+
         $task = Task::find($id);
         $task_histories = TaskHistory::where('task_id', $id)->latest()->get();
         $board_config = BoardConfig::find(Board::find($task->board_id)->board_config_id);

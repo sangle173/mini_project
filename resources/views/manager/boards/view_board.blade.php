@@ -1481,10 +1481,22 @@
                                                                 <div
                                                                     style="text-indent:33pt;margin:0;"><font
                                                                         face="Calibri,sans-serif" size="2"><span
-                                                                            style="font-size:11pt;color: black"><a
+                                                                            style="font-size:11pt;color: black">
+                                                                            @if($done -> jira_id != 'No ticket' && $done -> jira_id != '')
+                                                                            <a
                                                                                 href="{{$board_config -> jira_url}}{{$done -> jira_id}}"
                                                                                 target="_blank"
-                                                                                rel="noopener noreferrer">{{$done -> jira_id}}</a><font
+                                                                                rel="noopener noreferrer">
+                                                                                    {{$done -> jira_id}}
+
+                                                                            </a>
+                                                                            @else
+                                                                                <a
+                                                                                    rel="noopener noreferrer">
+                                                                                    {{$done -> jira_id}}
+                                                                            </a>
+                                                                            @endif
+                                                                                <font
                                                                                 color="black"> - {{$done -> jira_summary}} - <b>{{strtoupper(\App\Models\TicketStatus::find($done -> ticket_status) -> name)}} @if($done -> link_to_result)
                                                                                         - @endif</b> @if($done -> link_to_result)
                                                                                     <b><a
@@ -1507,10 +1519,22 @@
                                                                 style="text-indent:33pt;margin:0;"><font
                                                                     face="Calibri,sans-serif"
                                                                     size="2"><span
-                                                                        style="font-size:11pt;color: black"><a
-                                                                            href="{{$board_config -> jira_url}}{{$inprogres -> jira_id}}"
-                                                                            target="_blank"
-                                                                            rel="noopener noreferrer">{{$inprogres -> jira_id}} </a><font
+                                                                        style="font-size:11pt;color: black">
+                                                                        @if($inprogres -> jira_id != 'No ticket' && $inprogres -> jira_id != '')
+                                                                            <a
+                                                                                href="{{$board_config -> jira_url}}{{$inprogres -> jira_id}}"
+                                                                                target="_blank"
+                                                                                rel="noopener noreferrer">
+                                                                                    {{$inprogres -> jira_id}}
+
+                                                                            </a>
+                                                                        @else
+                                                                            <a
+                                                                                rel="noopener noreferrer">
+                                                                                    {{$inprogres -> jira_id}}
+                                                                            </a>
+                                                                        @endif
+                                                                        <font
                                                                             color="black">
                  - {{$inprogres -> jira_summary}} - <b>{{strtoupper(\App\Models\TicketStatus::find($inprogres -> ticket_status) -> name)}}</b> @if($inprogres -> link_to_result)
                                                                                 - @endif</b> @if($inprogres -> link_to_result)
