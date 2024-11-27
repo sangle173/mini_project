@@ -6,17 +6,20 @@
 
 <div class="sidebar-wrapper" style="background-color: #334155;" data-simplebar="true">
     <div class="sidebar-header" style="background-color: #334155;" >
-        @auth()
+{{--        @auth()--}}
+{{--            <div>--}}
+{{--                <h4 class="text-white">--}}
+{{--                    @if(Auth::user()->role ==='manager')--}}
+{{--                        Manager--}}
+{{--                    @elseif(Auth::user()->role ==='user')--}}
+{{--                        Employee--}}
+{{--                    @endif--}}
+{{--                </h4>--}}
+{{--            </div>--}}
+{{--        @endauth--}}
             <div>
-                <h4 class="text-white">
-                    @if(Auth::user()->role ==='manager')
-                        Manager
-                    @elseif(Auth::user()->role ==='user')
-                        Employee
-                    @endif
-                </h4>
+                <img src="{{ asset('backend/assets/images/logo-en.svg') }}" alt="logo icon">
             </div>
-        @endauth
         <div class="toggle-icon ms-auto"><i class='bx bx-menu'></i>
         </div>
     </div>
