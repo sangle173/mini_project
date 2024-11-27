@@ -8,8 +8,7 @@
 
 <div class="page-content">
     <!--breadcrumb-->
-    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Files</div>
+    <div class=" d-none d-sm-flex align-items-center mb-3">
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
@@ -22,28 +21,6 @@
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <form id="myForm" action="{{ route('upload.files.user') }}" method="get" class="row g-3">
-             
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    <div class="input-group" style="width: 300px">
-                        <select class="form-select" name="user_id" id="inputGroupSelect04"
-                                aria-label="Example select with button addon">
-                            @foreach ($users as $u)
-                                <option
-                                    {{ $user->id === $u->id? 'selected':'' }} value="{{ $u->id }}">{{ $u->name }}</option>
-                            @endforeach
-                        </select>
-                        <button class="btn btn-success" type="submit">Change</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
@@ -68,8 +45,10 @@
                         <input type="hidden" class="form-input" name="user_id" value="{{ $user->id }}">
 
                         <div class="input-group mb-3">
-                            <input type="file" name="files[]" onchange="GetFileSizeNameAndType()" multiple class="form-control" id="inputGroupFile02">
-                            <button class="btn btn-primary" for="inputGroupFile02"><i class="bx bx-upload"></i> Upload</button>
+                            <input type="file" name="files[]" onchange="GetFileSizeNameAndType()" multiple
+                                   class="form-control" id="inputGroupFile02">
+                            <button class="btn btn-primary" for="inputGroupFile02"><i class="bx bx-upload"></i> Upload
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -78,6 +57,30 @@
     </div>
     <div class="card">
         <div class="card-body">
+            <div class="row">
+                <form id="myForm" action="{{ route('upload.files.user') }}" method="get" class="row"
+                      style="margin-bottom: 10px">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <div class="input-group" style="width: 300px">
+                        <select class="form-select" name="user_id" id="inputGroupSelect04"
+                                aria-label="Example select with button addon">
+                            @foreach ($users as $u)
+                                <option
+                                    {{ $user->id === $u->id? 'selected':'' }} value="{{ $u->id }}">{{ $u->name }}</option>
+                            @endforeach
+                        </select>
+                        <button class="btn btn-success" type="submit">Change</button>
+                    </div>
+                </form>
+            </div>
             <div class="table-responsive">
                 <table id="example" class="table table-striped table-bordered">
                     <thead>

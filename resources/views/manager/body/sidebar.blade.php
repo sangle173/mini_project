@@ -136,7 +136,6 @@
             </ul>
         </li>
         @auth
-
             <li class="menu-label" >CHART</li>
             <li>
                 <a href="javascript:;" class="has-arrow">

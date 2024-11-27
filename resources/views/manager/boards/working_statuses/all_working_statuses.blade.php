@@ -59,19 +59,21 @@
                                     @endif
                                 </td>
                                 <td>
-{{--                                    <a href="{{ route('course.all.lecture',$item->id) }}" class="btn btn-warning"--}}
-{{--                                       title="Tất cả bài học"><i class="lni lni-list"></i> </a>--}}
+                                    {{--                                    <a href="{{ route('course.all.lecture',$item->id) }}" class="btn btn-warning"--}}
+                                    {{--                                       title="Tất cả bài học"><i class="lni lni-list"></i> </a>--}}
 
-                                    <a href="{{ route('manager.edit.boardworking_status',$item->id) }}" class="btn btn-info"
+                                    <a href="{{ route('manager.edit.boardworking_status',$item->id) }}"
+                                       class="btn btn-info"
                                        title="Edit"><i
                                             class="lni lni-eraser"></i> </a>
-{{--                                    <a href="{{ route('instructor.course.details',$item->id) }}" class="btn btn-success"><i--}}
-{{--                                            class="lni lni-eye"></i></a>--}}
-
-                                    <a href="{{ route('manager.delete.boardworking_status',$item->id) }}" class="btn btn-danger"
-                                       id="delete"
-                                       title="Delete"><i class="lni lni-trash"></i> </a>
-
+                                    {{--                                    <a href="{{ route('instructor.course.details',$item->id) }}" class="btn btn-success"><i--}}
+                                    {{--                                            class="lni lni-eye"></i></a>--}}
+                                    @if(Auth::user()->role ==='admin')
+                                        <a href="{{ route('manager.delete.boardworking_status',$item->id) }}"
+                                           class="btn btn-danger"
+                                           id="delete"
+                                           title="Delete"><i class="lni lni-trash"></i> </a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

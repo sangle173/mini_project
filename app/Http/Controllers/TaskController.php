@@ -10,6 +10,7 @@ use App\Models\Environment;
 use App\Models\Priority;
 use App\Models\ReportConfig;
 use App\Models\Task;
+use App\Models\TaskHistory;
 use App\Models\Team;
 use App\Models\TicketStatus;
 use App\Models\Type;
@@ -116,6 +117,12 @@ class TaskController extends Controller
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
+        $task_history_id = TaskHistory::insertGetId([
+            'task_id' => $task_id,
+            'content' => Auth::user() -> name." created task",
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+
         $notification = array(
             'message' => 'Ticket Created Successfully',
             'alert-type' => 'success'
@@ -148,9 +155,10 @@ class TaskController extends Controller
     public function show($id)
     {
         $task = Task::find($id);
+        $task_histories = TaskHistory::where('task_id', $id)->latest()->get();
         $board_config = BoardConfig::find(Board::find($task->board_id)->board_config_id);
         $comments = Comment::where('task_id', $id)->latest()->get();
-        return view('manager.boards.tasks.task-details', compact('task', 'comments', 'board_config'));
+        return view('manager.boards.tasks.task-details', compact('task', 'comments', 'board_config', 'task_histories'));
     }
 
     /**
@@ -165,6 +173,13 @@ class TaskController extends Controller
             'task_id' => $request->task_id,
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
+
+        $task_history_id = TaskHistory::insertGetId([
+            'task_id' => $request->task_id,
+            'content' => Auth::user() -> name." added a comment",
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+
         $notification = array(
             'message' => 'Comment Added Successfully',
             'alert-type' => 'success'
@@ -245,6 +260,11 @@ class TaskController extends Controller
         ]);
         //        dd($request);
 
+        $task_history_id = TaskHistory::insertGetId([
+            'task_id' => $request-> task_id,
+            'content' => Auth::user() -> name." updated task",
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
 
         $notification = array(
             'message' => 'Update Task Successfully',
@@ -299,6 +319,11 @@ class TaskController extends Controller
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
+        $task_history_id = TaskHistory::insertGetId([
+            'task_id' => $request-> task_id,
+            'content' => Auth::user() -> name." cloned task",
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
         $notification = array(
             'message' => 'Update Ticket Status Successfully',
             'alert-type' => 'success'
@@ -316,6 +341,12 @@ class TaskController extends Controller
         if (!is_null($task)) {
             $task->delete();
         }
+
+        $task_history_id = TaskHistory::insertGetId([
+            'task_id' => $id,
+            'content' => Auth::user() -> name." deleted task",
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
 
         $notification = array(
             'message' => 'Delete Task Successfully',
@@ -659,6 +690,12 @@ class TaskController extends Controller
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
+        $task_history_id = TaskHistory::insertGetId([
+            'task_id' => $request-> task_id,
+            'content' => Auth::user() -> name." addded a sub bug",
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+
         $notification = array(
             'message' => 'Create Sub Task Successfully',
             'alert-type' => 'success'
@@ -684,6 +721,12 @@ class TaskController extends Controller
             'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
         $board_id = Board::find(Task::find($request->sub_task_id)->board_id)->id;
+
+        $task_history_id = TaskHistory::insertGetId([
+            'task_id' => $request->sub_task_id,
+            'content' => Auth::user() -> name." updated sub bug",
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
 
         $notification = array(
             'message' => 'Sub Bug Updated Successfully',
@@ -713,6 +756,12 @@ class TaskController extends Controller
         $validated = $request->validate([
             'working_status' => 'required',
         ]);
+        $task_history_id = TaskHistory::insertGetId([
+            'task_id' => $request->task_id,
+            'content' => Auth::user() -> name." updated working status from ". WorkingStatus::find(Task::find($id)-> working_status) -> name." to ".WorkingStatus::find($request->working_status) -> name ,
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+
         Task::find($id)->update([
             'working_status' => $request->working_status,
             'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
@@ -731,6 +780,12 @@ class TaskController extends Controller
         $validated = $request->validate([
             'ticket_status' => 'required',
         ]);
+        $task_history_id = TaskHistory::insertGetId([
+            'task_id' => $request->task_id,
+            'content' => Auth::user() -> name." updated ticket status from ". TicketStatus::find(Task::find($id)-> ticket_status) -> name." to ".TicketStatus::find($request->ticket_status) -> name ,
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+        ]);
+
         Task::find($id)->update([
             'ticket_status' => $request->ticket_status,
             'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),

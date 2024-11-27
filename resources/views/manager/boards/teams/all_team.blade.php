@@ -64,8 +64,10 @@
                                         {{--                                        <a href="{{ route('manager.add.board',$item->id) }}" title="Add Board" class=""><i class='bx bxs-plus-square text-info'></i></a>--}}
                                         <a href="{{ route('manager.edit.boardteam',$item->id) }}" title="Edit" class=""><i
                                                 class='bx bxs-edit text-primary'></i></a>
-                                        <a href="{{ route('manager.delete.boardteam',$item->id) }}" id="delete"
-                                           title="Delete" class=""><i class='bx bxs-trash text-danger'></i></a>
+                                        @if(Auth::user()->role ==='admin')
+                                            <a href="{{ route('manager.delete.boardteam',$item->id) }}" id="delete"
+                                               title="Delete" class=""><i class='bx bxs-trash text-danger'></i></a>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

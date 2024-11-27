@@ -22,7 +22,8 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('manager.add.users') }}" type="button" style="background-color: #754FFE;color: white" class="btn px-5"><i
+                    <a href="{{ route('manager.add.users') }}" type="button"
+                       style="background-color: #754FFE;color: white" class="btn px-5"><i
                             class='bx bx-user-plus mr-1'></i>Add User</a>
                 </div>
             </div>
@@ -92,9 +93,11 @@
                                         <a href="{{ route('manager.edit.user',$item->id) }}"
                                            title="Edit" class=""><i
                                                 class='bx bxs-edit text-primary'></i></a>
-                                        <a href="{{ route('manager.delete.user',$item->id) }}"
-                                           title="Delete" id="delete" class=""><i
-                                                class='lni lni-trash text-danger'></i></a>
+                                        @if(Auth::user()->role ==='admin')
+                                            <a href="{{ route('manager.delete.user',$item->id) }}"
+                                               title="Delete" id="delete" class=""><i
+                                                    class='lni lni-trash text-danger'></i></a>
+                                        @endif
                                     </div>
 
                                 </td>
