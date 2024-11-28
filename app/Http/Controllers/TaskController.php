@@ -119,7 +119,7 @@ class TaskController extends Controller
 
         $task_history_id = TaskHistory::insertGetId([
             'task_id' => $task_id,
-            'content' => Auth::user()->name . " created task",
+            'content' => Auth::user() -> name." created task",
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
@@ -177,7 +177,7 @@ class TaskController extends Controller
 
         $task_history_id = TaskHistory::insertGetId([
             'task_id' => $request->task_id,
-            'content' => Auth::user()->name . " added a comment",
+            'content' => Auth::user() -> name." added a comment",
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
@@ -262,8 +262,8 @@ class TaskController extends Controller
         //        dd($request);
 
         $task_history_id = TaskHistory::insertGetId([
-            'task_id' => $request->task_id,
-            'content' => Auth::user()->name . " updated task",
+            'task_id' => $request-> task_id,
+            'content' => Auth::user() -> name." updated task",
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
@@ -321,8 +321,8 @@ class TaskController extends Controller
         ]);
 
         $task_history_id = TaskHistory::insertGetId([
-            'task_id' => $request->task_id,
-            'content' => Auth::user()->name . " cloned task",
+            'task_id' => $request-> task_id,
+            'content' => Auth::user() -> name." cloned task",
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
         $notification = array(
@@ -345,7 +345,7 @@ class TaskController extends Controller
 
         $task_history_id = TaskHistory::insertGetId([
             'task_id' => $id,
-            'content' => Auth::user()->name . " deleted task",
+            'content' => Auth::user() -> name." deleted task",
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
@@ -692,8 +692,8 @@ class TaskController extends Controller
         ]);
 
         $task_history_id = TaskHistory::insertGetId([
-            'task_id' => $request->task_id,
-            'content' => Auth::user()->name . " addded a sub bug",
+            'task_id' => $request-> task_id,
+            'content' => Auth::user() -> name." addded a sub bug",
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
@@ -725,7 +725,7 @@ class TaskController extends Controller
 
         $task_history_id = TaskHistory::insertGetId([
             'task_id' => $request->sub_task_id,
-            'content' => Auth::user()->name . " updated sub bug",
+            'content' => Auth::user() -> name." updated sub bug",
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
@@ -754,13 +754,12 @@ class TaskController extends Controller
     {
 //        dd($request);
         $id = $request->task_id;
-        $ipAddress = $request->ip();
         $validated = $request->validate([
             'working_status' => 'required',
         ]);
         $task_history_id = TaskHistory::insertGetId([
             'task_id' => $request->task_id,
-            'content' => Auth::user()->name . "(" . $ipAddress . ")" . " updated working status from " . WorkingStatus::find(Task::find($id)->working_status)->name . " to " . WorkingStatus::find($request->working_status)->name,
+            'content' => Auth::user() -> name." updated working status from ". WorkingStatus::find(Task::find($id)-> working_status) -> name." to ".WorkingStatus::find($request->working_status) -> name ,
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
@@ -779,13 +778,12 @@ class TaskController extends Controller
     public function update_ticket_status(Request $request)
     {
         $id = $request->task_id;
-        $ipAddress = $request->ip();
         $validated = $request->validate([
             'ticket_status' => 'required',
         ]);
         $task_history_id = TaskHistory::insertGetId([
             'task_id' => $request->task_id,
-            'content' => Auth::user()->name . "(" . $ipAddress . ")" . " updated ticket status from " . TicketStatus::find(Task::find($id)->ticket_status)->name . " to " . TicketStatus::find($request->ticket_status)->name,
+            'content' => Auth::user() -> name." updated ticket status from ". TicketStatus::find(Task::find($id)-> ticket_status) -> name." to ".TicketStatus::find($request->ticket_status) -> name ,
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
