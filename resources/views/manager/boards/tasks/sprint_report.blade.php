@@ -36,7 +36,7 @@
                                     class="p-rich_text_list p-rich_text_list__bullet p-rich_text_list--nested"
                                     data-indent="0"
                                     data-border="0">
-                                    @foreach (\App\Models\Task::where('board_id', $board-> id) ->where('sprint', $sprint) -> where('type', $item -> id) -> latest() -> get() as $key=> $row)
+                                    @foreach (\App\Models\Task::where('board_id', $board-> id) ->where('sprint', $sprint) -> where('type', $item -> id) -> orderBy('jira_id', 'ASC') -> latest() -> get() as $key=> $row)
                                         <li data-stringify-indent="0" data-stringify-border="0"><a target="_blank"
                                                                                                    class="c-link"
                                                                                                    data-stringify-link="{{url('https://jira.sonos.com/browse/'.$row -> jira_id)}}"
