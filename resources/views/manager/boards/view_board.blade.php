@@ -59,9 +59,15 @@
                                                     <select class="form-select" name="team" id="team">
                                                         <option selected="" disabled>Choose...</option>
                                                         @foreach ($teams as $team)
-                                                            <option
-                                                                value="{{ $team->id }}">{{ $team->name }}</option>
+                                                            @if(old('team')!=null)
+                                                                <option
+                                                                    value="{{ $team->id }}" {{ $team->id == old('team') ? 'selected' : '' }}>{{ $team->id == old('team') ? \App\Models\Team::find(old('team')) -> name : $team -> name}}</option>
+                                                            @else
+                                                                <option
+                                                                    value="{{ $team->id }}">{{ $team->name }}</option>
+                                                            @endif
                                                         @endforeach
+
                                                     </select>
                                                     @error('team')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -76,8 +82,13 @@
                                                     <select class="form-select" name="type" id="type" required>
                                                         <option selected="" disabled>Choose...</option>
                                                         @foreach ($types as $type)
-                                                            <option
-                                                                value="{{ $type->id }}">{{ $type->name }}</option>
+                                                            @if(old('type')!=null)
+                                                                <option
+                                                                    value="{{ $type->id }}" {{ $type->id == old('type') ? 'selected' : '' }}>{{ $type->id == old('type') ? \App\Models\Type::find(old('type')) -> name : $type -> name}}</option>
+                                                            @else
+                                                                <option
+                                                                    value="{{ $type->id }}">{{ $type->name }}</option>
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                     @error('type')
@@ -92,7 +103,7 @@
                                                     Id</label>
                                                 <div class="col-md-5">
                                                     <input type="text" class="form-control" name="jira_id" id="jira_id"
-                                                           placeholder="Enter Jira Id">
+                                                           placeholder="Enter Jira Id" value="{{ old('jira_id') }}">
                                                     @error('jira_id')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -105,7 +116,8 @@
                                                 <div class="col-md-10">
                                                     <input type="text" class="form-control" name="jira_summary"
                                                            id="jira_summary"
-                                                           placeholder="Enter Jira Summary" required>
+                                                           placeholder="Enter Jira Summary"
+                                                           value="{{ old('jira_summary') }}" required>
                                                     @error('jira_summary')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -120,8 +132,14 @@
                                                             id="working_status">
                                                         <option selected="" disabled>Choose...</option>
                                                         @foreach ($working_statuses as $working_status)
-                                                            <option
-                                                                value="{{ $working_status->id }}">{{ $working_status->name }}</option>
+                                                            @if(old('working_status')!=null)
+                                                                <option
+                                                                    value="{{ $working_status->id }}" {{ $working_status->id == old('working_status') ? 'selected' : '' }}>{{ $working_status->id == old('working_status') ? \App\Models\WorkingStatus::find(old('working_status')) -> name : $working_status -> name}}</option>
+                                                            @else
+                                                                <option
+                                                                    value="{{ $working_status->id }}">{{ $working_status->name }}</option>
+                                                            @endif
+
                                                         @endforeach
                                                     </select>
                                                     @error('working_status')
@@ -138,8 +156,15 @@
                                                             id="ticket_status">
                                                         <option selected="" disabled>Choose...</option>
                                                         @foreach ($ticket_statuses as $ticket_status)
-                                                            <option
-                                                                value="{{ $ticket_status->id }}">{{ $ticket_status->name }}</option>
+                                                            @if(old('ticket_status')!=null)
+                                                                <option
+                                                                    value="{{ $ticket_status->id }}" {{ $ticket_status->id == old('ticket_status') ? 'selected' : '' }}>{{ $ticket_status->id == old('ticket_status') ? \App\Models\TicketStatus::find(old('ticket_status')) -> name : $ticket_status -> name}}</option>
+                                                            @else
+                                                                <option
+                                                                    value="{{ $ticket_status->id }}">{{ $ticket_status->name }}</option>
+                                                            @endif
+
+
                                                         @endforeach
                                                     </select>
                                                     @error('ticket_status')
@@ -171,7 +196,7 @@
                                                 <div class="col-md-10">
                                                     <input type="text" class="form-control" name="link_to_result"
                                                            id="link_to_result"
-                                                           placeholder="Enter Link">
+                                                           placeholder="Enter Link" value="{{ old('link_to_result') }}">
                                                     @error('link_to_result')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -183,7 +208,7 @@
                                                 <div class="col-md-5">
                                                     <input type="text" class="form-control" name="test_plan"
                                                            id="test_plan"
-                                                           placeholder="Enter Test Plan">
+                                                           placeholder="Enter Test Plan" value="{{ old('test_plan') }}">
                                                     @error('test_plan')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -195,7 +220,7 @@
                                                 <label for="sprint" class="col-md-2 col-form-label ">Sprint</label>
                                                 <div class="col-md-5">
                                                     <input type="text" class="form-control" name="sprint" id="sprint"
-                                                           placeholder="Enter Sprint">
+                                                           placeholder="Enter Sprint" value="{{ old('sprint') }}">
                                                     @error('sprint')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror

@@ -23,7 +23,8 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <form id="myForm2" action="{{ route('manager.task.export') }}" method="post" enctype="multipart/form-data">
+                    <form id="myForm2" action="{{ route('manager.task.export') }}" method="post"
+                          enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" value="{{$tasks}}" name="tasks">
                         <button type="submit" class="btn btn-info px-3"><i
@@ -180,7 +181,8 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table data-page-length='50' id="example" class="table table-striped table-bordered" style="width:100%">
+                    <table data-page-length='50' id="example" class="table table-striped table-bordered"
+                           style="width:100%">
                         <thead>
                         <tr>
                             <th>#</th>

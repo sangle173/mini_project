@@ -127,7 +127,7 @@ class TaskController extends Controller
             'message' => 'Ticket Created Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->back()->with($notification);
+        return redirect()->back()->withInput() -> with($notification);
     }
 
     public function update_status(Request $request)
@@ -473,6 +473,12 @@ class TaskController extends Controller
         $fromDate = new Carbon($request->from_date, 'Asia/Ho_Chi_Minh');
         $toDate = new Carbon($request->to_date, 'Asia/Ho_Chi_Minh');
         $toDate->addDays(1);
+//        $subquery = Task::where('board_id', $request->board) -> select('jira_id', DB::raw('MAX(updated_at) as latest_update'))
+//            ->groupBy('jira_id');
+//        $tasks = Task::where('board_id', $request->board) ->whereBetween('created_at', [$fromDate, $toDate]) -> where('type', $request->type) -> joinSub($subquery, 'latest_tasks', function ($join) {
+//            $join->on('tasks.jira_id', '=', 'latest_tasks.jira_id')
+//                ->on('tasks.updated_at', '=', 'latest_tasks.latest_update');
+//        })->get();
         if ($type != null && $board == null && $tester == null) {
             $tasks = DB::table('tasks')
                 ->whereBetween('created_at', [$fromDate, $toDate])
@@ -544,6 +550,12 @@ class TaskController extends Controller
             $no = 0;
         }
 
+//        $uniqueTasks = $tasks->groupBy('jira_id')->map(function ($group) {
+//            return $group->sortByDesc('updated_at')->first(); // Get the latest task for each jira_id
+//        });
+//        dd($uniqueTasks);
+
+//        $tasks = $uniqueTasks;
         $types = Type::latest()->get();
         $boards = Board::latest()->get();
         $priorities = Priority::latest()->get();
