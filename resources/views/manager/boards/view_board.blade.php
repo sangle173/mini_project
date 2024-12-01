@@ -31,9 +31,9 @@
             </div>
             <div class="ms-auto mb-1">
                 <div class="btn-group">
-                    <div class="col" >
+                    <div class="col">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn" style="background-color: #754FFE;color: white"
+                        <button type="button" class="btn btn-purple"
                                 data-bs-toggle="modal"
                                 data-bs-target="#exampleModal"><i
                                 class='bx bx-add-to-queue mr-1'></i>Add Task
@@ -73,7 +73,7 @@
                                                 <label for="type" class="col-md-2 col-form-label ">Type <span
                                                         class="text-danger">*</span></label>
                                                 <div class="col-md-5">
-                                                    <select  class="form-select" name="type" id="type" required>
+                                                    <select class="form-select" name="type" id="type" required>
                                                         <option selected="" disabled>Choose...</option>
                                                         @foreach ($types as $type)
                                                             <option
@@ -208,9 +208,10 @@
                                                 <div class="col-md-5">
                                                     <select class="form-select" name="tester_1" id="tester_1">
                                                         @if($currentUser !=null)
-                                                        <option value="{{ $currentUser->id }}">{{ $currentUser->name }}
-                                                            (You)
-                                                        </option>
+                                                            <option
+                                                                value="{{ $currentUser->id }}">{{ $currentUser->name }}
+                                                                (You)
+                                                            </option>
                                                         @endif
                                                         @foreach ($users as $user)
                                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -320,14 +321,15 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
                                         </button>
-                                        <button type="submit" id="submitbtn" class="btn text-white" style="background-color: #754FFE;">
+                                        <button type="submit" id="submitbtn" class="btn text-white"
+                                                style="background-color: #754FFE;">
                                             Add Task
                                         </button>
                                     </div>
                                     </form>
                                     @if (count($errors) > 0)
                                         <script>
-                                            $( document ).ready(function() {
+                                            $(document).ready(function () {
                                                 $('#exampleModal').modal('show');
                                             });
                                         </script>
@@ -533,7 +535,7 @@
                                                 <th>Bugs</th>
                                             @endif
                                             @if($board_config-> link_to_result != null)
-                                                <th>Link To Result</th>
+                                                <th>LinkToResult</th>
                                             @endif
                                             @if($board_config-> test_plan != null)
                                                 <th>Test Plan</th>
@@ -782,39 +784,49 @@
                                                         <div style="margin-left: 15px!important;"
                                                              class="user-groups ms-auto">
                                                             @if($item-> tester_1 !=null || $item-> tester_1 !=0 )
-                                                                <img
-                                                                    src="{{ (!empty(\App\Models\User::find($item -> tester_1)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_1)->photo) : url('upload/no_image.jpg')}}"
-                                                                    width="35" height="35" class="rounded-circle"
-                                                                    title="{{\App\Models\User::find($item -> tester_1)-> name}}"
-                                                                    alt=""/>
+                                                                <a href="{{route('manager.details.user', $item-> tester_1)}}">
+                                                                    <img
+                                                                        src="{{ (!empty(\App\Models\User::find($item -> tester_1)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_1)->photo) : url('upload/no_image.jpg')}}"
+                                                                        width="35" height="35" class="rounded-circle"
+                                                                        title="{{\App\Models\User::find($item -> tester_1)-> name}}"
+                                                                        alt=""/>
+                                                                </a>
                                                             @endif
                                                             @if($item-> tester_2 !=null || $item-> tester_2 !=0 )
-                                                                <img
-                                                                    src="{{ (!empty(\App\Models\User::find($item -> tester_2)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_2)->photo) : url('upload/no_image.jpg')}}"
-                                                                    width="35" height="35" class="rounded-circle"
-                                                                    title="{{\App\Models\User::find($item -> tester_2)-> name}}"
-                                                                    alt=""/>
+                                                                <a href="{{route('manager.details.user', $item-> tester_2)}}">
+                                                                    <img
+                                                                        src="{{ (!empty(\App\Models\User::find($item -> tester_2)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_2)->photo) : url('upload/no_image.jpg')}}"
+                                                                        width="35" height="35" class="rounded-circle"
+                                                                        title="{{\App\Models\User::find($item -> tester_2)-> name}}"
+                                                                        alt=""/>
+                                                                </a>
                                                             @endif
                                                             @if($item-> tester_3 !=null || $item-> tester_3 !=0 )
-                                                                <img
-                                                                    src="{{ (!empty(\App\Models\User::find($item -> tester_3)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_3)->photo) : url('upload/no_image.jpg')}}"
-                                                                    width="35" height="35" class="rounded-circle"
-                                                                    title="{{\App\Models\User::find($item -> tester_3)-> name}}"
-                                                                    alt=""/>
+                                                                <a href="{{route('manager.details.user', $item-> tester_3)}}">
+                                                                    <img
+                                                                        src="{{ (!empty(\App\Models\User::find($item -> tester_3)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_3)->photo) : url('upload/no_image.jpg')}}"
+                                                                        width="35" height="35" class="rounded-circle"
+                                                                        title="{{\App\Models\User::find($item -> tester_3)-> name}}"
+                                                                        alt=""/>
+                                                                </a>
                                                             @endif
                                                             @if($item-> tester_4 !=null || $item-> tester_4 !=0 )
-                                                                <img
-                                                                    src="{{ (!empty(\App\Models\User::find($item -> tester_4)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_4)->photo) : url('upload/no_image.jpg')}}"
-                                                                    width="35" height="35" class="rounded-circle"
-                                                                    title="{{\App\Models\User::find($item -> tester_4)-> name}}"
-                                                                    alt=""/>
+                                                                <a href="{{route('manager.details.user', $item-> tester_4)}}">
+                                                                    <img
+                                                                        src="{{ (!empty(\App\Models\User::find($item -> tester_4)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_4)->photo) : url('upload/no_image.jpg')}}"
+                                                                        width="35" height="35" class="rounded-circle"
+                                                                        title="{{\App\Models\User::find($item -> tester_4)-> name}}"
+                                                                        alt=""/>
+                                                                </a>
                                                             @endif
                                                             @if($item-> tester_5 !=null || $item-> tester_5 !=0 )
-                                                                <img
-                                                                    src="{{ (!empty(\App\Models\User::find($item -> tester_1)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_5)->photo) : url('upload/no_image.jpg')}}"
-                                                                    width="35" height="35" class="rounded-circle"
-                                                                    title="{{\App\Models\User::find($item -> tester_5)-> name}}"
-                                                                    alt=""/>
+                                                                <a href="{{route('manager.details.user', $item-> tester_5)}}">
+                                                                    <img
+                                                                        src="{{ (!empty(\App\Models\User::find($item -> tester_1)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($item -> tester_5)->photo) : url('upload/no_image.jpg')}}"
+                                                                        width="35" height="35" class="rounded-circle"
+                                                                        title="{{\App\Models\User::find($item -> tester_5)-> name}}"
+                                                                        alt=""/>
+                                                                </a>
                                                             @endif
                                                         </div>
                                                     </td>
@@ -830,9 +842,6 @@
                                                                 class='bx bxs-copy text-info'></i></a>
                                                         @auth()
                                                             @if(Auth::user()->role ==='manager' || Auth::user() -> id == $item -> tester_1 )
-                                                                {{--                                                                <a href="{{ route('manager.edit.task',$item->id) }}"--}}
-                                                                {{--                                                                   title="Edit" class=""><i--}}
-                                                                {{--                                                                        class='bx bxs-edit text-primary'></i></a>--}}
                                                                 <a type="button" class="btn-sm btn-mute"
                                                                    data-bs-toggle="modal"
                                                                    data-bs-target="#edit{{$item->id}}"><i
@@ -1483,10 +1492,10 @@
                                                                         face="Calibri,sans-serif" size="2"><span
                                                                             style="font-size:11pt;color: black">
                                                                             @if($done -> jira_id != 'No ticket' && $done -> jira_id != '')
-                                                                            <a
-                                                                                href="{{$board_config -> jira_url}}{{$done -> jira_id}}"
-                                                                                target="_blank"
-                                                                                rel="noopener noreferrer">
+                                                                                <a
+                                                                                    href="{{$board_config -> jira_url}}{{$done -> jira_id}}"
+                                                                                    target="_blank"
+                                                                                    rel="noopener noreferrer">
                                                                                     {{$done -> jira_id}}
 
                                                                             </a>
@@ -1497,12 +1506,12 @@
                                                                             </a>
                                                                             @endif
                                                                                 <font
-                                                                                color="black"> - {{$done -> jira_summary}} - <b>{{strtoupper(\App\Models\TicketStatus::find($done -> ticket_status) -> name)}} @if($done -> link_to_result)
-                                                                                        - @endif</b> @if($done -> link_to_result)
-                                                                                    <b><a
-                                                                                            href="{{url($done -> link_to_result)}}"
-                                                                                            target="_blank"
-                                                                                            rel="noopener noreferrer">Link to result</a></b> @endif</font></span></font>
+                                                                                    color="black"> - {{$done -> jira_summary}} - <b>{{strtoupper(\App\Models\TicketStatus::find($done -> ticket_status) -> name)}} @if($done -> link_to_result)
+                                                                                            - @endif</b> @if($done -> link_to_result)
+                                                                                        <b><a
+                                                                                                href="{{url($done -> link_to_result)}}"
+                                                                                                target="_blank"
+                                                                                                rel="noopener noreferrer">Link to result</a></b> @endif</font></span></font>
                                                                 </div>
                                                             @endforeach
                                                         </div>
@@ -2552,9 +2561,8 @@
                                                 <div
                                                     class="d-md-flex d-grid align-items-center gap-3">
                                                     <button type="submit"
-                                                            class="btn btn-primary px-5"><i
-                                                            class='bx bx-add-to-queue mr-1'></i>Save
-                                                        Report Config
+                                                            class="btn btn-purple px-5"><i
+                                                            class='bx bx-save mr-1'></i>Save
                                                     </button>
                                                     <button type="reset"
                                                             class="btn btn-outline-secondary px-5">
@@ -3088,12 +3096,12 @@
                                                 <div
                                                     class="d-md-flex d-grid align-items-center gap-3">
                                                     <button type="submit"
-                                                            class="btn btn-primary px-5"><i
-                                                            class='bx bx-add-to-queue mr-1'></i>Save
+                                                            class="btn btn-purple px-3"><i
+                                                            class='bx bx-save mr-1'></i>Save
                                                         Config
                                                     </button>
                                                     <button type="reset"
-                                                            class="btn btn-outline-secondary px-5">
+                                                            class="btn btn-outline-secondary px-3">
                                                         <i
                                                             class='bx bx-reset mr-1'></i>Reset
                                                     </button>
@@ -3135,76 +3143,75 @@
             }
         }
     </script>
-{{--    <script>--}}
-{{--        $(document).ready(function () {--}}
-{{--            $('.status-toggle').on('change', function () {--}}
-{{--                var userId = $(this).data('user-id');--}}
-{{--                var isChecked = $(this).is(':checked');--}}
+    {{--    <script>--}}
+    {{--        $(document).ready(function () {--}}
+    {{--            $('.status-toggle').on('change', function () {--}}
+    {{--                var userId = $(this).data('user-id');--}}
+    {{--                var isChecked = $(this).is(':checked');--}}
 
-{{--                // send an ajax request to update status--}}
+    {{--                // send an ajax request to update status--}}
 
-{{--                $.ajax({--}}
-{{--                    url: "{{ route('manager.update.user.status') }}",--}}
-{{--                    method: "POST",--}}
-{{--                    data: {--}}
-{{--                        user_id: userId,--}}
-{{--                        is_checked: isChecked ? 1 : 0,--}}
-{{--                        _token: "{{ csrf_token() }}"--}}
-{{--                    },--}}
-{{--                    success: function (response) {--}}
-{{--                        toastr.success(response.message);--}}
-{{--                        window.setTimeout(function () {--}}
-{{--                            location.reload();--}}
-{{--                        }, 2000);--}}
+    {{--                $.ajax({--}}
+    {{--                    url: "{{ route('manager.update.user.status') }}",--}}
+    {{--                    method: "POST",--}}
+    {{--                    data: {--}}
+    {{--                        user_id: userId,--}}
+    {{--                        is_checked: isChecked ? 1 : 0,--}}
+    {{--                        _token: "{{ csrf_token() }}"--}}
+    {{--                    },--}}
+    {{--                    success: function (response) {--}}
+    {{--                        toastr.success(response.message);--}}
+    {{--                        window.setTimeout(function () {--}}
+    {{--                            location.reload();--}}
+    {{--                        }, 2000);--}}
 
-{{--                    },--}}
-{{--                    error: function () {--}}
+    {{--                    },--}}
+    {{--                    error: function () {--}}
 
-{{--                    }--}}
-{{--                });--}}
+    {{--                    }--}}
+    {{--                });--}}
 
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--    <script>--}}
-{{--        $("#submitbtn").click(function (event) {--}}
-{{--            event.preventDefault();--}}
-{{--            var data = $("#myForm").serialize();--}}
-{{--            console.log(data);--}}
-{{--            $.ajax({--}}
-{{--                type: "post",--}}
-{{--                url: "{{ route('manager.tasks.save') }}",--}}
-{{--                data: data,--}}
-{{--                success: function (data) {--}}
-{{--                    toastr.success(response.message);--}}
-{{--                },--}}
-{{--                error: function (data) {--}}
-{{--                    // Android.passParams(url);--}}
-{{--                }--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
+    {{--            });--}}
+    {{--        });--}}
+    {{--    </script>--}}
+    {{--    <script>--}}
+    {{--        $("#submitbtn").click(function (event) {--}}
+    {{--            event.preventDefault();--}}
+    {{--            var data = $("#myForm").serialize();--}}
+    {{--            console.log(data);--}}
+    {{--            $.ajax({--}}
+    {{--                type: "post",--}}
+    {{--                url: "{{ route('manager.tasks.save') }}",--}}
+    {{--                data: data,--}}
+    {{--                success: function (data) {--}}
+    {{--                    toastr.success(response.message);--}}
+    {{--                },--}}
+    {{--                error: function (data) {--}}
+    {{--                    // Android.passParams(url);--}}
+    {{--                }--}}
+    {{--            });--}}
+    {{--        });--}}
+    {{--    </script>--}}
     <script>
-        $('#type').change(function(e){
-            if($(this).val() == "1"){
-                $("#working_status option[value='1']").prop('disabled',true);
-                $("#link_to_result").prop('disabled',true);
-                $("#ticket_status option[value='1']").prop('disabled',true);
-                $("#ticket_status option[value='2']").prop('disabled',true);
-                $("#ticket_status option[value='3']").prop('disabled',true);
-                $("#ticket_status option[value='4']").prop('disabled',true);
-                $("#ticket_status option[value='5']").prop('disabled',true);
-                $("#ticket_status option[value='6']").prop('disabled',true);
-            }
-            else {
-                $("#working_status option[value='1']").prop('disabled',false);
-                $("#ticket_status option[value='1']").prop('disabled',false);
-                $("#ticket_status option[value='2']").prop('disabled',false);
-                $("#ticket_status option[value='3']").prop('disabled',false);
-                $("#ticket_status option[value='4']").prop('disabled',false);
-                $("#ticket_status option[value='5']").prop('disabled',false);
-                $("#ticket_status option[value='6']").prop('disabled',false);
-                $("#link_to_result").prop('disabled',false);
+        $('#type').change(function (e) {
+            if ($(this).val() == "1") {
+                $("#working_status option[value='1']").prop('disabled', true);
+                $("#link_to_result").prop('disabled', true);
+                $("#ticket_status option[value='1']").prop('disabled', true);
+                $("#ticket_status option[value='2']").prop('disabled', true);
+                $("#ticket_status option[value='3']").prop('disabled', true);
+                $("#ticket_status option[value='4']").prop('disabled', true);
+                $("#ticket_status option[value='5']").prop('disabled', true);
+                $("#ticket_status option[value='6']").prop('disabled', true);
+            } else {
+                $("#working_status option[value='1']").prop('disabled', false);
+                $("#ticket_status option[value='1']").prop('disabled', false);
+                $("#ticket_status option[value='2']").prop('disabled', false);
+                $("#ticket_status option[value='3']").prop('disabled', false);
+                $("#ticket_status option[value='4']").prop('disabled', false);
+                $("#ticket_status option[value='5']").prop('disabled', false);
+                $("#ticket_status option[value='6']").prop('disabled', false);
+                $("#link_to_result").prop('disabled', false);
             }
         });
     </script>

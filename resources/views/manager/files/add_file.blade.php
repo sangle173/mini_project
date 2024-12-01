@@ -21,13 +21,43 @@
         </div>
         <div class="ms-auto">
             <div class="btn-group">
+                <div class="row row-cols-auto g-3">
+                    <div class="col">
+                        <button type="button" class="btn btn-outline-secondary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampleModal"><i
+                                class='bx bx-link-external mr-1'></i>QR Code
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">QR Code</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <{!! $simple !!}</a>
+                                        <p>{{$result}}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end row-->
             </div>
         </div>
     </div>
     <!--end breadcrumb-->
     <div class="row">
         <div class="col-xl-12 mx-auto">
-            <hr/>
             <div class="card">
                 <div class="card-body">
                     <form id="myForm" action="{{ route('user.uploadfile.post') }}" method="post" class="row g-3"
@@ -57,7 +87,7 @@
     </div>
     <div class="card">
         <div class="card-body">
-            <div class="row">
+            <div class=" d-none d-sm-flex align-items-center mb-3">
                 <form id="myForm" action="{{ route('upload.files.user') }}" method="get" class="row"
                       style="margin-bottom: 10px">
                     @if ($errors->any())
@@ -80,6 +110,41 @@
                         <button class="btn btn-success" type="submit">Change</button>
                     </div>
                 </form>
+                <div class="ms-auto">
+                    @auth()
+                        @if(Auth::user()->role ==='manager' || Auth::user() -> id == $item -> user_id )
+
+                            <button type="button" class="btn btn-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteAll">Delete All
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="deleteAll" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-danger text-white">
+                                            <h5 class="modal-title" id="exampleModalLabel">Delete Files</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Do you want to delete all of files?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <a title="Delete All" href="{{ route('delete.fileall',$user->id) }}"
+                                               type="button" class="btn btn-danger">Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endauth
+                </div>
             </div>
             <div class="table-responsive">
                 <table id="example" class="table table-striped table-bordered">
@@ -88,9 +153,9 @@
                         <th width="1.5%">#</th>
                         <th>File</th>
                         <th width="5%">Download</th>
-                        <th>Uploaded by</th>
-                        <th>Uploaded at</th>
-                        <th>Action</th>
+                        <th style="width: 10%!important;">Uploaded by</th>
+                        <th style="width: 10%!important;">Uploaded at</th>
+                        <th style="width: 5%!important;">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -270,7 +335,7 @@
                                     @auth()
                                         @if(Auth::user()->role ==='manager' || Auth::user() -> id == $item -> user_id )
                                             <a href="{{ route('delete.file',$item->id) }}"
-                                               id="Delete"
+                                               id="delete"
                                                title="delete" class=""><i
                                                     class='bx bxs-trash text-danger'></i></a>
                                         @endif

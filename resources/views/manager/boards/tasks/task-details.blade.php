@@ -38,7 +38,7 @@
                                 <a class="nav-link" data-bs-toggle="tab" href="#primaryprofile" role="tab"
                                    aria-selected="false">
                                     <div class="d-flex align-items-center">
-                                        <div class="tab-title">Histories</div>
+                                        <div class="tab-title">History</div>
                                     </div>
                                 </a>
                             </li>
@@ -173,39 +173,49 @@
                                             <td>Testers</td>
                                             <td colspan="2">
                                                 @if($task-> tester_1 !=null || $task-> tester_1 !=0 )
-                                                    <div style="" class="chip chip-sm bg-light text-dark">
-                                                        <img
-                                                            src="{{ (!empty(\App\Models\User::find($task -> tester_1)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($task -> tester_1)->photo) : url('upload/no_image.jpg')}}"
-                                                            alt="Tester">{{\App\Models\User::find($task -> tester_1) -> name}}
-                                                    </div>
+                                                    <a href="{{route('manager.details.user', $task-> tester_1)}}">
+                                                        <div style="" class="chip chip-sm bg-light text-dark">
+                                                            <img
+                                                                src="{{ (!empty(\App\Models\User::find($task -> tester_1)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($task -> tester_1)->photo) : url('upload/no_image.jpg')}}"
+                                                                alt="Tester">{{\App\Models\User::find($task -> tester_1) -> name}}
+                                                        </div>
+                                                    </a>
                                                 @endif
                                                 @if($task-> tester_2 !=null || $task-> tester_2 !=0 )
-                                                    <div class="chip chip-sm bg-light text-dark">
-                                                        <img
-                                                            src="{{ (!empty(\App\Models\User::find($task -> tester_2)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($task -> tester_2)->photo) : url('upload/no_image.jpg')}}"
-                                                            alt="Tester">{{\App\Models\User::find($task -> tester_2) -> name}}
-                                                    </div>
+                                                    <a href="{{route('manager.details.user', $task-> tester_2)}}">
+                                                        <div class="chip chip-sm bg-light text-dark">
+                                                            <img
+                                                                src="{{ (!empty(\App\Models\User::find($task -> tester_2)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($task -> tester_2)->photo) : url('upload/no_image.jpg')}}"
+                                                                alt="Tester">{{\App\Models\User::find($task -> tester_2) -> name}}
+                                                        </div>
+                                                    </a>
                                                 @endif
                                                 @if($task-> tester_3 !=null || $task-> tester_3 !=0 )
-                                                    <div class="chip chip-sm bg-light text-dark">
-                                                        <img
-                                                            src="{{ (!empty(\App\Models\User::find($task -> tester_3)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($task -> tester_3)->photo) : url('upload/no_image.jpg')}}"
-                                                            alt="Tester">{{\App\Models\User::find($task -> tester_3) -> name}}
-                                                    </div>
+                                                    <a href="{{route('manager.details.user', $task-> tester_3)}}">
+                                                        <div class="chip chip-sm bg-light text-dark">
+                                                            <img
+                                                                src="{{ (!empty(\App\Models\User::find($task -> tester_3)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($task -> tester_3)->photo) : url('upload/no_image.jpg')}}"
+                                                                alt="Tester">{{\App\Models\User::find($task -> tester_3) -> name}}
+                                                        </div>
+                                                    </a>
                                                 @endif
                                                 @if($task-> tester_4 !=null || $task-> tester_4 !=0 )
-                                                    <div class="chip chip-sm bg-light text-dark">
-                                                        <img
-                                                            src="{{ (!empty(\App\Models\User::find($task -> tester_4)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($task -> tester_4)->photo) : url('upload/no_image.jpg')}}"
-                                                            alt="Tester">{{\App\Models\User::find($task -> tester_4) -> name}}
-                                                    </div>
+                                                    <a href="{{route('manager.details.user', $task-> tester_4)}}">
+                                                        <div class="chip chip-sm bg-light text-dark">
+                                                            <img
+                                                                src="{{ (!empty(\App\Models\User::find($task -> tester_4)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($task -> tester_4)->photo) : url('upload/no_image.jpg')}}"
+                                                                alt="Tester">{{\App\Models\User::find($task -> tester_4) -> name}}
+                                                        </div>
+                                                    </a>
                                                 @endif
                                                 @if($task-> tester_5 !=null || $task-> tester_5 !=0 )
-                                                    <div class="chip chip-sm bg-light text-dark">
-                                                        <img
-                                                            src="{{ (!empty(\App\Models\User::find($task -> tester_5)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($task -> tester_5)->photo) : url('upload/no_image.jpg')}}"
-                                                            alt="Tester">{{\App\Models\User::find($task -> tester_5) -> name}}
-                                                    </div>
+                                                    <a href="{{route('manager.details.user', $task-> tester_5)}}">
+                                                        <div class="chip chip-sm bg-light text-dark">
+                                                            <img
+                                                                src="{{ (!empty(\App\Models\User::find($task -> tester_5)->photo)) ? url('upload/manager_images/'.\App\Models\User::find($task -> tester_5)->photo) : url('upload/no_image.jpg')}}"
+                                                                alt="Tester">{{\App\Models\User::find($task -> tester_5) -> name}}
+                                                        </div>
+                                                    </a>
                                                 @endif
                                             </td>
                                         </tr>
@@ -428,8 +438,9 @@
                             <div class="tab-pane fade" id="primaryprofile" role="tabpanel">
                                 <ul class="list-group">
                                     @foreach ($task_histories as $key=> $item)
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">{{$item -> content}} <span class="">{{$item -> created_at}}</span>
-                                    </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">{{$item -> content}}
+                                            <span class="">{{$item -> created_at}}</span>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </div>

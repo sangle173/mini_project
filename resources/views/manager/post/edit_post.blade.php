@@ -37,25 +37,34 @@
                         @foreach ($blogcat as $cat)
                         <option value="{{ $cat->id }}" {{ $cat->id == $post->blogcat_id ? 'selected' : '' }} >{{ $cat->category_name }}</option>
                         @endforeach
-
+                        @error('blogcat_id')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </select>
                 </div>
 
                 <div class="form-group col-md-6">
                     <label for="input1" class="form-label">Post Title</label>
                     <input type="text" name="post_title" class="form-control" id="input1" value="{{ $post->post_title }}" >
+                    @error('post_title')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
-
-
 
                 <div class="form-group col-md-12">
                     <label for="input1" class="form-label">Post Description</label>
-                    <textarea name="long_descp" class="form-control" id="myeditorinstance">{!! $post->long_descp !!}</textarea>
+                    <textarea name="long_descp" class="form-control">{!! $post->long_descp !!}</textarea>
+                    @error('long_descp')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="form-group col-md-6">
                     <label for="input1" class="form-label">Post Tags</label>
                     <input type="text" name="post_tags" class="form-control" data-role="tagsinput" value="{{ $post->post_tags }}">
+                    @error('post_tags')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="col-md-6">
@@ -64,6 +73,9 @@
                 <div class="form-group col-md-6">
                     <label for="input2" class="form-label">Post Image </label>
                     <input class="form-control" name="post_image" type="file" id="image">
+                    @error('post_image')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="col-md-6">

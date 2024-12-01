@@ -22,7 +22,6 @@ class QRcodeGenerateController extends Controller
         $qrCodes['simple'] =
             QrCode::size(450)->generate($result);
         return view('manager.qrcode_result', $qrCodes);
-
     }
 
 }

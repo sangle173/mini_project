@@ -10,7 +10,7 @@
 
     <div class="page-content">
         <!--breadcrumb-->
-        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class=" d-none d-sm-flex align-items-center mb-3">
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
@@ -37,7 +37,7 @@
                         <tr>
                             <th>#</th>
                             <th>Team Name</th>
-                            <th>Desc</th>
+                            <th>Color</th>
                             <th>Updated at</th>
                             <th>Action</th>
                         </tr>

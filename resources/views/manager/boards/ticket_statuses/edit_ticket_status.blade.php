@@ -4,7 +4,7 @@
 
     <div class="page-content">
         <!--breadcrumb-->
-        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class=" d-none d-sm-flex align-items-center mb-3">
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="desc" class="col-sm-3 col-form-label">Description</label>
+                            <label for="desc" class="col-sm-3 col-form-label">Color</label>
                             <div class="col-sm-9">
                                 <div class="position-relative input-icon">
                                     <input type="text" class="form-control" name="desc"

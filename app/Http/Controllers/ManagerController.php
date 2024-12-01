@@ -42,6 +42,11 @@ class ManagerController extends Controller
         return view('manager.manager_profile_view', compact('profileData'));
     }// End Method
 
+    public function ShowUser($id)
+    {
+        $user = User::find($id);
+        return view('manager.users.user_view', compact('user'));
+    }
 
     public function ManagerProfileStore(Request $request)
     {

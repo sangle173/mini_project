@@ -19,7 +19,7 @@
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Add Blog Post</li>
+                    <li class="breadcrumb-item active" aria-current="page">Add Blog</li>
                 </ol>
             </nav>
         </div>
@@ -36,30 +36,40 @@
                 <div class="form-group col-md-6">
                     <label for="input1" class="form-label">Blog Category </label>
                     <select name="blogcat_id" class="form-select mb-3" aria-label="Default select example">
-                        <option selected="">Open this select menu</option>
+                        <option selected="">Select Category</option>
                         @foreach ($blogcat as $cat)
                         <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
                         @endforeach
-
                     </select>
+                    @error('blogcat_id')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="form-group col-md-6">
                     <label for="input1" class="form-label">Post Title</label>
                     <input type="text" name="post_title" class="form-control" id="input1"  >
+                    @error('post_title')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
 
 
-{{--                <div class="form-group col-md-12">--}}
-{{--                    <label for="input1" class="form-label">Post Description</label>--}}
-{{--                    <textarea name="long_descp" class="form-control" id="froala-editor"></textarea>--}}
-{{--                </div>--}}
-                <div id="froala-editor"> </div>
+                <div class="form-group col-md-12">
+                    <label for="input1" class="form-label">Post Description</label>
+                    <textarea name="long_descp" class="form-control"></textarea>
+                    @error('long_descp')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
 
                 <div class="form-group col-md-6">
                     <label for="input1" class="form-label">Post Tags</label>
                     <input type="text" name="post_tags" class="form-control" data-role="tagsinput" value="jQuery">
+                    @error('post_tags')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="col-md-6">
@@ -68,6 +78,9 @@
                 <div class="form-group col-md-6">
                     <label for="input2" class="form-label">Post Image </label>
                     <input class="form-control" name="post_image" type="file" id="image">
+                    @error('post_image')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="col-md-6">

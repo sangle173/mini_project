@@ -260,6 +260,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/manager/add/users', 'AddUser')->name('manager.add.users');
         Route::post('/manager/save-user/', 'SaveUser')->name('manager.save-user');
         Route::get('/manager/edit/user/{id}', 'EditUser')->name('manager.edit.user');
+        Route::get('/manager/details/user/{id}', 'ShowUser')->name('manager.details.user');
         Route::post('/manager/update/user', 'UpdateUser')->name('manager.update-user');
         Route::get('/manager/delete/user/{id}', 'DeleteUser')->name('manager.delete.user');
 
@@ -364,6 +365,7 @@ Route::controller(FileController::class)->group(function () {
 
     Route::post('/store/file', 'StoreFile')->name('store.file');
     Route::get('/delete/file/{id}', 'destroy')->name('delete.file');
+    Route::get('/delete/file_all/{id}', 'destroyAll')->name('delete.fileall');
     Route::post('/update/file/status', 'UpdateFileStatus')->name('update.file.status');
     Route::get('/upload/files/', 'show')->name('upload.files');
     Route::get('/upload/file/user', 'UploadFileByUserId')->name('upload.files.user');

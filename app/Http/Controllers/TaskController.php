@@ -64,7 +64,7 @@ class TaskController extends Controller
         $board = Board::find($id);
         $board_config = BoardConfig::find($board->board_config_id);
         $teams = Team::latest()->get();
-        $types = Type::latest()->get();
+        $types = $id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get(): Type::whereNotIn('id', [1, 2, 3])->latest()->get();
         $working_statuses = WorkingStatus::latest()->get();
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
@@ -198,7 +198,7 @@ class TaskController extends Controller
         $board = Board::find($task->board_id);
         $board_config = BoardConfig::find($board->board_config_id);
         $teams = Team::latest()->get();
-        $types = Type::latest()->get();
+        $types = $id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get(): Type::whereNotIn('id', [1, 2, 3])->latest()->get();
         $working_statuses = WorkingStatus::latest()->get();
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
@@ -442,7 +442,7 @@ class TaskController extends Controller
             $no = 0;
         }
 
-        $types = Type::latest()->get();
+        $types = $request->board_id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get(): Type::whereNotIn('id', [1, 2, 3])->latest()->get();
         $boards = Board::latest()->get();
         $priorities = Priority::latest()->get();
         $users = User::whereNotIn('role', ['admin'])->orderBy('name')->get();

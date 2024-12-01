@@ -113,7 +113,7 @@ class BoardController extends Controller
         $today_tasks = Task::where('board_id', $board->id)->whereDate('created_at', Carbon::today())->latest()->get();
         $board_config = BoardConfig::find(Board::find($id)->board_config_id);
         $teams = Team::all()->sortBy('id');
-        $types = Type::latest()->get();
+        $types = $id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get(): Type::whereNotIn('id', [1, 2, 3])->latest()->get();
         $working_statuses = WorkingStatus::latest()->get();
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
@@ -262,7 +262,7 @@ class BoardController extends Controller
         $today_tasks = Task::where('board_id', $board->id)->whereDate('created_at', Carbon::today())->latest()->get();
         $board_config = BoardConfig::find(Board::find($request->board_id)->board_config_id);
         $teams = Team::latest()->get();
-        $types = Type::latest()->get();
+        $types = $request->board_id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get(): Type::whereNotIn('id', [1, 2, 3])->latest()->get();
         $working_statuses = WorkingStatus::latest()->get();
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();

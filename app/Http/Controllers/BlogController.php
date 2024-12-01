@@ -8,6 +8,7 @@ use App\Models\BlogCategory;
 use App\Models\BlogPost;
 use Intervention\Image\Facades\Image;
 use Carbon\Carbon;
+use function PHPUnit\Framework\result;
 
 class BlogController extends Controller
 {
@@ -97,7 +98,12 @@ class BlogController extends Controller
 
     public function StoreBlogPost(Request $request)
     {
-
+        $validated = $request->validate([
+            'blogcat_id' => 'required',
+            'post_title' => 'required',
+            'post_tags' => 'required',
+            'post_image' => 'required',
+        ]);
         $image = $request->file('post_image');
         $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
         Image::make($image)->resize(370, 247)->save('upload/post/' . $name_gen);
@@ -136,7 +142,11 @@ class BlogController extends Controller
     {
 
         $post_id = $request->id;
-
+        $validated = $request->validate([
+            'blogcat_id' => 'required',
+            'post_title' => 'required',
+            'post_tags' => 'required',
+        ]);
         if ($request->file('post_image')) {
 
             $image = $request->file('post_image');

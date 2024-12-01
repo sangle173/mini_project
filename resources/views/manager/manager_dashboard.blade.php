@@ -44,7 +44,12 @@
     <title>Project Management System </title>
     <style>
         body {
-            font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Fira Sans,Droid Sans,Helvetica Neue,sans-serif!important;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
+        }
+
+        .btn-purple {
+            background-color: #754FFE;
+            color: white;
         }
     </style>
 </head>

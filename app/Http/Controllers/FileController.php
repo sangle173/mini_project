@@ -9,6 +9,7 @@ use App\Models\File;
 use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateFileRequest;
 use App\Models\User;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class FileController extends Controller
 {
@@ -80,8 +81,9 @@ class FileController extends Controller
     public function destroyAll($userId)
     {
         $files = File::where('user_id',$userId)->latest()->get();
-        for ($i = 0; $i < $files; $i++) {
-            File::find($files[i] -> id)->delete();
+//        dd($files);
+        for ($i = 0; $i < count($files); $i++) {
+            File::find($files[$i] -> id)->delete();
         }  // end for
         $notification = array(
             'message' => 'Deleted All Files Successfully',
@@ -92,13 +94,19 @@ class FileController extends Controller
 
     public function UploadFileByUserId(Request $request)
     {
+//        dd($request);
         $request->validate([
             'user_id' => 'required',
         ]);
         $user = User::find($request->user_id);
         $users = User::latest()->get();
         $files = File::where('user_id', $request->user_id)->orderBy('id', 'desc')->get();
-        return view('manager.files.add_file', compact('user', 'users', 'files'));
+        $result = url()->full();
+//        dd($result);
+        $qrCodes = [];
+        $qrCodes['simple'] =
+            QrCode::size(450)->generate($result);
+        return view('manager.files.add_file', compact('user', 'users', 'files', 'result'),$qrCodes);
     }// End Method
 
 
