@@ -273,10 +273,16 @@
                                     @if($request -> unique_flag == 'on')
                                         <!-- Button trigger modal -->
                                             <a type="button" class="btn-sm btn-outline-info" data-bs-toggle="modal"
-                                               data-bs-target="#exampleExtraLargeModal">{{ $item->jira_id }} <i
-                                                    class='bx bx-history mr-1'></i></a>
+                                               data-bs-target="#exampleExtraLargeModal{{$item->jira_id}}">{{ $item->jira_id }}
+                                                @if( count(\App\Models\Task::getAllTaskWithSameJiraId($item -> id)) > 1 )
+                                                    <i
+                                                        class='bx bx-history mr-1'></i>
+                                                   {{count(\App\Models\Task::getAllTaskWithSameJiraId($item -> id))}}
+                                                @endif
+                                            </a>
                                             <!-- Modal -->
-                                            <div class="modal fade" id="exampleExtraLargeModal" tabindex="-1"
+                                            <div class="modal fade" id="exampleExtraLargeModal{{$item->jira_id}}"
+                                                 tabindex="-1"
                                                  aria-hidden="true">
                                                 <div class="modal-dialog modal-xl">
                                                     <div class="modal-content">
@@ -309,7 +315,7 @@
                                                                         <td><a target="_blank"
                                                                                href=" {{ url('https://jira.sonos.com/browse/'.$it->jira_id) }}">{{ $it->jira_id }}</a>
                                                                         </td>
-                                                                        <td>{{ $it->jira_summary }}</td>
+                                                                        <td>{{ \Illuminate\Support\Str::limit($it->jira_summary, 40, $end=' ...') }}</td>
                                                                         <td><span
                                                                                 class="badge bg-success rounded-pill">{{ $it->pass }}</span>
                                                                         </td>
