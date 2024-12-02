@@ -103,7 +103,7 @@
                                                     Id</label>
                                                 <div class="col-md-5">
                                                     <input type="text" class="form-control" name="jira_id" id="jira_id"
-                                                           placeholder="Enter Jira Id" value="{{ old('jira_id') }}">
+                                                           placeholder="Enter Jira Id">
                                                     @error('jira_id')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -117,7 +117,8 @@
                                                     <input type="text" class="form-control" name="jira_summary"
                                                            id="jira_summary"
                                                            placeholder="Enter Jira Summary"
-                                                           value="{{ old('jira_summary') }}" required>
+{{--                                                           value="{{ old('jira_summary') }}" required>--}}
+                                                          required>
                                                     @error('jira_summary')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror

@@ -158,7 +158,7 @@
                                                                    type="checkbox" id="unique_flag">
                                                         @else
                                                             <input class="form-check-input" name=unique_flag
-                                                                   type="checkbox" id="unique_flag" checked>
+                                                                   type="checkbox" id="unique_flag">
                                                         @endif
                                                         <label class="form-check-label" for="unique_flag">Remove
                                                             duplicate task</label>
