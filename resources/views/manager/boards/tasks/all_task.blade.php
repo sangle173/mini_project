@@ -27,7 +27,12 @@
                           enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" value="{{$tasks}}" name="tasks">
-                        <input type="hidden" value="{{$flag == 'on'? 1 : 0}}" name="flag">
+                        @if(isset($request))
+                            <input type="hidden" value="{{$flag == 'on'? 1 : 0}}" name="flag"/>
+                        @else
+                            <input type="hidden" value="0" name="flag"/>
+                        @endif
+
                         <button type="submit" class="btn btn-purple px-3"><i
                                 class='bx bxs-file-export mr-1'></i>Export-Excel
                         </button>
@@ -268,7 +273,7 @@
                                     @if($request -> unique_flag == 'on')
                                         <!-- Button trigger modal -->
                                             <a type="button" class="btn-sm btn-outline-info" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleExtraLargeModal">{{ $item->jira_id }} <i
+                                               data-bs-target="#exampleExtraLargeModal">{{ $item->jira_id }} <i
                                                     class='bx bx-history mr-1'></i></a>
                                             <!-- Modal -->
                                             <div class="modal fade" id="exampleExtraLargeModal" tabindex="-1"
