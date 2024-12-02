@@ -148,24 +148,47 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <label for="input22" class="form-label">
-                                                    Filter
+                                                    *
                                                 </label>
                                                 <div class="position-relative input-icon">
-                                                    <div class="col-md-12">
-                                                        <div class="d-md-flex d-grid align-items-center gap-3">
-                                                            @if(isset($request))
-                                                                <button type="submit" class="btn" style="background-color: #FFE800">Filtered</button>
-                                                            @else
-                                                                <button type="submit" class="btn" style="background-color: #FFE800">Filter</button>
-                                                            @endif
-                                                            <a href="{{route('manager.tasks', $board-> id)}}" --}}
-                                                               class="btn btn-secondary" type="reset">
-                                                                Reset
-                                                            </a>
-                                                        </div>
+                                                    <div class="form-check">
+                                                        @if(isset($request))
+                                                            <input class="form-check-input"
+                                                                   {{$request -> unique_flag == 'on'? 'checked': '' }} name=unique_flag
+                                                                   type="checkbox" id="unique_flag">
+                                                        @else
+                                                            <input class="form-check-input" name=unique_flag
+                                                                   type="checkbox" id="unique_flag" checked>
+                                                        @endif
+                                                        <label class="form-check-label" for="unique_flag">Remove
+                                                            duplicate task</label>
                                                     </div>
                                                 </div>
                                             </div><!---end row-->
+                                        </div>
+                                        <div class="row">
+                                            <label for="input22" class="form-label">
+                                                Filter
+                                            </label>
+                                            <div class="position-relative input-icon">
+                                                <div class="col-md-12">
+                                                    <div class="d-md-flex d-grid align-items-center gap-3">
+                                                        @if(isset($request))
+                                                            <button type="submit" class="btn"
+                                                                    style="background-color: #FFE800">Filtered
+                                                            </button>
+                                                        @else
+                                                            <button type="submit" class="btn"
+                                                                    style="background-color: #FFE800">Filter
+                                                            </button>
+                                                        @endif
+                                                        <a href="{{route('manager.tasks', $board-> id)}}" --}}
+                                                           class="btn btn-secondary" type="reset">
+                                                            Reset
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
@@ -200,6 +223,9 @@
                             <th>Test Plan</th>
                             <th>Sprint</th>
                             <th>Note</th>
+                            <th>Pass TC</th>
+                            <th>Fail TC</th>
+                            <th>Total TC</th>
                             <th>Tester 1</th>
                             <th>Tester 2</th>
                             <th>Tester 3</th>
@@ -268,12 +294,30 @@
                                     <a target="_blank"
                                        href="{{ url('https://sonos.testrail.com/index.php?/plans/view/'.$item->test_plan) }}">{{$item->test_plan}}</a>
                                 </td>
+
                                 <td>
                                     {{ $item->sprint }}
                                 </td>
                                 <td>
                                     {{ $item->note }}
                                 </td>
+                                <td>
+                                    @if($item->pass !=0)
+                                        <span class="badge bg-success rounded-pill">{{ $item->pass }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($item->fail !=0)
+                                        <span class="badge bg-danger rounded-pill">{{ $item->fail }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($item->fail !=0 && $item->pass !=0)
+                                        <span
+                                            class="badge bg-primary rounded-pill">{{ $item->fail + $item->pass }}</span>
+                                    @endif
+                                </td>
+
                                 <td>{{ \App\Models\User::find($item-> tester_1) -> name }}</td>
                                 <td>
                                     @if($item-> tester_2 !=null)

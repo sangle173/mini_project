@@ -40,7 +40,7 @@ class TasksExport implements FromCollection, WithHeadings, WithMapping, OnEachRo
 
     public function headings(): array
     {
-        return ['#', 'Board', 'Team', 'Type', 'Jira ID', 'Jira Summary', 'Working Status', 'Ticket Status', 'Link To Result', 'Test Plan', 'Sprint', 'Note', 'Priority', 'Tester 1', 'Tester 2', 'Tester 3', 'Tester 4', 'Tester 5', 'Review Status', 'Review Content', 'Created at'];
+        return ['#', 'Board', 'Team', 'Type', 'Jira ID', 'Jira Summary', 'Working Status', 'Ticket Status', 'Link To Result', 'Test Plan', 'Sprint', 'Note', 'Priority', 'Pass TC', 'Fail TC', 'Total TC', 'Tester 1', 'Tester 2', 'Tester 3', 'Tester 4', 'Tester 5', 'Review Status', 'Review Content', 'Created at'];
     }
 
 
@@ -66,6 +66,9 @@ class TasksExport implements FromCollection, WithHeadings, WithMapping, OnEachRo
             $row->sprint,
             $row->note,
             $row->priority != null ? Priority::find($row->priority)->name : '',
+            $row->pass != null ? $row->pass : '',
+            $row->fail != null ? $row->fail : '',
+            $row->pass + $row->fail,
             $row->tester_1 != null ? User::find($row->tester_1)->name : '',
             $row->tester_2 != null ? User::find($row->tester_2)->name : '',
             $row->tester_3 != null ? User::find($row->tester_3)->name : '',

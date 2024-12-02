@@ -64,7 +64,7 @@ class TaskController extends Controller
         $board = Board::find($id);
         $board_config = BoardConfig::find($board->board_config_id);
         $teams = Team::latest()->get();
-        $types = $id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get(): Type::whereNotIn('id', [1, 2, 3])->latest()->get();
+        $types = $id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get() : Type::whereNotIn('id', [1, 2, 3])->latest()->get();
         $working_statuses = WorkingStatus::latest()->get();
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
@@ -119,7 +119,7 @@ class TaskController extends Controller
 
         $task_history_id = TaskHistory::insertGetId([
             'task_id' => $task_id,
-            'content' => Auth::user() -> name." created task",
+            'content' => Auth::user()->name . " created task",
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
@@ -127,7 +127,7 @@ class TaskController extends Controller
             'message' => 'Ticket Created Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->back()->withInput() -> with($notification);
+        return redirect()->back()->withInput()->with($notification);
     }
 
     public function update_status(Request $request)
@@ -177,7 +177,7 @@ class TaskController extends Controller
 
         $task_history_id = TaskHistory::insertGetId([
             'task_id' => $request->task_id,
-            'content' => Auth::user() -> name." added a comment",
+            'content' => Auth::user()->name . " added a comment",
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
@@ -198,7 +198,7 @@ class TaskController extends Controller
         $board = Board::find($task->board_id);
         $board_config = BoardConfig::find($board->board_config_id);
         $teams = Team::latest()->get();
-        $types = $id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get(): Type::whereNotIn('id', [1, 2, 3])->latest()->get();
+        $types = $id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get() : Type::whereNotIn('id', [1, 2, 3])->latest()->get();
         $working_statuses = WorkingStatus::latest()->get();
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
@@ -262,8 +262,8 @@ class TaskController extends Controller
         //        dd($request);
 
         $task_history_id = TaskHistory::insertGetId([
-            'task_id' => $request-> task_id,
-            'content' => Auth::user() -> name." updated task",
+            'task_id' => $request->task_id,
+            'content' => Auth::user()->name . " updated task",
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
@@ -321,8 +321,8 @@ class TaskController extends Controller
         ]);
 
         $task_history_id = TaskHistory::insertGetId([
-            'task_id' => $request-> task_id,
-            'content' => Auth::user() -> name." cloned task",
+            'task_id' => $request->task_id,
+            'content' => Auth::user()->name . " cloned task",
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
         $notification = array(
@@ -345,7 +345,7 @@ class TaskController extends Controller
 
         $task_history_id = TaskHistory::insertGetId([
             'task_id' => $id,
-            'content' => Auth::user() -> name." deleted task",
+            'content' => Auth::user()->name . " deleted task",
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
@@ -442,7 +442,7 @@ class TaskController extends Controller
             $no = 0;
         }
 
-        $types = $request->board_id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get(): Type::whereNotIn('id', [1, 2, 3])->latest()->get();
+        $types = $request->board_id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get() : Type::whereNotIn('id', [1, 2, 3])->latest()->get();
         $boards = Board::latest()->get();
         $priorities = Priority::latest()->get();
         $users = User::whereNotIn('role', ['admin'])->orderBy('name')->get();
@@ -470,6 +470,7 @@ class TaskController extends Controller
         $type = $request->type;
         $tester = $request->tester;
         $board = $request->board;
+        $flag = $request->unique_flag;
         $fromDate = new Carbon($request->from_date, 'Asia/Ho_Chi_Minh');
         $toDate = new Carbon($request->to_date, 'Asia/Ho_Chi_Minh');
         $toDate->addDays(1);
@@ -479,7 +480,7 @@ class TaskController extends Controller
 //            $join->on('tasks.jira_id', '=', 'latest_tasks.jira_id')
 //                ->on('tasks.updated_at', '=', 'latest_tasks.latest_update');
 //        })->get();
-        if ($type != null && $board == null && $tester == null) {
+        if ($type != null && $board == null && $tester == null && $flag == null) {
             $tasks = DB::table('tasks')
                 ->whereBetween('created_at', [$fromDate, $toDate])
                 ->where('type', $request->type)
@@ -487,7 +488,20 @@ class TaskController extends Controller
                 ->get();
             $no = 1;
         }
-        if ($type == null && $board != null && $tester == null) {
+        if ($type != null && $board == null && $tester == null && $flag != null) {
+            $tasks = DB::table('tasks')
+                ->whereBetween('created_at', [$fromDate, $toDate])
+                ->where('type', $request->type)
+                ->whereIn('id', function ($query) {
+                    $query->select(DB::raw('MAX(id)'))
+                        ->from('tasks')
+                        ->groupBy('jira_id');
+                })
+                ->latest()
+                ->get();
+            $no = 1;
+        }
+        if ($type == null && $board != null && $tester == null && $flag == null) {
             $tasks = DB::table('tasks')
                 ->whereBetween('created_at', [$fromDate, $toDate])
                 ->where('board_id', $request->board)
@@ -495,7 +509,20 @@ class TaskController extends Controller
                 ->get();
             $no = 1;
         }
-        if ($type == null && $board == null && $tester != null) {
+        if ($type == null && $board != null && $tester == null && $flag != null) {
+            $tasks = DB::table('tasks')
+                ->whereBetween('created_at', [$fromDate, $toDate])
+                ->where('board_id', $request->board)
+                ->latest()
+                ->whereIn('id', function ($query) {
+                    $query->select(DB::raw('MAX(id)'))
+                        ->from('tasks')
+                        ->groupBy('jira_id');
+                })
+                ->get();
+            $no = 1;
+        }
+        if ($type == null && $board == null && $tester != null && $flag == null) {
             $tasks = DB::table('tasks')
                 ->whereBetween('created_at', [$fromDate, $toDate])
                 ->where('tester_1', $request->tester)
@@ -503,7 +530,20 @@ class TaskController extends Controller
                 ->get();
             $no = 1;
         }
-        if ($type != null && $board != null && $tester != null) {
+        if ($type == null && $board == null && $tester != null && $flag != null) {
+            $tasks = DB::table('tasks')
+                ->whereBetween('created_at', [$fromDate, $toDate])
+                ->where('tester_1', $request->tester)
+                ->whereIn('id', function ($query) {
+                    $query->select(DB::raw('MAX(id)'))
+                        ->from('tasks')
+                        ->groupBy('jira_id');
+                })
+                ->latest()
+                ->get();
+            $no = 1;
+        }
+        if ($type != null && $board != null && $tester != null && $flag == null) {
             $tasks = DB::table('tasks')
                 ->whereBetween('created_at', [$fromDate, $toDate])
                 ->where('board_id', $request->board)
@@ -514,7 +554,23 @@ class TaskController extends Controller
             $no = 3;
         }
 
-        if ($type != null && $board != null && $tester == null) {
+        if ($type != null && $board != null && $tester != null && $flag != null) {
+            $tasks = DB::table('tasks')
+                ->whereBetween('created_at', [$fromDate, $toDate])
+                ->where('board_id', $request->board)
+                ->where('type', $request->type)
+                ->where('tester_1', $request->tester)
+                ->whereIn('id', function ($query) {
+                    $query->select(DB::raw('MAX(id)'))
+                        ->from('tasks')
+                        ->groupBy('jira_id');
+                })
+                ->latest()
+                ->get();
+            $no = 3;
+        }
+
+        if ($type != null && $board != null && $tester == null  && $flag == null) {
             $tasks = DB::table('tasks')
                 ->whereBetween('created_at', [$fromDate, $toDate])
                 ->where('board_id', $request->board)
@@ -523,7 +579,22 @@ class TaskController extends Controller
                 ->get();
             $no = 2;
         }
-        if ($type == null && $board != null && $tester != null) {
+
+        if ($type != null && $board != null && $tester == null   && $flag != null) {
+            $tasks = DB::table('tasks')
+                ->whereBetween('created_at', [$fromDate, $toDate])
+                ->where('board_id', $request->board)
+                ->where('type', $request->type)
+                ->whereIn('id', function ($query) {
+                    $query->select(DB::raw('MAX(id)'))
+                        ->from('tasks')
+                        ->groupBy('jira_id');
+                })
+                ->latest()
+                ->get();
+            $no = 2;
+        }
+        if ($type == null && $board != null && $tester != null && $flag == null) {
             $tasks = DB::table('tasks')
                 ->whereBetween('created_at', [$fromDate, $toDate])
                 ->where('board_id', $request->board)
@@ -532,7 +603,21 @@ class TaskController extends Controller
                 ->get();
             $no = 2;
         }
-        if ($type != null && $board == null && $tester != null) {
+        if ($type == null && $board != null && $tester != null && $flag != null) {
+            $tasks = DB::table('tasks')
+                ->whereBetween('created_at', [$fromDate, $toDate])
+                ->where('board_id', $request->board)
+                ->where('tester_1', $request->tester)
+                ->whereIn('id', function ($query) {
+                    $query->select(DB::raw('MAX(id)'))
+                        ->from('tasks')
+                        ->groupBy('jira_id');
+                })
+                ->latest()
+                ->get();
+            $no = 2;
+        }
+        if ($type != null && $board == null && $tester != null  && $flag == null) {
             $tasks = DB::table('tasks')
                 ->whereBetween('created_at', [$fromDate, $toDate])
                 ->where('type', $request->type)
@@ -542,9 +627,37 @@ class TaskController extends Controller
             $no = 2;
         }
 
-        if ($type == null && $board == null && $tester == null) {
+        if ($type != null && $board == null && $tester != null  && $flag != null) {
             $tasks = DB::table('tasks')
                 ->whereBetween('created_at', [$fromDate, $toDate])
+                ->where('type', $request->type)
+                ->where('tester_1', $request->tester)
+                ->whereIn('id', function ($query) {
+                    $query->select(DB::raw('MAX(id)'))
+                        ->from('tasks')
+                        ->groupBy('jira_id');
+                })
+                ->latest()
+                ->get();
+            $no = 2;
+        }
+
+        if ($type == null && $board == null && $tester == null && $flag == null) {
+            $tasks = DB::table('tasks')
+                ->whereBetween('created_at', [$fromDate, $toDate])
+                ->latest()
+                ->get();
+            $no = 0;
+        }
+
+        if ($type == null && $board == null && $tester == null && $flag != null) {
+            $tasks = DB::table('tasks')
+                ->whereBetween('created_at', [$fromDate, $toDate])
+                ->whereIn('id', function ($query) {
+                    $query->select(DB::raw('MAX(id)'))
+                        ->from('tasks')
+                        ->groupBy('jira_id');
+                })
                 ->latest()
                 ->get();
             $no = 0;
@@ -553,9 +666,6 @@ class TaskController extends Controller
 //        $uniqueTasks = $tasks->groupBy('jira_id')->map(function ($group) {
 //            return $group->sortByDesc('updated_at')->first(); // Get the latest task for each jira_id
 //        });
-//        dd($uniqueTasks);
-
-//        $tasks = $uniqueTasks;
         $types = Type::latest()->get();
         $boards = Board::latest()->get();
         $priorities = Priority::latest()->get();
@@ -563,7 +673,7 @@ class TaskController extends Controller
         $working_statuses = WorkingStatus::latest()->get();
         $board = Board::find($request->board);
         $teams = Team::all()->sortBy('id');
-        return view('manager.boards.tasks.all_task', compact('types', 'boards', 'no', 'working_statuses', 'priorities', 'request', 'users', 'tasks', 'board', 'teams'));
+        return view('manager.boards.tasks.all_task', compact('types', 'flag', 'boards', 'no', 'working_statuses', 'priorities', 'request', 'users', 'tasks', 'board', 'teams'));
     }
 
     public function filter2(Request $request)
@@ -704,8 +814,8 @@ class TaskController extends Controller
         ]);
 
         $task_history_id = TaskHistory::insertGetId([
-            'task_id' => $request-> task_id,
-            'content' => Auth::user() -> name." addded a sub bug",
+            'task_id' => $request->task_id,
+            'content' => Auth::user()->name . " addded a sub bug",
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
@@ -737,7 +847,7 @@ class TaskController extends Controller
 
         $task_history_id = TaskHistory::insertGetId([
             'task_id' => $request->sub_task_id,
-            'content' => Auth::user() -> name." updated sub bug",
+            'content' => Auth::user()->name . " updated sub bug",
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
@@ -771,7 +881,7 @@ class TaskController extends Controller
         ]);
         $task_history_id = TaskHistory::insertGetId([
             'task_id' => $request->task_id,
-            'content' => Auth::user() -> name." updated working status from ". WorkingStatus::find(Task::find($id)-> working_status) -> name." to ".WorkingStatus::find($request->working_status) -> name ,
+            'content' => Auth::user()->name . " updated working status from " . WorkingStatus::find(Task::find($id)->working_status)->name . " to " . WorkingStatus::find($request->working_status)->name,
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
@@ -795,7 +905,7 @@ class TaskController extends Controller
         ]);
         $task_history_id = TaskHistory::insertGetId([
             'task_id' => $request->task_id,
-            'content' => Auth::user() -> name." updated ticket status from ". TicketStatus::find(Task::find($id)-> ticket_status) -> name." to ".TicketStatus::find($request->ticket_status) -> name ,
+            'content' => Auth::user()->name . " updated ticket status from " . TicketStatus::find(Task::find($id)->ticket_status)->name . " to " . TicketStatus::find($request->ticket_status)->name,
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
