@@ -27,18 +27,19 @@
                           enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" value="{{$tasks}}" name="tasks">
-                        <button type="submit" class="btn btn-info px-3"><i
+                        <input type="hidden" value="{{$flag == 'on'? 1 : 0}}" name="flag">
+                        <button type="submit" class="btn btn-purple px-3"><i
                                 class='bx bxs-file-export mr-1'></i>Export-Excel
                         </button>
                     </form>
-                    <form id="myForm2" style="margin-left: 2px" action="{{ route('manager.task.export.html') }}"
-                          method="post" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" value="{{$tasks}}" name="tasks">
-                        <button type="submit" class="btn btn-secondary px-3"><i
-                                class='bx bxs-file-html mr-1'></i>Export-Html
-                        </button>
-                    </form>
+                    {{--                    <form id="myForm2" style="margin-left: 2px" action="{{ route('manager.task.export.html') }}"--}}
+                    {{--                          method="post" enctype="multipart/form-data">--}}
+                    {{--                        @csrf--}}
+                    {{--                        <input type="hidden" value="{{$tasks}}" name="tasks">--}}
+                    {{--                        <button type="submit" class="btn btn-secondary px-3"><i--}}
+                    {{--                                class='bx bxs-file-html mr-1'></i>Export-Html--}}
+                    {{--                        </button>--}}
+                    {{--                    </form>--}}
                     {{--                    <form id="myForm2" style="margin-left: 2px" action="{{ route('manager.task.export.pdf') }}"--}}
                     {{--                          method="get">--}}
                     {{--                        <input type="hidden" value="{{$tasks}}" name="tasks">--}}
@@ -75,7 +76,9 @@
                                                                name="from_date"
                                                                class="form-control">
                                                     @else
-                                                        <input class="form-control" type="date" name="from_date">
+                                                        <input class="form-control"
+                                                               value="<?php echo date('Y-m-01'); ?>" type="date"
+                                                               name="from_date">
                                                     @endif
                                                     @error('from_date')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -90,7 +93,8 @@
                                                                name="to_date"
                                                                class="form-control">
                                                     @else
-                                                        <input class="form-control" type="date" name="to_date">
+                                                        <input class="form-control" value="<?php echo date('Y-m-t'); ?>"
+                                                               type="date" name="to_date">
                                                     @endif
                                                     @error('to_date')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -260,8 +264,80 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a target="_blank"
-                                       href=" {{ url('https://jira.sonos.com/browse/'.$item->jira_id) }}">{{ $item->jira_id }}</a>
+                                @if(isset($request))
+                                    @if($request -> unique_flag == 'on')
+                                        <!-- Button trigger modal -->
+                                            <a type="button" class="btn-sm btn-outline-info" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleExtraLargeModal">{{ $item->jira_id }} <i
+                                                    class='bx bx-history mr-1'></i></a>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleExtraLargeModal" tabindex="-1"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog modal-xl">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Task History</h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table id="example"
+                                                                   class="table table-striped table-bordered"
+                                                                   style="width:100%">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Jira ID</th>
+                                                                    <th>Jira Summary</th>
+                                                                    <th>Test Case Pass</th>
+                                                                    <th>Test Case Fail</th>
+                                                                    <th>Total Test Case</th>
+                                                                    <th>Update At</th>
+                                                                    <th>Created At</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                                                                @foreach (\App\Models\Task::getAllTaskWithSameJiraId($item -> id) as $key=> $it)
+                                                                    <tr>
+                                                                        <td>{{ $key+1 }}</td>
+                                                                        <td><a target="_blank"
+                                                                               href=" {{ url('https://jira.sonos.com/browse/'.$it->jira_id) }}">{{ $it->jira_id }}</a>
+                                                                        </td>
+                                                                        <td>{{ $it->jira_summary }}</td>
+                                                                        <td><span
+                                                                                class="badge bg-success rounded-pill">{{ $it->pass }}</span>
+                                                                        </td>
+                                                                        <td><span
+                                                                                class="badge bg-danger rounded-pill">{{ $item->fail }}</span>
+                                                                        </td>
+                                                                        <td><span
+                                                                                class="badge bg-primary rounded-pill">{{$it->pass + $it -> fail }}</span>
+                                                                        </td>
+                                                                        <td>{{$it -> created_at}}</td>
+                                                                        <td>{{$it -> updated_at}}</td>
+                                                                    </tr>
+                                                                @endforeach
+                                                                </tbody>
+
+                                                            </table>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <a target="_blank"
+                                               href=" {{ url('https://jira.sonos.com/browse/'.$item->jira_id) }}">{{ $item->jira_id }}</a>
+                                        @endif
+                                    @else
+                                        <a target="_blank"
+                                           href=" {{ url('https://jira.sonos.com/browse/'.$item->jira_id) }}">{{ $item->jira_id }}</a>
+                                    @endif
                                 </td>
                                 <td>
                                     {{ $item->jira_summary }}
@@ -302,19 +378,41 @@
                                     {{ $item->note }}
                                 </td>
                                 <td>
-                                    @if($item->pass !=0)
-                                        <span class="badge bg-success rounded-pill">{{ $item->pass }}</span>
+                                    @if(isset($request))
+                                        @if(\App\Models\Task::getTotalTesCasePassByTaskId($item -> id) !=0)
+                                            @if($request -> unique_flag == 'on')
+                                                <span
+                                                    class="badge bg-success rounded-pill">{{ \App\Models\Task::getTotalTesCasePassByTaskId($item -> id) }}</span>
+                                            @else
+                                                <span class="badge bg-success rounded-pill">{{ $item->pass }}</span>
+                                            @endif
+                                        @endif
+                                    @else
+                                        @if($item->pass !=0)
+                                            <span class="badge bg-success rounded-pill">{{ $item->pass }}</span>
+                                        @endif
                                     @endif
                                 </td>
                                 <td>
-                                    @if($item->fail !=0)
-                                        <span class="badge bg-danger rounded-pill">{{ $item->fail }}</span>
+                                    @if(isset($request))
+                                        @if(\App\Models\Task::getTotalTesCaseFailByTaskId($item -> id) !=0)
+                                            @if($request -> unique_flag == 'on')
+                                                <span
+                                                    class="badge bg-danger rounded-pill">{{ \App\Models\Task::getTotalTesCaseFailByTaskId($item -> id) }}</span>
+                                            @else
+                                                <span class="badge bg-danger rounded-pill">{{ $item->fail }}</span>
+                                            @endif
+                                        @endif
+                                    @else
+                                        @if($item->fail !=0)
+                                            <span class="badge bg-danger rounded-pill">{{ $item->fail }}</span>
+                                        @endif
                                     @endif
                                 </td>
                                 <td>
                                     @if($item->fail !=0 && $item->pass !=0)
                                         <span
-                                            class="badge bg-primary rounded-pill">{{ $item->fail + $item->pass }}</span>
+                                            class="badge bg-primary rounded-pill">{{ \App\Models\Task::getTotalTesCaseFailByTaskId($item -> id) +  \App\Models\Task::getTotalTesCasePassByTaskId($item -> id)}}</span>
                                     @endif
                                 </td>
 

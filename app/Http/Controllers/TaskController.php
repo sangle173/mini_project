@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\TasksExport;
+use App\Exports\TasksWithCountExport;
 use App\Models\Board;
 use App\Models\BoardConfig;
 use App\Models\Comment;
@@ -779,12 +780,17 @@ class TaskController extends Controller
     public function export(Request $request)
     {
         $tasks = json_decode($request->tasks);
+//        dd($request);
         $taskIdList = [];
         for ($i = 0; $i < count($tasks); $i++) {
             array_push($taskIdList, $tasks[$i]->id);
         }  // end for
         $tasks = DB::table('tasks')->whereIn('id', $taskIdList)->get();
-        return Excel::download(new TasksExport($tasks), 'tasks.xlsx');
+        if ($request-> flag == '1') {
+            return Excel::download(new TasksWithCountExport($tasks), 'tasks_with_remove_duplicate.xlsx');
+        } else {
+            return Excel::download(new TasksExport($tasks), 'tasks.xlsx');
+        }
     }
 
     public function create_sub_task($id)
