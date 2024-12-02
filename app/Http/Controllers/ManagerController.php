@@ -189,7 +189,7 @@ class ManagerController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users',
+//            'email' => 'required|email|unique:users',
             'role' => 'required',
         ]);
 
@@ -197,7 +197,7 @@ class ManagerController extends Controller
 
         User::find($id)->update([
             'name' => $request->name,
-            'email' => $request->email,
+//            'email' => $request->email,
             'username' => $request->email,
             'role' => $request->role,
             'phone' => $request->phone,

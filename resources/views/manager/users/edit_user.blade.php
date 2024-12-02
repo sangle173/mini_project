@@ -46,7 +46,7 @@
                             <label for="email" class="col-sm-3 col-form-label">Email Address</label>
                             <div class="col-sm-9">
                                 <div class="position-relative input-icon">
-                                    <input type="text" class="form-control" value="{{$user ->email}}" name="email" id="email"
+                                    <input disabled type="text" class="form-control" value="{{$user ->email}}" name="email" id="email"
                                            placeholder="Email Address">
                                     <span class="position-absolute top-50 translate-middle-y"><i
                                             class='bx bx-envelope'></i></span>
