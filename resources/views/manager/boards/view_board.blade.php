@@ -117,8 +117,8 @@
                                                     <input type="text" class="form-control" name="jira_summary"
                                                            id="jira_summary"
                                                            placeholder="Enter Jira Summary"
-{{--                                                           value="{{ old('jira_summary') }}" required>--}}
-                                                          required>
+                                                           {{--                                                           value="{{ old('jira_summary') }}" required>--}}
+                                                           required>
                                                     @error('jira_summary')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
