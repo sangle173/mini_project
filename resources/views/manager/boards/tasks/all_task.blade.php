@@ -415,9 +415,21 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if($item->fail !=0 && $item->pass !=0)
-                                        <span
-                                            class="badge bg-primary rounded-pill">{{ \App\Models\Task::getTotalTesCaseFailByTaskId($item -> id) +  \App\Models\Task::getTotalTesCasePassByTaskId($item -> id)}}</span>
+                                    @if(isset($request))
+                                        @if(\App\Models\Task::getTotalTesCaseFailByTaskId($item -> id) !=0)
+                                            @if($request -> unique_flag == 'on')
+                                                <span
+                                                    class="badge bg-primary rounded-pill">{{ \App\Models\Task::getTotalTesCaseFailByTaskId($item -> id) +  \App\Models\Task::getTotalTesCasePassByTaskId($item -> id)}}</span>
+                                            @else
+                                                <span
+                                                    class="badge bg-primary rounded-pill">{{ $item->pass + $item -> fail }}</span>
+                                            @endif
+                                        @endif
+                                    @else
+                                        @if($item->fail !=0)
+                                            <span
+                                                class="badge bg-primary rounded-pill">{{ $item->pass + $item -> fail }}</span>
+                                        @endif
                                     @endif
                                 </td>
 
