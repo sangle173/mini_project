@@ -83,9 +83,18 @@
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-
                                 </div>
                             </div>
+                        <div class="row mb-3">
+                            <label for="created_at" class="col-sm-3 col-form-label">Create Date</label>
+                            <div class="col-sm-9">
+                                <input type="date" class="form-control" name="created_at" id="created_at"
+                                       placeholder="Enter the created date ...">
+                                @error('created_at')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="row">
                             <label class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">

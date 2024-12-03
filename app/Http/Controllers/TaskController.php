@@ -816,7 +816,7 @@ class TaskController extends Controller
             'isSubBug' => '1',
             'tester_1' => Auth::user()->id,
             'task_slug' => strtolower(str_replace(' ', '-', $request->jira_id)),
-            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
+            'created_at' =>$request -> created_at != null ? $request -> created_at:  Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
         $task_history_id = TaskHistory::insertGetId([
