@@ -197,7 +197,7 @@
                                                 <div class="col-md-10">
                                                     <input type="text" class="form-control" name="link_to_result"
                                                            id="link_to_result"
-                                                           placeholder="Enter Link" value="{{ old('link_to_result') }}">
+                                                           placeholder="Enter Link">
                                                     @error('link_to_result')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -209,7 +209,7 @@
                                                 <div class="col-md-5">
                                                     <input type="text" class="form-control" name="test_plan"
                                                            id="test_plan"
-                                                           placeholder="Enter Test Plan" value="{{ old('test_plan') }}">
+                                                           placeholder="Enter Test Plan">
                                                     @error('test_plan')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
