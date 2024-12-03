@@ -806,6 +806,7 @@ class TaskController extends Controller
         $validated = $request->validate([
             'jira_summary' => 'required',
             'jira_id' => 'required',
+            'created_at' => 'required',
         ]);
         $sub_task_id = Task::insertGetId([
             'type' => 1,
