@@ -3222,8 +3222,10 @@
         $('#type').change(function (e) {
             if ($(this).val() == "1") {
                 $("#working_status option[value='1']").prop('disabled', true);
+                $("#working_status option[value='2']").prop('selected', true);
                 $("#link_to_result").prop('disabled', true);
                 $("#ticket_status option[value='1']").prop('disabled', true);
+                $("#ticket_status option[value='9']").prop('selected', true);
                 $("#ticket_status option[value='2']").prop('disabled', true);
                 $("#ticket_status option[value='3']").prop('disabled', true);
                 $("#ticket_status option[value='4']").prop('disabled', true);
@@ -3231,6 +3233,8 @@
                 $("#ticket_status option[value='6']").prop('disabled', true);
             } else {
                 $("#working_status option[value='1']").prop('disabled', false);
+                $("#ticket_status option[value='1']").prop('selected', true);
+                $("#working_status option[value='1']").prop('selected', true);
                 $("#ticket_status option[value='1']").prop('disabled', false);
                 $("#ticket_status option[value='2']").prop('disabled', false);
                 $("#ticket_status option[value='3']").prop('disabled', false);
