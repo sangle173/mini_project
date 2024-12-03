@@ -111,9 +111,6 @@
                     </div>
                 </form>
                 <div class="ms-auto">
-                    @auth()
-                        @if(Auth::user()->role ==='manager' || Auth::user() -> id == $item -> user_id )
-
                             <button type="button" class="btn btn-danger"
                                     data-bs-toggle="modal"
                                     data-bs-target="#deleteAll">Delete All
@@ -142,8 +139,6 @@
                                     </div>
                                 </div>
                             </div>
-                        @endif
-                    @endauth
                 </div>
             </div>
             <div class="table-responsive">
