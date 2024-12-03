@@ -325,8 +325,8 @@
                                                                         <td><span
                                                                                 class="badge bg-primary rounded-pill">{{$it->pass + $it -> fail }}</span>
                                                                         </td>
-                                                                        <td>{{$it -> created_at}}</td>
                                                                         <td>{{$it -> updated_at}}</td>
+                                                                        <td>{{$it -> created_at}}</td>
                                                                     </tr>
                                                                 @endforeach
                                                                 </tbody>
