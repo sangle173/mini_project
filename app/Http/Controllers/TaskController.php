@@ -30,7 +30,6 @@ class TaskController extends Controller
      */
     public function index($id)
     {
-        $currentUser = Auth::user();
         $board = Board::find($id);
         $board_config = BoardConfig::find(Board::find($id)->board_config_id);
         $tasks = Task::where('board_id', $board->id)->latest()->get();
@@ -65,7 +64,7 @@ class TaskController extends Controller
         $board = Board::find($id);
         $board_config = BoardConfig::find($board->board_config_id);
         $teams = Team::latest()->get();
-        $types = $id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get() : Type::whereNotIn('id', [1, 2, 3])->latest()->get();
+        $types = $board -> id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get() : Type::whereNotIn('id', [1, 2, 3])->latest()->get();
         $working_statuses = WorkingStatus::latest()->get();
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
@@ -199,7 +198,7 @@ class TaskController extends Controller
         $board = Board::find($task->board_id);
         $board_config = BoardConfig::find($board->board_config_id);
         $teams = Team::latest()->get();
-        $types = $id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get() : Type::whereNotIn('id', [1, 2, 3])->latest()->get();
+        $types = $board -> id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get() : Type::whereNotIn('id', [1, 2, 3])->latest()->get();
         $working_statuses = WorkingStatus::latest()->get();
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
