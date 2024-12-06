@@ -49,7 +49,7 @@
                                                 aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="myForm" action="{{ route('manager.tasks.save') }}" method="post"
+                                        <form id="myFormCreate" action="{{ route('manager.tasks.save') }}" method="post"
                                               class="row g-3" enctype="multipart/form-data">
                                             @csrf
                                             <input type="hidden" name="board_id" value="{{$board -> id}}">
@@ -347,7 +347,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
                                         </button>
-                                        <button type="submit" id="submitbtn" class="btn text-white"
+                                        <button type="submit" id="submitButton" onclick="disableButton(this)" class="btn text-white"
                                                 style="background-color: #754FFE;">
                                             Add Task
                                         </button>
@@ -3244,5 +3244,13 @@
                 $("#link_to_result").prop('disabled', false);
             }
         });
+    </script>
+
+    <script>
+        function disableButton(button) {
+            button.disabled = true;
+            button.innerText = 'Submitting...';
+            document.getElementById('myFormCreate').submit();
+        }
     </script>
 @endsection
