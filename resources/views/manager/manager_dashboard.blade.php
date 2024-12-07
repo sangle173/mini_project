@@ -56,17 +56,17 @@
 
 <body>
 <!--wrapper-->
-<div class="wrapper">
+{{--<div class="wrapper">--}}
     <!--sidebar wrapper -->
-@include('manager.body.sidebar')
+{{--@include('manager.body.sidebar')--}}
 <!--end sidebar wrapper -->
     <!--start header -->
 @include('manager.body.header')
 <!--end header -->
     <!--start page wrapper -->
-    <div class="page-wrapper">
+{{--    <div class="page-wrapper">--}}
         @yield('users')
-    </div>
+{{--    </div>--}}
     <!--end page wrapper -->
     <!--start overlay-->
     <div class="overlay toggle-icon"></div>
@@ -75,7 +75,7 @@
     <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
     <!--End Back To Top Button-->
     @include('manager.body.footer')
-</div>
+{{--</div>--}}
 <!--end wrapper-->
 
 

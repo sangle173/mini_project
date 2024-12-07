@@ -271,7 +271,7 @@ class TaskController extends Controller
             'message' => 'Update Task Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('manager.show.board', $request->board_id)->with($notification);
+        return redirect()->back()->with($notification);
     }
 
     /**

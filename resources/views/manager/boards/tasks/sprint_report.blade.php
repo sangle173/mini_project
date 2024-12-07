@@ -83,19 +83,13 @@
                                                                data-stringify-type="paragraph-break"></span><b
                                 data-stringify-type="bold">
                                 III.
-                                Question/ Issue:</b><br>We have an issue with Largo and Goldeneyes players (cannot reset
-                            these players) and we are waiting for your update.<span aria-label="" class="c-mrkdwn__br"
+                                Question/ Issue:</b><span aria-label="" class="c-mrkdwn__br"
                                                                                     data-stringify-type="paragraph-break"></span><b
                                 data-stringify-type="bold"><br><br>IV. Note:</b><br><span aria-label="" class="c-mrkdwn__br"
                                                                               data-stringify-type="paragraph-break"></span><b
                                 data-stringify-type="bold"><br>V. TO DO SPRINT 22: Continue work on Passport MA3 and
                                 SVC.</b>
                         </div>
-                        <p>
-                            E làm giúp chị temp như ri <br>
-                            Chỗ issues/ question vs Note thì chị tự type vô <br>
-                            còn bug vs ticket thì e cho nó qua tự động giúp chị hì
-                        </p>
                     </div>
                 </div>
             </div>
