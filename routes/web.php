@@ -238,6 +238,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/manager/save/board/sub-tasks', 'save_sub_task')->name('manager.save.sub-task');
         Route::get('/manager/edit/board/sub-tasks/{id}', 'edit_sub_task')->name('manager.edit.sub-task');
         Route::post('/manager/update/board/sub-tasks', 'update_sub_task')->name('manager.update.sub-task');
+
+        Route::get('/manager/import/tasks/', 'import')->name('manager.import');
+        Route::post('/manager/import/tasks/', 'import_save')->name('manager.save.import');
     });
 
     // Manager Env

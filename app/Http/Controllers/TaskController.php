@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\TasksExport;
 use App\Exports\TasksWithCountExport;
+use App\Imports\TaskImport;
 use App\Models\Board;
 use App\Models\BoardConfig;
 use App\Models\Comment;
@@ -64,7 +65,7 @@ class TaskController extends Controller
         $board = Board::find($id);
         $board_config = BoardConfig::find($board->board_config_id);
         $teams = Team::latest()->get();
-        $types = $board -> id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get() : Type::whereNotIn('id', [1, 2, 3])->latest()->get();
+        $types = $board->id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get() : Type::whereNotIn('id', [1, 2, 3])->latest()->get();
         $working_statuses = WorkingStatus::latest()->get();
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
@@ -114,7 +115,7 @@ class TaskController extends Controller
             'pass' => $request->pass,
             'fail' => $request->fail,
             'task_slug' => strtolower(str_replace(' ', '-', $request->jira_id)),
-            'created_at' =>$request -> created_at != null ? $request -> created_at:  Carbon::now('Asia/Ho_Chi_Minh'),
+            'created_at' => $request->created_at != null ? $request->created_at : Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
         $task_history_id = TaskHistory::insertGetId([
@@ -198,7 +199,7 @@ class TaskController extends Controller
         $board = Board::find($task->board_id);
         $board_config = BoardConfig::find($board->board_config_id);
         $teams = Team::latest()->get();
-        $types = $board -> id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get() : Type::whereNotIn('id', [1, 2, 3])->latest()->get();
+        $types = $board->id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get() : Type::whereNotIn('id', [1, 2, 3])->latest()->get();
         $working_statuses = WorkingStatus::latest()->get();
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
@@ -570,7 +571,7 @@ class TaskController extends Controller
             $no = 3;
         }
 
-        if ($type != null && $board != null && $tester == null  && $flag == null) {
+        if ($type != null && $board != null && $tester == null && $flag == null) {
             $tasks = DB::table('tasks')
                 ->whereBetween('created_at', [$fromDate, $toDate])
                 ->where('board_id', $request->board)
@@ -580,7 +581,7 @@ class TaskController extends Controller
             $no = 2;
         }
 
-        if ($type != null && $board != null && $tester == null   && $flag != null) {
+        if ($type != null && $board != null && $tester == null && $flag != null) {
             $tasks = DB::table('tasks')
                 ->whereBetween('created_at', [$fromDate, $toDate])
                 ->where('board_id', $request->board)
@@ -617,7 +618,7 @@ class TaskController extends Controller
                 ->get();
             $no = 2;
         }
-        if ($type != null && $board == null && $tester != null  && $flag == null) {
+        if ($type != null && $board == null && $tester != null && $flag == null) {
             $tasks = DB::table('tasks')
                 ->whereBetween('created_at', [$fromDate, $toDate])
                 ->where('type', $request->type)
@@ -627,7 +628,7 @@ class TaskController extends Controller
             $no = 2;
         }
 
-        if ($type != null && $board == null && $tester != null  && $flag != null) {
+        if ($type != null && $board == null && $tester != null && $flag != null) {
             $tasks = DB::table('tasks')
                 ->whereBetween('created_at', [$fromDate, $toDate])
                 ->where('type', $request->type)
@@ -785,7 +786,7 @@ class TaskController extends Controller
             array_push($taskIdList, $tasks[$i]->id);
         }  // end for
         $tasks = DB::table('tasks')->whereIn('id', $taskIdList)->get();
-        if ($request-> flag == '1') {
+        if ($request->flag == '1') {
             return Excel::download(new TasksWithCountExport($tasks), 'tasks_with_remove_duplicate.xlsx');
         } else {
             return Excel::download(new TasksExport($tasks), 'tasks.xlsx');
@@ -816,7 +817,7 @@ class TaskController extends Controller
             'isSubBug' => '1',
             'tester_1' => Auth::user()->id,
             'task_slug' => strtolower(str_replace(' ', '-', $request->jira_id)),
-            'created_at' =>$request -> created_at != null ? $request -> created_at:  Carbon::now('Asia/Ho_Chi_Minh'),
+            'created_at' => $request->created_at != null ? $request->created_at : Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
         $task_history_id = TaskHistory::insertGetId([
@@ -926,4 +927,27 @@ class TaskController extends Controller
         );
         return redirect()->back()->with($notification);
     }
+
+    public function import()
+    {
+        return view('manager.boards.tasks.import_task');
+    }// End Method
+
+
+    public function import_save(Request $request)
+    {
+//        dd($request);
+        $request->validate([
+            'import_file' => 'required',
+        ]);
+
+        Excel::import(new TaskImport, $request->file('import_file'));
+
+        $notification = array(
+            'message' => 'Import Task Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    }// End Method
 }
