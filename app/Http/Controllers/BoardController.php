@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Board;
-use App\Http\Requests\StoreBoardRequest;
-use App\Http\Requests\UpdateBoardRequest;
 use App\Models\BoardConfig;
-use App\Models\File;
 use App\Models\Priority;
 use App\Models\Project;
 use App\Models\ReportConfig;
@@ -16,12 +13,11 @@ use App\Models\TicketStatus;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\WorkingStatus;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
-use Illuminate\Http\Request;
-use function Monolog\toArray;
 
 class BoardController extends Controller
 {
@@ -118,7 +114,7 @@ class BoardController extends Controller
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
         $currentUser = Auth::user();
-        $users = User::whereNotIn('role', ['admin'])->orderBy('name')->get();
+        $users = User::whereNotIn('role', ['admin']) -> where('status', '1')->orderBy('name')->get();
         $report_config = ReportConfig::where('board_id', $board->id)->first();
         $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         $final_subject = $report_config->subject . ' ' . $days[Carbon::today('Asia/Ho_Chi_Minh')->dayOfWeek] . ', ' . Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config->date_format);
@@ -253,10 +249,6 @@ class BoardController extends Controller
             ->whereIn('ticket_status', $request->ticket_status)
             ->whereIn('priority', $request->priority)
             ->whereIn('tester_1', $request->user)
-//            ->orWhereIn('tester_2', $request->user)
-//            ->orWhereIn('tester_3', $request->user)
-//            ->orWhereIn('tester_4', $request->user)
-//            ->orWhereIn('tester_5', $request->user)
             ->get();
         $board = Board::find($request->board_id);
         $today_tasks = Task::where('board_id', $board->id)->whereDate('created_at', Carbon::today())->latest()->get();
