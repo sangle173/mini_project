@@ -100,7 +100,7 @@
                                             @endif
                                             @if($board_config -> jira_id == 1)
                                                 <label for="jira_id" class="col-md-2 col-form-label ">Jira
-                                                    Id</label>
+                                                    Id <span class="text-danger">*</span></label>
                                                 <div class="col-md-5">
                                                     <input type="text" class="form-control" name="jira_id" id="jira_id"
                                                            placeholder="Enter Jira Id">
@@ -368,6 +368,27 @@
             </div>
         </div>
         <!--end breadcrumb-->
+{{--        @if($duplicates)--}}
+{{--        <div class="container-fluid">--}}
+{{--            <div class="alert alert-warning border-0 bg-warning alert-dismissible fade show py-2">--}}
+{{--                <div class="d-flex align-items-center">--}}
+{{--                    <div class="font-35 text-dark"><i class='bx bx-info-circle'></i>--}}
+{{--                    </div>--}}
+{{--                    <div class="ms-3">--}}
+{{--                        <h6 class="mb-0 text-dark">Warning</h6>--}}
+{{--                        <div class="text-dark">Found {{count($duplicates)}} duplicate tickets. Please check and remove!--}}
+{{--                        </div>--}}
+{{--                        <div class="text-dark">--}}
+{{--                            @foreach ($duplicates as $item)--}}
+{{--                                <span class="font-weight-bold">{{$item -> jira_id}} </span>--}}
+{{--                            @endforeach--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        @endif--}}
         <div class="container-fluid mt-1">
             <div class="card-body p-4">
                 <form class="row g-3" action="{{ route('manager.task.filter') }}" method="get">

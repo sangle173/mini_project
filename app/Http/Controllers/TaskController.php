@@ -18,6 +18,7 @@ use App\Models\TicketStatus;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\WorkingStatus;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -91,12 +92,26 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        // Define today's date range
+        $startOfDay = Carbon::today()->startOfDay();
+        $endOfDay = Carbon::today()->endOfDay();
+
+        // Validation rules
+        $request->validate([
+            'jira_id' => [
+                'required',
+                Rule::unique('tasks', 'jira_id')->where(function ($query) use ($startOfDay, $endOfDay) {
+                    return $query->whereBetween('created_at', [$startOfDay, $endOfDay]);
+                }),
+            ],
             'type' => 'required',
             'working_status' => 'required',
             'ticket_status' => 'required',
             'jira_summary' => 'required',
             'tester_1' => 'required|not_in:0',
+        ], [
+//            'jira_id.unique' => 'The Jira ID has already been used in today\'s tasks. Please use a different ID.',
+            'jira_id.unique' => 'The Jira ID has already been used in today\'s tasks. Đổi ID đi má',
         ]);
         $task_id = Task::insertGetId([
             'board_id' => $request->board_id,

@@ -109,17 +109,22 @@ class BoardController extends Controller
         $today_tasks = Task::where('board_id', $board->id)->whereDate('created_at', Carbon::today())->latest()->get();
         $board_config = BoardConfig::find(Board::find($id)->board_config_id);
         $teams = Team::all()->sortBy('id');
-        $types = $id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get(): Type::whereNotIn('id', [1, 2, 3])->latest()->get();
+        $types = $id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get() : Type::whereNotIn('id', [1, 2, 3])->latest()->get();
         $working_statuses = WorkingStatus::latest()->get();
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
         $currentUser = Auth::user();
-        $users = User::whereNotIn('role', ['admin']) -> where('status', '1')->orderBy('name')->get();
+        $users = User::whereNotIn('role', ['admin'])->where('status', '1')->orderBy('name')->get();
         $report_config = ReportConfig::where('board_id', $board->id)->first();
         $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         $final_subject = $report_config->subject . ' ' . $days[Carbon::today('Asia/Ho_Chi_Minh')->dayOfWeek] . ', ' . Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config->date_format);
         $slack_subject = "Hi team, please see below for the daily report on " . $days[Carbon::today('Asia/Ho_Chi_Minh')->dayOfWeek] . ', ' . Carbon::today('Asia/Ho_Chi_Minh')->isoFormat($report_config->date_format);
-        return view('manager.boards.view_board', compact('board', 'currentUser','tasks', 'final_subject', 'board_config', 'teams', 'slack_subject', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'dateT', 'dateS', 'today_tasks', 'report_config'));
+//        $duplicates = DB::table('tasks')->where('board_id', $board->id)->where('isSubBug', '0')->whereDate('created_at', Carbon::today())
+//            ->select('jira_id', DB::raw('COUNT(*) as count'))
+//            ->groupBy('jira_id')
+//            ->having('count', '>', 1)
+//            ->get();
+        return view('manager.boards.view_board', compact('board', 'currentUser', 'tasks', 'final_subject', 'board_config', 'teams', 'slack_subject', 'types', 'working_statuses', 'ticket_statuses', 'priorities', 'users', 'dateT', 'dateS', 'today_tasks', 'report_config'));
     }
 
     /**
@@ -254,7 +259,7 @@ class BoardController extends Controller
         $today_tasks = Task::where('board_id', $board->id)->whereDate('created_at', Carbon::today())->latest()->get();
         $board_config = BoardConfig::find(Board::find($request->board_id)->board_config_id);
         $teams = Team::latest()->get();
-        $types = $request->board_id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get(): Type::whereNotIn('id', [1, 2, 3])->latest()->get();
+        $types = $request->board_id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get() : Type::whereNotIn('id', [1, 2, 3])->latest()->get();
         $working_statuses = WorkingStatus::latest()->get();
         $ticket_statuses = TicketStatus::latest()->get();
         $priorities = Priority::latest()->get();
