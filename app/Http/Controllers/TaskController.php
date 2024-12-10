@@ -42,15 +42,19 @@ class TaskController extends Controller
      */
     public function all_task()
     {
-//        dd(1);
+        $start = Carbon::now()->startOfMonth();
+        $end = Carbon::now()->endOfMonth();
         $dateS = Carbon::today('Asia/Ho_Chi_Minh')->format('Y-m-d');
         $dateT = Carbon::today('Asia/Ho_Chi_Minh')->format('Y-m-d');
-
+        $end->addDays(1);
+        $tasks = DB::table('tasks')
+            ->whereBetween('created_at', [$start, $end])
+            ->latest()
+            ->get();
         $types = Type::latest()->get();
         $boards = Board::latest()->get();
         $priorities = Priority::latest()->get();
         $users = User::whereNotIn('role', ['admin'])->latest()->get();
-        $tasks = Task::latest()->get();
         $working_statuses = WorkingStatus::latest()->get();
         $teams = Team::all()->sortBy('id');
         return view('manager.boards.tasks.all_task', compact('tasks', 'teams', 'users', 'priorities', 'types', 'dateS', 'dateT', 'boards', 'working_statuses'));
