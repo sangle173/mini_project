@@ -18,7 +18,7 @@ class FileController extends Controller
      */
     public function index()
     {
-        $users = User::latest()->get();
+        $users = User::whereNotIn('role', ['admin'])->where('status', '1')->orderBy('name')->get();
         $files = File::latest()->get();;
         return view('manager.files.all_file', compact('users', 'files'));
     }
@@ -44,7 +44,7 @@ class FileController extends Controller
      */
     public function show()
     {
-        $users = User::latest()->get();
+        $users = User::whereNotIn('role', ['admin'])->where('status', '1')->orderBy('name')->get();
         $files = File::latest()->get();;
         return view('manager.files.upload_file', compact('users', 'files'));
     }
