@@ -300,7 +300,7 @@
                                     <div class="flex-grow-1 ms-2 ml-3">
                                         <h6 class="mb-0">
 
-                                        @if($item-> extension == 'mp4' ||  $item-> extension == 'mov')
+                                        @if($item-> extension == 'mp4' ||  $item-> extension == 'mov' || $item-> extension == 'jpg' || $item-> extension == 'png'|| $item-> extension == 'PNG' || $item-> extension == 'JPEG' || $item-> extension == 'JPG')
                                             <!-- Button trigger modal -->
                                                 <a class="text-decoration-none" data-bs-toggle="modal"
                                                    data-bs-target="#exampleLargeModal{{$item-> id}}">{{substr($item-> name,11)}}</a>
@@ -316,15 +316,24 @@
                                                                         aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <video width="760" height="480" controls Autoplay=autoplay>
-                                                                    <source src="{{  asset('uploads/'.$item-> name) }}"
+                                                                @if($item-> extension == 'mp4' ||  $item-> extension == 'mov')
+                                                                    <video width="760" height="480" controls
+                                                                           Autoplay=autoplay>
+                                                                        <source
+                                                                            src="{{  asset('uploads/'.$item-> name) }}"
                                                                             type="video/mp4">
-                                                                    <source src="{{  asset('uploads/'.$item-> name) }}"
+                                                                        <source
+                                                                            src="{{  asset('uploads/'.$item-> name) }}"
                                                                             type="video/ogg">
-                                                                    <source src="{{  asset('uploads/'.$item-> name) }}"
+                                                                        <source
+                                                                            src="{{  asset('uploads/'.$item-> name) }}"
                                                                             type="video/mov">
-                                                                    Your browser does not support the video tag.
-                                                                </video>
+                                                                        Your browser does not support the video tag.
+                                                                    </video>
+                                                                @else
+                                                                    <img width="760" height="480" src="{{  asset('uploads/'.$item-> name) }}"
+                                                                         alt="Image">
+                                                                @endif
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
