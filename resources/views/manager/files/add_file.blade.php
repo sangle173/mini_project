@@ -14,7 +14,8 @@
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Upload File</li>
+                    <li class="breadcrumb-item active" aria-current="page"><a
+                                                                              href="{{ route('all.file') }}">Files</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{$user ->name}}'s file</li>
                 </ol>
             </nav>
@@ -296,7 +297,6 @@
                                         </div>
                                     @endswitch
 
-
                                     <div class="flex-grow-1 ms-2 ml-3">
                                         <h6 class="mb-0">
 
@@ -310,7 +310,7 @@
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title">Video Preview</h5>
+                                                                <h5 class="modal-title">Preview</h5>
                                                                 <button type="button" class="btn-close"
                                                                         data-bs-dismiss="modal"
                                                                         aria-label="Close"></button>
