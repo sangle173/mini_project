@@ -331,7 +331,8 @@
                                                                         Your browser does not support the video tag.
                                                                     </video>
                                                                 @else
-                                                                    <img width="760" height="480" src="{{  asset('uploads/'.$item-> name) }}"
+                                                                    <img width="760"
+                                                                         src="{{  asset('uploads/'.$item-> name) }}"
                                                                          alt="Image">
                                                                 @endif
                                                             </div>
