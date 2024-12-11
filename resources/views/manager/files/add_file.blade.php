@@ -111,34 +111,34 @@
                     </div>
                 </form>
                 <div class="ms-auto">
-                            <button type="button" class="btn btn-danger"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deleteAll">Delete All
-                            </button>
-                            <!-- Modal -->
-                            <div class="modal fade" id="deleteAll" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header bg-danger text-white">
-                                            <h5 class="modal-title" id="exampleModalLabel">Delete Files</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Do you want to delete all of files?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Close
-                                            </button>
-                                            <a title="Delete All" href="{{ route('delete.fileall',$user->id) }}"
-                                               type="button" class="btn btn-danger">Delete
-                                            </a>
-                                        </div>
-                                    </div>
+                    <button type="button" class="btn btn-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteAll">Delete All
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="deleteAll" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-danger text-white">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete Files</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Do you want to delete all of files?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        Close
+                                    </button>
+                                    <a title="Delete All" href="{{ route('delete.fileall',$user->id) }}"
+                                       type="button" class="btn btn-danger">Delete
+                                    </a>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="table-responsive">
@@ -299,8 +299,45 @@
 
                                     <div class="flex-grow-1 ms-2 ml-3">
                                         <h6 class="mb-0">
-                                            <a href="{{  asset('uploads/'.$item-> name) }}" target="blank"
-                                               title="Review Files">{{substr($item-> name,11)}}</a>
+
+                                        @if($item-> extension == 'mp4' ||  $item-> extension == 'mov')
+                                            <!-- Button trigger modal -->
+                                                <a class="text-decoration-none" data-bs-toggle="modal"
+                                                   data-bs-target="#exampleLargeModal{{$item-> id}}">{{substr($item-> name,11)}}</a>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleLargeModal{{$item-> id}}"
+                                                     tabindex="-1" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Video Preview</h5>
+                                                                <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <video width="760" height="480" controls Autoplay=autoplay>
+                                                                    <source src="{{  asset('uploads/'.$item-> name) }}"
+                                                                            type="video/mp4">
+                                                                    <source src="{{  asset('uploads/'.$item-> name) }}"
+                                                                            type="video/ogg">
+                                                                    <source src="{{  asset('uploads/'.$item-> name) }}"
+                                                                            type="video/mov">
+                                                                    Your browser does not support the video tag.
+                                                                </video>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <a href="{{  asset('uploads/'.$item-> name) }}" target="blank"
+                                                   title="Review Files">{{substr($item-> name,11)}}</a>
+                                            @endif
                                         </h6>
                                         <p class="mb-0 text-secondary">{{formatBytes($item ->size)}}</p>
                                     </div>
