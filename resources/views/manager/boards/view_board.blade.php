@@ -633,7 +633,7 @@
                                                     </td>
                                                 @endif
                                                 @if($board_config-> jira_summary != 0)
-                                                    <td style="width: 15%">
+                                                    <td style="width: 15%" title="{{$item->jira_summary}}">
                                                         @if($item-> jira_summary !=null)
                                                             <a href="{{url($board_config -> jira_url . $item-> jira_id) }}"
                                                                target="_blank">{{ $item->jira_id }}</a>
