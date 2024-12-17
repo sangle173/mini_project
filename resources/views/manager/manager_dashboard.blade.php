@@ -38,8 +38,6 @@
     <!-- Datatable -->
     <link href="{{ asset('backend/assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet"/>
     <!-- End Datatable -->
-
-
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     <title>Project Management System </title>
     <style>
@@ -145,7 +143,7 @@
 <script src="{{ asset('backend/assets/plugins/fancy-file-uploader/jquery.iframe-transport.js"') }}"></script>
 <script src="{{ asset('backend/assets/plugins/fancy-file-uploader/jquery.fancy-fileupload.js') }}"></script>
 
-<script src="https://cdn.tiny.cloud/1/4dp0686fem1pftn51021xaj9vtqfph05mmbv61u6gqg97wsv/tinymce/6/tinymce.min.js"
+<script src="https://cdn.tiny.cloud/1/gwhghex2ez5va89vmf0ns351dl4g3pjwlwj3ocsb4hfg683v/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
 <script>
     tinymce.init({
@@ -154,7 +152,6 @@
         toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table'
     });
 </script>
-
 
 </body>
 

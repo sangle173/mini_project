@@ -5,6 +5,7 @@
     Blog
 @endsection
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet"/>
 
 <div class="page-content">
     <!--breadcrumb-->
@@ -100,8 +101,29 @@
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+<script>
+    const quill = new Quill('#editor', {
+        theme: 'snow'
+    });
 
+</script>
+<script>
+    // Initialize Quill
+    var quill = new Quill('#editor', {
+        theme: 'snow'
+    });
 
+    // Set the existing content (HTML) into the editor
+    var existingContent = `{!! addslashes($post->long_descp) !!}`; // Pass content safely
+    quill.root.innerHTML = existingContent;
+
+    // Populate the hidden input before submitting the form
+    document.getElementById('myForm').onsubmit = function() {
+        var content = quill.root.innerHTML; // Get editor content
+        document.getElementById('long_descp').value = content;
+    };
+</script>
 <script type="text/javascript">
 
     $(document).ready(function(){

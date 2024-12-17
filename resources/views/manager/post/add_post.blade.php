@@ -5,9 +5,9 @@
     Blog
 @endsection
 <!--tagsinput-->
-<link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet"
-      type="text/css" />
-<link href="{{ asset('backend/assets/plugins/input-tags/css/tagsinput.css') }}" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet"/>
+
+<link href="{{ asset('backend/assets/plugins/input-tags/css/tagsinput.css') }}" rel="stylesheet"/>
 <!--tagsinput-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
@@ -30,7 +30,8 @@
     <div class="card">
         <div class="card-body p-4">
             <h5 class="mb-4">Add Blog Post</h5>
-            <form id="myForm" action="{{ route('store.blog.post') }}" method="post" class="row g-3" enctype="multipart/form-data">
+            <form id="myForm" action="{{ route('store.blog.post') }}" method="post" class="row g-3"
+                  enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group col-md-6">
@@ -38,7 +39,7 @@
                     <select name="blogcat_id" class="form-select mb-3" aria-label="Default select example">
                         <option selected="">Select Category</option>
                         @foreach ($blogcat as $cat)
-                        <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
+                            <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
                         @endforeach
                     </select>
                     @error('blogcat_id')
@@ -48,20 +49,19 @@
 
                 <div class="form-group col-md-6">
                     <label for="input1" class="form-label">Post Title</label>
-                    <input type="text" name="post_title" class="form-control" id="input1"  >
+                    <input type="text" name="post_title" class="form-control" id="input1">
                     @error('post_title')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
 
 
+                <input type="hidden" id="long_descp" name="long_descp" class="form-control">
 
-                <div class="form-group col-md-12">
-                    <label for="input1" class="form-label">Post Description</label>
-                    <textarea name="long_descp" class="form-control" id="myeditorinstance"></textarea>
-                    @error('long_descp')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
+                <div id="editor">
+                    <p>Hello World!</p>
+                    <p>Some initial <strong>bold</strong> text</p>
+                    <p><br/></p>
                 </div>
 
                 <div class="form-group col-md-6">
@@ -84,11 +84,12 @@
                 </div>
 
                 <div class="col-md-6">
-                    <img id="showImage" src="{{ url('upload/no_image.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="80">
+                    <img id="showImage" src="{{ url('upload/no_image.jpg')}}" alt="Admin"
+                         class="rounded-circle p-1 bg-primary" width="80">
                 </div>
                 <div class="col-md-12">
                     <div class="d-md-flex d-grid align-items-center gap-3">
-          <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+                        <button type="submit" class="btn btn-primary px-4">Save Changes</button>
 
                     </div>
                 </div>
@@ -97,30 +98,42 @@
     </div>
 
 
-
-
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+<script>
+    const quill = new Quill('#editor', {
+        theme: 'snow'
+    });
 
+</script>
 
 <script type="text/javascript">
 
-    $(document).ready(function(){
-        $('#image').change(function(e){
+    $(document).ready(function () {
+        $('#image').change(function (e) {
             var reader = new FileReader();
-            reader.onload = function(e){
-                $('#showImage').attr('src',e.target.result);
+            reader.onload = function (e) {
+                $('#showImage').attr('src', e.target.result);
             }
             reader.readAsDataURL(e.target.files['0']);
         });
     });
 
 </script>
-<script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
+
 <script>
-    var content = new FroalaEditor("div#froala-editor");
-    console.log(content);
+    document.getElementById('myForm').onsubmit = function () {
+        // Get the Quill editor's HTML content
+        var content = quill.root.innerHTML;
+        console.log("=====================")
+        console.log(content)
+        console.log("=====================")
+
+        // Assign content to the hidden input
+        document.getElementById('long_descp').value = content;
+    };
 </script>
+
 
 @endsection
