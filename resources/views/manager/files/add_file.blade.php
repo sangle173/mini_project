@@ -15,7 +15,7 @@
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page"><a
-                                                                              href="{{ route('all.file') }}">Files</a></li>
+                            href="{{ route('all.file') }}">Files</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{$user ->name}}'s file</li>
                 </ol>
             </nav>
@@ -299,55 +299,8 @@
 
                                     <div class="flex-grow-1 ms-2 ml-3">
                                         <h6 class="mb-0">
-
-                                        @if($item-> extension == 'mp4' ||  $item-> extension == 'mov' || $item-> extension == 'jpg' || $item-> extension == 'png'|| $item-> extension == 'PNG' || $item-> extension == 'JPEG' || $item-> extension == 'JPG')
-                                            <!-- Button trigger modal -->
-                                                <a class="text-decoration-none" data-bs-toggle="modal"
-                                                   data-bs-target="#exampleLargeModal{{$item-> id}}">{{substr($item-> name,11)}}</a>
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="exampleLargeModal{{$item-> id}}"
-                                                     tabindex="-1" aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Preview</h5>
-                                                                <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                @if($item-> extension == 'mp4' ||  $item-> extension == 'mov')
-                                                                    <video width="760" height="480" controls
-                                                                           Autoplay=autoplay>
-                                                                        <source
-                                                                            src="{{  asset('uploads/'.$item-> name) }}"
-                                                                            type="video/mp4">
-                                                                        <source
-                                                                            src="{{  asset('uploads/'.$item-> name) }}"
-                                                                            type="video/ogg">
-                                                                        <source
-                                                                            src="{{  asset('uploads/'.$item-> name) }}"
-                                                                            type="video/mov">
-                                                                        Your browser does not support the video tag.
-                                                                    </video>
-                                                                @else
-                                                                    <img width="760"
-                                                                         src="{{  asset('uploads/'.$item-> name) }}"
-                                                                         alt="Image">
-                                                                @endif
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">Close
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @else
-                                                <a href="{{  asset('uploads/'.$item-> name) }}" target="blank"
-                                                   title="Review Files">{{substr($item-> name,11)}}</a>
-                                            @endif
+                                            <a href="{{  asset('uploads/'.$item-> name) }}" target="blank"
+                                               title="Review Files">{{substr($item-> name,11)}}</a>
                                         </h6>
                                         <p class="mb-0 text-secondary">{{formatBytes($item ->size)}}</p>
                                     </div>
