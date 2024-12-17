@@ -44,7 +44,8 @@
                     @foreach ($post as $key=> $item)
                         <tr>
                             <td>{{ $key+1 }}</td>
-                            <td>{{ $item->post_title }}</td>
+                            <td><a href="{{ route('view.post',$item->id) }}"
+                                   title="View" class="">{{ $item->post_title }}</a></td>
                             <td>{{ $item['blog']['category_name'] }}</td>
                             <td><a href="{{ asset($item->post_image) }}" target="_blank">{{$item->post_image}}</a></td>
                             <td>{{$item -> post_tags}}</td>

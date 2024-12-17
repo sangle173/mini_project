@@ -209,8 +209,12 @@ class BlogController extends Controller
     {
 
         $item = BlogPost::find($id);
-        $img = $item->post_image;
-        unlink($img);
+        if ($item->post_image) {
+            $img = $item->post_image;
+            unlink($img);
+        }
+
+
 
         BlogPost::find($id)->delete();
 
