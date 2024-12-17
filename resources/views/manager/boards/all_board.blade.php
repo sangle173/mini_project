@@ -112,7 +112,7 @@
                                                     </li>
                                                     <li>
                                                         <a class="dropdown-item"
-                                                           href="{{ route('manager.config.board', $item -> id) }}">Board
+                                                           href="{{ route('manager.edit.config.board', $item -> id) }}">Board
                                                             Config</a>
                                                     </li>
                                                     <li>
