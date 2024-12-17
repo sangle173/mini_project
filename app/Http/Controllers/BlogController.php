@@ -104,20 +104,33 @@ class BlogController extends Controller
             'post_tags' => 'required',
 //            'post_image' => 'required',
         ]);
-        $image = $request->file('post_image');
-        $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-        $save_url = 'upload/post/' . $name_gen;
+        if ($request->file('post_image')) {
+            $image = $request->file('post_image');
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            $save_url = 'upload/post/' . $name_gen;
+            BlogPost::insert([
+                'blogcat_id' => $request->blogcat_id,
+                'post_title' => $request->post_title,
+                'post_slug' => strtolower(str_replace(' ', '-', $request->post_title)),
+                'long_descp' => $request->long_descp,
+                'post_tags' => $request->post_tags,
+                'post_image' => $save_url,
+                'created_at' => Carbon::now(),
 
-        BlogPost::insert([
-            'blogcat_id' => $request->blogcat_id,
-            'post_title' => $request->post_title,
-            'post_slug' => strtolower(str_replace(' ', '-', $request->post_title)),
-            'long_descp' => $request->long_descp,
-            'post_tags' => $request->post_tags,
-            'post_image' => $save_url,
-            'created_at' => Carbon::now(),
+            ]);
+        } else {
+            BlogPost::insert([
+                'blogcat_id' => $request->blogcat_id,
+                'post_title' => $request->post_title,
+                'post_slug' => strtolower(str_replace(' ', '-', $request->post_title)),
+                'long_descp' => $request->long_descp,
+                'post_tags' => $request->post_tags,
+                'post_image' => null,
+                'created_at' => Carbon::now(),
+            ]);
+        }
 
-        ]);
+
 
         $notification = array(
             'message' => 'Blog Post Inserted Successfully',
