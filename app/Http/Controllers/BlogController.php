@@ -102,11 +102,10 @@ class BlogController extends Controller
             'blogcat_id' => 'required',
             'post_title' => 'required',
             'post_tags' => 'required',
-            'post_image' => 'required',
+//            'post_image' => 'required',
         ]);
         $image = $request->file('post_image');
         $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-        Image::make($image)->resize(370, 247)->save('upload/post/' . $name_gen);
         $save_url = 'upload/post/' . $name_gen;
 
         BlogPost::insert([
@@ -151,7 +150,6 @@ class BlogController extends Controller
 
             $image = $request->file('post_image');
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->resize(370, 247)->save('upload/post/' . $name_gen);
             $save_url = 'upload/post/' . $name_gen;
 
             BlogPost::find($post_id)->update([

@@ -46,7 +46,7 @@
                             <td>{{ $key+1 }}</td>
                             <td>{{ $item->post_title }}</td>
                             <td>{{ $item['blog']['category_name'] }}</td>
-                            <td><img src="{{ asset($item->post_image) }}" alt="" style="width: 70px; height:40px;"></td>
+                            <td><a href="{{ asset($item->post_image) }}" target="_blank">{{$item->post_image}}</a></td>
                             <td>{{$item -> post_tags}}</td>
                             <td>
                                 <div class="d-flex order-actions">
