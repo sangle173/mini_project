@@ -40,7 +40,7 @@ class NoteController extends Controller
             'content' => 'required',
         ]);
 
-        Note::insert([
+        $id = Note::insertGetId([
             'user_id' => Auth::user()->id,
             'title' => $request->title,
             'content' => $request->content,
@@ -51,7 +51,7 @@ class NoteController extends Controller
             'message' => 'Note Inserted Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('note.all')->with($notification);
+        return redirect()->route('view.note', $id)->with($notification);
     }
 
     /**

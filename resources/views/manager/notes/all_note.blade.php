@@ -45,8 +45,14 @@
                     <tr>
                         <td width="2%">{{$key + 1}}</td>
                         <td><a href="{{route('view.note', $item -> id)}}">{{$item -> title}}</a></td>
-                        <td width="15%">{{$item -> updated_at}}</td>
                         <td width="15%">
+                            @if($item -> updated_at != null)
+                                {{$item -> updated_at}}
+                            @else
+                                {{$item -> created_at}}
+                            @endif
+                        </td>
+                        <td width="5%">
                             <a href="{{ route('edit.note',$item->id) }}"
                                title="Edit" class=""><i
                                     class='bx bxs-edit text-primary'></i></a>
