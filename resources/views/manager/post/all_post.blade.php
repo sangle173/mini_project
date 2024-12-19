@@ -62,7 +62,7 @@
                                         @endif
                                         @if(Auth::user()->role ==='manager' || Auth::user() -> id == $item -> tester_1 )
                                             <a href="{{ route('delete.post',$item->id) }}"
-                                               id="Delete"
+                                               id="delete"
                                                title="delete" class=""><i
                                                     class='bx bxs-trash text-danger'></i></a>
                                         @endif

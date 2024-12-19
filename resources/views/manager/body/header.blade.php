@@ -124,10 +124,9 @@
                            href="{{ route('manager.import') }}">Import Task</a>
                     </li>
                 </ul>
-{{--                <form class="d-flex me-3">--}}
-{{--                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">--}}
-{{--                    <button class="btn btn-outline-primary" disabled type="submit">Search</button>--}}
-{{--                </form>--}}
+                <div class="d-flex me-3">
+                    <a href="{{route('note.all')}}" class="btn px-2" style="background-color: #FFE800" disabled type="submit"><i class="bx bxs-note"></i>My Notes</a>
+                </div>
                 @auth()
                     @php
                         $id = Auth::user()->id;

@@ -10,6 +10,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EnvironmentController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\NoteController;
 use App\Http\Controllers\PriorityController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QRcodeGenerateController;
@@ -291,6 +292,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/view/post/{id}', 'BlogDetails')->name('view.post');
     });
 
+    // Blog Post All Route
+    Route::controller(NoteController::class)->group(function () {
+        Route::get('/my-note/all', 'index')->name('note.all');
+        Route::get('/add/note/', 'create')->name('add.note');
+        Route::post('/store/note', 'store')->name('store.note');
+        Route::get('/edit/note/{id}', 'edit')->name('edit.note');
+        Route::post('/update/note', 'update')->name('update.note');
+        Route::get('/delete/note/{id}', 'destroy')->name('delete.note');
+        Route::get('/view/note/{id}', 'show')->name('view.note');
+    });
 // Blog Category All Route
     Route::controller(BlogController::class)->group(function () {
         Route::get('/blog/category', 'AllBlogCategory')->name('blog.category');

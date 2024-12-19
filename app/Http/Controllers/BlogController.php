@@ -115,7 +115,7 @@ class BlogController extends Controller
                 'long_descp' => $request->long_descp,
                 'post_tags' => $request->post_tags,
                 'post_image' => $save_url,
-                'created_at' => Carbon::now(),
+                'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
 
             ]);
         } else {
@@ -126,7 +126,7 @@ class BlogController extends Controller
                 'long_descp' => $request->long_descp,
                 'post_tags' => $request->post_tags,
                 'post_image' => null,
-                'created_at' => Carbon::now(),
+                'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
             ]);
         }
 
@@ -172,7 +172,7 @@ class BlogController extends Controller
                 'long_descp' => $request->long_descp,
                 'post_tags' => $request->post_tags,
                 'post_image' => $save_url,
-                'created_at' => Carbon::now(),
+                'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
 
             ]);
 
@@ -190,7 +190,7 @@ class BlogController extends Controller
                 'post_slug' => strtolower(str_replace(' ', '-', $request->post_title)),
                 'long_descp' => $request->long_descp,
                 'post_tags' => $request->post_tags,
-                'created_at' => Carbon::now(),
+                'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
 
             ]);
 
