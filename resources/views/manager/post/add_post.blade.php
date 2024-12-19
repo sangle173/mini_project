@@ -58,15 +58,14 @@
 
                 <input type="hidden" id="long_descp" name="long_descp" class="form-control">
 
-                <div id="editor">
-                    <p>Hello World!</p>
-                    <p>Some initial <strong>bold</strong> text</p>
+                <div id="editor" style="height: 400px">
+                    <p>Description</p>
                     <p><br/></p>
                 </div>
 
                 <div class="form-group col-md-6">
                     <label for="input1" class="form-label">Post Tags</label>
-                    <input type="text" name="post_tags" class="form-control" data-role="tagsinput" value="jQuery">
+                    <input type="text" name="post_tags" class="form-control" data-role="tagsinput" value="Demo">
                     @error('post_tags')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror

@@ -51,12 +51,17 @@
                     @enderror
                 </div>
 
-                <div class="form-group col-md-12">
-                    <label for="input1" class="form-label">Post Description</label>
-                    <textarea name="long_descp" class="form-control">{!! $post->long_descp !!}</textarea>
-                    @error('long_descp')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
+{{--                <div class="form-group col-md-12">--}}
+{{--                    <label for="input1" class="form-label">Post Description</label>--}}
+{{--                    <textarea name="long_descp" class="form-control">{!! $post->long_descp !!}</textarea>--}}
+{{--                    @error('long_descp')--}}
+{{--                    <span class="text-danger">{{ $message }}</span>--}}
+{{--                    @enderror--}}
+{{--                </div>--}}
+                <input type="hidden" id="long_descp" name="long_descp" class="form-control">
+
+                <div id="editor" style="height: 400px">
+                    {!! $post->long_descp !!}
                 </div>
 
                 <div class="form-group col-md-6">
@@ -102,20 +107,14 @@
 
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 <script>
-    const quill = new Quill('#editor', {
-        theme: 'snow'
-    });
-
-</script>
-<script>
     // Initialize Quill
     var quill = new Quill('#editor', {
         theme: 'snow'
     });
 
-    // Set the existing content (HTML) into the editor
-    var existingContent = `{!! addslashes($post->long_descp) !!}`; // Pass content safely
-    quill.root.innerHTML = existingContent;
+    {{--// Set the existing content (HTML) into the editor--}}
+    {{--var existingContent = `{!! addslashes($post->long_descp) !!}`; // Pass content safely--}}
+    {{--quill.root.innerHTML = existingContent;--}}
 
     // Populate the hidden input before submitting the form
     document.getElementById('myForm').onsubmit = function() {
