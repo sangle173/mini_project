@@ -70,7 +70,14 @@
     <div class="col-md-8">
         @if(isset($note))
             @if($note != null)
+        <div class="card">
+            <div class="card-header">
+                <b>{{$note -> title}}</b>
+            </div>
+            <div class="card-body">
                 {!! $note -> content !!}
+            </div>
+        </div>
             @endif
         @endif
     </div>
