@@ -147,7 +147,7 @@
                             </li>
                             <li><a class="dropdown-item d-flex align-items-center"
                                    href="{{ route('select.user') }}"><i
-                                        class="bx bx-file fs-5"></i><span>Your Folder</span></a>
+                                        class="bx bx-folder-open fs-5"></i><span>Your Folder</span></a>
                             </li>
                             <li><a class="dropdown-item d-flex align-items-center"
                                    href="{{ route('manager.change.password') }}"><i class="bx bx-cog fs-5"></i><span>Change Password </span></a>
