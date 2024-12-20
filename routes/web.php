@@ -258,6 +258,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/add/comment/{id}', 'create')->name('comment.add');
     });
 
+    Route::controller(FileController::class)->group(function () {
+        Route::get('/upload/file/logged-user/', 'showUser')->name('select.user');
+    });
+
     // Manager All User Route
     Route::controller(ManagerController::class)->group(function () {
         Route::get('/manager/all/users', 'AllUser')->name('manager.all.users');

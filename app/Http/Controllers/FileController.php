@@ -9,6 +9,7 @@ use App\Models\File;
 use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateFileRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class FileController extends Controller
@@ -47,6 +48,21 @@ class FileController extends Controller
         $users = User::whereNotIn('role', ['admin'])->where('status', '1')->orderBy('name')->get();
         $files = File::latest()->get();;
         return view('manager.files.upload_file', compact('users', 'files'));
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function showUser()
+    {
+        $user = Auth::user();
+        $files = File::where('user_id', $user->id)->orderBy('id', 'desc')->get();
+        $users = User::latest()->get();
+        $result = url()->full();
+        $qrCodes = [];
+        $qrCodes['simple'] =
+            QrCode::size(450)->generate($result);
+        return view('manager.files.add_file', compact('user', 'users', 'files', 'result'),$qrCodes);
     }
 
     /**
@@ -94,7 +110,6 @@ class FileController extends Controller
 
     public function UploadFileByUserId(Request $request)
     {
-//        dd($request);
         $request->validate([
             'user_id' => 'required',
         ]);
@@ -102,7 +117,6 @@ class FileController extends Controller
         $users = User::latest()->get();
         $files = File::where('user_id', $request->user_id)->orderBy('id', 'desc')->get();
         $result = url()->full();
-//        dd($result);
         $qrCodes = [];
         $qrCodes['simple'] =
             QrCode::size(450)->generate($result);

@@ -118,11 +118,6 @@
                             </ul>
                         </li>
                     @endauth
-
-                    <li class="nav-item">
-                        <a class="nav-link text-white" aria-current="page"
-                           href="{{ route('manager.import') }}">Import Task</a>
-                    </li>
                 </ul>
                 <div class="d-flex me-3">
                     <a href="{{route('note.all')}}" class="btn px-2" style="background-color: #FFE800" disabled type="submit"><i class="bx bxs-note"></i>My Notes</a>
@@ -149,6 +144,10 @@
                             <li><a class="dropdown-item d-flex align-items-center"
                                    href="{{ route('manager.profile') }}"><i
                                         class="bx bx-user fs-5"></i><span>Profile</span></a>
+                            </li>
+                            <li><a class="dropdown-item d-flex align-items-center"
+                                   href="{{ route('select.user') }}"><i
+                                        class="bx bx-file fs-5"></i><span>Your Folder</span></a>
                             </li>
                             <li><a class="dropdown-item d-flex align-items-center"
                                    href="{{ route('manager.change.password') }}"><i class="bx bx-cog fs-5"></i><span>Change Password </span></a>
