@@ -564,10 +564,10 @@
 
                                         @foreach ($tasks as $key=> $item)
                                             <tr>
-                                                <td><a href="{{ route('task.details',$item->id) }}"
+                                                <td width="2%"><a href="{{ route('task.details',$item->id) }}"
                                                        title="View" class="text-black">{{ $key+1 }}</a></td>
                                                 @if($board_config-> type != 0)
-                                                    <td>
+                                                    <td width="5%">
                                                         @switch($item-> type)
                                                             @case('1')
                                                             <i class="bx bxs-bug text-danger font-18"
@@ -590,23 +590,23 @@
                                                     </td>
                                                 @endif
                                                 @if($board_config-> team != 0)
-                                                    <td>
+                                                    <td width="7%">
                                                         @if($item-> team !=null)
                                                             {{\App\Models\Team::find($item-> team) -> name}}
                                                         @endif
                                                     </td>
                                                 @endif
                                                 @if($board_config-> jira_summary != 0)
-                                                    <td style="width: 15%" title="{{$item->jira_summary}}">
+                                                    <td width="45%" title="{{$item->jira_summary}}">
                                                         @if($item-> jira_summary !=null)
                                                             <a href="{{url($board_config -> jira_url . $item-> jira_id) }}"
                                                                target="_blank">{{ $item->jira_id }}</a>
-                                                            - {{ \Illuminate\Support\Str::limit($item->jira_summary, 40, $end=' ...') }}
+                                                            - {{ \Illuminate\Support\Str::limit($item->jira_summary, 100, $end=' ...') }}
                                                         @endif
                                                     </td>
                                                 @endif
                                                 @if($board_config-> working_status != 0)
-                                                    <td>
+                                                    <td width="5%">
                                                         @if($item-> working_status !=null)
 
                                                             <a type="button" data-bs-toggle="modal"
@@ -680,7 +680,7 @@
                                                     </td>
                                                 @endif
                                                 @if($board_config-> ticket_status != 0)
-                                                    <td>
+                                                    <td width="5%">
                                                         @if($item-> ticket_status !=null)
 
                                                             <a type="button" data-bs-toggle="modal"
@@ -768,7 +768,7 @@
                                                     </td>
                                                 @endif
                                                 @if($board_config-> link_to_result != 0)
-                                                    <td>
+                                                    <td width="5%">
                                                         @if($item-> link_to_result !=null)
                                                             <a target="_blank" href=" {{ $item->link_to_result }}">Link
                                                                 To Result</a>
@@ -791,7 +791,7 @@
                                                     </td>
                                                 @endif
                                                 @if($board_config-> tester_1 != 0)
-                                                    <td>
+                                                    <td width="10%">
                                                         <div style="margin-left: 15px!important;"
                                                              class="user-groups ms-auto">
                                                             @if($item-> tester_1 !=null || $item-> tester_1 !=0 )

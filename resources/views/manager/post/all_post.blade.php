@@ -31,10 +31,10 @@
                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                     <tr>
-                        <th>Sl</th>
-                        <th>Post Title</th>
-                        <th>Blog Category</th>
-                        <th>Blog Image</th>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Attachments</th>
                         <th>Tags</th>
                         <th>Action</th>
                     </tr>

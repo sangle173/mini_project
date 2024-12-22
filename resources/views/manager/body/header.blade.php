@@ -99,7 +99,7 @@
                         <li class="nav-item dropdown dropdown-laungauge d-none d-sm-flex">
                             <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
                                id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="ms-2 text-white">Training Course</span>
+                                <span class="ms-2 text-white">Courses</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item d-flex align-items-center py-2"

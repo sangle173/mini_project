@@ -44,7 +44,6 @@
 
                 <div id="editor" style="height: 400px">
                     <p>Description</p>
-                    <p><br/></p>
                 </div>
 
                 <div class="col-md-12">
