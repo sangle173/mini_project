@@ -970,7 +970,7 @@ class TaskController extends Controller
 
     }// End Method
 
-    public function filterTasks(Request $request)
+    public function filterTasks($id, Request $request)
     {
         $query = Task::query();
 
@@ -1011,6 +1011,12 @@ class TaskController extends Controller
         $types = Type::latest()->get();
         $testers = User::whereNotIn('role', ['admin'])->orderBy('name')->get();
         $teams = Team::all()->sortBy('id');
+        $board_config = BoardConfig::find(Board::find($id)->board_config_id);
+        $board = Board::find($id);
+        $working_statuses = WorkingStatus::latest()->get();
+        $ticket_statuses = TicketStatus::latest()->get();
+        $currentUser = Auth::user();
+        $users = User::whereNotIn('role', ['admin'])->where('status', '1')->orderBy('name')->get();
 
 
         return view('manager.boards.tasks.filter-task', [
@@ -1019,6 +1025,12 @@ class TaskController extends Controller
             'types' => $types,
             'teams' => $teams,
             'testers' => $testers,
+            'board_config' => $board_config,
+            'board' => $board,
+            'ticket_statuses' => $ticket_statuses,
+            'working_statuses' => $working_statuses,
+            'currentUser' => $currentUser,
+            'users' => $users,
         ]);
     }
 

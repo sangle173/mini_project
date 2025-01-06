@@ -120,6 +120,10 @@
                                                            href="{{ route('manager.edit.board', $item -> id) }}">Edit
                                                             Board</a>
                                                     </li>
+                                                    <li>
+                                                        <a class="dropdown-item text-primary"
+                                                           href="{{ route('tasks.filter', $item -> id) }}">Today Task</a>
+                                                    </li>
                                                     {{--                                                <li>--}}
                                                     {{--                                                    <a class="dropdown-item text-danger"--}}
                                                     {{--                                                       href="{{ route('manager.delete.board', $item -> id) }}">Delete--}}

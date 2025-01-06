@@ -245,7 +245,7 @@ Route::middleware('auth')->group(function () {
 
     });
 
-    Route::get('/tasks/filter', [TaskController::class, 'filterTasks'])->name('tasks.filter');
+    Route::get('/tasks/filter/{id}', [TaskController::class, 'filterTasks'])->name('tasks.filter');
 
     // Manager Env
     Route::controller(EnvironmentController::class)->group(function () {
