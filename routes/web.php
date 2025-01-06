@@ -242,7 +242,10 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/manager/import/tasks/', 'import')->name('manager.import');
         Route::post('/manager/import/tasks/', 'import_save')->name('manager.save.import');
+
     });
+
+    Route::get('/tasks/filter', [TaskController::class, 'filterTasks'])->name('tasks.filter');
 
     // Manager Env
     Route::controller(EnvironmentController::class)->group(function () {

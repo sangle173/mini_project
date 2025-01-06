@@ -969,4 +969,57 @@ class TaskController extends Controller
         return redirect()->back()->with($notification);
 
     }// End Method
+
+    public function filterTasks(Request $request)
+    {
+        $query = Task::query();
+
+        // Apply filters
+        if ($request->filled('type')) {
+            $query->where('type', $request->input('type'));
+        }
+
+        if ($request->filled('team')) {
+            $query->where('team', $request->input('team'));
+        }
+
+        if ($request->filled('tester')) {
+            $tester = $request->input('tester');
+            $query->where(function ($q) use ($tester) {
+                $q->where('tester_1', $tester)
+                    ->orWhere('tester_2', $tester)
+                    ->orWhere('tester_3', $tester)
+                    ->orWhere('tester_4', $tester)
+                    ->orWhere('tester_5', $tester);
+            });
+        }
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('jira_id', 'like', "%$search%")
+                    ->orWhere('jira_summary', 'like', "%$search%");
+            });
+        }
+
+        // Filter by date or default to today
+        $date = $request->input('date', Carbon::today()->toDateString());
+        $query->whereDate('created_at', $date);
+
+        $tasks = $query->get();
+
+        $types = Type::latest()->get();
+        $testers = User::whereNotIn('role', ['admin'])->orderBy('name')->get();
+        $teams = Team::all()->sortBy('id');
+
+
+        return view('manager.boards.tasks.filter-task', [
+            'tasks' => $tasks,
+            'filters' => $request->only(['type', 'team', 'tester', 'date', 'search']),
+            'types' => $types,
+            'teams' => $teams,
+            'testers' => $testers,
+        ]);
+    }
+
 }
