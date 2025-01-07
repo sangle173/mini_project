@@ -513,12 +513,8 @@
                                 @if($board_config-> jira_summary != 0)
                                     <td width="45%" title="{{$item->jira_summary}}">
                                         @if($item-> jira_summary !=null)
-                                            @if($item -> jira_id != 'No ticket')
-                                                No ticket
-                                            @else
-                                                <a href="{{url($board_config -> jira_url . $item-> jira_id) }}"
-                                                   target="_blank">{{ $item->jira_id }}</a>
-                                            @endif
+                                            <a href="{{url($board_config -> jira_url . $item-> jira_id) }}"
+                                               target="_blank">{{ $item->jira_id }}</a>
                                             - {{ \Illuminate\Support\Str::limit($item->jira_summary, 100, $end=' ...') }}
                                         @endif
                                     </td>
