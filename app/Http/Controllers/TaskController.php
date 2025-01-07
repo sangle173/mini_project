@@ -98,11 +98,27 @@ class TaskController extends Controller
 
         // Validation rules
         $request->validate([
+//            'jira_id' => [
+//                'required',
+//                Rule::unique('tasks', 'jira_id')->where(function ($query) use ($startOfDay, $endOfDay) {
+//                    return $query->whereBetween('created_at', [$startOfDay, $endOfDay]);
+//                }),
+//            ],
             'jira_id' => [
                 'required',
-                Rule::unique('tasks', 'jira_id')->where(function ($query) use ($startOfDay, $endOfDay) {
-                    return $query->whereBetween('created_at', [$startOfDay, $endOfDay]);
-                }),
+                function ($attribute, $value, $fail) use ($startOfDay, $endOfDay) {
+                    if ($value !== 'No ticket') {
+                        $uniqueRule = Rule::unique('tasks', 'jira_id')->where(function ($query) use ($startOfDay, $endOfDay) {
+                            return $query->whereBetween('created_at', [$startOfDay, $endOfDay]);
+                        });
+
+                        $validator = validator(['jira_id' => $value], ['jira_id' => $uniqueRule]);
+
+                        if ($validator->fails()) {
+                            $fail('The Jira ID has already been used in today\'s tasks. Đổi ID đi má');
+                        }
+                    }
+                },
             ],
             'type' => 'required',
             'working_status' => 'required',
@@ -110,15 +126,13 @@ class TaskController extends Controller
             'jira_summary' => 'required',
             'tester_1' => 'required|not_in:0',
         ], [
-//            'jira_id.unique' => 'The Jira ID has already been used in today\'s tasks. Please use a different ID.',
-            'jira_id.unique' => 'The Jira ID has already been used in today\'s tasks. Đổi ID đi má',
         ]);
         $task_id = Task::insertGetId([
             'board_id' => $request->board_id,
             'team' => $request->team,
             'type' => $request->type,
-            'jira_id' => $request->jira_id,
-            'jira_summary' => $request->jira_summary,
+            'jira_id' => trim($request->jira_id),
+            'jira_summary' => trim($request->jira_summary),
             'working_status' => $request->working_status,
             'ticket_status' => $request->ticket_status,
             'link_to_result' => $request->link_to_result,
@@ -1003,18 +1017,18 @@ class TaskController extends Controller
         }
 
         // Filter by date or default to today
-        $date = $request->input('date', Carbon::today()->toDateString());
-        $query->whereDate('created_at', $date);
+        $date = $request->input('date', Carbon::today('Asia/Ho_Chi_Minh')->toDateString());
+        $query->whereDate('created_at', $date)->where("board_id", $id);
 
         $tasks = $query->get();
 
-        $types = Type::latest()->get();
+        $types = $id == 1 ? Type::whereIn('id', [1, 2, 3])->latest()->get() : Type::whereNotIn('id', [1, 2, 3])->latest()->get();
         $testers = User::whereNotIn('role', ['admin'])->orderBy('name')->get();
-        $teams = Team::all()->sortBy('id');
+        $teams = Team::all()->sortBy('name');
         $board_config = BoardConfig::find(Board::find($id)->board_config_id);
         $board = Board::find($id);
-        $working_statuses = WorkingStatus::latest()->get();
-        $ticket_statuses = TicketStatus::latest()->get();
+        $working_statuses = WorkingStatus::all()->sortBy('name');
+        $ticket_statuses = TicketStatus::all()->sortBy('name');
         $currentUser = Auth::user();
         $users = User::whereNotIn('role', ['admin'])->where('status', '1')->orderBy('name')->get();
 

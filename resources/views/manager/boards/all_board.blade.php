@@ -70,8 +70,8 @@
                                 </ul>
                                 <br>
                                 <div class="d-flex align-items-center gap-2">
-                                    <a href="{{ route('manager.show.board', $item -> id) }}"
-                                       class="btn btn-inverse-secondary">View Board</a>
+                                    <a href="{{ route('tasks.filter', $item -> id) }}"
+                                       class="btn" style="background-color: #FFE800">View Board</a>
                                     @auth
 
                                         @if(Auth::user()->role ==='manager')
@@ -82,36 +82,6 @@
                                                 <ul class="dropdown-menu">
                                                     <li>
                                                         <a class="dropdown-item"
-                                                           href="{{ route('manager.all.teams', $item -> id) }}">Manage
-                                                            Team</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item"
-                                                           href="{{ route('manager.all.types', $item -> id) }}">Manage
-                                                            Type</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item"
-                                                           href="{{ route('manager.all.working_statuses', $item -> id) }}">Manage
-                                                            Working Status</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item"
-                                                           href="{{ route('manager.all.ticket_statuses', $item -> id) }}">Manage
-                                                            Ticket Status</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item"
-                                                           href="{{ route('manager.all.priorities', $item -> id) }}">Manage
-                                                            Priority</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item"
-                                                           href="{{ route('manager.all.tasks', $item -> id) }}">Manage
-                                                            Task</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item"
                                                            href="{{ route('manager.edit.config.board', $item -> id) }}">Board
                                                             Config</a>
                                                     </li>
@@ -120,15 +90,6 @@
                                                            href="{{ route('manager.edit.board', $item -> id) }}">Edit
                                                             Board</a>
                                                     </li>
-                                                    <li>
-                                                        <a class="dropdown-item text-primary"
-                                                           href="{{ route('tasks.filter', $item -> id) }}">Today Task</a>
-                                                    </li>
-                                                    {{--                                                <li>--}}
-                                                    {{--                                                    <a class="dropdown-item text-danger"--}}
-                                                    {{--                                                       href="{{ route('manager.delete.board', $item -> id) }}">Delete--}}
-                                                    {{--                                                        Board</a>--}}
-                                                    {{--                                                </li>--}}
                                                 </ul>
                                             </div>
                                         @endif
