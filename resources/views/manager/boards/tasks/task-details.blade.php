@@ -156,6 +156,17 @@
                                             @endif
                                         </tr>
                                     @endif
+                                    @if($board_config-> test_plan != 0)
+                                        <tr>
+                                            <td width="20%">Test Plan</td>
+                                            @if($task-> test_plan !=null)
+                                                <td colspan="2">
+                                                    <a target="_blank"
+                                                       href="{{ url('https://sonos.testrail.com/index.php?/plans/view/'.$task->test_plan) }}">{{$task->test_plan}}</a>
+                                                </td>
+                                            @endif
+                                        </tr>
+                                    @endif
 
                                     @if($board_config-> sprint != 0)
                                         <tr>
