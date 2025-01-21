@@ -118,6 +118,10 @@
                             </ul>
                         </li>
                     @endauth
+                    <li class="nav-item">
+                        <a class="nav-link text-white" aria-current="page"
+                           href="{{ route('files.index') }}">Fetch Files</a>
+                    </li>
                 </ul>
                 <div class="d-flex me-3">
                     <a href="{{route('note.all')}}" class="btn px-2" style="background-color: #FFE800" disabled type="submit"><i class="bx bxs-note"></i>My Notes</a>

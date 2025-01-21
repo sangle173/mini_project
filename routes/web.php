@@ -7,6 +7,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BoardConfigController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DownloadFileController;
 use App\Http\Controllers\EnvironmentController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ManagerController;
@@ -398,3 +399,6 @@ Route::controller(QRcodeGenerateController::class)->group(function () {
     Route::get('/qrcode/result', 'generate')->name('qrcode.result');
 });
 
+Route::get('/download-files', [DownloadFileController::class, 'index'])->name('files.index');
+Route::post('/fetch-files', [DownloadFileController::class, 'fetchFiles'])->name('files.fetch');
+Route::post('/download-zip', [DownloadFileController::class, 'downloadZip'])->name('files.downloadZip');
