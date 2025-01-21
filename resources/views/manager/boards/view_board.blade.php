@@ -1316,7 +1316,7 @@
                                         <div id="divExp" class="divExp">
                                             <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
                                                         style="font-size:11pt;;color: black"><a
-                                                            name="_Hlk155304048">Hi Roger,</a></span></font></div>
+                                                            name="_Hlk155304048">Hi Michael & Roger,</a></span></font></div>
                                             <div style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
                                                         style="font-size:11pt;;color: black">Below is our status report for today. Please review and let us know if you have any comments or questions.</span></font>
                                             </div>
