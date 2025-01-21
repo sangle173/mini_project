@@ -67,6 +67,11 @@
 
             <!-- Files Table -->
             <form id="download-zip-form" action="{{ route('files.downloadZip') }}" method="POST">
+                <div class="d-flex justify-content-end mb-3">
+                    <button type="submit" class="btn btn-success" id="download-btn" disabled>
+                        Download Selected as ZIP
+                    </button>
+                </div>
                 @csrf
                 <table class="table table-bordered">
                     <thead>
@@ -82,8 +87,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <button type="submit" class="btn btn-success mt-3" id="download-btn" disabled>Download Selected as ZIP
-                </button>
+
             </form>
         </div>
 
