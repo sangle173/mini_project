@@ -475,7 +475,7 @@
                             </div>
                         </a>
                     </li>
-                    @if($board -> id == 1)
+                    @if($board -> id == 1 || $board -> id == 8)
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" data-bs-toggle="pill" href="#slack_report" role="tab"
                                aria-selected="false">
@@ -1293,7 +1293,7 @@
 
                     </div>
                     <div class="tab-pane fade" id="primaryprofile" role="tabpanel">
-                        @if($board -> id == 1)
+                        @if($board -> id == 1 || $board -> id == 8)
                             <div class="container-fluid">
                                 <div class="card">
                                     <div class="card-header bg-light">
@@ -1672,7 +1672,7 @@
                                 </div>
                             </div>
                         @endif
-                        @if($board -> id == 5 || $board -> id == 8)
+                        @if($board -> id == 5)
                             <div class="container-fluid">
                                 <div class="card">
                                     <div class="card-header bg-light">
@@ -2310,7 +2310,7 @@
                             </div>
                         @endif
                     </div>
-                    @if($board -> id == 1)
+                    @if($board -> id == 1 || $board -> id == 8)
                         <div class="tab-pane fade" id="slack_report" role="tabpanel">
                             <div>
                                 <div class="container-fluid">
@@ -2319,7 +2319,7 @@
                                             <h5>Slack Report Type</h5>
                                         </div>
                                         <div class="card-body">
-                                            @if($board -> id == 1)
+                                            @if($board -> id == 1 || $board -> id == 8)
                                                 <div class="p-rich_text_block" dir="auto">
                                                     @foreach ($teams as $team)
                                                         @if(
