@@ -1392,11 +1392,11 @@
                                                 </tr>
                                                 @foreach ($teams as $key => $team)
                                                     @if(
-    count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0
-    || count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
-    || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
-    || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
-    || count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0  )
+    count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0
+    || count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+    || count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+    || count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+    || count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0  )
                                                         <tr style="height:15pt">
                                                             <td width="199" valign="bottom"
                                                                 style="background-color: {{$team -> desc}};width:149pt;border-right:1pt solid windowtext;border-bottom:1pt solid windowtext;border-left:1pt solid windowtext;border-top:none;padding:0in 5.4pt;height:15pt">
@@ -1410,7 +1410,7 @@
                                                                 <p class="MsoNormal" align="center"
                                                                    style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
                                                                     <span
-                                                                        style="color:black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
+                                                                        style="color:black">{{count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
                                                                 </p>
                                                             </td>
                                                             <td width="84" nowrap=""
@@ -1418,7 +1418,7 @@
                                                                 <p class="MsoNormal" align="center"
                                                                    style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
                                                                     <span
-                                                                        style="color:black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
+                                                                        style="color:black">{{count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
                                                                 </p>
                                                             </td>
                                                             <td width="82" nowrap=""
@@ -1426,7 +1426,7 @@
                                                                 <p class="MsoNormal" align="center"
                                                                    style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
                                                                     <span
-                                                                        style="color:black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
+                                                                        style="color:black">{{count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
                                                                 </p>
                                                             </td>
                                                             <td width="82" nowrap=""
@@ -1434,7 +1434,7 @@
                                                                 <p class="MsoNormal" align="center"
                                                                    style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
                                                                     <span
-                                                                        style="color:black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
+                                                                        style="color:black">{{count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
                                                                 </p>
                                                             </td>
                                                             <td width="92" nowrap=""
@@ -1442,7 +1442,7 @@
                                                                 <p class="MsoNormal" align="center"
                                                                    style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif">
                                                                     <span
-                                                                        style="color:black">{{count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
+                                                                        style="color:black">{{count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get())}}</span>
                                                                 </p>
                                                             </td>
                                                         </tr>
@@ -1468,11 +1468,11 @@
                                                             color="black">&nbsp;</font></span></font></div>
                                             @foreach ($teams as $team)
                                                 @if(
-    count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0
-    || count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
-    || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
-    || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
-    || count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0  )
+    count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0
+    || count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+    || count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+    || count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+    || count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0  )
 
                                                     <div
                                                         style="margin:0;"><font face="Calibri,sans-serif" size="2"><span
@@ -1480,7 +1480,7 @@
                                                                                               color="#0070C0"><span
                                                                         style="font-size:14pt;"><b>{{$team -> name}}</b></span></font></span></font>
                                                     </div>
-                                                    @if(count(\App\Models\Task::where('team', $team -> id)  -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0 || count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                    @if(count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id)  -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0 || count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
                                                         <div>
                                                             <div style="text-indent:14pt;margin:0;"><font
                                                                     face="Calibri,sans-serif" size="2"><span
@@ -1490,14 +1490,14 @@
                                                             </div>
                                                         </div>
                                                     @endif
-                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                    @if(count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
                                                         <div>
                                                             <div style="text-indent:22pt;margin:0;"><font
                                                                     face="Calibri,sans-serif" size="2"><span
                                                                         style="font-size:11pt;"><font
                                                                             color="black"><b>Done</b></font></span></font>
                                                             </div>
-                                                            @foreach(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $done)
+                                                            @foreach(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $done)
                                                                 <div
                                                                     style="text-indent:33pt;margin:0;"><font
                                                                         face="Calibri,sans-serif" size="2"><span
@@ -1527,14 +1527,14 @@
                                                             @endforeach
                                                         </div>
                                                     @endif
-                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                    @if(count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
                                                         <div
                                                             style="text-indent:22pt;margin:0;"><font
                                                                 face="Calibri,sans-serif" size="2"><span
                                                                     style="font-size:11pt;"><font
                                                                         color="black"><b>In-progress</b></font></span></font>
                                                         </div>
-                                                        @foreach(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $inprogres)
+                                                        @foreach(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $inprogres)
                                                             <div
                                                                 style="text-indent:33pt;margin:0;"><font
                                                                     face="Calibri,sans-serif"
@@ -1571,7 +1571,7 @@
                                                                 style="font-size:11pt;"><font size="4"
                                                                                               color="#0070C0"></font></span></font>
                                                     </div>
-                                                    @if(count(\App\Models\Task::where('team', $team -> id)  -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0 || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                    @if(count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id)  -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0 || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
                                                         <div>
                                                             <div style="text-indent:14pt;margin:0;"><font
                                                                     face="Calibri,sans-serif" size="2"><span
@@ -1581,14 +1581,14 @@
                                                             </div>
                                                         </div>
                                                     @endif
-                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                    @if(count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
                                                         <div>
                                                             <div style="text-indent:22pt;margin:0;"><font
                                                                     face="Calibri,sans-serif" size="2"><span
                                                                         style="font-size:11pt;"><font
                                                                             color="black"><b>Done</b></font></span></font>
                                                             </div>
-                                                            @foreach(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $done)
+                                                            @foreach(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $done)
                                                                 <div
                                                                     style="text-indent:33pt;margin:0;"><font
                                                                         face="Calibri,sans-serif" size="2"><span
@@ -1606,14 +1606,14 @@
                                                             @endforeach
                                                         </div>
                                                     @endif
-                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                    @if(count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
                                                         <div
                                                             style="text-indent:22pt;margin:0;"><font
                                                                 face="Calibri,sans-serif" size="2"><span
                                                                     style="font-size:11pt;color: black"><font
                                                                         color="black"><b>In-progress</b></font></span></font>
                                                         </div>
-                                                        @foreach(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $inprogres)
+                                                        @foreach(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $inprogres)
                                                             <div
                                                                 style="text-indent:33pt;margin:0;"><font
                                                                     face="Calibri,sans-serif"
@@ -1634,7 +1634,7 @@
                                                     @endif
 
 
-                                                    @if(count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
+                                                    @if(count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0)
                                                         <div>
                                                             <div style="text-indent:14pt;margin:0;"><font
                                                                     face="Calibri,sans-serif" size="2"><span
@@ -1643,7 +1643,7 @@
                                                                             color="black"><span
                                                                                 style="font-size:14pt;"><b>Bugs reported</b></span></font></span></font>
                                                             </div>
-                                                            @foreach(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $bug_found)
+                                                            @foreach(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $bug_found)
                                                                 <div
                                                                     style="text-indent:33pt;margin:0;"><font
                                                                         face="Calibri,sans-serif" size="2"><span
@@ -2323,11 +2323,11 @@
                                                 <div class="p-rich_text_block" dir="auto">
                                                     @foreach ($teams as $team)
                                                         @if(
-            count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0
-            || count(\App\Models\Task::where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
-            || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
-            || count(\App\Models\Task::where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
-            || count(\App\Models\Task::where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0 )
+            count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 2) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) !=0
+            || count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 2) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+            || count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 3) -> where('working_status', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+            || count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 3) -> where('working_status', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0
+            || count(\App\Models\Task::where('board_id', $board -> id) ->where('team', $team -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get()) != 0 )
                                                             <div class="card-body">
                                                                 <div id=":pw" class="a3s aiL ">
                                                                     <div dir="ltr" id="divExp">
@@ -2344,7 +2344,7 @@
                                                                             style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
                                                                             {{$slack_subject}}
                                                                         </div>
-                                                                        @if(count(\App\Models\Task::where('team', $team -> id) -> where('board_id', 1) -> where('type', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
+                                                                        @if(count(\App\Models\Task::where('team', $team -> id) -> where('board_id', $board -> id) -> where('type', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
                                                                             <div
                                                                                 style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
                                                                                 <b
@@ -2352,7 +2352,7 @@
                                                                                     requests</b>
                                                                             </div>
                                                                             <ul style="box-sizing:inherit;margin:0px;padding:0px;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                                @foreach(\App\Models\Task::where('team', $team -> id) -> where('board_id', 1) -> where('type', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $item)
+                                                                                @foreach(\App\Models\Task::where('team', $team -> id) -> where('board_id',$board -> id) -> where('type', 2) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $item)
 
                                                                                     <li
                                                                                         style="box-sizing:inherit;margin-bottom:0px;margin-left:28px;">
@@ -2382,14 +2382,14 @@
                                                                                 @endforeach
                                                                             </ul>
                                                                         @endif
-                                                                        @if(count(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) ->  where('type', 3) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
+                                                                        @if(count(\App\Models\Task::where('team', $team -> id)-> where('board_id', $board -> id) ->  where('type', 3) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
                                                                             <div
                                                                                 style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
                                                                                 <b style="box-sizing:inherit">Tickets
                                                                                     verification</b>
                                                                             </div>
                                                                             <ul style="box-sizing:inherit;margin:0px;padding:0px;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                                @foreach(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) -> where('type', 3) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $item)
+                                                                                @foreach(\App\Models\Task::where('team', $team -> id)-> where('board_id', $board -> id) -> where('type', 3) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() as $item)
                                                                                     <li
                                                                                         style="box-sizing:inherit;margin-bottom:0px;margin-left:28px;">
                                                                                         <a
@@ -2417,7 +2417,7 @@
                                                                                 @endforeach
                                                                             </ul>
                                                                         @endif
-                                                                        @if(count(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
+                                                                        @if(count(\App\Models\Task::where('team', $team -> id)-> where('board_id', $board -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today())->latest()->get() )!=0)
 
                                                                             <div
                                                                                 style="box-sizing:inherit;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
@@ -2425,7 +2425,7 @@
                                                                                     Reported</b>
                                                                             </div>
                                                                             <ul style="box-sizing:inherit;margin:0px;padding:0px;color:rgb(29,28,29);font-family:Slack-Lato,Slack-Fractions,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common-ligatures;">
-                                                                                @foreach(\App\Models\Task::where('team', $team -> id)-> where('board_id', 1) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today()) -> orderBy('jira_id', 'ASC')->get() as $item)
+                                                                                @foreach(\App\Models\Task::where('team', $team -> id)-> where('board_id', $board -> id) -> where('type', 1) -> whereDate('created_at', \Illuminate\Support\Carbon::today()) -> orderBy('jira_id', 'ASC')->get() as $item)
 
                                                                                     <li
                                                                                         style="box-sizing:inherit;margin-bottom:0px;margin-left:28px;">
