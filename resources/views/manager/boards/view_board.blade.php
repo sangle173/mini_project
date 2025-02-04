@@ -1672,7 +1672,7 @@
                                 </div>
                             </div>
                         @endif
-                        @if($board -> id == 5)
+                        @if($board -> id == 5 || $board -> id == 8)
                             <div class="container-fluid">
                                 <div class="card">
                                     <div class="card-header bg-light">
