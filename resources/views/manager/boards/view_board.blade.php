@@ -2396,7 +2396,7 @@
                                                                                             href="{{$board_config -> jira_url}}{{$item -> jira_id}}"
                                                                                             rel="noopener noreferrer"
                                                                                             style="box-sizing:inherit;text-decoration-line:none"
-                                                                                            target="_blank">{{$item -> jira_id}}</a>-
+                                                                                            target="_blank">{{$item -> jira_id}}</a> -
                                                                                         {{$item -> jira_summary}}
                                                                                         -&nbsp;<b
                                                                                             style="box-sizing:inherit">{{strtoupper(\App\Models\TicketStatus::find($item -> ticket_status) -> name) }}
@@ -2433,7 +2433,7 @@
                                                                                             href="{{$board_config -> jira_url}}{{$item -> jira_id}}"
                                                                                             rel="noopener noreferrer"
                                                                                             style="box-sizing:inherit;text-decoration-line:none"
-                                                                                            target="_blank">{{$item -> jira_id}}</a>-
+                                                                                            target="_blank">{{$item -> jira_id}}</a> -
                                                                                         {{$item -> jira_summary}}
                                                                                         @if(\App\Models\TicketStatus::find($item -> ticket_status) -> id == 7)
                                                                                             -&nbsp;<b
