@@ -439,7 +439,11 @@
                                     @endif
                                 </td>
 
-                                <td>{{ \App\Models\User::find($item-> tester_1) -> name }}</td>
+                                <td>
+@if($item-> tester_1 !=null)
+                                        {{ \App\Models\User::find($item-> tester_1) -> name }}
+                                    @endif
+                                </td>
                                 <td>
                                     @if($item-> tester_2 !=null)
                                         {{ \App\Models\User::find($item-> tester_2) -> name }}
